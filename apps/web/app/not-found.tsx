@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Compass } from "@phosphor-icons/react";
+import { ArrowLeft, Compass } from "@phosphor-icons/react/dist/ssr";
 import { DemoBadge } from "@/components/ui";
 import { SiteFooter } from "@/components/SiteFooter";
 

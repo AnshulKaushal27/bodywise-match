@@ -28,7 +28,7 @@ import {
   EmptyState,
   ErrorState,
 } from "@/components/ui";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export default function DesignSystemPage() {
   // Interactive state hooks for demonstration

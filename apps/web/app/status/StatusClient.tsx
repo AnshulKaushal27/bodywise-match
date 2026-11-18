@@ -13,7 +13,7 @@ import {
   Sparkle,
   ShieldCheck,
   ArrowSquareOut,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   fetchApiHealth,
   ApiHealthResponse,

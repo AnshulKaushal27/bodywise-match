@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sparkle } from "@phosphor-icons/react";
+import { Sparkle } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 import { Button } from "./Button";
 

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { X, ShieldWarning } from "@phosphor-icons/react";
+import { X, ShieldWarning } from "@phosphor-icons/react/dist/ssr";
 
 export function FirstVisitNotice() {
   const [isDismissed, setIsDismissed] = React.useState<boolean>(true);

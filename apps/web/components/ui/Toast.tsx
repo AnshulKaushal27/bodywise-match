@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CheckCircle, Warning, WarningCircle, Info, X } from "@phosphor-icons/react";
+import { CheckCircle, Warning, WarningCircle, Info, X } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 export type ToastType = "info" | "success" | "caution" | "error";

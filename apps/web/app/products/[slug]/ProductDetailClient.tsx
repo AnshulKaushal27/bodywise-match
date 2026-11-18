@@ -19,7 +19,7 @@ import {
   FileText,
   Lifebuoy,
   BookmarkSimple,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   ProductRecord,
   ParsedNeeds,

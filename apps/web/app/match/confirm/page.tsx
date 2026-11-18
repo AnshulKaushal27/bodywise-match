@@ -15,7 +15,7 @@ import {
   PencilSimple,
   CaretRight,
   ShieldWarning,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   Button,
   Card,

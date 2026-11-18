@@ -11,7 +11,7 @@ import {
   CheckCircle,
   Database,
   ArrowsClockwise,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import { DemoBadge, Button } from "@/components/ui";
 import { deleteServerSession } from "@/lib/api";
 

@@ -67,6 +67,7 @@ const config: Config = {
         card: "0 2px 10px rgba(23, 53, 46, 0.06)",
         subtle: "0 1px 3px rgba(23, 53, 46, 0.04)",
         elevated: "0 12px 36px rgba(23, 53, 46, 0.10)",
+        ambient: "0 6px 24px rgba(23, 53, 46, 0.08)",
       },
       maxWidth: {
         container: "1120px",

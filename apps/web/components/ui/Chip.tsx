@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X, Check, PencilSimple } from "@phosphor-icons/react";
+import { X, Check, PencilSimple } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {

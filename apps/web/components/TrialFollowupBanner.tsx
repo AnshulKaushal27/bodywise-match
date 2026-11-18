@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Sparkle, X, Clock } from "@phosphor-icons/react";
+import { Sparkle, X, Clock } from "@phosphor-icons/react/dist/ssr";
 
 export interface SavedTrial {
   slug: string;

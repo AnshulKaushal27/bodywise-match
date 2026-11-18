@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { WifiSlash, WifiHigh, ArrowsClockwise } from "@phosphor-icons/react";
+import { WifiSlash, WifiHigh, ArrowsClockwise } from "@phosphor-icons/react/dist/ssr";
 
 export function OfflineBanner() {
   const [isOffline, setIsOffline] = React.useState<boolean>(false);

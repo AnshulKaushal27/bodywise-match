@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check } from "@phosphor-icons/react";
+import { Check } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 export interface StepItem {

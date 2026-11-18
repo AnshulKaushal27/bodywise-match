@@ -12,7 +12,7 @@ import {
   Trash,
   CheckCircle,
   Question,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   HelpIssueConfig,
   HELP_ISSUES,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { ShieldCheck, Info } from "@phosphor-icons/react";
+import { ShieldCheck, Info } from "@phosphor-icons/react/dist/ssr";
 
 export function SiteFooter() {
   return (

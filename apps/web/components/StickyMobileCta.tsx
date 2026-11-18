@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkle } from "@phosphor-icons/react";
+import { ArrowRight, Sparkle } from "@phosphor-icons/react/dist/ssr";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 

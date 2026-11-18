@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X } from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react/dist/ssr";
 
 export interface DialogProps {
   isOpen: boolean;

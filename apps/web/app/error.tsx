@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Warning, ArrowsClockwise, House } from "@phosphor-icons/react";
+import { Warning, ArrowsClockwise, House } from "@phosphor-icons/react/dist/ssr";
 import { DemoBadge } from "@/components/ui";
 
 export default function ErrorBoundary({

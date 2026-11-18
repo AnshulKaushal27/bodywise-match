@@ -17,7 +17,7 @@ import {
   ArrowSquareOut,
   ShieldCheck,
   CheckCircle,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   HELP_ISSUES,
   OFFICIAL_SUPPORT_CHANNELS,

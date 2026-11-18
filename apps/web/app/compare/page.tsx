@@ -18,7 +18,7 @@ import {
   ArrowsLeftRight,
   Plus,
   SlidersHorizontal,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 import {
   ProductRecord,
   DEMO_CATALOGUE_SEED,
