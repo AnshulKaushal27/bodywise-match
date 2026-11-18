@@ -84,7 +84,7 @@ describe("Deterministic Matching Engine (RULES_VERSION = 1.0.0)", () => {
   it("returns NO_FIT with BROWSE_CATALOGUE suggestion when no product qualifies", () => {
     const impossibleNeeds: ParsedNeeds = {
       goal: "unsupported_unknown_goal_xyz",
-      category: "other",
+      category: null,
       format_preferences: ["Unobtainable Format"],
       avoidances: [],
       routine_context: null,

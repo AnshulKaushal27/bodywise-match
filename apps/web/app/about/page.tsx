@@ -6,6 +6,7 @@ import {
   Prohibit,
   CheckCircle,
   Sparkle,
+  ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
 import { DemoBadge } from "@/components/ui";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -161,6 +162,27 @@ export default function AboutPage() {
               <li>&bull; <strong>No Live Logistics or Courier Access:</strong> We have no connection to courier delivery APIs, warehouse batch records, or live payment systems. We help you draft details to contact official support.</li>
               <li>&bull; <strong>No Photo Diagnostic Analysis:</strong> Photo upload is disabled in this prototype. We never store photos or run image classification.</li>
             </ul>
+          </div>
+        </section>
+
+        {/* 5. Data Sources & Provenance */}
+        <section className="space-y-4 border-t border-border pt-8">
+          <h2 className="text-xl sm:text-2xl font-bold font-display text-brand-deep tracking-tight flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 text-brand-evergreen" weight="regular" />
+            <span>5. Data Sources &amp; Provenance</span>
+          </h2>
+          <div className="p-5 rounded-card bg-surface border border-border space-y-3 text-xs sm:text-sm">
+            <p className="text-charcoal/85 leading-relaxed">
+              All active product specifications, ingredient statements, how-to-use directions, and pricing in Bodywise Match are verified directly from official public listings:
+            </p>
+            <ul className="space-y-1.5 text-charcoal/85 pl-4 list-disc">
+              <li><strong>Official Store Domain:</strong> <a href="https://bebodywise.com" target="_blank" rel="noopener noreferrer" className="text-brand-evergreen font-semibold underline">bebodywise.com</a></li>
+              <li><strong>Last Full Verification Date:</strong> November 18, 2026</li>
+              <li><strong>Catalogue Version:</strong> <code>1.0.0-verified</code></li>
+            </ul>
+            <p className="text-muted text-xs pt-2 border-t border-border/60">
+              Independent prototype. Product details are taken from the official Be Bodywise website and may change. Check the official product page before buying.
+            </p>
           </div>
         </section>
 

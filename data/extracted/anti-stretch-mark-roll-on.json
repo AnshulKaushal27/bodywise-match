@@ -1,0 +1,37 @@
+{
+  "slug": "anti-stretch-mark-roll-on",
+  "official_name": "Anti-Stretch Mark Serum Roll On",
+  "category": "other",
+  "format": "Topical roll-on applicator",
+  "size": null,
+  "official_description_summary": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Anisha, 27, Mumbai. Sujata, 33, Delhi. Anku, 25, Gujarat",
+  "ingredients": null,
+  "published_claims": [
+    "What makes it work?",
+    "Real Women, Real Results!"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 599,
+  "price_checked_at": "2026-11-18T14:24:43.445Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/anti-stretch-mark-roll-on/Image%201%20%281%29_8jarqn.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/anti-stretch-mark-roll-on",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

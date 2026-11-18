@@ -1,0 +1,36 @@
+{
+  "slug": "ice-roller",
+  "official_name": "Ice Roller (1 N)",
+  "category": "other",
+  "format": "Product",
+  "size": "1 N",
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": null,
+  "published_claims": [
+    "Frequently Bought Together"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 249,
+  "price_checked_at": "2026-11-18T14:24:43.492Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/ice-roller/Artboard%201%20%288%29_a8kf19.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/ice-roller",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

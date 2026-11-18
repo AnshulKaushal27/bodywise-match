@@ -1,0 +1,60 @@
+{
+  "slug": "salicylic-acid-face-wash",
+  "official_name": "1% Salicylic Acid Face Wash (Foam-Based)",
+  "category": "face_wash",
+  "format": "Gel / Foaming cleanser",
+  "size": null,
+  "official_description_summary": "Gel / Foaming cleanser designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Dead Skin Removal. Reduction in Inflammation. Sebum Reduction",
+  "ingredients": [
+    "Aqua",
+    "C14-16 Olefin Sulfonate",
+    "Decyl Glucoside",
+    "Sodium Lauroyl Sarcosinate",
+    "Maltooligosyl Glucoside and Hydrogenated Starch Hydrolysate",
+    "Sodium Hydroxide",
+    "Allantoin",
+    "Glycerin",
+    "Propylene Glycol",
+    "Sodium Benzoate and Potassium Sorbate",
+    "Glycolic Acid",
+    "Salicylic Acid",
+    "Polysorbate 20",
+    "Coco-Glucoside and Glyceryl Oleate",
+    "Cocamidopropyl hydroxysultaine",
+    "PEG-120 Methyl Glucose Dioleate"
+  ],
+  "published_claims": [
+    "Popular Skin Regimes",
+    "Our customers love us",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "Oily and blemish-prone skin"
+  ],
+  "price_inr": 239,
+  "price_checked_at": "2026-11-18T14:24:42.902Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp/salicylic-acid-face-wash/1SAFW_UBHYBP7yM.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/salicylic-acid-face-wash",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

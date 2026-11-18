@@ -1,0 +1,63 @@
+{
+  "slug": "2-aha-body-wash",
+  "official_name": "2% AHA Body Wash",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": null,
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Coco Glucoside",
+    "Cocamidopropyl Betaine",
+    "Glycerine",
+    "Triethanolamine",
+    "Glycolic Acid",
+    "Lactic Acid",
+    "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+    "Erythritol",
+    "Polysorbate-20",
+    "Propylene Glycol",
+    "Perfume",
+    "Milliglobules",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+    "Saccharide Isomerate (and) Aqua (and) Citric Acid (and) Sodium Citrate",
+    "Sodium Citrate",
+    "Vitis Vinifera (Grape) Seed Extract",
+    "Disodium EDTA",
+    "Tocopheryl Acetate",
+    "CI 15985."
+  ],
+  "published_claims": [
+    "Frequently Bought Together",
+    "Safe & Effective",
+    "2% AHA Body Wash"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 199,
+  "price_checked_at": "2026-11-18T14:24:42.513Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/2-aha-body-wash/Artboard%201%20%2825%29_keg73m.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/2-aha-body-wash",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

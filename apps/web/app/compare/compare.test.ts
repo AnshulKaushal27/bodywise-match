@@ -57,6 +57,6 @@ describe("Product Comparison Route (apps/web/app/compare/page.tsx)", () => {
 
   it("renders quick-switch select dropdowns to swap products in comparison slots", () => {
     expect(html).toContain("<select");
-    expect(html).toContain("Demo Body Wash A");
+    expect(html).toContain("1% Salicylic Acid Body Wash - 250 mL");
   });
 });

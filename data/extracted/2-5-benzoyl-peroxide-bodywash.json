@@ -1,0 +1,53 @@
+{
+  "slug": "2-5-benzoyl-peroxide-bodywash",
+  "official_name": "2.5% Benzoyl Peroxide Body wash",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": null,
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Cocamidopropyl betaine",
+    "Decylglucoside",
+    "Acrylates Copolymer",
+    "C12-15 Alkyl Benzoate",
+    "Disodium Cocoamphodiacetate",
+    "Polysorbate 20",
+    "Sodium C14-16 Olefin Sulfonate",
+    "Glycerin",
+    "Benzoyl Peroxide",
+    "Propylene Glycol",
+    "Centella Asiatica (Gotukola) Leaf Extract",
+    "PEG-40 Hydrogenated castor Oil",
+    "Fragrance",
+    "Phenoxyethanol",
+    "Xanthan gum",
+    "Aloe barbadensis (Aloe vera) Extract",
+    "CI 42090."
+  ],
+  "published_claims": [],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": false,
+  "suitable_for": null,
+  "price_inr": 174,
+  "price_checked_at": "2026-11-18T14:24:42.502Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/2-5-benzoyl-peroxide-bodywash/Hero_74xvcc.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/2-5-benzoyl-peroxide-bodywash",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Ingredients list contains fragrance/parfum",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "20-urea-roll-on-50ml",
+  "official_name": "20% Urea Foot Roll On - 50 ml",
+  "category": "other",
+  "format": "Topical roll-on applicator",
+  "size": "50 ml",
+  "official_description_summary": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Monika, 38, Mumbai. Avantika, 43, Nagpur. Nimisha, 39, Jaipur. Sarita, 50, Kanpur. Kavita, 55, Prayagraj",
+  "ingredients": [
+    "Aqua",
+    "Urea",
+    "Disodium EDTA",
+    "Polyacrylate-13 (And) Polyisobutene (And) Polysorbate 20",
+    "Glyceryl Stearate",
+    "Cetostearyl alcohol",
+    "Cetyl Palmitate",
+    "Stearic Acid",
+    "PEG-100 Stearate",
+    "Isopropyl Myristate",
+    "Olea Europaea (Olive) Fruit Oil",
+    "Caprylic/Capric Triglyceride",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Lactic Acid",
+    "Tocopheryl Acetate",
+    "Glycerin",
+    "Salicylic Acid",
+    "Perfume",
+    "Menthol"
+  ],
+  "published_claims": [
+    "Choose the right routine for you!",
+    "Real Women, Real Results",
+    "Clinical Proof",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 399,
+  "price_checked_at": "2026-11-18T14:24:43.382Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/20-urea-roll-on-50ml/Artboard%201_f0ixpk.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/20-urea-roll-on-50ml",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

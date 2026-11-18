@@ -1,0 +1,66 @@
+{
+  "slug": "10-aha-body-scrub",
+  "official_name": "10% AHA Body Scrub (200g)",
+  "category": "body_wash",
+  "format": "Exfoliating body scrub",
+  "size": "200g",
+  "official_description_summary": "Exfoliating body scrub designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Lactic Acid",
+    "Helianthus Annuus (Sunflower) Seed Oil",
+    "Sodium Hydroxide",
+    "Glycerin",
+    "Cetostearyl alcohol",
+    "Stearic Acid",
+    "Emulsifying wax",
+    "Glyceryl Stearate",
+    "Natural Silica beads",
+    "Cetyl Alcohol",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+    "Avena Sativa (Oat) Kernel Extract",
+    "Centella Asiatica (Gotu Kola) Extract",
+    "Perfume",
+    "Xanthan Gum",
+    "Microspheres (Jojoba Infused)",
+    "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+    "Allantoin",
+    "Disodium EDTA",
+    "Tocopheryl Acetate."
+  ],
+  "published_claims": [
+    "Women also Bought :",
+    "Frequently Bought Together",
+    "10% AHA Body Scrub",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 369,
+  "price_checked_at": "2026-11-18T14:24:42.461Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/10-aha-body-scrub/IntroPage%20copy%20%281%29_34ugqb.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/10-aha-body-scrub",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

@@ -1,0 +1,63 @@
+{
+  "slug": "10-magnesium-lotion-300ml",
+  "official_name": "10% Magnesium Body Lotion - 300 ml",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": "300 ml",
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Magnesium Chloride",
+    "Butyrospermum Parkii (Shea) Butter",
+    "Glycerin",
+    "Setearyl alcohol (and) Cetearath-20",
+    "Isopropyl Myristate",
+    "Stearyl Alcohol",
+    "Caprylic/Capric Triglyceride",
+    "Cetyl Ethylhexanoate",
+    "Cyclopentasiloxane",
+    "Dimethicone",
+    "Glycerin (and) Glyceryl Glucoside",
+    "Mangifera Indica (Mango) Seed Butter",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Perfume",
+    "Polyacrylate-13 (And) Polyisobutene (And) Polysorbate-20",
+    "Stearic Acid",
+    "Theobroma Cacao (Cocoa) Seed Butter",
+    "Butylated Hydroxytoluene",
+    "Disodium EDTA",
+    "Imidazolidinyl Urea."
+  ],
+  "published_claims": [
+    "Safe & Effective",
+    "10% Magnesium Lotion"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 499,
+  "price_checked_at": "2026-11-18T14:24:43.272Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/10-magnesium-lotion-300ml/Hero_emplwu.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/10-magnesium-lotion-300ml",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

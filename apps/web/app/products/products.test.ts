@@ -40,13 +40,12 @@ describe("Catalogue Directory Route (apps/web/app/products/page.tsx)", () => {
     expect(html).toContain("Fragrance-Free Only");
   });
 
-  it("renders lighter product cards with Demo data badge, format, size, and View details link", () => {
-    expect(html).toContain("Demo data");
-    expect(html).toContain("Demo Body Wash A");
-    expect(html).toContain("Liquid Body Cleanser");
-    expect(html).toContain("200ml");
+  it("renders verified product cards with format, size, and View details link", () => {
+    expect(html).toContain("1% Salicylic Acid Body Wash - 250 mL");
+    expect(html).toContain("Liquid body wash");
+    expect(html).toContain("250 mL");
     expect(html).toContain("View details");
-    expect(html).toContain('href="/products/demo-body-wash-a"');
+    expect(html).toContain('href="/products/1-salicylic-acid-body-wash"');
   });
 
   it("renders quick compare checkbox for each product card", () => {

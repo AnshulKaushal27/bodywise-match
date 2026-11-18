@@ -336,7 +336,7 @@ export default function MatchResultsPage() {
                   {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <DemoBadge />
+                      {product.is_demo && <DemoBadge />}
                       <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
                         {formatMatchLabel(rec.matchLabel)}
                       </span>

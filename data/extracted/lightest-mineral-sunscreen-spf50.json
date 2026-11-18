@@ -1,0 +1,67 @@
+{
+  "slug": "lightest-mineral-sunscreen-spf50",
+  "official_name": "Lightest Mineral Sunscreen SPF 50+",
+  "category": "sunscreen",
+  "format": "Sunscreen lotion",
+  "size": null,
+  "official_description_summary": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Zinc Oxide (and) Dimethicone (and) Isodecyl Neopentanoate",
+    "Aqua",
+    "Caprylic/Capric Triglyceride",
+    "Glycerin",
+    "Cocos Nucifera (Coconut) Oil",
+    "Cyclopentasiloxane and Dimethicone/Vinyl Dimethicone Crosspolymer",
+    "Polysorbate-80",
+    "Aloe Barbadensis Leaf Extract",
+    "Cetostearyl alcohol",
+    "Niacinamide",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Prunus Amygdalus Dulcis (Sweet Almond) Oil",
+    "Sambucus Nigra (Elderberry) Fruit Extract (and) Punica Granatum (Pomegranate) Peel Extract (and) Prunus Cerasus (Cherry) Extract (and) Hydrolyzed Wheat Protein (and) Glycerin (and) Aqua",
+    "Camellia Sinensis (Green Tea) Extract",
+    "Cetearyl Alcohol (and) Cetearyl Glucoside",
+    "Melaleuca Alternifolia (Tea Tree) Leaf Water",
+    "Tocopheryl Acetate",
+    "Zinc PCA",
+    "Polyglyceryl-4 Diisostearate/Polyhydroxystearate/Sebacate",
+    "Sodium Acrylates Copolymer (and) Lecithin",
+    "Sodium Polyacrylate",
+    "Titanium Dioxide",
+    "Xanthan Gum",
+    "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum ( (Ceramide Complex))",
+    "Disteardimonium Hectorite (and) Caprylic/Capric Triglyceride (and) Propylene Carbonate."
+  ],
+  "published_claims": [
+    "Clinical Proof",
+    "What makes us STAND OUT?"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 449,
+  "price_checked_at": "2026-11-18T14:24:42.886Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/lightest-mineral-sunscreen-spf50/Ultra%20Light%20Sunscreen%20SPF%2050%2B%20PDPb_k5ycyw.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/lightest-mineral-sunscreen-spf50",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

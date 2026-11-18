@@ -31,12 +31,12 @@ describe("/status Page & Health Diagnostics", () => {
 
   it("exposes consistent RULES_VERSION and CATALOGUE_VERSION constants", () => {
     expect(RULES_VERSION).toBe("1.0.0");
-    expect(CATALOGUE_VERSION).toBe("0.1.0-draft");
+    expect(CATALOGUE_VERSION).toBe("1.0.0-verified");
     expect(Array.isArray(DEMO_CATALOGUE_SEED)).toBe(true);
     expect(DEMO_CATALOGUE_SEED.length).toBeGreaterThan(0);
-    // Fact integrity: all demo products are flagged is_demo: true
+    // Fact integrity: all verified products are flagged is_demo: false with provenance
     for (const p of DEMO_CATALOGUE_SEED) {
-      expect(p.is_demo).toBe(true);
+      expect(p.is_demo).toBe(false);
       expect(p.catalog_version).toBe(CATALOGUE_VERSION);
     }
   });

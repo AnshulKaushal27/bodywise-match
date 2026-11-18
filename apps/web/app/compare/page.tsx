@@ -277,7 +277,7 @@ function CompareView() {
                     className="p-4 sm:p-5 align-top min-w-[200px] sm:min-w-[240px] border-r border-border last:border-r-0"
                   >
                     <div className="flex items-center justify-between gap-2 mb-2 no-print">
-                      <DemoBadge />
+                      {prod.is_demo && <DemoBadge />}
                       {selectedProducts.length > 1 && (
                         <button
                           type="button"

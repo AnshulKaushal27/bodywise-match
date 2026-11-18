@@ -204,7 +204,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         <section aria-labelledby="product-header" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-card">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-border/70">
             <div className="flex items-center gap-2 flex-wrap">
-              <DemoBadge />
+              {product.is_demo && <DemoBadge />}
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-surface-sage text-brand-deep uppercase tracking-wider">
                 {product.category.replace(/_/g, " ")}
               </span>
@@ -561,9 +561,23 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </div>
           </div>
 
-          <div className="pt-2 text-[11px] text-muted/80">
-            Catalogue UUID: <code className="bg-surface px-1 py-0.5 rounded border border-border/60">{product.id}</code>
+          <div className="pt-2 text-[11px] text-muted/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-border/60">
+            <div>
+              Catalogue UUID: <code className="bg-surface px-1 py-0.5 rounded border border-border/60">{product.id}</code>
+            </div>
+            <div>
+              <a
+                href={`mailto:feedback@bodywisematch.org?subject=Data%20Error%20Report%20for%20${product.slug}`}
+                className="text-brand-evergreen font-semibold underline hover:text-brand-deep focus-ring rounded"
+              >
+                Report a data error
+              </a>
+            </div>
           </div>
+
+          <p className="pt-2 text-[11px] text-muted leading-relaxed">
+            Independent prototype. Product details are taken from the official Be Bodywise website and may change. Check the official product page before buying.
+          </p>
         </section>
       </main>
 

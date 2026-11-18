@@ -7,7 +7,7 @@ vi.mock("next/navigation", () => ({
     push: vi.fn(),
     replace: vi.fn(),
   }),
-  useSearchParams: () => new URLSearchParams("slug=demo-body-wash-a"),
+  useSearchParams: () => new URLSearchParams("slug=1-salicylic-acid-body-wash"),
 }));
 
 import ExperienceFeedbackPage from "./page";
@@ -18,7 +18,7 @@ describe("Experience Feedback Route (apps/web/app/feedback/experience/page.tsx)"
   it("renders page title and product context", () => {
     expect(html).toContain("Share Your Product Experience");
     expect(html).toContain("Product being reviewed");
-    expect(html).toContain("Demo Body Wash A");
+    expect(html).toContain("1% Salicylic Acid Body Wash - 250 mL");
   });
 
   it("renders quick escape buttons first: 'I didn't try it', 'Not yet', 'Skip'", () => {

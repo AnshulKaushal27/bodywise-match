@@ -96,9 +96,9 @@ test.describe("Bodywise Match - End-to-End Test Suite", () => {
     await diffToggle.uncheck();
 
     // 6. Product Detail Page
-    await page.goto("/products/demo-exfoliating-wash-b");
-    await expect(page).toHaveURL(/\/products\/demo-exfoliating-wash-b/);
-    await expect(page.getByRole("heading", { name: /demo exfoliating wash b/i })).toBeVisible();
+    await page.goto("/products/1-salicylic-acid-body-wash");
+    await expect(page).toHaveURL(/\/products\/1-salicylic-acid-body-wash/);
+    await expect(page.getByRole("heading", { name: /1% salicylic acid body wash/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /intended use/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /how to use/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /ingredients/i })).toBeVisible();
@@ -161,10 +161,10 @@ test.describe("Bodywise Match - End-to-End Test Suite", () => {
       sessionStorage.setItem(
         "bodywise_parsed_needs",
         JSON.stringify({
-          goal: "unknown_nonexistent_goal",
-          category: "unknown_category",
-          format_preferences: ["unknown_format"],
-          avoidances: ["salicylic acid", "fragrance", "water", "glycerin"],
+          goal: "unsupported_unknown_goal_xyz",
+          category: null,
+          format_preferences: ["Unobtainable Format"],
+          avoidances: [],
           routine_context: null,
           uncertainties: [],
           confidence: "low",

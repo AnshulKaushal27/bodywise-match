@@ -1,0 +1,53 @@
+{
+  "slug": "glutathione-gummies-60",
+  "official_name": "Glutathione Gummies (60N)",
+  "category": "supplement",
+  "format": "Chewable dietary supplement",
+  "size": "60N",
+  "official_description_summary": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Chicory Root Inulin (Prebiotic)",
+    "Gelling Agent (Pectin)",
+    "L-Reduced Glutathione (OPITAC Tm)",
+    "Strawberry Powder",
+    "Acidity Regulator (Citric Acid)",
+    "Vitamin C (L-Ascorbic Acid)",
+    "Flavour (Mixed Berry)",
+    "Vitamin E (D-Alpha Tocopherol)",
+    "Monk Fruit",
+    "Vitamin D3 (Cholecalciferol -Vitashine™)",
+    "Vitamin A (Retinyl Palmitate)",
+    "Vitamin B12 (Cyanocobalamin)",
+    "Maize Starch",
+    "Binding Agent (Guar Gum)."
+  ],
+  "published_claims": [
+    "Safe and Effective",
+    "How We Compare Our Glutathione Gummies"
+  ],
+  "medical_claim_language": true,
+  "cautions": [
+    "Consult a healthcare professional if irritation or adverse symptoms develop."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 689,
+  "price_checked_at": "2026-11-18T14:24:43.325Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/glutathione-gummies-60/Artboard%208%20%286%29_84nnlv.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/glutathione-gummies-60",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

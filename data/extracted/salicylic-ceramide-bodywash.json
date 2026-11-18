@@ -1,0 +1,36 @@
+{
+  "slug": "salicylic-ceramide-bodywash",
+  "official_name": "1% Salicylic Ceramide Body Wash",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": null,
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Deep hydration for barrier repair. Dual texture to treat acne & moisturise your skin. Your Daily Shower Must-have. Ceramide Complex",
+  "ingredients": null,
+  "published_claims": [
+    "Why will you LOVE it?",
+    "India’s First 2-in-1 Formula",
+    "1% Salicylic Ceramide Bodywash",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 549,
+  "price_checked_at": "2026-11-18T14:24:42.771Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/salicylic-ceramide-bodywash/Hero%20%2817%29_e7ujss.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/salicylic-ceramide-bodywash",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

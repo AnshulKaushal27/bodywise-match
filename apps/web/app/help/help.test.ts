@@ -52,8 +52,8 @@ describe("Help Center Landing (apps/web/app/help/page.tsx)", () => {
     expect(html).toContain("Official Email Support");
     expect(html).toContain("support@bebodywise.com");
     expect(html).toContain("Official WhatsApp Support");
-    expect(html).toContain("Be Bodywise Customer Care Portal");
-    expect(html).toContain("checked 2026-11-01");
+    expect(html).toContain("Customer Contact Portal");
+    expect(html).toContain("checked 2026-11-18");
   });
 
   it("renders 'Clear my local data' button", () => {

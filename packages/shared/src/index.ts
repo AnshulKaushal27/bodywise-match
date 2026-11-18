@@ -8,7 +8,6 @@ export * from "./experience";
 export * from "./data/experiences.seed";
 export * from "./data/support-links";
 export * from "./help";
-export * from "./scripts/validate-catalogue";
 export * from "./matcher/index";
 export * from "./matcher/next-question";
 export * from "./parser/strategy-a";

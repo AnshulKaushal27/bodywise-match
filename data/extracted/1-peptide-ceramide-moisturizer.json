@@ -1,0 +1,61 @@
+{
+  "slug": "1-peptide-ceramide-moisturizer",
+  "official_name": "1% Peptide & Ceramide Moisturizer",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy skin.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your skin regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+  "ingredients": [
+    "Aqua",
+    "1.2- Propandiol",
+    "Ethoxydiglycol",
+    "Dicaprylyl Carbonate",
+    "Caprylic Capric Triglyceride",
+    "Dimethicone",
+    "Arachidyl Alcohol (and) Behenyl Alcohol (and) Arachidyl Glucoside",
+    "Copper Tripeptide-1 (2000 ppm)",
+    "D-Panthenol",
+    "Sodium Acrylates Copolymer (and) Lecithin",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum",
+    "Tocopheryl Acetate",
+    "Allantoin",
+    "Hyaluronic Acid",
+    "Disodium EDTA",
+    "Xanthan Gum."
+  ],
+  "published_claims": [
+    "Frequently Bought Together",
+    "Safe & Effective",
+    "1% Ceramide Peptide Moisturizer"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 374,
+  "price_checked_at": "2026-11-18T14:24:42.800Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/1-peptide-ceramide-moisturizer/Product_Hero_4dxycu.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/1-peptide-ceramide-moisturizer",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "hydrocolloid-acne-pimple-patch",
+  "official_name": "Hydrocolloid Acne Pimple Patch",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": null,
+  "published_claims": [
+    "Key Features",
+    "Frequently Bought Together",
+    "Safe and Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": [
+    "Oily and blemish-prone skin"
+  ],
+  "price_inr": 299,
+  "price_checked_at": "2026-11-18T14:24:42.878Z",
+  "image_url_on_site": "https://i.mscwlns.co/mosaic-wellness/image/upload/v1652359379/staging/products/hydrocolloid-acne-pimple-patch/CAROUSEL/0.png?tr=w-800",
+  "source_url": "https://bebodywise.com/product/hydrocolloid-acne-pimple-patch",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "published_claims": "HTML benefit headings",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

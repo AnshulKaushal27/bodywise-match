@@ -24,11 +24,11 @@ describe("Match Results Step 3 Page (apps/web/app/match/results/page.tsx)", () =
     expect(html).toContain('href="/match/confirm"');
   });
 
-  it("renders RecommendationCards with MatchLabel pill, format, size, and DemoBadge", () => {
+  it("renders RecommendationCards with MatchLabel pill, format, size, and View details button", () => {
     expect(html).toContain("Demo data");
     expect(html).toMatch(/(Strong fit|Direct fit|Partial fit|routine)/i);
-    expect(html).toContain("Liquid Body Cleanser");
-    expect(html).toContain("200ml");
+    expect(html).toContain("Liquid body wash");
+    expect(html).toContain("250 mL");
   });
 
   it("renders 'Why it's here', 'Consider this if...', and 'May not be the best fit if...'", () => {
@@ -40,7 +40,7 @@ describe("Match Results Step 3 Page (apps/web/app/match/results/page.tsx)", () =
   it("renders Verified Facts List with SourceTag ('Source - date checked' or 'Not verified yet')", () => {
     expect(html).toContain("Verified Facts &amp; Provenance");
     expect(html).toContain("Ingredients list:");
-    expect(html).toContain("Not verified yet");
+    expect(html).toMatch(/(Source:|Not verified yet)/);
   });
 
   it("renders card buttons: Compare (checkbox), View details, 'This doesn't fit'", () => {

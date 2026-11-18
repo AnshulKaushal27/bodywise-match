@@ -1,0 +1,38 @@
+{
+  "slug": "triple-milk-deep-hydrating-bodywash-xp",
+  "official_name": "Triple Milk Deep Hydrating Body wash",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": null,
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Softens skin. Prevents Dehydration. Calms Redness. Repairs Skin's Barrier",
+  "ingredients": null,
+  "published_claims": [
+    "India’s First Triple-Action Body Wash",
+    "Safe & Effective",
+    "Triple Milk Deep Hydrating Body Wash"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 499,
+  "price_checked_at": "2026-11-18T14:24:42.781Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/triple-milk-deep-hydrating-bodywash/1_Hero%20%283%29_28jq9i.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/triple-milk-deep-hydrating-bodywash-xp",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

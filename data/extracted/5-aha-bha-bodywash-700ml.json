@@ -1,0 +1,62 @@
+{
+  "slug": "5-aha-bha-bodywash-700ml",
+  "official_name": "5% AHA BHA Exfoliating Body Wash (700ml)",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": "700ml",
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Vitamin E. Manjiri, 25, Bangaluru. Nidhi, 22, Mumbai. Apurva, 27, Delhi",
+  "ingredients": [
+    "Aqua",
+    "Coco-Glucoside",
+    "Cocamidopropyl Betaine",
+    "Triethanolamine",
+    "Lactic Acid",
+    "2- Propandiol",
+    "Glycerin",
+    "Glycolic Acid",
+    "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+    "Aloe Barbadensis (Aloevera) Leaf Extract",
+    "Perfume",
+    "Polysorbate 20",
+    "Salicylic Acid",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Erythritol",
+    "Natural Perlite Beads",
+    "Encapsulated Blue Beads",
+    "Disodium EDTA",
+    "Tocopheryl Acetate",
+    "CI 42090."
+  ],
+  "published_claims": [
+    "All-in-1 Exfoliating Body Wash",
+    "Real Women, Real Results",
+    "5% AHA BHA Exfoliating Bodywash",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 699,
+  "price_checked_at": "2026-11-18T14:24:42.619Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/5-aha-bha-bodywash-700ml/Hero_700ml%20copy%20%282%29_3ce0yh.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/5-aha-bha-bodywash-700ml",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

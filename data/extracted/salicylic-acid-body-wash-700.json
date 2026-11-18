@@ -1,0 +1,61 @@
+{
+  "slug": "salicylic-acid-body-wash-700",
+  "official_name": "1% Salicylic Acid Body Wash - 700 ml",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": "700 ml",
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1 Take adequate amount of bodywash in your palms/loofah Step 2 Apply on wet skin in a gentle circular motion Step 3 Rinse thoroughly once you are done",
+  "ingredients": [
+    "Purified Water",
+    "Acrylate Copolymer",
+    "Sodium Lauroyl Sarcosinate",
+    "Coco-Glucoside",
+    "Cocamidopropyl Betaine",
+    "Triethanolamine",
+    "Salicylic Acid",
+    "Erythritol",
+    "Phenoxyethanol & Ethylhexylglycerin",
+    "IFRA Certified Fragrance",
+    "Biodegradable Encapsulated Salicylic Acid Beads",
+    "Saccharide Isomerate",
+    "Citric Acid",
+    "Chamomile Extract",
+    "Sodium Citrate",
+    "Disodium EDTA",
+    "Vitamin E Acetate",
+    "Brilliant Blue FCF C.I. No. 42090"
+  ],
+  "published_claims": [
+    "Cleanses, Unclogs & Prevents Body Acne"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": false,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 699,
+  "price_checked_at": "2026-11-18T14:24:42.762Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/salicylic-acid-body-wash-700/700ml%20-%20Hero_hldiv6.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/salicylic-acid-body-wash-700",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "HTML How To Use section",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Ingredients list contains fragrance/parfum",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

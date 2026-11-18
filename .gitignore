@@ -28,3 +28,6 @@ Thumbs.db
 # Test reports
 playwright-report/
 test-results/
+
+# Raw scraped data and originals (audit only)
+data/raw/

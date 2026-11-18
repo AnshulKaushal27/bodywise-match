@@ -1,0 +1,49 @@
+{
+  "slug": "brow-lash-serum",
+  "official_name": "Brow & Lash Growth Serum",
+  "category": "serum",
+  "format": "Topical skin serum",
+  "size": null,
+  "official_description_summary": "Topical skin serum designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Butylene Glycol",
+    "Propanediol",
+    "Pisum Sativum (Pea) Sprout Extract (and) Phenoxyethanol (and) Sodium Benzoate (and) Aqua (Anagain)",
+    "Glycerin (and) Aqua (and) Sodium Metabisulfite (and) Larix Europaea Wood Extract (and) Glycine (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+    "Biotinoyl Tripeptide-1 (and) Glycerin (and) Aqua (and) Caprylyl Glycol (and) Ethylhexylglycerin (and) Panthenol (and) Trehalose (LashLD)",
+    "Diaminopyrimidine Oxide (Aminexil)",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Rosmarinus Officinalis (Rosemary) Extract",
+    "Hydroxyethyl cellulose",
+    "Xanthan Gum"
+  ],
+  "published_claims": [],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 379,
+  "price_checked_at": "2026-11-18T14:24:43.001Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/brow-lash-serum/IntroPage%20%285%29_ee0uhp.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/brow-lash-serum",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

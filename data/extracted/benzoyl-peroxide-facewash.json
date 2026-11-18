@@ -1,0 +1,59 @@
+{
+  "slug": "benzoyl-peroxide-facewash",
+  "official_name": "2.5% Benzoyl Peroxide Facewash",
+  "category": "face_wash",
+  "format": "Gel / Foaming cleanser",
+  "size": null,
+  "official_description_summary": "Gel / Foaming cleanser designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Decyl Glucoside",
+    "Cocamidopropyl Betaine",
+    "Isopropyl Myristate",
+    "Benzoyl Peroxide",
+    "Glycerin",
+    "Propylene Glycol",
+    "Polysorbate-20",
+    "Glyceryl Monostearate",
+    "Cetostearyl Alcohol",
+    "PEG-40 Hydrogenated Castor Oil",
+    "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+    "Phenoxyethanol",
+    "Triethanolamine",
+    "Tocopheryl Acetate",
+    "Aloe barbadensis (Aloe vera) Extract",
+    "D-Panthenol",
+    "Disodium EDTA."
+  ],
+  "published_claims": [
+    "Safe & Effective"
+  ],
+  "medical_claim_language": true,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 199,
+  "price_checked_at": "2026-11-18T14:24:42.815Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/benzoyl-peroxide-facewash/1_Product_Hero%20%287%29_lqx61t.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/benzoyl-peroxide-facewash",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "hair-strengthening-serum-50-ml",
+  "official_name": "Hair Strengthening Serum (50mL)",
+  "category": "serum",
+  "format": "Leave-on hair serum",
+  "size": "50mL",
+  "official_description_summary": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Reduction in Frizz. Hair Nourishment. Protection from UV rays & heat damage",
+  "ingredients": [
+    "Cyclopentasiloxane",
+    "Dimethiconol",
+    "Phenyl Trimethicone",
+    "Simmondsia Chinensis (Jojoba) Seed Oil",
+    "Perfume",
+    "Argania Spinosa Kernel (Argan) Oil",
+    "Olea Europaea (Olive) Fruit Oil",
+    "Helianthus Annuus",
+    "(Sunflower) Seed Oil"
+  ],
+  "published_claims": [
+    "Popular Hair Regimes",
+    "How It Works"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 299,
+  "price_checked_at": "2026-11-18T14:24:43.236Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/hair-strengthening-serum-50-ml/PDP%20hair%20serum%20%281%29_5rllxt.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/hair-strengthening-serum-50-ml",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

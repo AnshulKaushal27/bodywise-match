@@ -1,0 +1,53 @@
+{
+  "slug": "4-aha-bha-underarm-rollon-75",
+  "official_name": "4% AHA BHA Underarm Roll On - 75 mL - Flora",
+  "category": "other",
+  "format": "Topical roll-on applicator",
+  "size": "75 mL",
+  "official_description_summary": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Propylene Glycol",
+    "Butyrospermum Parkii (Shea) Butter",
+    "Lactic Acid",
+    "Sodium Lactate",
+    "Glycerin",
+    "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+    "Mandelic Acid",
+    "Salicylic Acid",
+    "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+    "Polysorbate 20",
+    "Alpha Arbutin",
+    "Tocopheryl Acetate",
+    "Silica",
+    "Perfume."
+  ],
+  "published_claims": [
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 499,
+  "price_checked_at": "2026-11-18T14:24:42.580Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/4-aha-bha-underarm-rollon-75/IntroPage%20copy-2_hlfdvp.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-rollon-75",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

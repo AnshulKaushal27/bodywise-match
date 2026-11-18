@@ -1,0 +1,62 @@
+{
+  "slug": "niacinamide-body-wash-700",
+  "official_name": "5% Niacinamide Body Wash - 700 ml",
+  "category": "body_wash",
+  "format": "Liquid body wash",
+  "size": "700 ml",
+  "official_description_summary": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy skin.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your skin regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+  "ingredients": [
+    "Aqua",
+    "Acrylate Copolymer",
+    "Cocamidopropyl Betaine",
+    "Coco Glucoside",
+    "Sodium Lauroyl Sarcosinate",
+    "Niacinamide",
+    "Triethanolamine",
+    "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+    "Erythritol",
+    "Perfume",
+    "Phenoxyethanol and Ethylhexylglycerin",
+    "Avena Sativa (Oat) Kernel Extract",
+    "Polysorbate-20",
+    "Blue Beads",
+    "Saccharide Isomerate (and) Citric Acid (and) Sodium Citrate",
+    "Disodium EDTA",
+    "Natural Vitamin E",
+    "CI 17200."
+  ],
+  "published_claims": [
+    "Safe and Effective",
+    "How it works"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 699,
+  "price_checked_at": "2026-11-18T14:24:42.748Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/niacinamide-body-wash-700/Hero%20copy%20%281%29_llerjg.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/niacinamide-body-wash-700",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

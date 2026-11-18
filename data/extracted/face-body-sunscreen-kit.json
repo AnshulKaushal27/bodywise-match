@@ -1,0 +1,39 @@
+{
+  "slug": "face-body-sunscreen-kit",
+  "official_name": "Daily Sun Shield Kit",
+  "category": "sunscreen",
+  "format": "Sunscreen lotion",
+  "size": null,
+  "official_description_summary": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": null,
+  "published_claims": [
+    "Clinical Proof"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 839,
+  "price_checked_at": "2026-11-18T14:24:42.868Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/face-body-sunscreen-kit/6%20%288%29_ab8xoc.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/face-body-sunscreen-kit",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

@@ -14,43 +14,59 @@ vi.mock("next/navigation", () => ({
 import { ProductDetailClient } from "./ProductDetailClient";
 
 describe("Product Detail Route (apps/web/app/products/[slug])", () => {
-  const sampleProduct = DEMO_CATALOGUE_SEED[0]; // Demo Body Wash A
+  const verifiedProduct = DEMO_CATALOGUE_SEED.find(p => p.slug === "1-salicylic-acid-body-wash") || DEMO_CATALOGUE_SEED[0];
+  const productWithNullIngredients = DEMO_CATALOGUE_SEED.find(p => p.ingredients === null) || {
+    ...verifiedProduct,
+    slug: "sample-null-ing",
+    ingredients: null,
+  };
+
   const html = renderToStaticMarkup(
-    React.createElement(ProductDetailClient, { product: sampleProduct })
+    React.createElement(ProductDetailClient, { product: verifiedProduct })
   );
 
-  it("renders Section 1: Header with name, format, size, category, and Demo data badge", () => {
-    expect(html).toContain("Demo Body Wash A");
-    expect(html).toContain("Liquid Body Cleanser");
-    expect(html).toContain("200ml");
-    expect(html).toContain("Demo data");
-    expect(html).toContain("body wash");
+  const htmlWithNull = renderToStaticMarkup(
+    React.createElement(ProductDetailClient, { product: productWithNullIngredients })
+  );
+
+  it("renders Section 1: Header with name, format, size, category, and compare button", () => {
+    expect(html).toContain(verifiedProduct.official_name);
+    expect(html).toContain(verifiedProduct.format);
+    expect(html).toContain(verifiedProduct.size);
+    expect(html).toContain(verifiedProduct.category.replace(/_/g, " "));
     expect(html).toContain("+ Add to Compare");
   });
 
   it("renders Section 2: 'Intended use (from official description)'", () => {
     expect(html).toContain("Intended use (from official description)");
-    expect(html).toContain(sampleProduct.official_description);
+    expect(html).toContain(verifiedProduct.official_description);
   });
 
   it("renders Section 3: 'How to use (official label directions only)'", () => {
     expect(html).toContain("How to use (official label directions only)");
-    expect(html).toContain(sampleProduct.label_directions);
+    expect(html).toContain(verifiedProduct.label_directions);
   });
 
-  it("renders Section 4: 'Ingredients' (shows 'Not verified yet' when null)", () => {
+  it("renders Section 4: 'Ingredients' with full ingredient list on verified products", () => {
     expect(html).toContain("Ingredients");
-    expect(html).toContain("Not verified yet");
+    if (verifiedProduct.ingredients && verifiedProduct.ingredients.length > 0) {
+      expect(html).toContain(verifiedProduct.ingredients[0]);
+    }
+  });
+
+  it("renders 'Not verified yet' when product ingredients are null (Step 6 requirement)", () => {
+    expect(htmlWithNull).toContain("Ingredients");
+    expect(htmlWithNull).toContain("Not verified yet");
   });
 
   it("renders Section 5: 'Cautions (official label only)' with packaging warnings", () => {
     expect(html).toContain("Cautions (official label only)");
-    expect(html).toContain("For external use only.");
-    expect(html).toContain("Avoid contact with eyes; rinse immediately if contact occurs.");
+    if (verifiedProduct.cautions && verifiedProduct.cautions.length > 0) {
+      expect(html).toContain(verifiedProduct.cautions[0]);
+    }
   });
 
   it("omits 'Why it matched / why it may not' when NOT arriving from a session", () => {
-    // In server-rendered static markup without active sessionStorage, this section is omitted
     expect(html).not.toContain("Why it matched / why it may not");
   });
 
@@ -66,13 +82,15 @@ describe("Product Detail Route (apps/web/app/products/[slug])", () => {
     expect(html).toContain("Open Order &amp; Product Issue Helper");
   });
 
-  it("renders Section 9: Data-provenance footer showing source_url, last_verified_at, catalog_version", () => {
+  it("renders Section 9: Data-provenance footer showing source_url, last_verified_at, catalog_version and error report link", () => {
     expect(html).toContain("Data Provenance &amp; Verification");
     expect(html).toContain("Source Document");
     expect(html).toContain("Last Verified");
     expect(html).toContain("Catalog Version");
-    expect(html).toContain(sampleProduct.catalog_version);
-    expect(html).toContain(sampleProduct.id);
+    expect(html).toContain(verifiedProduct.catalog_version);
+    expect(html).toContain(verifiedProduct.id);
+    expect(html).toContain("Report a data error");
+    expect(html).toContain("Independent prototype. Product details are taken from the official Be Bodywise website");
   });
 
   it("ensures sections appear in exact requested hierarchical order", () => {

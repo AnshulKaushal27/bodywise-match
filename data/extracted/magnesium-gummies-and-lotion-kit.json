@@ -1,0 +1,38 @@
+{
+  "slug": "magnesium-gummies-and-lotion-kit",
+  "official_name": "Complete Magnesium Care",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": null,
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6. Step 7. Step 8. Step 9",
+  "ingredients": null,
+  "published_claims": [
+    "Clinical Proof",
+    "Safe and Effective",
+    "Magnesium Care Kit"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Consult a healthcare professional if irritation or adverse symptoms develop."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 1498,
+  "price_checked_at": "2026-11-18T14:24:43.347Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/magnesium-gummies-and-lotion-kit/advanced-Magnesium-Care-1_ktxl8e.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/magnesium-gummies-and-lotion-kit",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

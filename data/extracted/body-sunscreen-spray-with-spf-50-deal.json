@@ -1,0 +1,58 @@
+{
+  "slug": "body-sunscreen-spray-with-spf-50-deal",
+  "official_name": "Body Sunscreen Spray with SPF 50",
+  "category": "sunscreen",
+  "format": "Sunscreen spray",
+  "size": null,
+  "official_description_summary": "Sunscreen spray designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Aqua (and) Octyl Methoxycinnamate (and) Butyl Methoxydibenzoylmethane (and) Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine (and) 1",
+    "3 Butylene glycol (and) Diethylhexyl Butamido Triazone (and) Phospholipids (and) Ethylhexyl Glycerine",
+    "Potassium Lauroyl Wheat Amino Acids (and) Palm Glycerides (and) Capryloyl Glycine",
+    "Glycerine",
+    "Isopropyl myristate",
+    "Propanediol",
+    "Isododecane (and) Disteardimonium Hectorite (and) Propylene Carbonate",
+    "Niacinamide",
+    "Triheptanoin (and) C13-16 Isoalkane",
+    "Ahnfeltiopsis Concinna Extract",
+    "Polyglyceryl-3 Rice Branate (and) Sucrose Stearate (and) Cetearyl Alcohol",
+    "Coco-Caprylate/Caprate",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Xylitol (and) Glucose (and) Anhydroxylitol (and) Phoenix Dactylifera extract",
+    "Xanthan Gum",
+    "Sodium Gluconate",
+    "Titanium Dioxide",
+    "Butylated hydroxytoluene",
+    "Talc (and) Titanium Dioxide (and) Cyclopentasiloxane (and) Dimethicone",
+    "Menthyl Lactate."
+  ],
+  "published_claims": [],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 249,
+  "price_checked_at": "2026-11-18T14:24:42.850Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/body-sunscreen-spray-with-spf-50/Heroine%20image_klm0sb.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/body-sunscreen-spray-with-spf-50-deal",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

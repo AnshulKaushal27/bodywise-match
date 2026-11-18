@@ -17,6 +17,7 @@
     "safety:lint": "vitest run apps/web/app/safety-content.test.ts",
     "typecheck": "pnpm -r exec tsc --noEmit",
     "catalogue:validate": "pnpm --filter @bodywise/shared catalogue:validate",
+    "catalogue:refresh": "tsx scripts/refresh-catalogue.ts",
     "db:migrate": "pnpm --filter @bodywise/api db:migrate",
     "db:seed": "pnpm --filter @bodywise/api db:seed",
     "prepare": "husky"

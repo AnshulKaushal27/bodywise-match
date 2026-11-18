@@ -1,0 +1,57 @@
+{
+  "slug": "pigmentation-repair-cream",
+  "official_name": "Pigmentation Repair Cream",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": null,
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Cetostearyl Alcohol",
+    "Caprylic/Capric Triglyceride",
+    "Propylene Glycol",
+    "Cetearyl Alcohol & Ceteareth-20",
+    "Lactic Acid",
+    "Glycerin",
+    "PEG-100 Stearate (and) Glyceryl Stearate",
+    "Urea",
+    "Sorbitan Monostearate",
+    "Niacinamide",
+    "Sodium hydroxide",
+    "Kojic Acid dipalmitate",
+    "Phenoxyethanol",
+    "Ethylhexylglycerin",
+    "Fragrance",
+    "Carbomer",
+    "Disodium Edetate",
+    "Retinol"
+  ],
+  "published_claims": [
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": false,
+  "suitable_for": null,
+  "price_inr": 599,
+  "price_checked_at": "2026-11-18T14:24:42.894Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/pigmentation-repair-cream/Artboard%201%20%283%29_iayba9.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/pigmentation-repair-cream",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Ingredients list contains fragrance/parfum",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

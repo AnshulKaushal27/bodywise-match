@@ -1,0 +1,33 @@
+{
+  "slug": "anti-frizz-serum",
+  "official_name": "Frizz Control and Damage Repair Hair Serum",
+  "category": "serum",
+  "format": "Topical skin serum",
+  "size": null,
+  "official_description_summary": "Topical skin serum designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Shake Pump Rub Apply <div class=\"sc-b25f611-0 bFwGVS CONTAINED VERTICAL_TOP_SPACING_COMPACT VERTICAL_BOTTOM_SPACING_COMPACT SUPPORTED_FOR_DESKTOP \" data-widgettype=\"",
+  "ingredients": null,
+  "published_claims": [
+    "Powerful ingredients backed by science"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 599,
+  "price_checked_at": "2026-11-18T14:24:42.973Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/others/Hero%20%2821%29_8nq4b3.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/anti-frizz-serum",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "HTML How To Use section",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

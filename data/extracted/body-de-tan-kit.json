@@ -1,0 +1,36 @@
+{
+  "slug": "body-de-tan-kit",
+  "official_name": "De-Tan Kit",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "SunOne. Niacinamide",
+  "ingredients": null,
+  "published_claims": [
+    "De-Tan Kit",
+    "Clinical Proof",
+    "De-Tan Kit",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 1178,
+  "price_checked_at": "2026-11-18T14:24:43.455Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/body-de-tan-kit/Artboard%201%20%2817%29_1zqexn.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/body-de-tan-kit",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

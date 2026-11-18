@@ -1,0 +1,60 @@
+{
+  "slug": "5-lactic-acid-body-lotion",
+  "official_name": "5% Lactic Acid Body Lotion",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": null,
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Sodium lactate",
+    "Glycerin",
+    "Butyrospermum Parkii (Shea) Butter",
+    "Cetearyl Alcohol (and) Ceteareth-20",
+    "Mangifera Indica (Mango) Seed Butter",
+    "Theobroma Cacao (Cocoa) Seed Butter",
+    "Cyclopentasiloxane",
+    "Stearyl Alcohol",
+    "Dimethicone",
+    "Glycerin (and) Glyceryl Glucoside",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Perfume",
+    "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+    "Stearic acid",
+    "Butylated Hydroxytoluene",
+    "Disodium EDTA",
+    "Imidazolidinyl Urea"
+  ],
+  "published_claims": [
+    "Women also Bought :",
+    "Frequently Bought Together",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 449,
+  "price_checked_at": "2026-11-18T14:24:42.636Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/5-lactic-acid-body-lotion/IntroPage_ep3sog.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/5-lactic-acid-body-lotion",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

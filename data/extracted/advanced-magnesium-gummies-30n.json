@@ -1,0 +1,61 @@
+{
+  "slug": "advanced-magnesium-gummies-30n",
+  "official_name": "5-in-1 Magnesium Gummies with Beads 30N",
+  "category": "supplement",
+  "format": "Chewable dietary supplement",
+  "size": "30N",
+  "official_description_summary": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6",
+  "ingredients": [
+    "Chicory Root Inulin (Prebiotic)",
+    "MagnaSorb™ - Magnesium Blend (Liposomal Magnesium",
+    "Magnesium Glycinate",
+    "Magnesium Malate",
+    "Magnesium Taurate",
+    "Magnesium Citrate",
+    "Plant based cellulose",
+    "Povidone k-30",
+    "Starch",
+    "Mannitol",
+    "NI Flavour (Mixed Berry))",
+    "Myo-Inositol",
+    "Gelling Agent (Pectin)",
+    "Acidity Regulator (Citric Acid)",
+    "Vitamin D3 (Cholecalciferol - Lichen Source)",
+    "Vitamin B6 (Pyridoxine HCl) (mg)",
+    "Natural flavour (Mixed Berry). Natural colour (Black carrot extract)",
+    "Vitamin B9 (Dietary Folate)",
+    "Maize starch",
+    "Binding Agent (Guar gum)."
+  ],
+  "published_claims": [
+    "Mg-NIFICENT BENEFITS FOR YOUR BODY",
+    "Clinical Proof",
+    "Why choose Magnesium Gummies?"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Consult a healthcare professional if irritation or adverse symptoms develop."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 649,
+  "price_checked_at": "2026-11-18T14:24:43.280Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/magnesium-glycinate-gummies-60n-xp/Artboard%206%20%2824%29_790chy.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/advanced-magnesium-gummies-30n",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

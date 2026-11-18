@@ -1,0 +1,70 @@
+{
+  "slug": "20-urea-lotion-xp",
+  "official_name": "20% Urea Lotion - 300ml",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": "300ml",
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3",
+  "ingredients": [
+    "Aqua",
+    "Urea",
+    "Glycerin",
+    "Cetearyl Alcohol (and) Ceteareth-20",
+    "Butyrospermum Parkii (Shea) Butter",
+    "Butylene Glycol",
+    "Cyclopentasiloxane",
+    "Garcinia Indica (Kokum) Seed Butter",
+    "Mangifera Indica (Mango) Seed Butter",
+    "Cetyl Alcohol",
+    "Benzyl Alcohol (and) Ethylhexylglycerin (and) Tocopherol",
+    "Cetyl Ethylhexanoate",
+    "Cetyl Palmite (and) Cetyl Oleate (Cetylated Fatty Ester Complex)",
+    "Cyclopentasiloxane (and) Dimethiconol",
+    "Diethylene glycol monoethyl ether",
+    "Dimethicone",
+    "Glycerin (and) Glyceryl Glucoside",
+    "Perfume",
+    "Tocopheryl Acetate",
+    "Stearic Acid",
+    "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+    "Zinc Oxide",
+    "Butylated Hydroxytoluene",
+    "Disodium EDTA",
+    "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum"
+  ],
+  "published_claims": [
+    "Real Women, Real Results",
+    "Clinical Proof",
+    "Choose the right body care routine for you!",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 599,
+  "price_checked_at": "2026-11-18T14:24:42.521Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/20-urea-lotion-xp/Artboard%201%20%285%29_lshrso.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/20-urea-lotion-xp",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

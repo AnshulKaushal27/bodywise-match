@@ -1,0 +1,68 @@
+{
+  "slug": "ultra-light-sunscreen-spf50",
+  "official_name": "Ultra Light Sunscreen SPF50+",
+  "category": "sunscreen",
+  "format": "Sunscreen lotion",
+  "size": "50 g",
+  "official_description_summary": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Blends in 3 seconds. Suitable for all Indian skin tones. Acne Safe",
+  "ingredients": [
+    "Aqua",
+    "Aqua (and) C12-15 Alkyl Benzolate (and) Diethylamino Hydroxybenzoyl Hexyl Benzoate (and) Ethylhexyl Triazone (and) Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine (and) Ethylhexylglycerin (and) Phospholipid",
+    "2- Propandiol",
+    "Octyldodecanol",
+    "Arachidyl Alcohol (and) Behenyl Alcohol (and) Arachidyl Glucoside",
+    "Isododecane",
+    "Phenyl Trimethicone",
+    "2-Hexanediol",
+    "Centella Asiatica (Gotu Kola) Extract",
+    "Niacinamide",
+    "Salix Alba (Willow) Bark Extract",
+    "Salix Alba (Willow) Bark Extract (and) Camellia Sinensis Leaf Extract (and) Centella Asiatica Leaf Extract (and) Cladosiphon Okamuranus Extract (and) Coffea Arabica (Coffee) Seed Extract (and) Citrus Aurantium Bergamia (Bergamot) Leaf Extract (and) Pinus Densiflora Leaf Extract (and) Decyl Glucoside (and) 1",
+    "2-Hexanediol (ACZERO)",
+    "Sodium Polyacryloyldimethyl Taurate",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Glycyrrhiza Glabra (Licorice) Root Extract",
+    "Tocopheryl Acetate",
+    "Allantoin",
+    "Menthyl Lactate",
+    "Bakuchiol",
+    "Polyacrylate Crosspolymer-6",
+    "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum",
+    "Sodium Hyaluronate"
+  ],
+  "published_claims": [
+    "Clinical Proof",
+    "What makes us STAND OUT?",
+    "Why you will LOVE it?"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": true,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 499,
+  "price_checked_at": "2026-11-18T14:24:42.911Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/ultra-light-sunscreen-spf50/Ultra%20Light%20Sunscreen%20SPF%2050%2B%20PDP_h5pyrr.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/ultra-light-sunscreen-spf50",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "HTML Net Quantity",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "fragrance_free": "Explicit page specification: fragrance free",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

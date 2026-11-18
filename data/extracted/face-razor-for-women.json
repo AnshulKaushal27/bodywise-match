@@ -1,0 +1,43 @@
+{
+  "slug": "face-razor-for-women",
+  "official_name": "Face Razor",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "undefined"
+  ],
+  "published_claims": [
+    "Women also bought",
+    "Key Features",
+    "Safe and Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "Oily and blemish-prone skin"
+  ],
+  "price_inr": 199,
+  "price_checked_at": "2026-11-18T14:24:43.475Z",
+  "image_url_on_site": "https://i.mscwlns.co/mosaic-wellness/image/upload/v1649680703/staging/products/face-razor-for-women/CAROUSEL/0.png?tr=w-800",
+  "source_url": "https://bebodywise.com/product/face-razor-for-women",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

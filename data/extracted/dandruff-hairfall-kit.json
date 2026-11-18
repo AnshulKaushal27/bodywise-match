@@ -1,0 +1,34 @@
+{
+  "slug": "dandruff-hairfall-kit",
+  "official_name": "Anti Dandruff & Hairfall Kit",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Pooja, 33, Pune. Sangeetha, 36, Mysore",
+  "ingredients": null,
+  "published_claims": [
+    "Winning Hair Health Formula.",
+    "Real Women, Real Results!"
+  ],
+  "medical_claim_language": true,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 1049,
+  "price_checked_at": "2026-11-18T14:24:43.017Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/dandruff-hairfall-kit/Hero_pdp_8f8f14.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/dandruff-hairfall-kit",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

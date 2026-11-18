@@ -1,0 +1,40 @@
+{
+  "slug": "strawberry-skin-kit",
+  "official_name": "Strawberry Skin Kit",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Vitamin E. Shea Butter",
+  "ingredients": null,
+  "published_claims": [
+    "Targeted Strawberry Skin Solution",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 698,
+  "price_checked_at": "2026-11-18T14:24:43.499Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/strawberry-skin-kit/Artboard%201%20%281%29_dq61fa.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/strawberry-skin-kit",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

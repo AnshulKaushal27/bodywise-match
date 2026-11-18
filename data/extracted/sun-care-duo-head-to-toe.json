@@ -1,0 +1,36 @@
+{
+  "slug": "sun-care-duo-head-to-toe",
+  "official_name": "Sun Care Duo for Face and Body",
+  "category": "other",
+  "format": "Product",
+  "size": null,
+  "official_description_summary": "Product designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5",
+  "ingredients": null,
+  "published_claims": [
+    "Sun Care Duo for Face and Body",
+    "Clinical Proof",
+    "Sun Care Duo for face and body",
+    "Safe & Effective"
+  ],
+  "medical_claim_language": false,
+  "cautions": null,
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 949,
+  "price_checked_at": "2026-11-18T14:24:43.524Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/sun-care-duo-head-to-toe/Slide%201_fnuh8r.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/sun-care-duo-head-to-toe",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

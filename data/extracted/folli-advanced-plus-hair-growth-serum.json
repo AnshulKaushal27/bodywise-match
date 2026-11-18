@@ -1,0 +1,38 @@
+{
+  "slug": "folli-advanced-plus-hair-growth-serum",
+  "official_name": "Folli Advanced+ Hair Growth Serum Roll On - 3% Redensyl, 3% Rosemary (25 ml)",
+  "category": "serum",
+  "format": "Leave-on hair serum",
+  "size": "25 ml",
+  "official_description_summary": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6. Step 7. Step 8. Step 9. Niharika, 34, Mumbai. Anjana, 28, Bangalore",
+  "ingredients": null,
+  "published_claims": [
+    "Winning Hair Health Formula.",
+    "Real Women, Real Results!"
+  ],
+  "medical_claim_language": true,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 849,
+  "price_checked_at": "2026-11-18T14:24:43.049Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/folli-advanced-plus-hair-growth-serum/Hero%20%282%29_9ow14r.png?tr=w-600",
+  "source_url": "https://bebodywise.com/product/folli-advanced-plus-hair-growth-serum",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

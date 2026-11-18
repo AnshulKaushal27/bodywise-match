@@ -24,7 +24,7 @@ describe("Fastify API Routes", () => {
     expect(body.status).toBe("ok");
     expect(body.service).toBe("bodywise-match-api");
     expect(body.rules_version).toBe("1.0.0");
-    expect(body.catalogue_version).toBe("0.1.0-draft");
+    expect(body.catalogue_version).toBe("1.0.0-verified");
     expect(body.ephemeral_disk).toBe(true);
     expect(["configured", "in_memory_fallback"]).toContain(body.database);
     expect(["enabled", "deterministic_only"]).toContain(body.llm);
@@ -237,12 +237,12 @@ describe("Fastify API Routes", () => {
   it("GET /v1/products/:slug returns 200 for existing product", async () => {
     const res = await app.inject({
       method: "GET",
-      url: "/v1/products/demo-body-wash-a",
+      url: "/v1/products/1-salicylic-acid-body-wash",
     });
     expect(res.statusCode).toBe(200);
     const body = JSON.parse(res.payload);
     expect(body.product).toBeDefined();
-    expect(body.product.slug).toBe("demo-body-wash-a");
+    expect(body.product.slug).toBe("1-salicylic-acid-body-wash");
     expect(body.product.official_name).toBeDefined();
   });
 
@@ -300,7 +300,7 @@ describe("Fastify API Routes", () => {
         user_input: "Looking for completely unavailable product format",
         parsed_needs: {
           goal: "unknown_impossible_goal",
-          category: "other",
+          category: null,
           format_preferences: ["impossible_capsule_format"],
           avoidances: ["water", "aqua"],
           routine_context: null,

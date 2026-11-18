@@ -535,7 +535,7 @@ export default function ProductsPage() {
                     {/* Top Meta Bar */}
                     <div className="flex items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-border/60">
                       <div className="flex items-center gap-1.5">
-                        <DemoBadge />
+                        {product.is_demo && <DemoBadge />}
                         <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-sage/60 text-brand-deep capitalize">
                           {categoryLabel}
                         </span>

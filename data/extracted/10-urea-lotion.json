@@ -1,0 +1,65 @@
+{
+  "slug": "10-urea-lotion",
+  "official_name": "10% Urea Body Lotion - 200 ml",
+  "category": "body_wash",
+  "format": "Topical moisturizer / lotion",
+  "size": "200 ml",
+  "official_description_summary": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": null,
+  "ingredients": [
+    "Aqua",
+    "Urea",
+    "Glycerin",
+    "Butyrospermum Parkii (Shea) Butter",
+    "Ceteareth-20 (and) Cetostearyl Alcohol",
+    "Garcinia Indica (Kokum) Seed Butter",
+    "Mangifera Indica (Mango) Seed Butter",
+    "Butylene Glycol",
+    "Cetyl Alcohol",
+    "Cyclopentasiloxane",
+    "Dimethicone",
+    "Phenoxyethanol (and) Ethylhexylglycerin",
+    "Perfume",
+    "Tocopheryl Acetate",
+    "Stearic Acid",
+    "Zinc Oxide",
+    "Butylated Hydroxytoluene",
+    "Disodium EDTA",
+    "Imidazolidinyl Urea",
+    "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+    "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum (Ceramide Complex)."
+  ],
+  "published_claims": [
+    "Clinical Proof",
+    "Choose the right routine for you!",
+    "Safe & Effective",
+    "10% Urea Lotion"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Conduct a patch test prior to initial use."
+  ],
+  "fragrance_free": null,
+  "suitable_for": [
+    "All skin types"
+  ],
+  "price_inr": 399,
+  "price_checked_at": "2026-11-18T14:24:42.483Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/10-urea-lotion/1%20%281%29_ayf1b8.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/10-urea-lotion",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "size": "Extracted from official_name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "suitable_for": "HTML skin type recommendation",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}

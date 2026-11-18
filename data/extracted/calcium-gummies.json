@@ -1,0 +1,50 @@
+{
+  "slug": "calcium-gummies",
+  "official_name": "Calcium Gummies",
+  "category": "supplement",
+  "format": "Chewable dietary supplement",
+  "size": null,
+  "official_description_summary": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+  "official_description_quote": null,
+  "label_directions": "Joint Pain. Muscle Pain. Fatigue. Archana, 33, Bangalore. Sejal, 36, Mumbai",
+  "ingredients": [
+    "Chicory root extract",
+    "Gelling Agent (Pectin)",
+    "Acidity Regulator (Citric Acid)",
+    "Calcium (Tri Calcium Phosphate)",
+    "Vitamin D3 (Cholecalciferol - Lichen Source)",
+    "Vitamin B12 (Cyanocobalamin SD)",
+    "flavour (Mixed berry)",
+    "colour (Black carrot extract)",
+    "Maize starch",
+    "Guar gum."
+  ],
+  "published_claims": [
+    "Why choose Calcium Gummies?",
+    "Safe and Effective",
+    "Prevent with Right Nutrition"
+  ],
+  "medical_claim_language": false,
+  "cautions": [
+    "Consult a healthcare professional if irritation or adverse symptoms develop."
+  ],
+  "fragrance_free": null,
+  "suitable_for": null,
+  "price_inr": 231,
+  "price_checked_at": "2026-11-18T14:24:43.300Z",
+  "image_url_on_site": "https://i.mscwlns.co/media/misc/pdp_rcl/calcium-gummies/Slide%201%20copy_4unh64.jpg?tr=w-600",
+  "source_url": "https://bebodywise.com/product/calcium-gummies",
+  "last_verified_at": "2026-11-18",
+  "field_sources": {
+    "official_name": "JSON-LD Product.name",
+    "price_inr": "JSON-LD Product.offers.price",
+    "image_url_on_site": "JSON-LD Product.image",
+    "label_directions": "JSON-LD HowTo.step",
+    "ingredients": "HTML Accordion: Ingredient Names",
+    "published_claims": "HTML benefit headings",
+    "cautions": "HTML FAQ / safety advisory text",
+    "category": "Catalogue taxonomy",
+    "format": "Packaging and formula specification"
+  },
+  "extraction_notes": []
+}
