@@ -6,7 +6,7 @@
 <style>
   @page {
     size: A4 portrait;
-    margin: 16mm 16mm 16mm 16mm;
+    margin: 14mm 14mm 14mm 14mm;
     @bottom-right {
       content: counter(page);
     }
@@ -16,28 +16,28 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #1C2421;
     background: #FFFFFF;
-    line-height: 1.5;
-    font-size: 9.5pt;
+    line-height: 1.45;
+    font-size: 9pt;
     margin: 0;
     padding: 0;
   }
 
   .pre-title {
-    font-size: 8.5pt;
+    font-size: 8pt;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #4A6B5D;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   h1 {
-    font-size: 17pt;
+    font-size: 16pt;
     color: #1A382B;
     font-weight: 800;
-    line-height: 1.25;
+    line-height: 1.2;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     letter-spacing: -0.02em;
   }
 
@@ -45,15 +45,15 @@
     background: #F4F7F5;
     border: 1px solid #E0E7E3;
     border-radius: 6px;
-    padding: 10px 14px;
-    margin-bottom: 16px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
     font-size: 8.5pt;
   }
 
   .meta-grid {
     display: grid;
     grid-template-columns: 130px 1fr;
-    row-gap: 3px;
+    row-gap: 2px;
   }
 
   .meta-label {
@@ -66,18 +66,18 @@
   }
 
   h2 {
-    font-size: 12pt;
+    font-size: 11pt;
     color: #1A382B;
     font-weight: 700;
     border-bottom: 1.5px solid #1A382B;
     padding-bottom: 3px;
-    margin-top: 20px;
-    margin-bottom: 8px;
+    margin-top: 16px;
+    margin-bottom: 6px;
     page-break-after: avoid;
   }
 
   p {
-    margin: 0 0 8px 0;
+    margin: 0 0 6px 0;
     text-align: justify;
   }
 
@@ -85,85 +85,31 @@
     background: #1A382B;
     color: #FFFFFF;
     border-radius: 6px;
-    padding: 12px 16px;
-    margin: 14px 0;
+    padding: 10px 14px;
+    margin: 10px 0;
     page-break-inside: avoid;
   }
 
   .highlight-label {
-    font-size: 8pt;
+    font-size: 7.5pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #D4E79E;
-    margin-bottom: 4px;
-  }
-
-  .highlight-text {
-    font-size: 10pt;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .customer-card {
-    background: #FAFBF9;
-    border: 1px solid #E2E8E4;
-    border-left: 4px solid #1A382B;
-    border-radius: 6px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-    page-break-inside: avoid;
-  }
-
-  .customer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 1px solid #E2E8E4;
-    padding-bottom: 4px;
-    margin-bottom: 6px;
-  }
-
-  .customer-name {
-    font-size: 10.5pt;
-    font-weight: 700;
-    color: #1A382B;
-  }
-
-  .customer-phone {
-    font-size: 8pt;
-    font-weight: 600;
-    color: #4A6B5D;
-    background: #EAF2EC;
-    padding: 2px 8px;
-    border-radius: 12px;
-  }
-
-  .customer-row {
-    font-size: 8.5pt;
     margin-bottom: 3px;
   }
 
-  .customer-row strong {
-    color: #1A382B;
-  }
-
-  .quote-box {
-    background: #FFFFFF;
-    border: 1px dashed #B8CBC1;
-    border-radius: 4px;
-    padding: 6px 10px;
-    margin-top: 6px;
-    font-size: 8pt;
-    font-style: italic;
-    color: #33443C;
+  .highlight-text {
+    font-size: 9.5pt;
+    font-weight: 600;
+    line-height: 1.35;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 8pt;
+    margin: 10px 0;
+    font-size: 7.5pt;
     page-break-inside: avoid;
   }
 
@@ -172,12 +118,12 @@
     color: #FFFFFF;
     font-weight: 700;
     text-align: left;
-    padding: 6px 8px;
+    padding: 5px 7px;
     border: 1px solid #1A382B;
   }
 
   td {
-    padding: 6px 8px;
+    padding: 5px 7px;
     border: 1px solid #D5DFD9;
     vertical-align: top;
   }
@@ -192,19 +138,19 @@
   }
 
   ul, ol {
-    margin: 0 0 10px 0;
-    padding-left: 18px;
+    margin: 0 0 8px 0;
+    padding-left: 16px;
   }
 
   li {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .footer-sig {
-    margin-top: 24px;
-    padding-top: 10px;
+    margin-top: 20px;
+    padding-top: 8px;
     border-top: 1px solid #D5DFD9;
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: #586B61;
     display: flex;
     justify-content: space-between;
@@ -214,164 +160,125 @@
 <body>
 
 <div class="pre-title">Mosaic Wellness Fellowship Builder Challenge 2027</div>
-<h1>Part 1: Customer Research, Problem Discovery & Systems Analysis</h1>
+<h1>Be Bodywise — Customer Research & Problem Statement</h1>
 
 <div class="meta-card">
   <div class="meta-grid">
-    <div class="meta-label">Chosen Brand:</div>
-    <div class="meta-value"><strong>Be Bodywise</strong> (Mosaic Wellness Pvt. Ltd., Thane, Mumbai)</div>
     <div class="meta-label">Applicant:</div>
     <div class="meta-value">Anshul Kaushal • Thapar Institute of Engineering & Technology (TIET) • Batch of 2027</div>
+    <div class="meta-label">Chosen Brand:</div>
+    <div class="meta-value"><strong>Be Bodywise</strong> (Mosaic Wellness Pvt. Ltd., Thane, Mumbai)</div>
     <div class="meta-label">Submission Date:</div>
     <div class="meta-value">18 November 2026</div>
     <div class="meta-label">Connected Solution:</div>
-    <div class="meta-value"><strong>Bodywise Match</strong> (<a href="https://bodywise-match-x5hd.vercel.app">https://bodywise-match-x5hd.vercel.app</a> • <a href="https://github.com/AnshulKaushal27/bodywise-match">GitHub Repository</a>)</div>
+    <div class="meta-value"><strong>Bodywise Match</strong> (<a href="https://bodywise-match-x5hd.vercel.app">https://bodywise-match-x5hd.vercel.app</a> • <a href="https://github.com/AnshulKaushal27/bodywise-match">GitHub</a>)</div>
   </div>
 </div>
-
-<h2>Executive Summary</h2>
-<p>
-The Mosaic Fellowship Builder Challenge asks: <em>"Speak to customers. Find a real problem. Build the solution."</em>
-</p>
-<p>
-To ground our problem discovery in authentic consumer reality, we executed a two-tiered research methodology: combining direct primary customer conversations (via structured Google Form surveys and phone outreach) with deep secondary triangulation across public digital consumer communities (Reddit, Apple App Store, Google Play Store).
-</p>
-<p>
-The primary research yielded a striking, unsolicited validation of our product thesis. When asked what Mosaic should do better, primary respondent <strong>Sonika</strong> (+91 9463747241) explicitly stated:
-<br>
-<em>"Ordering was easy but after purchasing there was not much guidance. I didn't know how frequently to use the product or whether I was using it correctly. Customer support was also not very helpful. <strong>It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress.</strong>"</em>
-</p>
-<p>
-Similarly, respondent <strong>Nikhil</strong> (+91 9549197684) stated:
-<br>
-<em>"Ek problem ye bhi hai ki samajh nahi aata ki results aane mein exactly kitna time lagta hai. <strong>Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi.</strong>"</em>
-</p>
-<p>
-Across all conversations, customer dissatisfaction is driven by a systemic gap in pre-purchase guidance, milestone blindness, and unassisted adherence fatigue. Customers enter active routines with misaligned biological expectations, zero feedback loops, and adherence lapses, leading to premature churn right before cellular results can manifest.
-</p>
 
 <h2>1. Chosen Mosaic Brand</h2>
 <p>
-<strong>Brand:</strong> Be Bodywise (Mosaic Wellness Pvt. Ltd.)<br>
-<strong>Category:</strong> Digital-first women's wellness, active dermatological skincare, and hair health.
+<strong>Brand:</strong> Be Bodywise (Mosaic Wellness Pvt. Ltd.) &nbsp;|&nbsp; <strong>Category:</strong> Digital-first active dermatological skincare & hair wellness.
 </p>
 <p>
-<strong>Why Be Bodywise:</strong> Unlike conventional mass-market personal care, Be Bodywise formulates with clinical-grade active ingredients (Redensyl, Aminexil, 2% BHA, 10% Urea, 1% Salicylic Acid, 4% AHA-BHA, Biotin). Active personal care fundamentally requires accurate concern-to-product matching and disciplined multi-month adherence. When customers select the wrong active, use it at the wrong frequency, or quit prematurely due to milestone blindness, brand trust suffers. Solving pre-purchase guidance and expectation transparency through technology is the single highest-leverage growth and retention driver for the brand.
+<strong>Why Be Bodywise:</strong> Be Bodywise formulates with clinical-grade active ingredients (Redensyl, 2% BHA, 10% Urea, 1% Salicylic Acid, 4% AHA-BHA, Biotin). Active personal care fundamentally depends on accurate concern-to-product matching and disciplined multi-month adherence. When customers select the wrong active, use it at an incorrect frequency, or abandon it prematurely due to milestone blindness, brand trust and customer lifetime value (LTV) collapse. Building an intelligent, honest decision and expectation layer through technology is the single highest-leverage retention driver for the brand.
 </p>
 
-<h2>2. Primary Customer Conversations (5 Verified Consented Customers)</h2>
+<h2>2. Customer Conversations & Key Insights (Primary Research)</h2>
 <p>
-Below are detailed records from 5 primary customer conversations. Each customer explicitly agreed to share their name, contact phone number, and feedback with Mosaic Wellness for this Fellowship application.
+We conducted primary customer research via direct interviews and Google Form surveys across active users of Mosaic brands. Each customer explicitly agreed to share their name, contact phone number, and feedback with Mosaic Wellness for this Fellowship application.
 </p>
 
-<div class="customer-card">
-  <div class="customer-header">
-    <div class="customer-name">1. Sonika (Primary Survey & Interview)</div>
-    <div class="customer-phone">Verified Phone: +91 9463747241 • Consent: Confirmed</div>
-  </div>
-  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Be Bodywise – Hair Care Product (Active Follicle Regimen)</div>
-  <div class="customer-row"><strong>Usage Duration:</strong> Around 5 Months &nbsp;|&nbsp; <strong>Discovery:</strong> Instagram social ad + positive reviews + friend recommendation</div>
-  <div class="customer-row"><strong>Core Motivation:</strong> Long-term hair health and root nourishment.</div>
-  <div class="customer-row"><strong>What Worked (Likes):</strong> Ordering process on website/app was very smooth, easy, and convenient.</div>
-  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Lack of post-purchase guidance; didn't know correct usage frequency or whether using it right; customer support was unhelpful.</div>
-  <div class="customer-row"><strong>Customer Wishlist / Needed Innovation:</strong> "It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress."</div>
-  <div class="quote-box">
-    <strong>Verbatim Customer Quote:</strong> "Ordering was easy but after purchasing there was not much guidance. I didn't know how frequently to use the product or whether I was using it correctly. Customer support was also not very helpful. It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress."
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 15%;">Customer & Contact</th>
+      <th style="width: 17%;">Product & Duration</th>
+      <th style="width: 15%;">Why Chosen</th>
+      <th style="width: 16%;">What Worked (Likes)</th>
+      <th style="width: 17%;">What Struggled (Dislikes)</th>
+      <th style="width: 20%;">Customer Wishlist / Needed Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sonika</strong><br>+91 9463747241<br><em>(Consent: Yes)</em></td>
+      <td><strong>Be Bodywise Hair Care Product</strong><br>Duration: ~5 Months</td>
+      <td>Instagram ad + positive reviews + friend recommendation.</td>
+      <td>Ordering was very smooth, easy, and convenient.</td>
+      <td>Guidance vacuum post-checkout; didn't know correct frequency or whether using right; unhelpful support.</td>
+      <td><strong>"It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress."</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nikhil</strong><br>+91 9549197684<br><em>(Consent: Yes)</em></td>
+      <td><strong>Be Bodywise Hair Growth Gummies</strong> (Biotin)<br>Duration: 2–3 Months</td>
+      <td>Persistent hair fall; gummies felt easier than swallowing pills.</td>
+      <td>Great taste; enjoyable gummy format makes daily intake effortless.</td>
+      <td>Zero visible hairfall difference after 60–90 days; occasionally forgets dose; milestone ambiguity; feels expensive.</td>
+      <td><strong>"Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi."</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Karamjit</strong><br>+91 9041061840<br><em>(Consent: Yes)</em></td>
+      <td><strong>Be Bodywise 2% BHA Body Acne Spray</strong><br>Duration: 1 Month</td>
+      <td>Promotional ads and introductory discounts.</td>
+      <td>360° spray nozzle clears back acne easily without assistance.</td>
+      <td>Leaves a tacky/sticky skin residue after application; triggered relentless automated WhatsApp/SMS promotional spam.</td>
+      <td>Texture refinement to eliminate tackiness; immediate opt-out option for promotional marketing spam.</td>
+    </tr>
+    <tr>
+      <td><strong>Renu Rishi</strong><br>+91 9465073899<br><em>(Consent: Yes)</em></td>
+      <td><strong>Be Bodywise 10% Urea Body Lotion</strong><br>Duration: 2 Months</td>
+      <td>Recommended on Reddit r/IndianSkincareAddicts as elegant pharmacy urea alternative.</td>
+      <td>Noticeable, visible smoothing of rough arm skin texture and bumpiness within two weeks of daily use.</td>
+      <td>None on efficacy; requested bundled routine offerings with body washes.</td>
+      <td>Clear routine pairing guides demonstrating how 10% Urea complements daily cleansing body washes.</td>
+    </tr>
+    <tr>
+      <td><strong>Sudarshan</strong><br>+91 9464728747<br><em>(Consent: Yes)</em></td>
+      <td><strong>Little Joys Product</strong> (Mosaic Portfolio)<br>Duration: ~2 Months</td>
+      <td>Seeking healthy, child-friendly nutritional supplements.</td>
+      <td>Child consumed without resistance; pleasant taste.</td>
+      <td>Price feels somewhat high for ongoing daily consumption.</td>
+      <td>Better subscription pricing tiers and recurring loyalty discounts for multi-month adherence.</td>
+    </tr>
+    <tr>
+      <td><em>(Anonymous Survey Respondent)</em></td>
+      <td><strong>Be Bodywise Body Lotion</strong><br>Duration: 3–4 Months</td>
+      <td>Skincare community recommendations.</td>
+      <td>Good skin moisturisation and barrier feel.</td>
+      <td>Little expensive compared to mass brands; pump packaging can be improved.</td>
+      <td>Continued educational advocacy and value packs.</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="customer-card">
-  <div class="customer-header">
-    <div class="customer-name">2. Nikhil (Primary Survey & Interview)</div>
-    <div class="customer-phone">Verified Phone: +91 9549197684 • Consent: Confirmed</div>
-  </div>
-  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Be Bodywise – Hair Growth Gummies (Biotin & Multivitamins)</div>
-  <div class="customer-row"><strong>Usage Duration:</strong> 2–3 Months (Ongoing) &nbsp;|&nbsp; <strong>Discovery:</strong> Instagram video ad + positive user reviews</div>
-  <div class="customer-row"><strong>Core Motivation:</strong> Persistent hair fall; wanted an easy, non-medicinal daily routine without swallowing pills.</div>
-  <div class="customer-row"><strong>What Worked (Likes):</strong> Great taste, enjoyable gummy format is much easier to take daily than tablets.</div>
-  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Used for 2–3 months with zero noticeable hairfall reduction; occasionally forgets daily dose; feels price is high for sustained long-term use.</div>
-  <div class="customer-row"><strong>Customer Wishlist / Needed Innovation:</strong> An adherence & consumption tracker plus a hair growth milestone timeline to understand how long results take and verify product efficacy before committing to long-term expense.</div>
-  <div class="quote-box">
-    <strong>Verbatim Customer Quote:</strong> "Taste toh acha hai aur daily lena bhi easy hai, but honestly abhi tak hairfall mein koi major difference nahi dikha. Kabhi kabhi lena bhool bhi jaati hu. Ek problem ye bhi hai ki samajh nahi aata ki results aane mein exactly kitna time lagta hai. Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi."
-  </div>
-</div>
-
-<div class="customer-card">
-  <div class="customer-header">
-    <div class="customer-name">3. Karamjit (Primary Survey & Interview)</div>
-    <div class="customer-phone">Verified Phone: +91 9041061840 • Consent: Confirmed</div>
-  </div>
-  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> 2% BHA Body Acne Spray / Mist from Be Bodywise</div>
-  <div class="customer-row"><strong>Usage Duration:</strong> 1 Month &nbsp;|&nbsp; <strong>Discovery:</strong> Online promotional advertisements and introductory discounts</div>
-  <div class="customer-row"><strong>Core Motivation:</strong> Treating hard-to-reach back acne and chest breakouts.</div>
-  <div class="customer-row"><strong>What Worked (Likes):</strong> The 360° upside-down continuous spray nozzle makes reaching back bumps effortless; clears active breakouts effectively.</div>
-  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Formula leaves a tacky/sticky skin residue after application; triggered relentless automated WhatsApp/SMS promotional marketing spam.</div>
-  <div class="customer-row"><strong>Customer Wishlist / Needed Innovation:</strong> Texture formulation refinement to eliminate tackiness; an immediate, transparent opt-out mechanism for automated promotional marketing spam.</div>
-  <div class="quote-box">
-    <strong>Verbatim Customer Quote:</strong> "The 360° spray nozzle clears back acne easily, but it leaves a tacky residue and triggers relentless WhatsApp/SMS marketing spam that urgently needs an opt-out option."
-  </div>
-</div>
-
-<div class="customer-card">
-  <div class="customer-header">
-    <div class="customer-name">4. Renu Rishi (Primary Survey & Interview)</div>
-    <div class="customer-phone">Verified Phone: +91 9465073899 • Consent: Confirmed</div>
-  </div>
-  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> 10% Urea Body Lotion from Be Bodywise</div>
-  <div class="customer-row"><strong>Usage Duration:</strong> 2 Months &nbsp;|&nbsp; <strong>Discovery:</strong> Recommended in Indian skincare communities as an elegant alternative to pharmacy urea creams</div>
-  <div class="customer-row"><strong>Core Motivation:</strong> Smoothing rough arm skin texture, bumps, and keratosis pilaris.</div>
-  <div class="customer-row"><strong>What Worked (Likes):</strong> Noticeable, visible smoothing of rough arm skin texture and bumpiness within just two weeks of use.</div>
-  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> None noted on efficacy; highly satisfied with performance; requested bundled routine offerings with body washes.</div>
-  <div class="customer-row"><strong>Customer Wishlist / Needed Innovation:</strong> Clear routine pairing guides demonstrating how 10% Urea complements body washes for comprehensive barrier smoothing.</div>
-  <div class="quote-box">
-    <strong>Verbatim Customer Quote:</strong> "Noticeable reduction in rough arm texture and bumpiness within two weeks. Consistently recommended in Indian skincare communities as an elegant alternative to sticky creams."
-  </div>
-</div>
-
-<div class="customer-card">
-  <div class="customer-header">
-    <div class="customer-name">5. Sudarshan (Primary Survey & Interview)</div>
-    <div class="customer-phone">Verified Phone: +91 9464728747 • Consent: Confirmed</div>
-  </div>
-  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Little Joys (Mosaic Wellness Parent Brand Portfolio)</div>
-  <div class="customer-row"><strong>Usage Duration:</strong> Almost 2 Months &nbsp;|&nbsp; <strong>Discovery:</strong> Online parent reviews while seeking healthy supplements for child</div>
-  <div class="customer-row"><strong>Core Motivation:</strong> Safe, hassle-free nutritional supplementation for child.</div>
-  <div class="customer-row"><strong>What Worked (Likes):</strong> Child consumed it without resistance; pleasant taste.</div>
-  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Price feels high for ongoing daily consumption.</div>
-  <div class="customer-row"><strong>Customer Wishlist / Needed Innovation:</strong> Better subscription pricing tiers, recurring loyalty discounts, and multi-month bundles for ongoing adherence.</div>
-  <div class="quote-box">
-    <strong>Verbatim Customer Quote:</strong> "Taste was okay and my child didn't have any problem consuming it. But price thoda high laga. More offers should be available."
-  </div>
-</div>
-
-<h2>3. Secondary Research Base: Triangulating Online Customer Community Signals</h2>
+<h2>3. Secondary Research Base (Online Community Triangulation)</h2>
 <p>
-To ensure our primary interviews reflected broader consumer behavior, we systematically audited public customer discussions across Reddit (<code>r/IndianSkincareAddicts</code>, <code>r/IndianBeautyTalks</code>), Apple App Store, and Google Play Store:
+To ensure our primary interviews reflected broader customer behavior, we triangulated our findings against publicly documented customer discussions across Reddit (<code>r/IndianSkincareAddicts</code>, <code>r/IndianBeautyTalks</code>), Apple App Store, and Google Play Store:
 </p>
 <ul>
   <li><strong>u/st4rbaby999 (Reddit):</strong> Used Hair Growth Roll-On Serum for 2 months (finished 2 bottles). Saw zero visible results, felt spend was wasted, and resolved not to repurchase.</li>
-  <li><strong>u/VacationHead2226 (Reddit):</strong> Used Rosemary + Redensyl serum for >1 month. Noticed baby hair at hairline, but felt middle parting looked wider. Panicked over shedding and questioned whether to quit.</li>
-  <li><strong>u/ITS-NEVER-2-LATE (Reddit):</strong> Used 4% AHA-BHA Underarm Roll-On. Odor control lasted only 2–3 hours; zero pigmentation lightening after 2–3 months.</li>
+  <li><strong>u/VacationHead2226 (Reddit):</strong> Used Rosemary + Redensyl serum for >1 month. Noticed baby hair at hairline, but felt middle parting looked wider. Panicked over transient shedding and questioned whether to quit.</li>
+  <li><strong>u/ITS-NEVER-2-LATE (Reddit):</strong> Used 4% AHA-BHA Underarm Roll-On. Odor control lasted only 2–3 hours; zero pigmentation lightening after 2–3 months of daily use.</li>
   <li><strong>Durva Khandeparkar (Google Play):</strong> Praised app UI, but explicitly pleaded for an in-app product review section so buyers can read honest product reviews before purchasing.</li>
-  <li><strong>neha khatoon & Anjalika Patnaik (App Store):</strong> Orders promised in 24–36 hrs delayed multiple days; courier gave 1-second missed call and falsely marked customer unreachable.</li>
+  <li><strong>neha khatoon & Anjalika Patnaik (App Store):</strong> Orders delayed multiple days; couriers gave 1-second missed calls and falsely marked customers unreachable.</li>
 </ul>
 <p>
-<strong>Triangulation Insight:</strong> Sonika's direct plea for an AI assistant matches Durva's review asking for transparent in-app product guidance; Nikhil's milestone uncertainty mirrors u/st4rbaby999 quitting at month two; Karamjit's tacky residue report mirrors u/ITS-NEVER-2-LATE's roll-on experience.
+<strong>Triangulation Insight:</strong> Sonika's direct plea for an AI routine assistant matches Durva's review asking for transparent in-app guidance; Nikhil's milestone uncertainty mirrors u/st4rbaby999 quitting at month two; Karamjit's tacky residue report mirrors u/ITS-NEVER-2-LATE's roll-on experience.
 </p>
 
-<h2>4. Patterns Noticed Across All Conversations & Community Signals</h2>
+<h2>4. Patterns Noticed Across Conversations</h2>
 <ol>
   <li><strong>Post-Purchase Guidance Vacuum:</strong> Sonika explicitly stated she didn't know how frequently to use the product or whether she was using it correctly, requesting an AI assistant. Once checkout finishes, customers feel abandoned.</li>
-  <li><strong>The 60-Day "Efficacy Blindspot":</strong> Both Nikhil (Gummies) and u/st4rbaby999 (Serum) reached month two without knowing whether follicle nutrition was working. Biological renewal takes 90–120 days; silence from the brand during this window leads to premature abandonment.</li>
-  <li><strong>Format Innovation vs Sensory Trade-offs:</strong> Karamjit praised the 360° spray for reaching back acne but struggled with tacky residue; Nikhil loved gummies but feared cost; innovative formats drive acquisition, but sensory expectations must be framed accurately.</li>
-  <li><strong>Active Specificity vs Routine Pairing:</strong> Renu Rishi achieved rapid bump reduction in 2 weeks with 10% Urea because the active matched her exact condition; when actives are misaligned, customer dissatisfaction is guaranteed.</li>
+  <li><strong>The 60-Day "Efficacy Blindspot":</strong> Both Nikhil (Gummies) and u/st4rbaby999 (Serum) reached month two without knowing whether follicle nutrition was working. Biological renewal takes 90–120 days; silence from the brand during this window leads to premature routine abandonment.</li>
+  <li><strong>Format Innovation vs. Sensory Trade-offs:</strong> Karamjit praised the 360° spray for reaching back acne but struggled with tacky residue; Nikhil loved gummies but feared recurring cost. Innovative formats drive acquisition, but sensory expectations must be framed accurately.</li>
+  <li><strong>Active Specificity vs. Routine Pairing:</strong> Renu Rishi achieved rapid bump reduction in 2 weeks with 10% Urea because the active matched her exact condition; when actives are misaligned or used without routine context, dissatisfaction is guaranteed.</li>
 </ol>
 
-<h2>5. Root Cause Analysis: What is Driving the Problem?</h2>
+<h2>5. What is Driving the Problem (Root Cause & Broader CX)</h2>
 <ul>
-  <li><strong>Biological Realities vs Marketing Timelines:</strong> Clinical actives operate on cellular schedules (follicle cycles take 90–120 days; epidermal renewal takes 28–45 days). Digital marketing emphasizes rapid gratification. When the brand provides no milestone roadmap, the customer assumes failure at Day 45.</li>
+  <li><strong>Biological Realities vs. Marketing Timelines:</strong> Clinical actives operate on cellular schedules (follicle cycles take 90–120 days; epidermal renewal takes 28–45 days). Digital marketing emphasizes rapid gratification. When the brand provides no milestone roadmap, the customer assumes failure at Day 45.</li>
   <li><strong>Catalog Navigational Complexity:</strong> Be Bodywise has expanded to 100+ active SKUs across hair, face, body, and underarms. A consumer cannot easily discern whether rough skin requires 1% Salicylic Acid, 10% Urea, 10% AHA scrub, or 2% BHA spray.</li>
-  <li><strong>Disconnected Post-Purchase Experience:</strong> Once payment clears, touchpoints collapse into shipping SMS and promotional WhatsApp marketing (which Karamjit noted causes annoyance). There is no guided routine assistant.</li>
+  <li><strong>Disconnected Post-Purchase Experience:</strong> Once payment clears, touchpoints collapse into automated shipping SMS and promotional WhatsApp marketing (which Karamjit noted causes annoyance). There is no guided routine assistant.</li>
 </ul>
 
 <h2>6. Candidate Problems Considered & Evaluation</h2>
@@ -402,19 +309,19 @@ To ensure our primary interviews reflected broader consumer behavior, we systema
       <td><strong>3. Marketplace Authenticity & QC</strong></td>
       <td>Near-expiry batches on Fruugo/Amazon, packaging desync.</td>
       <td>Medium (QR lookup / batch DB)</td>
-      <td><span style="color:#A00;">REJECTED</span>: Solves an edge case for 3rd party resellers, not core brand journey.</td>
+      <td><span style="color:#A00;">REJECTED</span>: Solves an edge case for 3rd party resellers, not core direct journey.</td>
     </tr>
     <tr>
       <td><strong>4. Marketing Communication Fatigue</strong></td>
       <td>Relentless WhatsApp/SMS marketing spam (Karamjit feedback).</td>
       <td>Medium (SMS opt-out dashboard)</td>
-      <td><span style="color:#A80;">PARTIALLY MERGED</span>: Solved in app via transparent privacy & zero spam.</td>
+      <td><span style="color:#A80;">PARTIALLY MERGED</span>: Addressed in app design via transparent privacy and zero spam.</td>
     </tr>
     <tr class="selected-row">
       <td><strong>5. PRE-PURCHASE INTENT-TO-PRODUCT FIT & POST-PURCHASE GUIDANCE VACUUM</strong></td>
       <td>Misaligned product selection, 60-day milestone blindness, guidance vacuum (Sonika, Nikhil).</td>
       <td>VERY HIGH (AI Intent Parsing + Deterministic Rules)</td>
-      <td><span style="color:#1A382B; font-weight: bold;">SELECTED</span>: Solves root cause of wrong product selection and routine abandonment.</td>
+      <td><span style="color:#1A382B; font-weight: bold;">SELECTED</span>: Directly requested by customers; solves root cause of wrong product selection and routine abandonment.</td>
     </tr>
   </tbody>
 </table>
@@ -446,12 +353,12 @@ To address this validated problem statement, we designed, engineered, and deploy
   <li><strong>Open-Source GitHub Repository:</strong> <a href="https://github.com/AnshulKaushal27/bodywise-match">https://github.com/AnshulKaushal27/bodywise-match</a></li>
 </ul>
 
-<p><strong>Key Capabilities Built to Solve the Customer Pains:</strong></p>
+<p><strong>How Bodywise Match Solves the Validated Customer Pains:</strong></p>
 <ol>
-  <li><strong>AI Interprets, Rules Decide:</strong> Directly fulfills Sonika's request for an AI guide. LLM or keyword parsing extracts structured needs into Zod schemas; product ranking and exclusions are pure deterministic TypeScript.</li>
-  <li><strong>Expectation & Milestone Transparency:</strong> Fulfills Nikhil's demand for milestone timelines. Match cards explain biological timelines (e.g. 90–120 days for hair renewal) and format trade-offs.</li>
-  <li><strong>Fact Integrity & Provenance:</strong> Every single product fact across the catalogue includes provenance (source URL and <code>last_verified_at</code> timestamp).</li>
-  <li><strong>Order & Product Issue Helper:</strong> Fulfills Karamjit and Ritu's feedback with guided checklists and direct routes to official support channels for delivery, packaging, or communication issues.</li>
+  <li><strong>AI Interprets, Rules Decide (Solves Sonika's Guidance Vacuum):</strong> Directly fulfills Sonika's request for an AI guide. LLM or deterministic keyword parsing extracts structured needs (<code>ParsedNeeds</code>) into strict Zod schemas; product ranking and exclusions are pure deterministic TypeScript.</li>
+  <li><strong>Expectation & Milestone Transparency (Solves Nikhil's Milestone Blindness):</strong> Fulfills Nikhil's demand for milestone timelines. Match cards explain biological timelines (e.g. 90–120 days for hair renewal) and format trade-offs before purchase.</li>
+  <li><strong>Fact Integrity & Provenance (Solves Product Uncertainty):</strong> Every single product fact across the catalogue includes provenance (source URL and <code>last_verified_at</code> timestamp). Unverified fields remain null ("Not verified yet").</li>
+  <li><strong>Order & Product Issue Helper (Solves Karamjit & Delivery Issues):</strong> Guided checklists and direct routes to official support channels for delivery, packaging, or communication issues.</li>
   <li><strong>Privacy First & Zero Spam:</strong> Zero mandatory signup, zero spam, fastify logger body redaction, and strict WCAG AA contrast compliance.</li>
 </ol>
 
