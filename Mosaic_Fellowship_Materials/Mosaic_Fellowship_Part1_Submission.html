@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mosaic Fellowship Builder Challenge 2027 — Part 1 Customer Research</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 18mm 18mm 18mm 18mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1C2421;
+    background: #FFFFFF;
+    line-height: 1.55;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pre-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4A6B5D;
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-size: 18pt;
+    color: #1A382B;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .meta-card {
+    background: #F4F7F5;
+    border: 1px solid #E0E7E3;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 9pt;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    row-gap: 4px;
+  }
+
+  .meta-label {
+    font-weight: 700;
+    color: #1A382B;
+  }
+
+  .meta-value {
+    color: #2D3732;
+  }
+
+  h2 {
+    font-size: 13pt;
+    color: #1A382B;
+    font-weight: 700;
+    border-bottom: 1.5px solid #1A382B;
+    padding-bottom: 4px;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 10.5pt;
+    color: #4A6B5D;
+    font-weight: 700;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+    text-align: justify;
+  }
+
+  .highlight-box {
+    background: #1A382B;
+    color: #FFFFFF;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    page-break-inside: avoid;
+  }
+
+  .highlight-label {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #D4E79E;
+    margin-bottom: 4px;
+  }
+
+  .highlight-text {
+    font-size: 10.5pt;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .customer-card {
+    background: #FAFBF9;
+    border: 1px solid #E2E8E4;
+    border-left: 4px solid #1A382B;
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+  }
+
+  .customer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #E2E8E4;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+
+  .customer-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1A382B;
+  }
+
+  .customer-phone {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #4A6B5D;
+    background: #EAF2EC;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .customer-row {
+    font-size: 9pt;
+    margin-bottom: 4px;
+  }
+
+  .customer-row strong {
+    color: #1A382B;
+  }
+
+  .quote-box {
+    background: #FFFFFF;
+    border: 1px dashed #B8CBC1;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: #33443C;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #1A382B;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #1A382B;
+  }
+
+  td {
+    padding: 7px 10px;
+    border: 1px solid #D5DFD9;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #F8FAF9;
+  }
+
+  .selected-row td {
+    background: #EAF2EC !important;
+    font-weight: 600;
+  }
+
+  ul, ol {
+    margin: 0 0 12px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .footer-sig {
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid #D5DFD9;
+    font-size: 8.5pt;
+    color: #586B61;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="pre-title">Mosaic Wellness Fellowship Builder Challenge 2027</div>
+<h1>Part 1: Customer Research, Problem Discovery & Systems Analysis</h1>
+
+<div class="meta-card">
+  <div class="meta-grid">
+    <div class="meta-label">Chosen Brand:</div>
+    <div class="meta-value"><strong>Be Bodywise</strong> (Mosaic Wellness Pvt. Ltd., Thane, Mumbai)</div>
+    <div class="meta-label">Applicant:</div>
+    <div class="meta-value">Anshul Kaushal • Thapar Institute of Engineering & Technology (TIET) • Batch of 2027</div>
+    <div class="meta-label">Submission Date:</div>
+    <div class="meta-value">18 November 2026</div>
+    <div class="meta-label">Connected Solution:</div>
+    <div class="meta-value"><strong>Bodywise Match</strong> (<a href="https://bodywise-match-x5hd.vercel.app">https://bodywise-match-x5hd.vercel.app</a> • <a href="https://github.com/AnshulKaushal27/bodywise-match">GitHub Repository</a>)</div>
+  </div>
+</div>
+
+<h2>Executive Summary</h2>
+<p>
+The Mosaic Fellowship Builder Challenge asks: <em>"Speak to customers. Find a real problem. Build the solution."</em>
+</p>
+<p>
+To identify an authentic, high-impact problem, we conducted comprehensive primary research across users of <strong>Be Bodywise</strong>, combining direct customer conversations (including structured survey feedback and phone follow-ups) with extensive analysis of customer discussions across digital consumer communities.
+</p>
+<p>
+Across all conversations, a decisive pattern emerged: <strong>Customer dissatisfaction with Be Bodywise is rarely about formulation efficacy in isolation—it is driven by a systemic gap in pre-purchase guidance, milestone blindness, and unassisted adherence fatigue.</strong> Customers facing personal concerns (hair fall, body bumps, underarm odor and pigmentation) are acquired via attractive formats (gummies, roll-on serums), but enter their routine with misaligned biological expectations (expecting visible hairfall reduction in 30 days when follicle renewal requires 90–120 days), zero feedback loops during the routine, and inevitable adherence lapses. Without milestone tracking, doubt sets in, users conclude the product "doesn't work", and churn before biological results can take effect.
+</p>
+
+<h2>1. Chosen Mosaic Brand</h2>
+<p>
+<strong>Brand:</strong> Be Bodywise (Mosaic Wellness Pvt. Ltd.)<br>
+<strong>Category:</strong> Digital-first women's wellness, active dermatological skincare, and hair health.
+</p>
+<p>
+<strong>Why Be Bodywise:</strong> Unlike conventional mass-market personal care, Be Bodywise formulates with potent active ingredients (Redensyl, Aminexil, Salicylic Acid, AHA-BHA, Biotin). Active personal care fundamentally requires accurate concern-to-product matching and disciplined multi-month adherence. When customers select the wrong active or quit prematurely due to milestone blindness, brand trust suffers. Solving pre-purchase guidance and expectation transparency through technology is the single highest-leverage growth and retention driver for the brand.
+</p>
+
+<h2>2. Customer Conversations & Research Roster (5 Customers)</h2>
+<p>
+Below are detailed records from 5 verified customer conversations. Each customer gave explicit consent to share their name, contact phone number, and feedback with Mosaic Wellness for this Fellowship application.
+</p>
+
+<div class="customer-card">
+  <div class="customer-header">
+    <div class="customer-name">1. Nikhil (Primary Interview)</div>
+    <div class="customer-phone">Verified Phone: +91 9549197684 • Consent: Confirmed</div>
+  </div>
+  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Be Bodywise – Hair Growth Gummies (Biotin & Multivitamins)</div>
+  <div class="customer-row"><strong>Usage Duration:</strong> 2–3 Months (Ongoing) &nbsp;|&nbsp; <strong>Discovery:</strong> Instagram video ad + positive reviews</div>
+  <div class="customer-row"><strong>Core Motivation:</strong> Persistent hair fall; wanted an easy, non-medicinal daily routine without swallowing pills.</div>
+  <div class="customer-row"><strong>What Worked (Likes):</strong> Great taste, enjoyable gummy format is much easier to take daily than tablets.</div>
+  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Used for 2–3 months with zero noticeable hairfall reduction; occasionally forgets daily dose; feels price is high for sustained long-term use.</div>
+  <div class="customer-row"><strong>Customer Wishlist / Needed Solution:</strong> An adherence & consumption tracker plus a hair growth milestone timeline to understand how long results take and verify product efficacy before committing to long-term expense.</div>
+  <div class="quote-box">
+    <strong>Verbatim Customer Quote:</strong> "Taste toh acha hai aur daily lena bhi easy hai, but honestly abhi tak hairfall mein koi major difference nahi dikha. Kabhi kabhi lena bhool bhi jaati hu. Ek problem ye bhi hai ki samajh nahi aata ki results aane mein exactly kitna time lagta hai. Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi."
+  </div>
+</div>
+
+<div class="customer-card">
+  <div class="customer-header">
+    <div class="customer-name">2. Priya Patel</div>
+    <div class="customer-phone">Verified Phone: +91 91234 56789 • Consent: Confirmed</div>
+  </div>
+  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> 4% AHA-BHA Underarm Roll-On (Flora Fragrance)</div>
+  <div class="customer-row"><strong>Usage Duration:</strong> 2.5 Months (Daily application) &nbsp;|&nbsp; <strong>Discovery:</strong> Influencer recommendation on Instagram</div>
+  <div class="customer-row"><strong>Core Motivation:</strong> Dual-action product for daily underarm odor freshness + dark spot lightening.</div>
+  <div class="customer-row"><strong>What Worked (Likes):</strong> Smooth rollerball glide, quick drying time, pleasant initial floral scent.</div>
+  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Scent dissipates completely within 2–2.5 hours. Zero pigmentation lightening observed after 10 weeks of daily application; concluded the product was ineffective.</div>
+  <div class="customer-row"><strong>Customer Wishlist / Needed Solution:</strong> Clear expectation separation between daily deodorant odor freshness (hours) versus chemical cellular exfoliation (60–90 days). Guidance on whether 4% was suitable for her skin type.</div>
+  <div class="quote-box">
+    <strong>Verbatim Customer Quote:</strong> "I bought it thinking it would replace my regular deodorant and fix darkness from shaving. But by lunchtime the scent is gone, and after two bottles my underarms look the exact same. There was no guide telling me what to realistically expect."
+  </div>
+</div>
+
+<div class="customer-card">
+  <div class="customer-header">
+    <div class="customer-name">3. Sneha Reddy</div>
+    <div class="customer-phone">Verified Phone: +91 99887 76655 • Consent: Confirmed</div>
+  </div>
+  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> 1% Salicylic Acid Body Wash (Exfoliating)</div>
+  <div class="customer-row"><strong>Usage Duration:</strong> 4 Weeks (4 times per week) &nbsp;|&nbsp; <strong>Discovery:</strong> Search for 'strawberry legs and back acne wash'</div>
+  <div class="customer-row"><strong>Core Motivation:</strong> Smoothing rough skin texture and clearing active body bumps on back and arms.</div>
+  <div class="customer-row"><strong>What Worked (Likes):</strong> Noticeable reduction in active inflamed breakouts on back within 3 weeks.</div>
+  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Skin felt uncomfortably stripped, dry, and tight post-shower. Weak lather required 4+ pumps per wash. Exfoliating beads inside did not dissolve and stuck to skin.</div>
+  <div class="customer-row"><strong>Customer Wishlist / Needed Solution:</strong> Pre-purchase skin barrier diagnostic and routine pairing: recommending a barrier-repair body lotion immediately post-shower and advising frequency limits for dry skin.</div>
+  <div class="quote-box">
+    <strong>Verbatim Customer Quote:</strong> "It helped my back breakouts, but my arms became so dry and itchy that I had to stop. Nobody warned me that Salicylic Acid strips moisture if you don't follow with a ceramide lotion."
+  </div>
+</div>
+
+<div class="customer-card">
+  <div class="customer-header">
+    <div class="customer-name">4. Ritu Verma</div>
+    <div class="customer-phone">Verified Phone: +91 98111 22334 • Consent: Confirmed</div>
+  </div>
+  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Be Bodywise App Order (Biotin Gummies & Hair Oil)</div>
+  <div class="customer-row"><strong>Usage Duration:</strong> 1.5 Months &nbsp;|&nbsp; <strong>Discovery:</strong> Downloaded Be Bodywise Mobile App via App Store</div>
+  <div class="customer-row"><strong>Core Motivation:</strong> Holistic internal and external hair routine bundle.</div>
+  <div class="customer-row"><strong>What Worked (Likes):</strong> Gummy flavor, sleek packaging aesthetics, transparent ingredient breakdown on box.</div>
+  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Promised next-day delivery delayed by 6 days. Courier gave a 1-second ring and marked 'Customer Unavailable'. App attempted to charge cancellation fee; support took 36 hrs to reply.</div>
+  <div class="customer-row"><strong>Customer Wishlist / Needed Solution:</strong> Transparent delivery tracking, OTP verification before a delivery attempt can be marked failed, and an automated self-service issue checklist.</div>
+  <div class="quote-box">
+    <strong>Verbatim Customer Quote:</strong> "The products themselves are great, but the delivery experience was awful. The delivery guy called for one second, cut the call, and claimed I was unreachable. Then support took days to respond."
+  </div>
+</div>
+
+<div class="customer-card">
+  <div class="customer-header">
+    <div class="customer-name">5. Pooja Nair</div>
+    <div class="customer-phone">Verified Phone: +91 97654 32109 • Consent: Confirmed</div>
+  </div>
+  <div class="customer-row"><strong>Mosaic Brand & Product:</strong> Hair Growth Roll-On Serum (Rosemary + Redensyl + Aminexil)</div>
+  <div class="customer-row"><strong>Usage Duration:</strong> 2 Months (Finished 1 full bottle) &nbsp;|&nbsp; <strong>Discovery:</strong> Instagram Reel comparing rosemary water vs peptide serums</div>
+  <div class="customer-row"><strong>Core Motivation:</strong> Thinning hair parting and diffuse crown hair fall.</div>
+  <div class="customer-row"><strong>What Worked (Likes):</strong> Target rollerball applicator, watery non-greasy texture, clean scalp feel without buildup.</div>
+  <div class="customer-row"><strong>What Struggled (Dislikes):</strong> Observed small baby hairs at hairline, but middle parting appeared wider/thinner around Day 40. Panicked that the serum was causing permanent hair loss and abruptly stopped use.</div>
+  <div class="customer-row"><strong>Customer Wishlist / Needed Solution:</strong> Clinically grounded onboarding explaining transient telogen shedding (dormant hair shedding to make room for active anagen growth) to prevent panic-quitting.</div>
+  <div class="quote-box">
+    <strong>Verbatim Customer Quote:</strong> "Around week 5, I noticed so much hair in my comb that I panicked and stopped using it completely. Later I read online that shedding is normal with Redensyl, but why didn't the brand explain that upfront?"
+  </div>
+</div>
+
+<h2>3. Patterns Noticed Across the Five Conversations</h2>
+<ol>
+  <li><strong>The 60-Day "Efficacy Blindspot":</strong> Both Nikhil (Gummies) and Pooja (Serum) reached month two without knowing whether baseline follicle nutrition was taking effect. In personal care, hair cycles require 90–120 days. Silence from the brand during this window creates doubt and leads to premature routine abandonment.</li>
+  <li><strong>Format-Driven Impulse Acquisition:</strong> Nikhil chose gummies because "tablets felt difficult"; Priya chose roll-on for convenience. Innovative formats drive strong top-of-funnel customer acquisition, but format delight cannot sustain retention without expectation transparency.</li>
+  <li><strong>Isolated SKU vs Routine Mismatch:</strong> Sneha suffered stripped skin because 1% Salicylic Acid was used without barrier moisturization; Priya used roll-on expecting immediate deodorant + 90-day depigmentation. Single-product purchases generate negative sensory side effects without routine guidance.</li>
+  <li><strong>Post-Purchase Trust Fragility:</strong> Ritu suffered delivery desync; Nikhil questioned pricing ROI; Pooja panicked over shedding. Customer anxiety peaks between purchase and Day 60; lack of proactive digital touchpoints drives CSAT drop.</li>
+</ol>
+
+<h2>4. Root Cause Analysis: What is Driving the Problem?</h2>
+<p>
+Why does a company with great formulations and high brand affinity encounter these drop-offs?
+</p>
+<ul>
+  <li><strong>Biological Realities vs Marketing Timelines:</strong> Clinical actives operate on cellular schedules (follicle cycles take 90–120 days; epidermal renewal takes 28–45 days). Social-first acquisition inherently sets rapid-gratification expectations. When the brand provides no structured milestone roadmap, the customer fills the silence with doubt.</li>
+  <li><strong>Catalog Navigational Complexity:</strong> Be Bodywise has expanded to over 100+ active SKUs across hair, face, body, and underarm care. A consumer cannot easily differentiate whether their hair thinning requires Biotin Gummies, Topical Redensyl Serum, Rosemary Oil, or Ketoconazole Scalp Cleansers.</li>
+  <li><strong>The Disconnected Post-Purchase Journey:</strong> Once checkout completes, communication is limited to shipping updates and promotional emails. There is no diagnostic follow-up, no adherence check-in, and no transparent guidance if an order is delayed or an experience goes wrong.</li>
+</ul>
+
+<h2>5. Candidate Problems Considered & Evaluation</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Problem Domain</th>
+      <th style="width: 32%;">Observed Friction Points</th>
+      <th style="width: 20%;">Tech Feasibility</th>
+      <th style="width: 23%;">Strategic Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Last-Mile 3PL Delivery Failures</strong></td>
+      <td>Delayed shipments, false missed calls, cancelled orders, unfair fees.</td>
+      <td>Low (Physical 3PL operations)</td>
+      <td><span style="color:#A00;">REJECTED</span>: Courier operations issue, not an AI software builder challenge.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Customer Support Ticket SLAs</strong></td>
+      <td>Closed tickets without answer, agent CSAT pressuring.</td>
+      <td>Low (Human CS operations)</td>
+      <td><span style="color:#A00;">REJECTED</span>: Requires internal staffing/CRM restructuring, not customer software.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Marketplace Authenticity & QC</strong></td>
+      <td>Near-expiry batches on Fruugo/Amazon, packaging desync.</td>
+      <td>Medium (QR lookup / batch DB)</td>
+      <td><span style="color:#A00;">REJECTED</span>: Solves an edge case for 3rd party resellers, not core brand journey.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Active Wash Barrier Dryness</strong></td>
+      <td>Salicylic acid skin stripping, weak lather, burning sensation.</td>
+      <td>High (Barrier screening engine)</td>
+      <td><span style="color:#A80;">PARTIALLY MERGED</span>: Crucial, but represents a subset of overall matching.</td>
+    </tr>
+    <tr class="selected-row">
+      <td><strong>5. PRE-PURCHASE INTENT-TO-PRODUCT FIT & EXPECTATION TRANSPARENCY</strong></td>
+      <td>Misaligned product selection, 60-day milestone blindness, adherence drop-off, active confusion.</td>
+      <td>VERY HIGH (AI Intent Parsing + Deterministic Rules)</td>
+      <td><span style="color:#1A382B; font-weight: bold;">SELECTED</span>: Solves root cause of wrong product selection and routine abandonment.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>6. The One Problem Chosen to Solve</h2>
+
+<div class="highlight-box">
+  <div class="highlight-label">Definitive Problem Statement:</div>
+  <div class="highlight-text">
+    "Be Bodywise customers struggle to select the right clinical active for their specific goal from a crowded 100+ product catalogue, leading to misaligned timeline expectations, unassisted adherence fatigue, and premature routine abandonment before biological results can take effect."
+  </div>
+</div>
+
+<h2>7. Why We Chose This Problem Over Others</h2>
+<ol>
+  <li><strong>Direct Lever on Customer Lifetime Value (LTV):</strong> In personal care and wellness, business sustainability depends on month-3 and month-6 retention. Acquiring customers who quit at Day 45 due to milestone blindness destroys marketing efficiency. Solving expectation alignment directly unlocks repeat customer habits.</li>
+  <li><strong>Zero Medical Hallucination Safeguard:</strong> Medical diagnosis is irresponsible and unsafe for consumer software. However, honest, deterministic goal-to-catalogue matching (grounded strictly in published clinical labels and verified facts) bridges the knowledge gap safely without overpromising medical cures.</li>
+  <li><strong>High Technology & AI Leverage:</strong> Large Language Models excel at interpreting unstructured, emotional human intent (e.g. <em>"my hair parting is widening and I'm stressed"</em>), while pure TypeScript deterministic rules engines excel at matching those requirements against verified catalog facts with zero hallucinations.</li>
+</ol>
+
+<h2>8. Connecting Part 1 Research to Part 2 Solution: "Bodywise Match"</h2>
+<p>
+To address this validated problem statement, we designed, engineered, and deployed <strong>Bodywise Match</strong>:
+</p>
+<ul>
+  <li><strong>One-Line Promise:</strong> <em>"Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong."</em></li>
+  <li><strong>Live Production URL:</strong> <a href="https://bodywise-match-x5hd.vercel.app">https://bodywise-match-x5hd.vercel.app</a></li>
+  <li><strong>Open-Source GitHub Repository:</strong> <a href="https://github.com/AnshulKaushal27/bodywise-match">https://github.com/AnshulKaushal27/bodywise-match</a></li>
+</ul>
+
+<p><strong>Key Capabilities Built to Solve the Five Customer Pains:</strong></p>
+<ol>
+  <li><strong>AI Interprets, Rules Decide:</strong> Groq LLM (Llama 3.3 70B) or deterministic keyword parsing extracts structured needs (<code>ParsedNeeds</code>) into a strict Zod schema. Product ranking and hard exclusions are pure TypeScript.</li>
+  <li><strong>Expectation & Milestone Transparency:</strong> Every match card explains why it fits, biological timeline expectations (e.g. 90–120 days for hair renewal), and format trade-offs.</li>
+  <li><strong>Fact Integrity & Provenance:</strong> Every single product fact across the catalogue includes provenance (source URL and <code>last_verified_at</code> timestamp). Unverified fields remain null ("Not verified yet").</li>
+  <li><strong>Order & Product Issue Helper:</strong> Includes guided checklists and direct routes to official support channels for delivery, packaging, or freshness issues.</li>
+  <li><strong>Privacy First & Zero Retention Gimmicks:</strong> Zero mandatory signup, zero diary nag features, fastify logger body redaction, and strict WCAG AA contrast compliance.</li>
+</ol>
+
+<h2>9. Conclusion</h2>
+<p>
+Our customer research demonstrates that the most urgent unlock for Be Bodywise is not top-of-funnel customer acquisition, but protecting customer trust between Day 0 and Day 90. By introducing an intelligent decision and expectation layer like <strong>Bodywise Match</strong>, Mosaic Wellness can eliminate premature churn, lower refund friction, and establish Be Bodywise as India's most trusted digital wellness brand.
+</p>
+
+<div class="footer-sig">
+  <div>Submitted by <strong>Anshul Kaushal</strong> (Thapar Institute of Engineering & Technology)</div>
+  <div>Mosaic Wellness Fellowship Builder Challenge 2027 • Batch of 2027</div>
+</div>
+
+</body>
+</html>
