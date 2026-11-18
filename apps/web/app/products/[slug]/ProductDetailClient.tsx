@@ -291,125 +291,128 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           </div>
         </section>
 
-        {/* ================= 2. "INTENDED USE (FROM OFFICIAL DESCRIPTION)" ================= */}
-        <section aria-labelledby="intended-use" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <FileText className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-            <h2 id="intended-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-              Intended use (from official description)
-            </h2>
-          </div>
-          <p className="text-sm md:text-base text-charcoal/90 leading-relaxed mb-4">
-            {product.official_description}
-          </p>
-          {product.suitable_for && product.suitable_for.length > 0 && (
-            <div className="pt-3 border-t border-border/60">
-              <span className="text-xs font-bold uppercase tracking-wider text-muted block mb-1.5">
-                Suitable for
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {product.suitable_for.map((item, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2.5 py-1 rounded-full bg-surface-sage/50 text-brand-deep border border-border"
-                  >
-                    {item.replace(/_/g, " ")}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* ================= 3. "HOW TO USE (OFFICIAL LABEL DIRECTIONS ONLY)" ================= */}
-        <section aria-labelledby="how-to-use" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <CheckCircle className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-            <h2 id="how-to-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-              How to use (official label directions only)
-            </h2>
-          </div>
-          <p className="text-sm md:text-base text-charcoal/90 leading-relaxed bg-paper p-4 rounded-button border border-border">
-            {product.label_directions}
-          </p>
-        </section>
-
-        {/* ================= 4. "INGREDIENTS" (only if sourced, else "Not verified yet") ================= */}
-        <section aria-labelledby="ingredients-heading" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-sm">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <div className="flex items-center gap-2">
-              <Flask className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-              <h2 id="ingredients-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                Ingredients
+        {/* ================= CORE PRODUCT SPECIFICATIONS ================= */}
+        <div className="rounded-card bg-surface border border-border shadow-ambient p-6 md:p-8 space-y-8 divide-y divide-border">
+          {/* ================= 2. "INTENDED USE (FROM OFFICIAL DESCRIPTION)" ================= */}
+          <section aria-labelledby="intended-use" className="space-y-3">
+            <div className="flex items-center gap-2 mb-3">
+              <FileText className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+              <h2 id="intended-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
+                Intended use (from official description)
               </h2>
             </div>
-            {product.ingredients && product.ingredients.length > 0 && product.last_verified_at ? (
-              <SourceTag
-                source={product.source_url || "Packaging Label"}
-                lastVerifiedAt={product.last_verified_at}
-              />
-            ) : (
-              <SourceTag source={null} />
-            )}
-          </div>
-
-          {product.ingredients && product.ingredients.length > 0 ? (
-            <div className="space-y-3">
-              <p className="text-xs text-muted">
-                Official packaging ingredient declaration verified from manufacturer source:
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {product.ingredients.map((ing, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2.5 py-1 rounded-full bg-paper text-charcoal border border-border"
-                  >
-                    {ing}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="p-4 rounded-button bg-surface-sage/30 border border-border text-xs md:text-sm text-charcoal/85 flex items-start gap-2.5">
-              <Question className="w-4 h-4 text-muted shrink-0 mt-0.5" weight="regular" />
-              <div>
-                <strong className="font-semibold text-brand-deep block mb-0.5">
-                  Not verified yet
-                </strong>
-                <span>
-                  We strictly do not invent ingredients or scrape third-party blogs. A verified ingredient list from the official physical packaging will be uploaded following barcode check.
-                </span>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* ================= 5. "CAUTIONS" (official label only) ================= */}
-        <section aria-labelledby="cautions-heading" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <WarningCircle className="w-5 h-5 text-caution-text" weight="regular" aria-hidden="true" />
-            <h2 id="cautions-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-              Cautions (official label only)
-            </h2>
-          </div>
-
-          {product.cautions && product.cautions.length > 0 ? (
-            <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider block">
-                Official Packaging Warnings &amp; Advisory
-              </span>
-              <ul className="text-xs md:text-sm space-y-1.5 pl-4 list-disc marker:text-caution-text">
-                {product.cautions.map((caution, idx) => (
-                  <li key={idx}>{caution}</li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p className="text-xs md:text-sm text-muted italic">
-              No specific cautions found on current packaging label.
+            <p className="text-sm md:text-base text-charcoal/90 leading-relaxed mb-4">
+              {product.official_description}
             </p>
-          )}
-        </section>
+            {product.suitable_for && product.suitable_for.length > 0 && (
+              <div className="pt-3 border-t border-border/60">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted block mb-1.5">
+                  Suitable for
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {product.suitable_for.map((item, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs px-2.5 py-1 rounded-full bg-surface-sage/50 text-brand-deep border border-border"
+                    >
+                      {item.replace(/_/g, " ")}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* ================= 3. "HOW TO USE (OFFICIAL LABEL DIRECTIONS ONLY)" ================= */}
+          <section aria-labelledby="how-to-use" className="pt-8 space-y-3">
+            <div className="flex items-center gap-2 mb-3">
+              <CheckCircle className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+              <h2 id="how-to-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
+                How to use (official label directions only)
+              </h2>
+            </div>
+            <p className="text-sm md:text-base text-charcoal/90 leading-relaxed bg-paper p-4 rounded-button border border-border">
+              {product.label_directions}
+            </p>
+          </section>
+
+          {/* ================= 4. "INGREDIENTS" (only if sourced, else "Not verified yet") ================= */}
+          <section aria-labelledby="ingredients-heading" className="pt-8 space-y-3">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div className="flex items-center gap-2">
+                <Flask className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                <h2 id="ingredients-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
+                  Ingredients
+                </h2>
+              </div>
+              {product.ingredients && product.ingredients.length > 0 && product.last_verified_at ? (
+                <SourceTag
+                  source={product.source_url || "Packaging Label"}
+                  lastVerifiedAt={product.last_verified_at}
+                />
+              ) : (
+                <SourceTag source={null} />
+              )}
+            </div>
+
+            {product.ingredients && product.ingredients.length > 0 ? (
+              <div className="space-y-3">
+                <p className="text-xs text-muted">
+                  Official packaging ingredient declaration verified from manufacturer source:
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {product.ingredients.map((ing, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs px-2.5 py-1 rounded-full bg-paper text-charcoal border border-border"
+                    >
+                      {ing}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="p-4 rounded-button bg-surface-sage/30 border border-border text-xs md:text-sm text-charcoal/85 flex items-start gap-2.5">
+                <Question className="w-4 h-4 text-muted shrink-0 mt-0.5" weight="regular" />
+                <div>
+                  <strong className="font-semibold text-brand-deep block mb-0.5">
+                    Not verified yet
+                  </strong>
+                  <span>
+                    We strictly do not invent ingredients or scrape third-party blogs. A verified ingredient list from the official physical packaging will be uploaded following barcode check.
+                  </span>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* ================= 5. "CAUTIONS" (official label only) ================= */}
+          <section aria-labelledby="cautions-heading" className="pt-8 space-y-3">
+            <div className="flex items-center gap-2 mb-3">
+              <WarningCircle className="w-5 h-5 text-caution-text" weight="regular" aria-hidden="true" />
+              <h2 id="cautions-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
+                Cautions (official label only)
+              </h2>
+            </div>
+
+            {product.cautions && product.cautions.length > 0 ? (
+              <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text space-y-2">
+                <span className="text-xs font-bold uppercase tracking-wider block">
+                  Official Packaging Warnings &amp; Advisory
+                </span>
+                <ul className="text-xs md:text-sm space-y-1.5 pl-4 list-disc marker:text-caution-text">
+                  {product.cautions.map((caution, idx) => (
+                    <li key={idx}>{caution}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p className="text-xs md:text-sm text-muted italic">
+                No specific cautions found on current packaging label.
+              </p>
+            )}
+          </section>
+        </div>
 
         {/* ================= 6. "WHY IT MATCHED / WHY IT MAY NOT" (ONLY when arriving from a session) ================= */}
         {sessionNeeds && (
