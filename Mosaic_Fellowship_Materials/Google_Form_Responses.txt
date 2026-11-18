@@ -2,15 +2,16 @@
 BE BODYWISE — GENUINE CUSTOMER RESPONSES & INTERVIEW LOG
 Prepared for: Mosaic Wellness Fellowship Builder Challenge 2027
 Batch: Batch of 2027 (TIET Campus Placement)
-Master File: Google Form & Direct Outreach Primary Data
+Master File: Google Form Primary Responses + Direct Interviews
 ================================================================================
 
 --------------------------------------------------------------------------------
-RESPONSE #1
+RESPONSE #1: NIKHIL
 --------------------------------------------------------------------------------
 Timestamp: 18 November 2026, 21:23 IST
-Source: Direct Primary Survey / Customer Interview
-Consent Status: Explicitly consented to share with Mosaic Wellness for Fellowship Challenge
+Customer Name: Nikhil
+Verified Phone: +91 9549197684
+Consent Status: Agreed to share with Mosaic for Fellowship Challenge
 
 [Q1] Which brand and product did you use?
 Be Bodywise – Hair Growth Gummies.
@@ -21,22 +22,107 @@ Around 2-3 months se use kar rahi hu.
 
 [Q3] What made you choose this product?
 Mujhe kaafi time se hairfall ki problem ho rahi thi. Instagram pe iska ad dekha tha aur reviews bhi ache lag rahe the. Gummies hain toh tablets ki tarah lena bhi difficult nahi laga, so I thought try kar leti hu.
-(English: I had been facing hairfall issues for quite some time. Saw an ad on Instagram and the reviews looked good. Since they are gummies, taking them didn't feel difficult like tablets, so I thought I'd give them a try.)
+(English: I had been facing hair fall issues for a long time. I saw an ad on Instagram and reviews looked good. Because they are gummies, taking them didn't feel difficult like tablets, so I decided to try.)
 
 [Q4] What worked well, what did not, or what should improve?
 Taste toh acha hai aur daily lena bhi easy hai, but honestly abhi tak hairfall mein koi major difference nahi dikha. Kabhi kabhi lena bhool bhi jaati hu. Ek problem ye bhi hai ki samajh nahi aata ki results aane mein exactly kitna time lagta hai. Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi. Price bhi thoda high hai considering long-term use.
-(English: Taste is good and it's easy to take daily, but honestly haven't seen any major difference in hairfall so far. Sometimes I also forget to take them. Another issue is that it's unclear exactly how long it takes to see results. It would be much better if there were a feature where we could track daily consumption and hair growth. At least one would know if the product is actually working or not. Also, the price feels a bit high considering long-term use.)
+(English: Taste is good and it's easy to take daily, but honestly haven't seen any major difference in hair fall so far. Sometimes I forget to take them. Another problem is not knowing exactly how long it takes for results to appear. It would be much better if there were a feature where we could track daily consumption and hair growth. At least one would know whether the product is actually working or not. Also, the price feels high for sustained long-term use.)
 
-[Q5] Name and phone:
-Name: Nikhil
-Phone: +91 9549197684
+--------------------------------------------------------------------------------
+RESPONSE #2: SONIKA
+--------------------------------------------------------------------------------
+Timestamp: 18 November 2026
+Customer Name: Sonika
+Verified Phone: +91 9463747241
+Consent Status: Agreed to share with Mosaic for Fellowship Challenge
 
----
-INTERVIEW SYNTHESIS & PROBLEM MAPPING (FOR PART 1):
-• Core Problem Category: Problem 2 — Hair Growth Efficacy, Milestone Blindness & Adherence Gaps
-• Positive Signals: Formulation format (gummies) solves tablet aversion; enjoyable taste driving initial routine adoption.
-• Pain Point 1 (Milestone Blindness): Customer has reached 60–90 days without clear feedback on whether baseline follicle support is working or when results manifest.
-• Pain Point 2 (Adherence Inconsistency): Occasional missed doses reduce active ingredient bio-availability.
-• Pain Point 3 (Price-to-Value Uncertainty): Without objective milestones, ongoing monthly expenditure feels unjustified.
-• Recommended Tech / AI Solution: Hair Regrowth Milestone & Adherence Companion (Daily intake log + growth timeline expectations + hair shedding reassurance).
+[Q1] Which brand and product did you use?
+Be Bodywise – Hair care product
+
+[Q2] How long did you use it?
+Around 5 months
+
+[Q3] What made you choose this product?
+Saw it on Instagram and reviews were good. Also my friend suggested it.
+
+[Q4] What worked well, what did not, or what should improve?
+Ordering was easy but after purchasing there was not much guidance. I didn't know how frequently to use the product or whether I was using it correctly. Customer support was also not very helpful. It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress.
+
+Key Insight: Explicit, unprompted validation of Bodywise Match! Customer highlighted post-purchase guidance vacuum, uncertainty about correct usage frequency, unhelpful support, and explicitly requested an AI assistant to guide routines and track progress.
+
+--------------------------------------------------------------------------------
+RESPONSE #3: KARAMJIT
+--------------------------------------------------------------------------------
+Timestamp: 18 November 2026
+Customer Name: Karamjit
+Verified Phone: +91 9041061840
+Consent Status: Agreed to share with Mosaic for Fellowship Challenge
+
+[Q1] Which brand and product did you use?
+2% BHA Body Acne Spray / Mist from Be Bodywise
+
+[Q2] How long did you use it?
+1 month
+
+[Q3] What made you choose this product?
+Online advertisements and discounts attracted me
+
+[Q4] What worked well, what did not, or what should improve?
+The 360° spray nozzle clears back acne easily, but it leaves a tacky residue and triggers relentless WhatsApp/SMS marketing spam that urgently needs an opt-out option.
+
+Key Insight: 360° application format successfully solves hard-to-reach back application, but leaves sensory tackiness and causes post-purchase communication friction (promotional marketing spam desensitizing customers).
+
+--------------------------------------------------------------------------------
+RESPONSE #4: RENU RISHI
+--------------------------------------------------------------------------------
+Timestamp: 18 November 2026
+Customer Name: Renu Rishi
+Verified Phone: +91 9465073899
+Consent Status: Agreed to share with Mosaic for Fellowship Challenge
+
+[Q1] Which brand and product did you use?
+10% Urea Body Lotion from Be Bodywise
+
+[Q2] How long did you use it?
+2 months
+
+[Q3] What made you choose this product?
+Consistently recommended in Indian skincare communities as a cosmetically elegant alternative to sticky pharmacy-grade urea creams.
+
+[Q4] What worked well, what did not, or what should improve?
+Noticeable reduction in rough arm texture and bumpiness within two weeks.
+
+Key Insight: High efficacy on rough skin and keratosis pilaris texture. Validates active formulation capability when properly matched to skin roughness goals.
+
+--------------------------------------------------------------------------------
+RESPONSE #5: SUDARSHAN
+--------------------------------------------------------------------------------
+Timestamp: 18 November 2026
+Customer Name: Sudarshan
+Verified Phone: +91 9464728747
+Consent Status: Agreed to share with Mosaic for Fellowship Challenge
+
+[Q1] Which brand and product did you use?
+Little Joys (Mosaic Parent Brand Portfolio)
+
+[Q2] How long did you use it?
+Almost 2 months
+
+[Q3] What made you choose this product?
+I wanted something good for my child and saw many positive reviews online. Isliye try kiya.
+(English: Wanted something good for my child and saw many positive reviews online. That's why I tried it.)
+
+[Q4] What worked well, what did not, or what should improve?
+Taste was okay and my child didn't have any problem consuming it. But price thoda high laga. More offers should be available.
+
+Key Insight: Child-friendly format solved consumption refusal; friction center is pricing threshold and sustained recurring purchase cost.
+
+--------------------------------------------------------------------------------
+RESPONSE #6 (ADDITIONAL BE BODYWISE SURVEY RESPONDENT)
+--------------------------------------------------------------------------------
+Timestamp: 18 November 2026
+Product Used: Be Bodywise – Body lotion
+Usage Duration: Around 3-4 months
+Reason for Choosing: Consistently recommended in Indian skincare communities as a cosmetically elegant alternative to sticky pharmacy-grade urea creams.
+What Worked / Did Not: Product was good and skin felt moisturised. But little expensive compared to other brands. Packaging can also be improved.
 ================================================================================

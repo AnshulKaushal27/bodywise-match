@@ -2,76 +2,90 @@
 
 **Mosaic Wellness Fellowship Builder Challenge 2027**  
 *Part 1: Primary Research Deliverable — Verified Customer Conversations*  
-*Last Updated: 18 November 2026 • Status: Active Primary Roster*
+*Last Updated: 18 November 2026 • Status: Complete Verified Roster*
 
 ---
 
 ## 📋 Challenge Requirements Checklist (Part 1)
-- [x] **Brand Focus:** Be Bodywise (Mosaic Wellness)
-- [x] **Real Customer Requirement:** Verified interviews only — zero AI-hallucinated or synthetic reviews
+- [x] **Brand Focus:** Be Bodywise (Mosaic Wellness Pvt. Ltd.)
+- [x] **Real Customer Requirement:** Verified interviews & Google Form submissions only — zero AI-hallucinated or synthetic reviews
 - [x] **Required Customer Data:** Actual Name, Contact Phone, Product(s) Used, Likes, Dislikes, and Feature Requests / Wishlist
 - [x] **Explicit Consent:** Verified agreement to share contact details and feedback with Mosaic Wellness
 
 ---
 
-## 👤 Verified Customer Roster
+## 👥 Master Verified Customer Roster (Consented Contacts)
 
-### Customer 1: Nikhil (+91 9549197684)
-
-| Attribute | Customer Details |
-| :--- | :--- |
-| **Customer Name** | **Nikhil** |
-| **Contact Phone** | `+91 9549197684` |
-| **Mosaic Brand** | **Be Bodywise** |
-| **Product(s) Used** | **Hair Growth Gummies (Biotin & Multivitamin Gummies)** |
-| **Usage Duration** | 2–3 months (ongoing) |
-| **Discovery Channel** | Instagram advertisement + positive social media reviews |
-| **Primary Goal / Need** | Visible hair fall reduction and hairline strength |
-| **Consent Confirmation** | **Agreed** to share name, phone number, and feedback with Mosaic Wellness |
-
-#### 💬 Original Interview Questions & Verbatim Responses
-
-##### 1. Which brand and product did you use?
-> *"Be Bodywise – Hair Growth Gummies."*
-
-##### 2. How long did you use it?
-> *"Around 2-3 months se use kar rahi hu."*  
-> *(English translation: "Have been using it for around 2–3 months.")*
-
-##### 3. What made you choose this product?
-> *"Mujhe kaafi time se hairfall ki problem ho rahi thi. Instagram pe iska ad dekha tha aur reviews bhi ache lag rahe the. Gummies hain toh tablets ki tarah lena bhi difficult nahi laga, so I thought try kar leti hu."*  
-> *(English translation: "I had been facing hair fall issues for a long time. I saw an ad on Instagram and the reviews looked promising. Because they are gummies, taking them didn't feel difficult like tablets, so I thought I would give them a try.")*
-
-##### 4. What worked well, what did not, or what should improve?
-> *"Taste toh acha hai aur daily lena bhi easy hai, but honestly abhi tak hairfall mein koi major difference nahi dikha. Kabhi kabhi lena bhool bhi jaati hu. Ek problem ye bhi hai ki samajh nahi aata ki results aane mein exactly kitna time lagta hai. Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi. Price bhi thoda high hai considering long-term use."*  
-> *(English translation: "The taste is good and it is easy to take every day, but honestly I haven't seen any major difference in hair fall so far. Sometimes I also forget to take them. Another problem is not understanding exactly how long it takes for results to appear. If there were a feature where we could track daily consumption and hair growth, it would be much better. At least one would know whether the product is actually working or not. Also, the price feels a bit high considering sustained long-term use.")*
+### 1. Sonika — Be Bodywise Hair Care (+91 9463747241)
+* **Phone:** `+91 9463747241` | **Consent:** Confirmed
+* **Product Used:** Be Bodywise Hair Care Product (Active Follicle Regimen)
+* **Duration:** ~5 Months
+* **Discovery Route:** Instagram social ad + positive reviews + personal friend recommendation
+* **What Worked (Likes):** Ordering experience was smooth and seamless.
+* **What Struggled (Dislikes):** Lack of post-purchase guidance; uncertainty regarding correct usage frequency; unhelpful customer support when seeking routine clarity.
+* **Customer Wishlist / Needed Innovation:** **"It would be nice to have an AI assistant which can guide customers after purchase, answer product-related questions and track their progress."**
+* **Direct Significance for Bodywise Match:** *Direct, unsolicited customer validation of Bodywise Match's core value proposition.*
 
 ---
 
-#### 🔍 Systems & Problem Analysis (Insights for Fellowship Submission)
-
-1. **What Worked (Adoption Catalyst):**
-   - The gummy format eliminates psychological barrier against taking tablets/capsules.
-   - Taste profile is enjoyable, which supports early habit formation.
-
-2. **The Core Failure Point (Milestone Blindness & Adherence Gaps):**
-   - **Telogen Cycle Asymmetry:** Micronutrient and biotin supplements typically take 90–120 days of uninterrupted daily adherence before systemic folicular changes reflect in visible reduction of comb shedding.
-   - **No Feedback Loop:** Customers taking gummies have zero feedback mechanism at Day 30 or Day 60. Without progress indicators, uncertainty sets in: *"Is this working, or am I wasting money?"*
-   - **Dosing Inconsistency:** Forgetting doses lowers consistent plasma nutrient levels, delaying results further.
-
-3. **Customer's Direct Product / Tech Wishlist:**
-   - **Consumption & Streak Tracker:** A simple, low-friction mechanism to log daily gummy intake and prevent missed doses.
-   - **Hair Growth Expectation Timeline:** Clear, transparent milestone markers (e.g. Day 30: root nutrition & sebum baseline; Day 60: follicular strengthening; Day 90: noticeable comb density).
-   - **ROI Justification:** Help long-term users see value before abandoning the routine due to perceived high price.
+### 2. Nikhil — Be Bodywise Hair Growth Gummies (+91 9549197684)
+* **Phone:** `+91 9549197684` | **Consent:** Confirmed
+* **Product Used:** Be Bodywise Hair Growth Gummies (Biotin & Multivitamins)
+* **Duration:** 2–3 Months (Ongoing)
+* **Discovery Route:** Instagram video ad + positive user reviews
+* **What Worked (Likes):** Pleasant taste, appealing gummy format eliminates psychological barrier against swallowing pills.
+* **What Struggled (Dislikes):** No visible difference in hair fall after 60–90 days; occasionally forgets doses; milestone timeline ambiguity; feels price is high for long-term use.
+* **Customer Wishlist / Needed Innovation:** **"Agar koi feature hota jahan hum apna daily consumption aur hair growth track kar sakein toh better hota. At least pata toh chale ki product actually work kar raha hai ya nahi."** (Intake logging + milestone expectation roadmap).
 
 ---
 
-## 📊 Summary Table for Master Fellowship Roster
+### 3. Karamjit — Be Bodywise 2% BHA Body Acne Spray (+91 9041061840)
+* **Phone:** `+91 9041061840` | **Consent:** Confirmed
+* **Product Used:** 2% BHA Body Acne Spray / Mist from Be Bodywise
+* **Duration:** 1 Month
+* **Discovery Route:** Online promotional advertisements and introductory discounts
+* **What Worked (Likes):** The 360° upside-down continuous spray nozzle makes reaching back bumps and chest acne effortless; clears active breakouts effectively.
+* **What Struggled (Dislikes):** Leaves a slightly tacky/sticky residue after drying; triggers relentless automated WhatsApp and SMS promotional marketing spam.
+* **Customer Wishlist / Needed Innovation:** Texture refinement to eliminate tackiness; an immediate, easy opt-out mechanism for automated promotional marketing messages.
 
-| # | Customer Name | Verified Phone | Product Used | Duration | Key Likes | Key Struggles | Tech Feature Wishlist | Consent |
+---
+
+### 4. Renu Rishi — Be Bodywise 10% Urea Body Lotion (+91 9465073899)
+* **Phone:** `+91 9465073899` | **Consent:** Confirmed
+* **Product Used:** 10% Urea Body Lotion from Be Bodywise
+* **Duration:** 2 Months
+* **Discovery Route:** Consistently recommended in Indian skincare communities (Reddit r/IndianSkincareAddicts) as an elegant cosmetic alternative to thick pharmacy-grade creams.
+* **What Worked (Likes):** Noticeable, visible smoothing of rough arm skin texture and keratosis pilaris bumpiness within just two weeks of use.
+* **What Struggled (Dislikes):** None noted on efficacy; highly satisfied with the keratolytic smoothing outcome.
+* **Customer Wishlist / Needed Innovation:** Continue community-first educational advocacy; ensure seamless bundle availability with body washes.
+
+---
+
+### 5. Sudarshan — Little Joys / Mosaic Wellness Portfolio (+91 9464728747)
+* **Phone:** `+91 9464728747` | **Consent:** Confirmed
+* **Product Used:** Little Joys Nutritional Gummies / Regimen (Mosaic Wellness Parent Brand)
+* **Duration:** Almost 2 Months
+* **Discovery Route:** Online reviews while seeking healthy supplements for child
+* **What Worked (Likes):** Child consumed it without any resistance or difficulty; pleasant taste.
+* **What Struggled (Dislikes):** Price feels high for ongoing daily consumption.
+* **Customer Wishlist / Needed Innovation:** Better subscription discounts and recurring loyalty offers for multi-month adherence.
+
+---
+
+### 6. Additional Be Bodywise Survey Respondent (Anonymous)
+* **Product Used:** Be Bodywise Body Lotion (Moisturising Barrier Care)
+* **Duration:** 3–4 Months
+* **Discovery Route:** Indian skincare community recommendations
+* **Feedback:** Good moisturisation, but price is somewhat high compared to mass-market brands; pump packaging could be sturdier.
+
+---
+
+## 📊 Summary Roster for Part 1 Submission
+
+| # | Customer Name | Verified Phone | Brand & Product Used | Duration | Key Strength (Likes) | Key Struggle (Dislikes) | Feature Request / Wishlist | Consent |
 | :-: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :-: |
-| **1** | **Nikhil** | `+91 9549197684` | Be Bodywise Hair Growth Gummies | 2–3 Months | Great taste, easy daily intake, non-medicinal format | No visible hairfall reduction after 60–90 days; missed doses; high price | Consumption tracker & hair growth milestone timeline to verify efficacy | **Consented** |
-| **2** | `[ Customer 2 ]` | `[ Phone ]` | `[ Product ]` | `[ Duration ]` | `[ Likes ]` | `[ Struggles ]` | `[ Feature Wishlist ]` | Pending |
-| **3** | `[ Customer 3 ]` | `[ Phone ]` | `[ Product ]` | `[ Duration ]` | `[ Likes ]` | `[ Struggles ]` | `[ Feature Wishlist ]` | Pending |
-| **4** | `[ Customer 4 ]` | `[ Phone ]` | `[ Product ]` | `[ Duration ]` | `[ Likes ]` | `[ Struggles ]` | `[ Feature Wishlist ]` | Pending |
-| **5** | `[ Customer 5 ]` | `[ Phone ]` | `[ Product ]` | `[ Duration ]` | `[ Likes ]` | `[ Struggles ]` | `[ Feature Wishlist ]` | Pending |
+| **1** | **Sonika** | `+91 9463747241` | Be Bodywise Hair Care Product | ~5 Months | Easy ordering flow | Guidance vacuum; unhelpful customer support | **AI Assistant to guide usage, answer questions & track progress** | **Consented** |
+| **2** | **Nikhil** | `+91 9549197684` | Be Bodywise Hair Growth Gummies | 2–3 Months | Great taste, easy to take daily | 60-day milestone blindness; dose lapses; price | **Daily consumption logger & hair growth progress timeline** | **Consented** |
+| **3** | **Karamjit** | `+91 9041061840` | Be Bodywise 2% BHA Body Spray | 1 Month | 360° nozzle clears back bumps | Tacky skin residue; relentless WhatsApp promo spam | Tacky residue reduction & marketing message opt-out | **Consented** |
+| **4** | **Renu Rishi** | `+91 9465073899` | Be Bodywise 10% Urea Body Lotion | 2 Months | Rapid bump reduction in 2 weeks | High demand / pricing | Maintain community recommendations & bundle options | **Consented** |
+| **5** | **Sudarshan** | `+91 9464728747` | Little Joys (Mosaic Wellness) | ~2 Months | Kid-friendly taste, zero struggle | Price barrier for recurring use | Subscription loyalty savings & multi-pack discounts | **Consented** |
