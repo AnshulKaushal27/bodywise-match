@@ -1,8 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import heroBgDesktop from "@/public/hero-bg-desktop.webp";
-import heroBgMobile from "@/public/hero-bg-mobile.webp";
 import {
   ArrowRight,
   ShieldCheck,
@@ -229,19 +227,21 @@ export default function HomePage() {
                 <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] w-full rounded-card overflow-hidden shadow-ambient border border-brand-deep/10 bg-surface-sage/30">
                   {/* Desktop WebP Hero Image */}
                   <Image
-                    src={heroBgDesktop}
+                    src="/hero-bg-desktop.webp"
                     alt=""
                     fill
                     priority
+                    unoptimized
                     sizes="(max-width: 1024px) 100vw, 42vw"
                     className="hidden sm:block object-cover object-center"
                   />
                   {/* Mobile WebP Hero Image */}
                   <Image
-                    src={heroBgMobile}
+                    src="/hero-bg-mobile.webp"
                     alt=""
                     fill
                     priority
+                    unoptimized
                     sizes="100vw"
                     className="block sm:hidden object-cover object-center"
                   />
