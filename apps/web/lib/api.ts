@@ -10,25 +10,58 @@ import {
   NextQuestionResult,
 } from "@bodywise/shared";
 
-// Normalize API URLs from NEXT_PUBLIC_API_URL or legacy NEXT_PUBLIC_API_BASE_URL
-const rawApiUrl =
-  process.env.NEXT_PUBLIC_API_URL ||
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "http://localhost:4000";
+/**
+ * Resolves API URLs across server-side runtime, service bindings, client-side browser, and local dev.
+ * In Vercel Services, process.env.API_URL is injected into the calling web service at runtime via service binding.
+ */
+export function resolveApiUrls() {
+  // 1. Bound internal service URL (injected by Vercel into process.env.API_URL via service binding)
+  if (process.env.API_URL) {
+    const raw = process.env.API_URL.replace(/\/+$/, "");
+    const root = raw.endsWith("/v1") ? raw.slice(0, -3) : raw;
+    const v1 = raw.endsWith("/v1") ? raw : `${raw}/v1`;
+    return {
+      rootUrl: root,
+      baseUrl: v1,
+      healthUrl: `${root}/health`,
+    };
+  }
 
-const sanitizedApiUrl = rawApiUrl.replace(/\/+$/, "");
+  // 2. Explicit public API URL (e.g. NEXT_PUBLIC_API_URL or NEXT_PUBLIC_API_BASE_URL)
+  const rawPublicUrl =
+    process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (rawPublicUrl) {
+    const sanitized = rawPublicUrl.replace(/\/+$/, "");
+    const root = sanitized.endsWith("/v1") ? sanitized.slice(0, -3) : sanitized;
+    const base = sanitized.endsWith("/v1") ? sanitized : `${sanitized}/v1`;
+    return {
+      rootUrl: root,
+      baseUrl: base,
+      healthUrl: `${root}/health`,
+    };
+  }
 
-// API Root URL for health checks and status (e.g. "https://bodywise-match-api.onrender.com" or "http://localhost:4000")
-export const API_ROOT_URL = sanitizedApiUrl.endsWith("/v1")
-  ? sanitizedApiUrl.slice(0, -3)
-  : sanitizedApiUrl;
+  // 3. Client-side browser in production (same-domain Vercel Services rewrite /api/*)
+  if (typeof window !== "undefined") {
+    return {
+      rootUrl: "/api",
+      baseUrl: "/api/v1",
+      healthUrl: "/api/health",
+    };
+  }
 
-// API Base URL for v1 resource routes (e.g. "https://bodywise-match-api.onrender.com/v1" or "http://localhost:4000/v1")
-export const API_BASE_URL = sanitizedApiUrl.endsWith("/v1")
-  ? sanitizedApiUrl
-  : `${sanitizedApiUrl}/v1`;
+  // 4. Default fallback for local testing / dev environment
+  return {
+    rootUrl: "http://localhost:4000",
+    baseUrl: "http://localhost:4000/v1",
+    healthUrl: "http://localhost:4000/health",
+  };
+}
 
-export const API_HEALTH_URL = `${API_ROOT_URL}/health`;
+const initialUrls = resolveApiUrls();
+export const API_ROOT_URL = initialUrls.rootUrl;
+export const API_BASE_URL = initialUrls.baseUrl;
+export const API_HEALTH_URL = initialUrls.healthUrl;
 
 export interface ApiHealthResponse {
   status: string;
@@ -54,7 +87,8 @@ export async function fetchApiHealth(): Promise<{
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 6000);
 
-    const res = await fetch(API_HEALTH_URL, {
+    const { healthUrl } = resolveApiUrls();
+    const res = await fetch(healthUrl, {
       method: "GET",
       headers: { Accept: "application/json" },
       signal: controller.signal,
@@ -160,7 +194,8 @@ export async function fetchCatalogueGoals(): Promise<GoalItem[]> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch(`${API_BASE_URL}/goals`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/goals`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
@@ -185,7 +220,8 @@ export async function parseMatchConcern(
   userInput: string,
   signal?: AbortSignal
 ): Promise<ParseResponse> {
-  const res = await fetch(`${API_BASE_URL}/match/parse`, {
+  const { baseUrl } = resolveApiUrls();
+  const res = await fetch(`${baseUrl}/match/parse`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -209,7 +245,8 @@ export async function fetchNextQuestion(
   answeredQuestionIds: string[] = []
 ): Promise<NextQuestionResult> {
   try {
-    const res = await fetch(`${API_BASE_URL}/match/next-question`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/match/next-question`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -261,7 +298,8 @@ export async function submitMatchFeedback(
   payload: FeedbackPayload
 ): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE_URL}/feedback`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -276,7 +314,8 @@ export async function submitMatchFeedback(
 
 export async function deleteServerSession(sessionId: string): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE_URL}/session/${encodeURIComponent(sessionId)}`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/session/${encodeURIComponent(sessionId)}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -292,7 +331,8 @@ export async function fetchProducts(): Promise<ProductRecord[]> {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
-    const res = await fetch(`${API_BASE_URL}/products`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/products`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
@@ -314,7 +354,8 @@ export async function fetchProductBySlug(slug: string): Promise<ProductRecord | 
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
-    const res = await fetch(`${API_BASE_URL}/products/${encodeURIComponent(slug)}`, {
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/products/${encodeURIComponent(slug)}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,

@@ -91,7 +91,8 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         if (
           CORS_ORIGINS.includes("*") ||
           CORS_ORIGINS.includes(origin) ||
-          origin.startsWith("http://localhost:")
+          origin.startsWith("http://localhost:") ||
+          origin.endsWith(".vercel.app")
         ) {
           return cb(null, true);
         }
@@ -113,231 +114,243 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
       },
     });
 
-    // --- ROUTES ---
+    // --- ROUTES DEFINITION ---
+    const registerRoutes = (routeScope: typeof api) => {
+      // Health check (used by Render/Vercel health check and /status page)
+      routeScope.get("/health", async () => {
+        const isDbConfigured = Boolean(
+          process.env.DATABASE_URL &&
+            !process.env.DATABASE_URL.includes("[PASSWORD]")
+        );
+        const isLlmConfigured = Boolean(
+          process.env.GROQ_API_KEY && process.env.LLM_ENABLED !== "false"
+        );
 
-    // Health check (used by Render health check and /status page)
-    api.get("/health", async () => {
-      const isDbConfigured = Boolean(
-        process.env.DATABASE_URL &&
-          !process.env.DATABASE_URL.includes("[PASSWORD]")
-      );
-      const isLlmConfigured = Boolean(
-        process.env.GROQ_API_KEY && process.env.LLM_ENABLED !== "false"
-      );
+        return {
+          status: "ok",
+          service: "bodywise-match-api",
+          version: "0.1.0",
+          rules_version: RULES_VERSION,
+          catalogue_version: CATALOGUE_VERSION,
+          database: isDbConfigured ? "configured" : "in_memory_fallback",
+          llm: isLlmConfigured ? "groq" : "deterministic_only",
+          ephemeral_disk: true,
+          uptime: Math.floor(process.uptime()),
+          timestamp: new Date().toISOString(),
+        };
+      });
 
-      return {
-        status: "ok",
-        service: "bodywise-match-api",
-        version: "0.1.0",
-        rules_version: RULES_VERSION,
-        catalogue_version: CATALOGUE_VERSION,
-        database: isDbConfigured ? "configured" : "in_memory_fallback",
-        llm: isLlmConfigured ? "groq" : "deterministic_only",
-        ephemeral_disk: true,
-        uptime: Math.floor(process.uptime()),
-        timestamp: new Date().toISOString(),
-      };
-    });
+      // GET /v1/products
+      routeScope.get("/v1/products", async () => {
+        return {
+          products: DEMO_CATALOGUE_SEED,
+          total: DEMO_CATALOGUE_SEED.length,
+          is_demo: true,
+        };
+      });
 
-    // GET /v1/products
-    api.get("/v1/products", async () => {
-      return {
-        products: DEMO_CATALOGUE_SEED,
-        total: DEMO_CATALOGUE_SEED.length,
-        is_demo: true,
-      };
-    });
-
-    // GET /v1/goals (Catalogue-supported goals only)
-    api.get("/v1/goals", async () => {
-      const supportedGoalIds = new Set<string>();
-      for (const prod of DEMO_CATALOGUE_SEED) {
-        for (const g of prod.supported_goals) {
-          supportedGoalIds.add(g);
+      // GET /v1/goals (Catalogue-supported goals only)
+      routeScope.get("/v1/goals", async () => {
+        const supportedGoalIds = new Set<string>();
+        for (const prod of DEMO_CATALOGUE_SEED) {
+          for (const g of prod.supported_goals) {
+            supportedGoalIds.add(g);
+          }
         }
-      }
-      const goals = CONTROLLED_GOALS.filter((g) => supportedGoalIds.has(g.id));
-      return {
-        goals,
-        total: goals.length,
-      };
-    });
+        const goals = CONTROLLED_GOALS.filter((g) => supportedGoalIds.has(g.id));
+        return {
+          goals,
+          total: goals.length,
+        };
+      });
 
-    // GET /v1/products/:slug
-    api.get<{ Params: { slug: string } }>("/v1/products/:slug", async (req, reply) => {
-      const { slug } = req.params;
-      const product = DEMO_CATALOGUE_SEED.find((p) => p.slug === slug);
-      if (!product) {
-        return reply.status(404).send({
-          error: "Product not found",
-          slug,
-        });
-      }
-      return { product };
-    });
+      // GET /v1/products/:slug
+      routeScope.get<{ Params: { slug: string } }>("/v1/products/:slug", async (req, reply) => {
+        const { slug } = req.params;
+        const product = DEMO_CATALOGUE_SEED.find((p) => p.slug === slug);
+        if (!product) {
+          return reply.status(404).send({
+            error: "Product not found",
+            slug,
+          });
+        }
+        return { product };
+      });
 
-    // POST /v1/match/parse (Extracts intent into Zod schema without diagnosis, Rule 2)
-    api.post<{ Body: { user_input: string } }>(
-      "/v1/match/parse",
-      {
-        config: {
-          rateLimit: {
-            max: 20,
-            timeWindow: "1 minute",
+      // POST /v1/match/parse (Extracts intent into Zod schema without diagnosis, Rule 2)
+      routeScope.post<{ Body: { user_input: string } }>(
+        "/v1/match/parse",
+        {
+          config: {
+            rateLimit: {
+              max: 20,
+              timeWindow: "1 minute",
+            },
           },
         },
-      },
-      async (req, reply) => {
-        const { user_input } = req.body || {};
-        if (
-          !user_input ||
-          typeof user_input !== "string" ||
-          user_input.trim().length < 3
-        ) {
+        async (req, reply) => {
+          const { user_input } = req.body || {};
+          if (
+            !user_input ||
+            typeof user_input !== "string" ||
+            user_input.trim().length < 3
+          ) {
+            return reply.status(400).send({
+              error:
+                "Invalid input. Please provide a description of your primary goal.",
+            });
+          }
+
+          const { parsed_needs, strategy, source } = await parseUserNeeds(
+            user_input,
+            String(req.id)
+          );
+
+          return {
+            request_id: req.id,
+            parsed_needs,
+            strategy,
+            source,
+          };
+        }
+      );
+
+      // POST /v1/match/next-question (Single question that best splits remaining candidates, Rule 2)
+      routeScope.post<{
+        Body: {
+          parsed_needs: ParsedNeeds;
+          answered_question_ids?: string[];
+        };
+      }>("/v1/match/next-question", async (req, reply) => {
+        const { parsed_needs, answered_question_ids } = req.body || {};
+        if (!parsed_needs) {
           return reply.status(400).send({
-            error:
-              "Invalid input. Please provide a description of your primary goal.",
+            error: "Invalid request. 'parsed_needs' is required.",
           });
         }
 
-        const { parsed_needs, strategy, source } = await parseUserNeeds(
-          user_input,
-          String(req.id)
+        const validatedNeeds = ParsedNeedsSchema.safeParse(parsed_needs);
+        if (!validatedNeeds.success) {
+          return reply.status(400).send({
+            error: "Invalid parsed_needs schema.",
+            details: validatedNeeds.error.flatten(),
+          });
+        }
+
+        const result = selectNextQuestion(
+          validatedNeeds.data,
+          DEMO_CATALOGUE_SEED,
+          answered_question_ids || []
         );
 
         return {
           request_id: req.id,
-          parsed_needs,
-          strategy,
-          source,
+          question: result.question,
+          candidate_count: result.candidate_count,
+          explanation: result.explanation,
         };
-      }
+      });
+
+      // POST /v1/match/recommend (Pure TypeScript deterministic matching, Rule 2)
+      routeScope.post("/v1/match/recommend", async (req, reply) => {
+        const parseResult = MatchRequestSchema.safeParse(req.body);
+        if (!parseResult.success) {
+          return reply.status(400).send({
+            error: "Invalid match request payload",
+            details: parseResult.error.flatten(),
+          });
+        }
+
+        const matchReq = parseResult.data;
+        const parsedNeeds: ParsedNeeds = matchReq.parsed_needs || {
+          goal: "hair_density_appearance",
+          category: "serum",
+          format_preferences: [],
+          avoidances: [],
+          routine_context: null,
+          uncertainties: [],
+          confidence: "high",
+        };
+
+        const matchResult = matchProducts(parsedNeeds, DEMO_CATALOGUE_SEED);
+        return matchResult;
+      });
+
+      // POST /v1/feedback (Was this shortlist useful? with anonymous session ID & aggregate consent)
+      routeScope.post("/v1/feedback", async (req, reply) => {
+        const parseResult = FeedbackSchema.safeParse(req.body);
+        if (!parseResult.success) {
+          return reply.status(400).send({
+            error: "Invalid feedback payload",
+            details: parseResult.error.flatten(),
+          });
+        }
+
+        const record = {
+          ...parseResult.data,
+          recorded_at: new Date().toISOString(),
+        };
+        feedbackStore.push(record);
+
+        return {
+          success: true,
+          message: "Feedback received. Thank you for helping improve the discovery experience.",
+          session_id: record.session_id || record.request_id,
+          aggregate_consent: record.aggregate_consent,
+          recorded_at: record.recorded_at,
+        };
+      });
+
+      // DELETE /v1/session/:id - Delete server session data by ID (Privacy & Data Right)
+      routeScope.delete<{ Params: { id: string } }>("/v1/session/:id", async (req) => {
+        const { id } = req.params;
+        let removed = 0;
+        for (let i = feedbackStore.length - 1; i >= 0; i--) {
+          if (feedbackStore[i].session_id === id || feedbackStore[i].request_id === id) {
+            feedbackStore.splice(i, 1);
+            removed++;
+          }
+        }
+        return {
+          success: true,
+          message: `Erased server session data for ${id}`,
+          id,
+          removed_records: removed,
+        };
+      });
+
+      // POST /v1/session/delete - Alternative route for clients preferring POST
+      routeScope.post<{ Body: { session_id?: string; id?: string } }>("/v1/session/delete", async (req, reply) => {
+        const targetId = req.body?.session_id || req.body?.id;
+        if (!targetId) {
+          return reply.status(400).send({ error: "Missing session_id or id in request body" });
+        }
+        let removed = 0;
+        for (let i = feedbackStore.length - 1; i >= 0; i--) {
+          if (feedbackStore[i].session_id === targetId || feedbackStore[i].request_id === targetId) {
+            feedbackStore.splice(i, 1);
+            removed++;
+          }
+        }
+        return {
+          success: true,
+          message: `Erased server session data for ${targetId}`,
+          id: targetId,
+          removed_records: removed,
+        };
+      });
+    };
+
+    // Register routes at root scope (e.g. /health, /v1/products)
+    registerRoutes(api);
+
+    // Also register routes under /api scope (for Vercel Services rewrites /api/*)
+    api.register(
+      async (subScope) => {
+        registerRoutes(subScope);
+      },
+      { prefix: "/api" }
     );
-
-    // POST /v1/match/next-question (Single question that best splits remaining candidates, Rule 2)
-    api.post<{
-      Body: {
-        parsed_needs: ParsedNeeds;
-        answered_question_ids?: string[];
-      };
-    }>("/v1/match/next-question", async (req, reply) => {
-      const { parsed_needs, answered_question_ids } = req.body || {};
-      if (!parsed_needs) {
-        return reply.status(400).send({
-          error: "Invalid request. 'parsed_needs' is required.",
-        });
-      }
-
-      const validatedNeeds = ParsedNeedsSchema.safeParse(parsed_needs);
-      if (!validatedNeeds.success) {
-        return reply.status(400).send({
-          error: "Invalid parsed_needs schema.",
-          details: validatedNeeds.error.flatten(),
-        });
-      }
-
-      const result = selectNextQuestion(
-        validatedNeeds.data,
-        DEMO_CATALOGUE_SEED,
-        answered_question_ids || []
-      );
-
-      return {
-        request_id: req.id,
-        question: result.question,
-        candidate_count: result.candidate_count,
-        explanation: result.explanation,
-      };
-    });
-
-    // POST /v1/match/recommend (Pure TypeScript deterministic matching, Rule 2)
-    api.post("/v1/match/recommend", async (req, reply) => {
-      const parseResult = MatchRequestSchema.safeParse(req.body);
-      if (!parseResult.success) {
-        return reply.status(400).send({
-          error: "Invalid match request payload",
-          details: parseResult.error.flatten(),
-        });
-      }
-
-      const matchReq = parseResult.data;
-      const parsedNeeds: ParsedNeeds = matchReq.parsed_needs || {
-        goal: "hair_density_appearance",
-        category: "serum",
-        format_preferences: [],
-        avoidances: [],
-        routine_context: null,
-        uncertainties: [],
-        confidence: "high",
-      };
-
-      const matchResult = matchProducts(parsedNeeds, DEMO_CATALOGUE_SEED);
-      return matchResult;
-    });
-
-    // POST /v1/feedback (Was this shortlist useful? with anonymous session ID & aggregate consent)
-    api.post("/v1/feedback", async (req, reply) => {
-      const parseResult = FeedbackSchema.safeParse(req.body);
-      if (!parseResult.success) {
-        return reply.status(400).send({
-          error: "Invalid feedback payload",
-          details: parseResult.error.flatten(),
-        });
-      }
-
-      const record = {
-        ...parseResult.data,
-        recorded_at: new Date().toISOString(),
-      };
-      feedbackStore.push(record);
-
-      return {
-        success: true,
-        message: "Feedback received. Thank you for helping improve the discovery experience.",
-        session_id: record.session_id || record.request_id,
-        aggregate_consent: record.aggregate_consent,
-        recorded_at: record.recorded_at,
-      };
-    });
-
-    // DELETE /v1/session/:id - Delete server session data by ID (Privacy & Data Right)
-    api.delete<{ Params: { id: string } }>("/v1/session/:id", async (req) => {
-      const { id } = req.params;
-      let removed = 0;
-      for (let i = feedbackStore.length - 1; i >= 0; i--) {
-        if (feedbackStore[i].session_id === id || feedbackStore[i].request_id === id) {
-          feedbackStore.splice(i, 1);
-          removed++;
-        }
-      }
-      return {
-        success: true,
-        message: `Erased server session data for ${id}`,
-        id,
-        removed_records: removed,
-      };
-    });
-
-    // POST /v1/session/delete - Alternative route for clients preferring POST
-    api.post<{ Body: { session_id?: string; id?: string } }>("/v1/session/delete", async (req, reply) => {
-      const targetId = req.body?.session_id || req.body?.id;
-      if (!targetId) {
-        return reply.status(400).send({ error: "Missing session_id or id in request body" });
-      }
-      let removed = 0;
-      for (let i = feedbackStore.length - 1; i >= 0; i--) {
-        if (feedbackStore[i].session_id === targetId || feedbackStore[i].request_id === targetId) {
-          feedbackStore.splice(i, 1);
-          removed++;
-        }
-      }
-      return {
-        success: true,
-        message: `Erased server session data for ${targetId}`,
-        id: targetId,
-        removed_records: removed,
-      };
-    });
   });
 
   return app;
