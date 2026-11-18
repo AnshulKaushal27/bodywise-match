@@ -154,7 +154,7 @@ export default function HelpLandingPage() {
               <Card
                 key={issue.id}
                 variant="surface"
-                className="p-5 md:p-6 border border-border shadow-sm hover:shadow-card hover:border-brand-evergreen/40 transition-all flex flex-col justify-between group"
+                className="p-5 md:p-6 border border-border shadow-ambient hover:shadow-card hover:border-brand-evergreen/40 transition-all flex flex-col justify-between group rounded-card"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
@@ -195,7 +195,7 @@ export default function HelpLandingPage() {
         </section>
 
         {/* ================= OFFICIAL SUPPORT CHANNELS BOX ================= */}
-        <section aria-labelledby="official-channels" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="official-channels" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />

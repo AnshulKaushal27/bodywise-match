@@ -208,7 +208,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         </div>
 
         {/* ================= 1. SHORT CHECKLIST (stored locally) ================= */}
-        <section aria-labelledby="checklist-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="checklist-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-border/70">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-brand-evergreen" weight="regular" />
@@ -257,7 +257,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         </section>
 
         {/* ================= 2. USER-ENTERED FIELDS (localStorage only, never sent to server) ================= */}
-        <section aria-labelledby="fields-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="fields-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="pb-3 border-b border-border/70">
             <h2 id="fields-heading" className="font-display font-bold text-base sm:text-lg text-brand-deep">
               2. Prepare Your Specific Details
@@ -294,7 +294,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         </section>
 
         {/* ================= 3. EDITABLE MESSAGE TEMPLATE WITH COPY BUTTON ================= */}
-        <section aria-labelledby="template-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="template-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border/70">
             <div>
               <h2 id="template-heading" className="font-display font-bold text-base sm:text-lg text-brand-deep">
@@ -310,7 +310,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
                 <button
                   type="button"
                   onClick={handleResetTemplate}
-                  className="text-xs text-muted hover:text-charcoal underline px-2 py-1"
+                  className="text-xs text-muted hover:text-charcoal underline px-2 py-1 active:scale-[0.98] motion-safe:transition-transform"
                 >
                   Reset auto-fill
                 </button>
@@ -322,7 +322,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
                 size="sm"
                 onClick={handleCopyMessage}
                 aria-live="polite"
-                className="inline-flex items-center gap-1.5 text-xs font-bold shrink-0 shadow-xs min-h-[44px]"
+                className="inline-flex items-center gap-1.5 text-xs font-bold shrink-0 shadow-ambient min-h-[44px] active:scale-[0.98] motion-safe:transition-transform"
               >
                 {isCopied ? (
                   <>
@@ -359,7 +359,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         </section>
 
         {/* ================= 4. "OFFICIAL SUPPORT" BOX (from data/support-links.ts) ================= */}
-        <section aria-labelledby="channels-heading" className="p-6 rounded-card bg-surface-sage/35 border border-brand-evergreen/30 shadow-sm space-y-4">
+        <section aria-labelledby="channels-heading" className="p-6 rounded-card bg-surface-sage/35 border border-brand-evergreen/30 shadow-ambient space-y-4">
           <div className="flex items-center gap-2 pb-2 border-b border-border">
             <ShieldCheck className="w-5 h-5 text-brand-evergreen" weight="regular" />
             <h2 id="channels-heading" className="font-display font-bold text-base sm:text-lg text-brand-deep tracking-tight">
