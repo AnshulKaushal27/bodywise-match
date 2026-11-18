@@ -29,5 +29,8 @@ Thumbs.db
 playwright-report/
 test-results/
 
+# TypeScript build info
+*.tsbuildinfo
+
 # Raw scraped data and originals (audit only)
 data/raw/
