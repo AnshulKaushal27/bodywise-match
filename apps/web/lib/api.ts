@@ -8,6 +8,7 @@ import {
   DEMO_CATALOGUE_SEED,
   selectNextQuestion,
   NextQuestionResult,
+  parseNeedsKeyword,
 } from "@bodywise/shared";
 
 /**
@@ -220,24 +221,48 @@ export async function parseMatchConcern(
   userInput: string,
   signal?: AbortSignal
 ): Promise<ParseResponse> {
-  const { baseUrl } = resolveApiUrls();
-  const res = await fetch(`${baseUrl}/match/parse`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ user_input: userInput }),
-    signal,
-  });
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
 
-  if (!res.ok) {
-    const errorData = await res.json().catch(() => ({}));
-    throw new Error(
-      errorData.error || `Server responded with status ${res.status}`
-    );
+    const abortHandler = () => controller.abort();
+    if (signal) {
+      signal.addEventListener("abort", abortHandler, { once: true });
+    }
+
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/match/parse`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user_input: userInput }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+    if (signal) {
+      signal.removeEventListener("abort", abortHandler);
+    }
+
+    if (res.ok) {
+      return (await res.json()) as ParseResponse;
+    }
+  } catch (err: unknown) {
+    if (signal?.aborted) {
+      throw err;
+    }
+    // Network failure, timeout, or server unavailable: gracefully fallback
   }
 
-  return (await res.json()) as ParseResponse;
+  // Resilient fallback to deterministic Strategy A rules (Rule 2 & Rule 9)
+  const parsed = parseNeedsKeyword(userInput);
+  return {
+    request_id: `client_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    parsed_needs: parsed,
+    strategy: "A",
+    source: "rules",
+  };
 }
 
 export async function fetchNextQuestion(
