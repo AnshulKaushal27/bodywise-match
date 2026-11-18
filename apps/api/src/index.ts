@@ -13,11 +13,16 @@ import {
   MatchRequestSchema,
   ParsedNeeds,
   ParsedNeedsSchema,
+  ParsedRequest,
+  ParsedRequestSchema,
   RULES_VERSION,
+  parseNeedsKeyword,
   matchProducts,
+  matchMultiNeeds,
   selectNextQuestion,
 } from "@bodywise/shared";
-import { parseUserNeeds } from "./services/parse-service";
+import { parseUserRequest } from "./services/parse-service";
+import { testLlmDebug } from "./llm/groqClient";
 
 dotenv.config();
 
@@ -26,7 +31,7 @@ const HOST = process.env.HOST || "0.0.0.0";
 const rawCors =
   process.env.CORS_ORIGINS ||
   process.env.CORS_ORIGIN ||
-  "http://localhost:3000";
+  "http://localhost:3000,https://bodywise-match-x5hd.vercel.app";
 const CORS_ORIGINS = rawCors
   .split(",")
   .map((s) => s.trim())
@@ -84,7 +89,7 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
       contentSecurityPolicy: false,
     });
 
-    // CORS with env allowlist
+    // CORS with env allowlist (Task A.2.e)
     await api.register(cors, {
       origin: (origin, cb) => {
         if (!origin) return cb(null, true);
@@ -92,14 +97,15 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
           CORS_ORIGINS.includes("*") ||
           CORS_ORIGINS.includes(origin) ||
           origin.startsWith("http://localhost:") ||
-          origin.endsWith(".vercel.app")
+          origin.endsWith(".vercel.app") ||
+          origin === "https://bodywise-match-x5hd.vercel.app"
         ) {
           return cb(null, true);
         }
         return cb(new Error("Not allowed by CORS"), false);
       },
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization", "x-request-id"],
+      allowedHeaders: ["Content-Type", "Authorization", "x-request-id", "x-debug-token"],
     });
 
     // Rate Limiting
@@ -129,7 +135,7 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         return {
           status: "ok",
           service: "bodywise-match-api",
-          version: "0.1.0",
+          version: "0.2.0",
           rules_version: RULES_VERSION,
           catalogue_version: CATALOGUE_VERSION,
           database: isDbConfigured ? "configured" : "in_memory_fallback",
@@ -138,6 +144,22 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
           uptime: Math.floor(process.uptime()),
           timestamp: new Date().toISOString(),
         };
+      });
+
+      // GET /v1/debug/llm (Task A.1)
+      routeScope.get("/v1/debug/llm", async (req, reply) => {
+        const isProduction = process.env.NODE_ENV === "production";
+        const debugToken = process.env.DEBUG_TOKEN;
+        const headerToken = req.headers["x-debug-token"];
+
+        if (isProduction && (!debugToken || headerToken !== debugToken)) {
+          return reply.status(403).send({
+            error: "Debug endpoint disabled in production without valid x-debug-token header.",
+          });
+        }
+
+        const debugResult = await testLlmDebug();
+        return debugResult;
       });
 
       // GET /v1/products
@@ -177,7 +199,7 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         return { product };
       });
 
-      // POST /v1/match/parse (Extracts intent into Zod schema without diagnosis, Rule 2)
+      // POST /v1/match/parse (Extracts multi-need intent, Task Part D)
       routeScope.post<{ Body: { user_input: string } }>(
         "/v1/match/parse",
         {
@@ -201,16 +223,24 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
             });
           }
 
-          const { parsed_needs, strategy, source } = await parseUserNeeds(
+          const parsedResult = await parseUserRequest(
             user_input,
             String(req.id)
           );
 
+          // Build legacy parsed_needs for backward compatibility
+          const legacyNeeds: ParsedNeeds = parseNeedsKeyword(user_input);
+
           return {
             request_id: req.id,
-            parsed_needs,
-            strategy,
-            source,
+            parsed_request: parsedResult.parsed_request,
+            parsed_needs: legacyNeeds,
+            strategy: parsedResult.strategy,
+            source: parsedResult.source,
+            model: parsedResult.model,
+            latencyMs: parsedResult.latencyMs,
+            error_category: parsedResult.error_category,
+            fallback_reason: parsedResult.fallback_reason,
           };
         }
       );
@@ -251,8 +281,30 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         };
       });
 
-      // POST /v1/match/recommend (Pure TypeScript deterministic matching, Rule 2)
+      // POST /v1/match/recommend (Pure TypeScript deterministic matching, Task Part E)
       routeScope.post("/v1/match/recommend", async (req, reply) => {
+        const body = (req.body || {}) as Record<string, unknown>;
+
+        // 1. Check if multi-need request payload was sent
+        let parsedRequest: ParsedRequest | null = null;
+        if (body.parsed_request) {
+          const safeReq = ParsedRequestSchema.safeParse(body.parsed_request);
+          if (safeReq.success) {
+            parsedRequest = safeReq.data;
+          }
+        } else if (body.needs && Array.isArray(body.needs)) {
+          const safeReq = ParsedRequestSchema.safeParse(body);
+          if (safeReq.success) {
+            parsedRequest = safeReq.data;
+          }
+        }
+
+        if (parsedRequest) {
+          const multiResult = await matchMultiNeeds(parsedRequest, DEMO_CATALOGUE_SEED);
+          return multiResult;
+        }
+
+        // 2. Fall back to legacy single-goal match payload
         const parseResult = MatchRequestSchema.safeParse(req.body);
         if (!parseResult.success) {
           return reply.status(400).send({
@@ -272,11 +324,11 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
           confidence: "high",
         };
 
-        const matchResult = matchProducts(parsedNeeds, DEMO_CATALOGUE_SEED);
-        return matchResult;
+        const result = matchProducts(parsedNeeds, DEMO_CATALOGUE_SEED);
+        return result;
       });
 
-      // POST /v1/feedback (Was this shortlist useful? with anonymous session ID & aggregate consent)
+      // POST /v1/feedback
       routeScope.post("/v1/feedback", async (req, reply) => {
         const parseResult = FeedbackSchema.safeParse(req.body);
         if (!parseResult.success) {
@@ -301,7 +353,7 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         };
       });
 
-      // DELETE /v1/session/:id - Delete server session data by ID (Privacy & Data Right)
+      // DELETE /v1/session/:id
       routeScope.delete<{ Params: { id: string } }>("/v1/session/:id", async (req) => {
         const { id } = req.params;
         let removed = 0;
@@ -319,7 +371,7 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         };
       });
 
-      // POST /v1/session/delete - Alternative route for clients preferring POST
+      // POST /v1/session/delete
       routeScope.post<{ Body: { session_id?: string; id?: string } }>("/v1/session/delete", async (req, reply) => {
         const targetId = req.body?.session_id || req.body?.id;
         if (!targetId) {
@@ -341,10 +393,10 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
       });
     };
 
-    // Register routes at root scope (e.g. /health, /v1/products)
+    // Register routes at root scope
     registerRoutes(api);
 
-    // Also register routes under /api scope (for Vercel Services rewrites /api/*)
+    // Also register routes under /api scope
     api.register(
       async (subScope) => {
         registerRoutes(subScope);

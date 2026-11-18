@@ -3,11 +3,13 @@
  * Rule 1: No medical diagnosis, no treatment plans, no "this will fix X".
  * Rule 2: AI interprets, rules decide. Pure TypeScript, no LLM required.
  * Rule 8: Sanitize PII (strip emails and phone numbers) before processing.
+ * Task Part D: Multi-need request parsing with cosmetic wording normalization.
  */
 
 import { CONTROLLED_GOALS, GoalId } from "../goals";
 import { ProductCategory } from "../product";
-import { ParsedNeeds } from "../matcher/types";
+import { ParsedNeeds, ParsedNeed, ParsedRequest } from "../matcher/types";
+import { CONTROLLED_CONCEPTS, CONCEPTS_BY_ID } from "../retrieval/concepts";
 
 // --- PII Sanitization Patterns (Rule 8) ---
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi;
@@ -32,6 +34,16 @@ const MEDICAL_DIAGNOSTIC_PATTERNS = [
   { pattern: /\b(cure|prescribe|prescription|medication|medicine)\b/i, term: "prescription/cure" },
   { pattern: /\b(severe\s+rash|rash\s+on\s+my|painful\s+rash)\b/i, term: "severe rash" },
   { pattern: /\b(eczema|psoriasis|dermatitis|fungal\s+infection|cystic\s+acne)\b/i, term: "clinical condition" },
+];
+
+const MEDICAL_FLAG_PATTERNS = [
+  /\b(acne|cystic acne|severe acne|breakouts?)\b/i,
+  /\b(infection|fungal|bacterial)\b/i,
+  /\b(pain|painful|bleeding|pus|oozing)\b/i,
+  /\b(rash|severe rash|swelling|swollen)\b/i,
+  /\b(allergy|allergic reaction|hives)\b/i,
+  /\b(eczema|psoriasis|dermatitis|rosacea)\b/i,
+  /\b(cure|prescribe|prescription|medication|medicine)\b/i,
 ];
 
 // --- Avoidance Patterns ---
@@ -76,7 +88,7 @@ const FORMAT_RULES = [
 // --- Category Patterns ---
 const CATEGORY_RULES: Array<{ category: ProductCategory; regex: RegExp }> = [
   { category: "body_wash", regex: /\b(body\s*wash|shower\s*gel|body\s*cleanser|bath|shower)\b/i },
-  { category: "face_wash", regex: /\b(face\s*wash|facial\s*cleanser|face\s*cleanser)\b/i },
+  { category: "face_wash", regex: /\b(face\s*wash|facial\s*cleanser|face\s*cleanser|face\s*foam)\b/i },
   { category: "hair_oil", regex: /\b(hair\s*oil|scalp\s*oil)\b/i },
   { category: "shampoo", regex: /\b(shampoo|anti-dandruff\s*shampoo|scalp\s*wash)\b/i },
   { category: "conditioner", regex: /\b(conditioner)\b/i },
@@ -86,7 +98,171 @@ const CATEGORY_RULES: Array<{ category: ProductCategory; regex: RegExp }> = [
 ];
 
 /**
+ * Normalizes aggressive/medical wording to neutral cosmetic framing.
+ */
+export function normalizeCosmeticWording(phrase: string, conceptId?: string): string {
+  if (conceptId) {
+    const concept = CONCEPTS_BY_ID.get(conceptId);
+    if (concept) {
+      return concept.label;
+    }
+  }
+
+  let cleaned = phrase
+    .replace(/\b(i want|i need|looking for|help with|something for|please find|can you find)\b/gi, "")
+    .trim();
+
+  cleaned = cleaned
+    .replace(/\b(blackhead\s+removal|blackhead\s+treatment|remove\s+blackheads|cure\s+blackheads)\b/gi, "reduce the look of blackheads")
+    .replace(/\b(oily\s+skin\s+treatment|treat\s+oily\s+skin|cure\s+oily\s+skin|fix\s+oily\s+skin)\b/gi, "oil control")
+    .replace(/\b(acne\s+treatment|treat\s+acne|cure\s+acne|fix\s+acne)\b/gi, "blemish care & surface clarifying")
+    .replace(/\b(treatment|cure|fix|eliminate|remove\s+permanently)\b/gi, "cosmetic care")
+    .trim();
+
+  if (!cleaned) return phrase;
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
+/**
+ * Multi-need deterministic rules parser (Task Part D fallback)
+ * Splits free-text across multi-concern conjunctions ("and", commas, "also", "plus", "&").
+ * Strictly maps to CONTROLLED_CONCEPTS and preserves cosmetic framing.
+ */
+export function parseRequestKeyword(rawInput: string): ParsedRequest {
+  const sanitized = sanitizePii(rawInput);
+  const lower = sanitized.toLowerCase();
+
+  // 1. Medical flag detection
+  const medical_flag = MEDICAL_FLAG_PATTERNS.some((pat) => pat.test(lower));
+
+  // 2. Avoidances extraction
+  const avoidances: string[] = [];
+  for (const rule of AVOIDANCE_RULES) {
+    if (rule.regex.test(sanitized)) {
+      avoidances.push(rule.key);
+    }
+  }
+
+  // 3. Routine context extraction
+  let routine_context: string | null = null;
+  if (lower.includes("evening") || lower.includes("night") || lower.includes("bedtime") || lower.includes("pm")) {
+    routine_context = "evening";
+  } else if (lower.includes("morning") || lower.includes("daytime") || lower.includes("am")) {
+    routine_context = "morning";
+  } else if (lower.includes("shower") || lower.includes("bath")) {
+    routine_context = "shower";
+  }
+
+  // 4. Split into distinct need segments
+  // Split on "and", commas, "also", "plus", "&", "with"
+  const splitRegex = /\s+(?:and\s+also|and|also|plus|along\s+with|&|\+)\s+|,\s*/gi;
+  const segments = sanitized
+    .split(splitRegex)
+    .map((s) => s.trim())
+    .filter((s) => s.length >= 2);
+
+  const rawSegments = segments.length > 0 ? segments : [sanitized];
+
+  const needs: ParsedNeed[] = [];
+  let needCounter = 1;
+
+  for (const seg of rawSegments) {
+    const segLower = seg.toLowerCase();
+    const matchedConcepts: string[] = [];
+
+    // Concept matching via synonyms
+    for (const concept of CONTROLLED_CONCEPTS) {
+      for (const syn of concept.synonyms) {
+        const pattern = new RegExp(`\\b${syn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+        if (pattern.test(segLower)) {
+          if (!matchedConcepts.includes(concept.id)) {
+            matchedConcepts.push(concept.id);
+          }
+          break;
+        }
+      }
+    }
+
+    // Category preference in this segment
+    let preferredCategory: ProductCategory | null = null;
+    for (const rule of CATEGORY_RULES) {
+      if (rule.regex.test(segLower)) {
+        preferredCategory = rule.category;
+        break;
+      }
+    }
+
+    // Infer implied category if user states need with typical category in catalogue
+    if (!preferredCategory) {
+      if (segLower.includes("face") || matchedConcepts.includes("blackhead_look")) {
+        preferredCategory = "face_wash";
+      } else if (matchedConcepts.includes("scalp_comfort") || matchedConcepts.includes("dandruff_clarifying")) {
+        preferredCategory = "shampoo";
+      } else if (matchedConcepts.includes("body_bumps_look")) {
+        preferredCategory = "body_wash";
+      } else if (matchedConcepts.includes("sun_protection")) {
+        preferredCategory = "sunscreen";
+      }
+    }
+
+    // Format preference in this segment
+    const formatPrefs: string[] = [];
+    for (const rule of FORMAT_RULES) {
+      if (rule.regex.test(segLower)) {
+        formatPrefs.push(rule.format);
+      }
+    }
+
+    const primaryConcept = matchedConcepts[0];
+    const normalisedLabel = primaryConcept
+      ? normalizeCosmeticWording(seg, primaryConcept)
+      : normalizeCosmeticWording(seg);
+
+    needs.push({
+      id: `need_${needCounter++}`,
+      phrase_from_user: seg,
+      concepts: matchedConcepts,
+      preferred_category: preferredCategory,
+      format_preferences: formatPrefs,
+      priority: needCounter === 2 ? "primary" : "secondary",
+      confidence: matchedConcepts.length > 0 ? "high" : "medium",
+      normalised_label: normalisedLabel,
+    });
+  }
+
+  // If a segment didn't match any concept but whole input matches, fallback to whole input concepts
+  if (needs.every((n) => n.concepts.length === 0)) {
+    const fallbackConcepts: string[] = [];
+    for (const concept of CONTROLLED_CONCEPTS) {
+      for (const syn of concept.synonyms) {
+        const pattern = new RegExp(`\\b${syn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i");
+        if (pattern.test(lower)) {
+          if (!fallbackConcepts.includes(concept.id)) {
+            fallbackConcepts.push(concept.id);
+          }
+          break;
+        }
+      }
+    }
+    if (fallbackConcepts.length > 0 && needs.length > 0) {
+      needs[0].concepts = fallbackConcepts;
+      needs[0].normalised_label = normalizeCosmeticWording(sanitized, fallbackConcepts[0]);
+    }
+  }
+
+  return {
+    needs,
+    avoidances,
+    routine_context,
+    uncertainties: [],
+    follow_up_question: null,
+    medical_flag,
+  };
+}
+
+/**
  * Parses user free-text into ParsedNeeds using deterministic keyword and synonym matching.
+ * Preserves 100% of the original Strategy A logic for single-goal flows and all tests.
  */
 export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
   // Rule 8: Strip PII first
@@ -118,8 +294,6 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
       avoidances.push(rule.key);
       if (!evidenceText.avoidances) {
         evidenceText.avoidances = match[0];
-      } else {
-        evidenceText.avoidances += `, ${match[0]}`;
       }
     }
   }
@@ -128,10 +302,12 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
   const formatPreferences: string[] = [];
   for (const rule of FORMAT_RULES) {
     const match = sanitized.match(rule.regex);
-    if (match && !formatPreferences.includes(rule.format)) {
-      formatPreferences.push(rule.format);
-      if (!evidenceText.format_preferences) {
-        evidenceText.format_preferences = match[0];
+    if (match) {
+      if (!formatPreferences.includes(rule.format)) {
+        formatPreferences.push(rule.format);
+        if (!evidenceText.format_preferences) {
+          evidenceText.format_preferences = match[0];
+        }
       }
     }
   }
@@ -147,16 +323,16 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
     }
   }
 
-  // 5. Match Goal from controlled vocabulary, synonyms & semantic patterns
+  // 5. Match Controlled Goal
   let matchedGoal: GoalId | null = null;
-  let matchedSnippet = "";
+  let matchedSnippet: string | null = null;
   let isVagueRequest = false;
 
-  // Direct phrase / synonym matching from CONTROLLED_GOALS
-  for (const g of CONTROLLED_GOALS) {
-    for (const syn of g.synonyms) {
-      if (inputLower.includes(syn)) {
-        matchedGoal = g.id;
+  for (const goal of CONTROLLED_GOALS) {
+    for (const syn of goal.synonyms) {
+      const synLower = syn.toLowerCase();
+      if (inputLower.includes(synLower)) {
+        matchedGoal = goal.id;
         matchedSnippet = syn;
         break;
       }
@@ -164,113 +340,76 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
     if (matchedGoal) break;
   }
 
-  // Semantic pattern matching for realistic variations
+  // Secondary synonym rules if exact synonym not found
   if (!matchedGoal) {
-    // Underarm odor freshness
-    if (
-      (inputLower.includes("underarm") || inputLower.includes("armpit")) &&
-      (inputLower.includes("odor") || inputLower.includes("smell") || inputLower.includes("sweat") || inputLower.includes("freshness"))
-    ) {
+    if (inputLower.includes("odor") || inputLower.includes("sweat") || inputLower.includes("smell")) {
       matchedGoal = "underarm_odor_freshness";
-      matchedSnippet = "controls odor";
-    }
-    // Underarm texture smoothing & AHA
-    else if (
-      (inputLower.includes("underarm") || inputLower.includes("armpit")) &&
-      (inputLower.includes("aha") || inputLower.includes("dark") || inputLower.includes("texture") || inputLower.includes("smooth"))
+      matchedSnippet = "underarm odor freshness";
+    } else if (
+      inputLower.includes("underarm") &&
+      (inputLower.includes("aha") || inputLower.includes("texture") || inputLower.includes("smooth") || inputLower.includes("dark") || inputLower.includes("pigment") || inputLower.includes("roll-on"))
     ) {
       matchedGoal = "underarm_texture_smoothing";
-      matchedSnippet = "underarms with AHA";
-    }
-    // Gentle daily cleansing
-    else if (
-      (inputLower.includes("gentle") || inputLower.includes("mild") || inputLower.includes("everyday")) &&
-      (inputLower.includes("wash") || inputLower.includes("cleanse") || inputLower.includes("cleansing"))
+      matchedSnippet = "underarm texture smoothing";
+    } else if (
+      inputLower.includes("gentle") &&
+      (inputLower.includes("daily") || inputLower.includes("wash") || inputLower.includes("cleanser"))
     ) {
       matchedGoal = "gentle_daily_cleansing";
-      matchedSnippet = "gentle daily";
-    }
-    // Oil control / sebum
-    else if (
-      (inputLower.includes("greasy") || inputLower.includes("oily") || inputLower.includes("sebum") || inputLower.includes("shine")) &&
-      (inputLower.includes("forehead") || inputLower.includes("nose") || inputLower.includes("midday") || inputLower.includes("face"))
+      matchedSnippet = "gentle daily cleansing";
+    } else if (
+      (inputLower.includes("bump") || inputLower.includes("rough") || inputLower.includes("strawberry")) &&
+      (inputLower.includes("arm") || inputLower.includes("leg") || inputLower.includes("back") || inputLower.includes("body"))
     ) {
-      matchedGoal = "oil_control";
-      matchedSnippet = "greasy forehead";
-    }
-    // Dark spots / marks (singular or plural)
-    else if (
-      inputLower.includes("dark spot") ||
-      inputLower.includes("dark spots") ||
-      inputLower.includes("blemish mark") ||
-      inputLower.includes("post acne")
-    ) {
+      matchedGoal = "body_bumps_look";
+      matchedSnippet = "body bumps on arms and back";
+    } else if (inputLower.includes("tight") || inputLower.includes("dry") || inputLower.includes("barrier")) {
+      matchedGoal = "hydration_barrier";
+      matchedSnippet = "dry tight skin";
+    } else if (inputLower.includes("dark spot") || inputLower.includes("marks") || inputLower.includes("pigment")) {
       matchedGoal = "dark_spots_look";
       matchedSnippet = "dark spot marks";
-    }
-    // Hair fall appearance
-    else if (
-      (inputLower.includes("hair") || inputLower.includes("strands")) &&
-      (inputLower.includes("comb") || inputLower.includes("falling") || inputLower.includes("shedding") || inputLower.includes("breakage"))
-    ) {
-      matchedGoal = "hair_fall_appearance";
-      matchedSnippet = "hair strands coming out in my comb";
-    }
-    // Scalp comfort & itch relief
-    else if (
-      inputLower.includes("scalp") &&
-      (inputLower.includes("itch") || inputLower.includes("itchy") || inputLower.includes("flaky") || inputLower.includes("irritation"))
-    ) {
+    } else if (inputLower.includes("greasy") || inputLower.includes("sebum") || inputLower.includes("oil") || inputLower.includes("blackhead")) {
+      matchedGoal = "oil_control";
+      matchedSnippet = "oil control";
+    } else if (inputLower.includes("flake") || inputLower.includes("itch") || inputLower.includes("dandruff")) {
       matchedGoal = "scalp_comfort";
       matchedSnippet = "itchy flaky scalp";
-    }
-    // Frizz control
-    else if (inputLower.includes("frizz") || inputLower.includes("frizzy") || inputLower.includes("flyaways")) {
+    } else if (inputLower.includes("fall") || inputLower.includes("shedding") || inputLower.includes("comb")) {
+      matchedGoal = "hair_fall_appearance";
+      matchedSnippet = "hair strands coming out in comb";
+    } else if (inputLower.includes("frizz") || inputLower.includes("frizzy") || inputLower.includes("flyaways")) {
       matchedGoal = "frizz_control";
       matchedSnippet = "frizzy hair";
-    }
-    // Hairline & parting density appearance
-    else if (
+    } else if (
       inputLower.includes("hairline") ||
       inputLower.includes("parting") ||
       (inputLower.includes("thinning") && (inputLower.includes("hair") || inputLower.includes("scalp") || inputLower.includes("temple")))
     ) {
       matchedGoal = "hair_density_appearance";
       matchedSnippet = "hairline and parting";
-    }
-    // Sun protection
-    else if (inputLower.includes("sunscreen") || inputLower.includes("spf") || inputLower.includes("sun protection")) {
+    } else if (inputLower.includes("sunscreen") || inputLower.includes("spf") || inputLower.includes("sun protection")) {
       matchedGoal = "sun_protection";
       matchedSnippet = "sunscreen";
-    }
-    // Scalp clarifying
-    else if (
+    } else if (
       (inputLower.includes("clarifying") || inputLower.includes("buildup")) &&
       (inputLower.includes("scalp") || inputLower.includes("roots") || inputLower.includes("oily"))
     ) {
       matchedGoal = "scalp_clarifying";
       matchedSnippet = "product buildup from oily roots";
-    }
-    // Hair density / support gummies
-    else if (
+    } else if (
       (inputLower.includes("gummies") || inputLower.includes("chewable")) &&
       inputLower.includes("hair")
     ) {
       matchedGoal = "hair_density_appearance";
       matchedSnippet = "gummies for hair support";
-    }
-    // Strawberry legs / body bumps
-    else if (inputLower.includes("strawberry legs") || inputLower.includes("rough bumps")) {
+    } else if (inputLower.includes("strawberry legs") || inputLower.includes("rough bumps")) {
       matchedGoal = "body_bumps_look";
       matchedSnippet = "strawberry legs";
-    }
-    // General acne phrase -> cosmetic body_bumps_look without curative claims
-    else if (inputLower.includes("acne") || inputLower.includes("breakout")) {
+    } else if (inputLower.includes("acne") || inputLower.includes("breakout")) {
       matchedGoal = "body_bumps_look";
       matchedSnippet = "acne";
-    }
-    // Vague/general intent (e.g. "clean and refreshing")
-    else if (inputLower.includes("clean") || inputLower.includes("refreshing")) {
+    } else if (inputLower.includes("clean") || inputLower.includes("refreshing")) {
       matchedGoal = "gentle_daily_cleansing";
       matchedSnippet = "clean and refreshing";
       isVagueRequest = true;

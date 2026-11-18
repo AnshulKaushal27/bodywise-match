@@ -11,6 +11,7 @@ import {
   CaretUp,
   Question,
   ShieldCheck,
+  ShieldWarning,
   Drop,
   Flask,
   Sun,
@@ -29,18 +30,26 @@ import {
   SourceTag,
   EmptyState,
   Dialog,
+  Callout,
 } from "@/components/ui";
 import {
   ParsedNeeds,
+  ParsedRequest,
   ProductRecord,
+  ProductCategory,
   DEMO_CATALOGUE_SEED,
   matchProducts,
+  matchMultiNeeds,
   MatchResult,
+  MultiNeedMatchResult,
+  NeedRecommendation,
+  NeedMatchGroup,
   Recommendation,
   RULES_VERSION,
   CONTROLLED_GOALS,
+  normalizeCosmeticWording,
 } from "@bodywise/shared";
-import { submitMatchFeedback } from "@/lib/api";
+import { submitMatchFeedback, fetchMultiNeedRecommendations } from "@/lib/api";
 
 const MATCH_STEPS: StepItem[] = [
   { id: "step-1", label: "Describe concern", description: "Goal & preferences" },
@@ -56,6 +65,26 @@ const DEFAULT_PARSED: ParsedNeeds = {
   routine_context: null,
   uncertainties: [],
   confidence: "high",
+};
+
+const DEFAULT_PARSED_REQUEST: ParsedRequest = {
+  needs: [
+    {
+      id: "need_1",
+      phrase_from_user: "reduce the look of body bumps",
+      concepts: ["body_bumps_look"],
+      preferred_category: "body_wash",
+      format_preferences: ["liquid"],
+      priority: "primary",
+      confidence: "high",
+      normalised_label: "Reduce the look of body bumps",
+    },
+  ],
+  avoidances: [],
+  routine_context: null,
+  uncertainties: [],
+  follow_up_question: null,
+  medical_flag: false,
 };
 
 // Demo Community Reports (honest trade-offs, strictly flagged with Demo data badge per Rule 4)
@@ -83,9 +112,11 @@ const DEMO_COMMUNITY_REPORTS = [
 export default function MatchResultsPage() {
   // State
   const [parsedNeeds, setParsedNeeds] = React.useState<ParsedNeeds>(DEFAULT_PARSED);
+  const [parsedRequest, setParsedRequest] = React.useState<ParsedRequest>(DEFAULT_PARSED_REQUEST);
   const [matchResult, setMatchResult] = React.useState<MatchResult>(() =>
     matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED)
   );
+  const [multiMatchResult, setMultiMatchResult] = React.useState<MultiNeedMatchResult | null>(null);
   const [howWeMatchedOpen, setHowWeMatchedOpen] = React.useState(true);
 
   // Compare Checkbox State
@@ -97,7 +128,7 @@ export default function MatchResultsPage() {
 
   // "This Doesn't Fit" Modal State
   const [rejectingRecommendation, setRejectingRecommendation] = React.useState<{
-    rec: Recommendation;
+    rec: Recommendation | NeedRecommendation;
     product: ProductRecord;
   } | null>(null);
 
@@ -119,18 +150,60 @@ export default function MatchResultsPage() {
       setSessionId(activeSessionId);
 
       try {
-        const raw = sessionStorage.getItem("bodywise_parsed_needs");
-        const parsed: ParsedNeeds = raw ? JSON.parse(raw) : DEFAULT_PARSED;
-        setParsedNeeds(parsed);
-        const result = matchProducts(parsed, DEMO_CATALOGUE_SEED);
-        setMatchResult(result);
+        const rawReq = sessionStorage.getItem("bodywise_parsed_request");
+        const rawNeeds = sessionStorage.getItem("bodywise_parsed_needs");
+
+        let activeReq = DEFAULT_PARSED_REQUEST;
+        let activeNeeds = DEFAULT_PARSED;
+
+        if (rawReq) {
+          activeReq = JSON.parse(rawReq) as ParsedRequest;
+          setParsedRequest(activeReq);
+        }
+
+        if (rawNeeds) {
+          activeNeeds = JSON.parse(rawNeeds) as ParsedNeeds;
+          setParsedNeeds(activeNeeds);
+        } else if (rawReq && activeReq.needs.length > 0) {
+          const first = activeReq.needs[0];
+          activeNeeds = {
+            goal: first.concepts[0] || "body_bumps_look",
+            category: first.preferred_category,
+            format_preferences: first.format_preferences,
+            avoidances: activeReq.avoidances,
+            routine_context: activeReq.routine_context,
+            uncertainties: activeReq.uncertainties,
+            confidence: first.confidence,
+          };
+          setParsedNeeds(activeNeeds);
+        }
+
+        // Run multi-need matching
+        matchMultiNeeds(activeReq, DEMO_CATALOGUE_SEED).then((res) => {
+          setMultiMatchResult(res);
+        }).catch(() => {});
+
+        // Also run single-need matching for backward compatibility
+        const singleRes = matchProducts(activeNeeds, DEMO_CATALOGUE_SEED);
+        setMatchResult(singleRes);
+
+        // Attempt async API fetch if server is reachable
+        fetchMultiNeedRecommendations(activeReq)
+          .then((apiRes) => {
+            if (apiRes && apiRes.groups) {
+              setMultiMatchResult(apiRes);
+            }
+          })
+          .catch(() => {
+            // Keep local deterministic match
+          });
       } catch {
-        const result = matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED);
-        setMatchResult(result);
+        const singleRes = matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED);
+        setMatchResult(singleRes);
+        matchMultiNeeds(DEFAULT_PARSED_REQUEST, DEMO_CATALOGUE_SEED)
+          .then(setMultiMatchResult)
+          .catch(() => {});
       }
-    } else {
-      const result = matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED);
-      setMatchResult(result);
     }
   }, []);
 
@@ -140,8 +213,33 @@ export default function MatchResultsPage() {
     if (typeof window !== "undefined") {
       sessionStorage.setItem("bodywise_parsed_needs", JSON.stringify(updatedNeeds));
     }
-    const result = matchProducts(updatedNeeds, DEMO_CATALOGUE_SEED);
-    setMatchResult(result);
+    const singleRes = matchProducts(updatedNeeds, DEMO_CATALOGUE_SEED);
+    setMatchResult(singleRes);
+
+    const updatedReq: ParsedRequest = {
+      ...parsedRequest,
+      needs: [
+        {
+          id: "need_1",
+          phrase_from_user: updatedNeeds.goal || "care",
+          concepts: [updatedNeeds.goal || "body_bumps_look"],
+          preferred_category: (updatedNeeds.category as ProductCategory) || null,
+          format_preferences: updatedNeeds.format_preferences,
+          priority: "primary",
+          confidence: updatedNeeds.confidence,
+          normalised_label: normalizeCosmeticWording(updatedNeeds.goal || "care"),
+        },
+      ],
+      avoidances: updatedNeeds.avoidances,
+      routine_context: typeof updatedNeeds.routine_context === "string" ? updatedNeeds.routine_context : null,
+    };
+    setParsedRequest(updatedReq);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("bodywise_parsed_request", JSON.stringify(updatedReq));
+    }
+    matchMultiNeeds(updatedReq, DEMO_CATALOGUE_SEED)
+      .then(setMultiMatchResult)
+      .catch(() => {});
   };
 
   // Handle "This doesn't fit" Correction
@@ -152,7 +250,6 @@ export default function MatchResultsPage() {
     const updated = { ...parsedNeeds };
 
     if (reason === "wrong_format") {
-      // Exclude this product's format
       const otherFormats = ["liquid", "roll-on", "oil", "gummies"].filter(
         (f) => !product.format.toLowerCase().includes(f)
       );
@@ -160,14 +257,12 @@ export default function MatchResultsPage() {
         updated.format_preferences = [otherFormats[0]];
       }
     } else if (reason === "avoid_ingredient") {
-      // Add fragrance or primary ingredient to avoidances
       if (product.fragrance_free !== true && !updated.avoidances.includes("fragrance")) {
         updated.avoidances = [...updated.avoidances, "fragrance"];
       } else {
         updated.avoidances = [...updated.avoidances, "parabens"];
       }
     } else if (reason === "wrong_goal") {
-      // Switch to alternative goal in same or different category
       const altGoals = CONTROLLED_GOALS.filter((g) => g.id !== updated.goal);
       if (altGoals.length > 0) {
         updated.goal = altGoals[0].id;
@@ -227,7 +322,6 @@ export default function MatchResultsPage() {
     }
   };
 
-  // Formatted match label helper
   const formatMatchLabel = (label: string) => {
     switch (label) {
       case "STRONG_FORMAT_FIT":
@@ -255,6 +349,12 @@ export default function MatchResultsPage() {
   const comparedProducts = DEMO_CATALOGUE_SEED.filter((p) =>
     comparedProductIds.includes(p.id)
   );
+
+  const multiGroups = multiMatchResult?.groups;
+  const hasMultiGroups = Boolean(multiGroups && multiGroups.length > 0);
+  const isAnyMatched = hasMultiGroups && multiGroups
+    ? multiGroups.some((g) => g.status === "MATCHED" && g.recommendations.length > 0)
+    : matchResult?.status === "MATCHES_FOUND" && matchResult.shortlist.length > 0;
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
@@ -289,6 +389,21 @@ export default function MatchResultsPage() {
           <ProgressBar value={100} max={100} showLabel />
         </div>
 
+        {/* Medical Caution Callout (Task Part E.7) */}
+        {(parsedRequest.medical_flag || multiMatchResult?.medical_flag) && (
+          <div className="mb-6">
+            <Callout
+              variant="caution"
+              title="Informational only &bull; Cosmetic wellness boundaries"
+              icon={<ShieldWarning className="w-5 h-5 text-caution-text flex-shrink-0" weight="regular" />}
+            >
+              <p className="text-xs md:text-sm">
+                Your request touches symptoms or concerns (such as acne, infection, pain, or allergy) that may warrant a medical evaluation. Products in our catalogue are non-prescription cosmetic options intended for personal hygiene and appearance support. Please consult a qualified medical professional for diagnosis or treatment. Review our <Link href="/safety" className="underline font-semibold hover:text-brand-deep">Safety &amp; Scope</Link> principles.
+              </p>
+            </Callout>
+          </div>
+        )}
+
         {/* Section Header & Sub-header Recap */}
         <div className="mb-8">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-sage/60 text-xs font-semibold text-brand-deep mb-2">
@@ -306,7 +421,11 @@ export default function MatchResultsPage() {
               <span className="font-bold text-brand-deep uppercase tracking-wider text-[11px]">
                 Looking for:
               </span>
-              <span>{recapSegments.join(" • ")}</span>
+              <span>
+                {hasMultiGroups && multiGroups
+                  ? multiGroups.map((g) => g.needLabel).join(" • ")
+                  : recapSegments.join(" • ")}
+              </span>
             </div>
 
             <Link
@@ -319,189 +438,418 @@ export default function MatchResultsPage() {
         </div>
 
         {/* ================= RESULTS / SHORTLIST ================= */}
-        {matchResult?.status === "MATCHES_FOUND" && matchResult.shortlist.length > 0 ? (
-          <div className="space-y-8 mb-12">
-            {matchResult.shortlist.map((rec: Recommendation) => {
-              const product = DEMO_CATALOGUE_SEED.find((p) => p.id === rec.productId);
-              if (!product) return null;
+        {isAnyMatched ? (
+          <div className="space-y-10 mb-12">
+            {hasMultiGroups && multiGroups ? (
+              /* Multi-Need Grouped Display (Task Part E & F) */
+              multiGroups.map((group: NeedMatchGroup, groupIdx: number) => (
+                <section key={group.needId || `group_${groupIdx}`} className="space-y-6">
+                  {/* Group Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-brand-evergreen/20">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="w-5 h-5 rounded-full bg-brand-evergreen text-white text-xs font-bold flex items-center justify-center">
+                          {groupIdx + 1}
+                        </span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-brand-evergreen">
+                          Need {groupIdx + 1}
+                        </span>
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-bold font-display text-brand-deep">
+                        For {group.needLabel}
+                      </h2>
+                      <p className="text-xs text-muted">
+                        Understood from: &ldquo;{group.rawPhrase}&rdquo;
+                      </p>
+                    </div>
 
-              const isCompared = comparedProductIds.includes(product.id);
+                    {group.category && (
+                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-surface-sage text-brand-deep border border-brand-deep/15 capitalize self-start sm:self-auto">
+                        Best-fitting product type: {group.category.replace(/_/g, " ")}
+                      </span>
+                    )}
+                  </div>
 
-              return (
-                <Card
-                  key={rec.productId}
-                  variant="surface"
-                  className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden"
-                >
-                  {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {product.is_demo && <DemoBadge />}
-                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
-                        {formatMatchLabel(rec.matchLabel)}
+                  {/* Group Recommendations or NO_FIT */}
+                  {group.status === "NO_FIT" || group.recommendations.length === 0 ? (
+                    <div className="p-6 rounded-card bg-surface border border-border text-center">
+                      <WarningCircle className="w-8 h-8 text-muted mx-auto mb-2" weight="regular" />
+                      <h3 className="font-bold text-brand-deep text-sm mb-1">
+                        No direct catalogue fit found for this need
+                      </h3>
+                      <p className="text-xs text-muted max-w-md mx-auto">
+                        {group.noFitReason ||
+                          "No product in our catalogue currently carries verified published evidence matching this specific concern. We never invent products or make unverified claims."}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {group.recommendations.map((rec: NeedRecommendation) => {
+                        const product = DEMO_CATALOGUE_SEED.find((p) => p.id === rec.productId);
+                        if (!product) return null;
+                        const isCompared = comparedProductIds.includes(product.id);
+
+                        return (
+                          <Card
+                            key={`${group.needId}_${rec.productId}`}
+                            variant="surface"
+                            className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden"
+                          >
+                            {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
+                            <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {product.is_demo && <DemoBadge />}
+                                <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
+                                  {formatMatchLabel(rec.matchLabel)}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-4 text-xs font-medium text-muted">
+                                <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen">
+                                  <input
+                                    type="checkbox"
+                                    checked={isCompared}
+                                    onChange={() => toggleCompare(product.id)}
+                                    className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+                                  />
+                                  <span>Compare</span>
+                                </label>
+                                <span className="text-border">&bull;</span>
+                                <span>Rank {rec.rank} of {group.recommendations.length}</span>
+                              </div>
+                            </div>
+
+                            {/* Header Row: Product Image + Name, Format, Size */}
+                            <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
+                              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
+                                {getProductTypeIcon(product.category)}
+                              </div>
+
+                              <div className="flex-1">
+                                <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
+                                  {product.official_name}
+                                </h3>
+                                <p className="text-xs md:text-sm text-muted font-medium mb-2">
+                                  {product.format} &bull; {product.size}
+                                </p>
+                                <p className="text-sm text-charcoal/85 leading-relaxed">
+                                  {product.official_description}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* "Why it's here" (Citing specific catalogue facts and source tags) */}
+                            <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
+                                <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                                Why it&apos;s here
+                              </h4>
+                              <p className="text-sm text-charcoal leading-relaxed font-medium mb-2">
+                                {rec.whyHere || rec.considerIf[0] || "Directly relevant to your stated wellness goal."}
+                              </p>
+
+                              {rec.evidenceSnippets && rec.evidenceSnippets.length > 0 && (
+                                <blockquote className="my-2.5 p-3 rounded bg-surface border-l-4 border-brand-evergreen text-xs italic text-brand-deep">
+                                  &ldquo;{rec.evidenceSnippets[0]}&rdquo;
+                                </blockquote>
+                              )}
+
+                              <div className="mt-2">
+                                <SourceTag
+                                  source={rec.sourceTag || "Official Store Catalogue Formulation"}
+                                  lastVerifiedAt={product.last_verified_at || "November 2026"}
+                                />
+                              </div>
+                            </div>
+
+                            {/* Two Columns: "Consider this if..." and "May not be the best fit if..." */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                              <div className="p-4 rounded-button bg-surface border border-border">
+                                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
+                                  <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                                  Consider this if...
+                                </h4>
+                                <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
+                                  {rec.considerIf.slice(1).length > 0 ? (
+                                    rec.considerIf.slice(1).map((item, idx) => <li key={idx}>{item}</li>)
+                                  ) : (
+                                    <li>Matches your lifestyle application preference.</li>
+                                  )}
+                                  <li>Formulated for regular, non-invasive daily personal care.</li>
+                                </ul>
+                              </div>
+
+                              <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
+                                <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                  <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
+                                  May not be the best fit if...
+                                </h4>
+                                <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
+                                  {rec.mayNotFitIf.map((caution, idx) => (
+                                    <li key={idx}>{caution}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+
+                            {/* Verified Facts List with SourceTag */}
+                            <div className="mb-6 p-4 rounded-button bg-paper border border-border">
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
+                                <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                                Verified Facts &amp; Provenance
+                              </h4>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div>
+                                  <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
+                                  {product.ingredients !== null && product.last_verified_at ? (
+                                    <SourceTag
+                                      source={product.source_url || "Official Packaging"}
+                                      lastVerifiedAt={product.last_verified_at}
+                                    />
+                                  ) : (
+                                    <SourceTag source={null} lastVerifiedAt={null} />
+                                  )}
+                                </div>
+
+                                <div>
+                                  <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
+                                  {product.fragrance_free !== null && product.last_verified_at ? (
+                                    <SourceTag
+                                      source="Official Packaging"
+                                      lastVerifiedAt={product.last_verified_at}
+                                    />
+                                  ) : (
+                                    <SourceTag source={null} lastVerifiedAt={null} />
+                                  )}
+                                </div>
+
+                                <div>
+                                  <span className="text-muted block mb-1 font-semibold">Price verification:</span>
+                                  {product.price_inr !== null ? (
+                                    <SourceTag
+                                      source={`₹${product.price_inr} • Official Store`}
+                                      lastVerifiedAt={product.price_checked_at || "November 2026"}
+                                    />
+                                  ) : (
+                                    <SourceTag source={null} />
+                                  )}
+                                </div>
+
+                                <div>
+                                  <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
+                                  <SourceTag
+                                    source="Official Label Directions"
+                                    lastVerifiedAt={product.last_verified_at || "November 2026"}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Actions Row: View Details & "This doesn't fit" */}
+                            <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+                              <div className="flex items-center gap-3">
+                                <Button
+                                  variant="secondary"
+                                  size="sm"
+                                  onClick={() => setSelectedDetailProduct(product)}
+                                >
+                                  View details
+                                </Button>
+                                <button
+                                  type="button"
+                                  data-testid="this-doesnt-fit-btn"
+                                  onClick={() => setRejectingRecommendation({ rec, product })}
+                                  className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-1 px-2"
+                                >
+                                  This doesn&apos;t fit
+                                </button>
+                              </div>
+
+                              <span className="text-xs text-muted font-medium">
+                                Zero percentage scores
+                              </span>
+                            </div>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  )}
+                </section>
+              ))
+            ) : matchResult.status === "MATCHES_FOUND" ? (
+              /* Single Goal Shortlist Fallback */
+              matchResult.shortlist.map((rec: Recommendation) => {
+                const product = DEMO_CATALOGUE_SEED.find((p) => p.id === rec.productId);
+                if (!product) return null;
+                const isCompared = comparedProductIds.includes(product.id);
+
+                return (
+                  <Card
+                    key={rec.productId}
+                    variant="surface"
+                    className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {product.is_demo && <DemoBadge />}
+                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
+                          {formatMatchLabel(rec.matchLabel)}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-4 text-xs font-medium text-muted">
+                        <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen">
+                          <input
+                            type="checkbox"
+                            checked={isCompared}
+                            onChange={() => toggleCompare(product.id)}
+                            className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+                          />
+                          <span>Compare</span>
+                        </label>
+                        <span className="text-border">&bull;</span>
+                        <span>Rank {rec.rank} of {matchResult.shortlist.length}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
+                        {getProductTypeIcon(product.category)}
+                      </div>
+
+                      <div className="flex-1">
+                        <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
+                          {product.official_name}
+                        </h3>
+                        <p className="text-xs md:text-sm text-muted font-medium mb-2">
+                          {product.format} &bull; {product.size}
+                        </p>
+                        <p className="text-sm text-charcoal/85 leading-relaxed">
+                          {product.official_description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
+                        <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                        Why it&apos;s here
+                      </h4>
+                      <p className="text-sm text-charcoal leading-relaxed font-medium">
+                        {rec.considerIf[0] || "Directly relevant to your stated wellness goal and preferences."}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                      <div className="p-4 rounded-button bg-surface border border-border">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
+                          <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                          Consider this if...
+                        </h4>
+                        <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
+                          {rec.considerIf.slice(1).length > 0 ? (
+                            rec.considerIf.slice(1).map((item, idx) => <li key={idx}>{item}</li>)
+                          ) : (
+                            <li>Matches your lifestyle application preference.</li>
+                          )}
+                          <li>Formulated for regular, non-invasive daily personal care.</li>
+                        </ul>
+                      </div>
+
+                      <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
+                        <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                          <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
+                          May not be the best fit if...
+                        </h4>
+                        <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
+                          {rec.mayNotFitIf.map((caution, idx) => (
+                            <li key={idx}>{caution}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="mb-6 p-4 rounded-button bg-paper border border-border">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
+                        <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                        Verified Facts &amp; Provenance
+                      </h4>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div>
+                          <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
+                          {product.ingredients !== null && product.last_verified_at ? (
+                            <SourceTag
+                              source={product.source_url || "Official Packaging"}
+                              lastVerifiedAt={product.last_verified_at}
+                            />
+                          ) : (
+                            <SourceTag source={null} lastVerifiedAt={null} />
+                          )}
+                        </div>
+
+                        <div>
+                          <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
+                          {product.fragrance_free !== null && product.last_verified_at ? (
+                            <SourceTag
+                              source="Official Packaging"
+                              lastVerifiedAt={product.last_verified_at}
+                            />
+                          ) : (
+                            <SourceTag source={null} lastVerifiedAt={null} />
+                          )}
+                        </div>
+
+                        <div>
+                          <span className="text-muted block mb-1 font-semibold">Price verification:</span>
+                          {product.price_inr !== null ? (
+                            <SourceTag
+                              source={`₹${product.price_inr} • Official Store`}
+                              lastVerifiedAt={product.price_checked_at || "November 2026"}
+                            />
+                          ) : (
+                            <SourceTag source={null} />
+                          )}
+                        </div>
+
+                        <div>
+                          <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
+                          <SourceTag
+                            source="Official Label Directions"
+                            lastVerifiedAt={product.last_verified_at || "November 2026"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => setSelectedDetailProduct(product)}
+                        >
+                          View details
+                        </Button>
+                        <button
+                          type="button"
+                          data-testid="this-doesnt-fit-btn"
+                          onClick={() => setRejectingRecommendation({ rec, product })}
+                          className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-1 px-2"
+                        >
+                          This doesn&apos;t fit
+                        </button>
+                      </div>
+
+                      <span className="text-xs text-muted font-medium">
+                        Zero percentage scores
                       </span>
                     </div>
-
-                    <div className="flex items-center gap-4 text-xs font-medium text-muted">
-                      {/* Compare Checkbox */}
-                      <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen">
-                        <input
-                          type="checkbox"
-                          checked={isCompared}
-                          onChange={() => toggleCompare(product.id)}
-                          className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
-                        />
-                        <span>Compare</span>
-                      </label>
-                      <span className="text-border">&bull;</span>
-                      <span>Rank {rec.rank} of {matchResult.shortlist.length}</span>
-                    </div>
-                  </div>
-
-                  {/* Header Row: Product Image + Name, Format, Size */}
-                  <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
-                    {/* Neutral Sage Placeholder with Product-Type Icon (or Authorized Image) */}
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-                      {getProductTypeIcon(product.category)}
-                    </div>
-
-                    <div className="flex-1">
-                      <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
-                        {product.official_name}
-                      </h3>
-                      <p className="text-xs md:text-sm text-muted font-medium mb-2">
-                        {product.format} &bull; {product.size}
-                      </p>
-                      <p className="text-sm text-charcoal/85 leading-relaxed">
-                        {product.official_description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* "Why it's here" (Reason-Code Template) */}
-                  <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
-                      <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                      Why it&apos;s here
-                    </h4>
-                    <p className="text-sm text-charcoal leading-relaxed font-medium">
-                      {rec.considerIf[0] || "Directly relevant to your stated wellness goal and preferences."}
-                    </p>
-                  </div>
-
-                  {/* Two Columns on Desktop: "Consider this if..." and "May not be the best fit if..." */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    {/* Consider Column */}
-                    <div className="p-4 rounded-button bg-surface border border-border">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
-                        <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                        Consider this if...
-                      </h4>
-                      <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
-                        {rec.considerIf.slice(1).length > 0 ? (
-                          rec.considerIf.slice(1).map((item, idx) => <li key={idx}>{item}</li>)
-                        ) : (
-                          <li>Matches your lifestyle application preference.</li>
-                        )}
-                        <li>Formulated for regular, non-invasive daily personal care.</li>
-                      </ul>
-                    </div>
-
-                    {/* Caution Column */}
-                    <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
-                      <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                        <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
-                        May not be the best fit if...
-                      </h4>
-                      <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
-                        {rec.mayNotFitIf.map((caution, idx) => (
-                          <li key={idx}>{caution}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Verified Facts List with SourceTag */}
-                  <div className="mb-6 p-4 rounded-button bg-paper border border-border">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                      Verified Facts &amp; Provenance
-                    </h4>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                      <div>
-                        <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
-                        {product.ingredients !== null && product.last_verified_at ? (
-                          <SourceTag
-                            source={product.source_url || "Official Packaging"}
-                            lastVerifiedAt={product.last_verified_at}
-                          />
-                        ) : (
-                          <SourceTag source={null} lastVerifiedAt={null} />
-                        )}
-                      </div>
-
-                      <div>
-                        <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
-                        {product.fragrance_free !== null && product.last_verified_at ? (
-                          <SourceTag
-                            source="Official Packaging"
-                            lastVerifiedAt={product.last_verified_at}
-                          />
-                        ) : (
-                          <SourceTag source={null} lastVerifiedAt={null} />
-                        )}
-                      </div>
-
-                      <div>
-                        <span className="text-muted block mb-1 font-semibold">Price verification:</span>
-                        {product.price_inr !== null ? (
-                          <SourceTag
-                            source={`₹${product.price_inr} • Official Store`}
-                            lastVerifiedAt={product.price_checked_at || "November 2026"}
-                          />
-                        ) : (
-                          <SourceTag source={null} />
-                        )}
-                      </div>
-
-                      <div>
-                        <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
-                        <SourceTag
-                          source="Official Label Directions"
-                          lastVerifiedAt={product.last_verified_at || "November 2026"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Actions Row: View Details & "This doesn't fit" */}
-                  <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => setSelectedDetailProduct(product)}
-                      >
-                        View details
-                      </Button>
-                      <button
-                        type="button"
-                        data-testid="this-doesnt-fit-btn"
-                        onClick={() => setRejectingRecommendation({ rec, product })}
-                        className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-1 px-2"
-                      >
-                        This doesn&apos;t fit
-                      </button>
-                    </div>
-
-                    <span className="text-xs text-muted font-medium">
-                      Zero percentage scores
-                    </span>
-                  </div>
-                </Card>
-              );
-            })}
+                  </Card>
+                );
+              })
+            ) : null}
           </div>
         ) : (
           /* ================= NO_FIT STATE ================= */
@@ -557,18 +905,33 @@ export default function MatchResultsPage() {
                   <strong>Hard exclusions:</strong> Any product with packaging ingredients or label cautions conflicting with your avoidances is filtered out. Unverified ingredients are held with caution.
                 </li>
                 <li>
-                  <strong>Goal fit:</strong> Exact goal match receives highest priority (+3 pts); related domain goals receive (+1 pt).
+                  <strong>Goal fit:</strong> Products with verified published evidence directly addressing your stated goals receive highest priority (+50 pts); general domain fit receives (+25 pts).
                 </li>
                 <li>
-                  <strong>Preference fit:</strong> Products meeting your preferred format receive (+2 pts); verified fragrance-free products receive (+2 pts).
-                </li>
-                <li>
-                  <strong>Routine compatibility:</strong> Products formulated for your time of use receive (+1 pt).
+                  <strong>Preference fit:</strong> Products meeting your preferred format receive (+15 pts); verified fragrance-free products receive (+10 pts).
                 </li>
                 <li>
                   <strong>Deterministic tie-breaks:</strong> When scores tie, products with more verified facts rank higher; final ties are broken alphabetically by slug.
                 </li>
               </ol>
+
+              {hasMultiGroups && multiGroups && (
+                <div className="p-3 rounded bg-surface-sage/30 border border-brand-deep/10 text-xs">
+                  <span className="font-bold text-brand-deep block mb-1">
+                    Multi-Need Retrieval &amp; Evidence Grounding:
+                  </span>
+                  <p className="text-muted mb-2">
+                    Queries are mapped to controlled cosmetic concepts and retrieved via BM25 lexical search over verified packaging cards. Products require published evidence snippets to qualify for a need.
+                  </p>
+                  <ul className="list-disc pl-4 space-y-1 text-charcoal">
+                    {multiGroups.map((g) => (
+                      <li key={g.needId}>
+                        <strong>{g.needLabel}:</strong> {g.status === "MATCHED" ? `${g.recommendations.length} evidenced match(es)` : "No fit found"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div className="pt-2 text-xs text-muted flex items-center justify-between">
                 <span>Algorithm: Pure TypeScript Deterministic Matcher</span>

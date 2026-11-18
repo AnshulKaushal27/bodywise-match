@@ -1,0 +1,152 @@
+[
+  {
+    "id": "q01",
+    "query": "I want blackhead removal and oily skin treatment",
+    "description": "Primary acceptance test: multi-need (blackheads + oily skin)"
+  },
+  {
+    "id": "q02",
+    "query": "face wash for oily skin",
+    "description": "Category + single concept"
+  },
+  {
+    "id": "q03",
+    "query": "something for open pores and shine",
+    "description": "Synonym-heavy multi-concept (pore look + oil control)"
+  },
+  {
+    "id": "q04",
+    "query": "dry flaky scalp and frizz",
+    "description": "Multi-domain: scalp comfort + hair frizz control"
+  },
+  {
+    "id": "q05",
+    "query": "body wash for rough bumpy skin",
+    "description": "Category + body bumps concept"
+  },
+  {
+    "id": "q06",
+    "query": "acne scars",
+    "description": "Medical flag trigger query"
+  },
+  {
+    "id": "q07",
+    "query": "fragrance free",
+    "description": "Avoidance-first query"
+  },
+  {
+    "id": "q08",
+    "query": "xyzabc blip florp 992837",
+    "description": "Nonsense / gibberish query (tests NO_FIT handling)"
+  },
+  {
+    "id": "q09",
+    "query": "sunscreen that leaves no white cast and controls shine",
+    "description": "Sun protection + oil control"
+  },
+  {
+    "id": "q10",
+    "query": "hair fall shampoo and conditioner for thin hair",
+    "description": "Hair fall look + hair thinning across multiple product types"
+  },
+  {
+    "id": "q11",
+    "query": "underarm roll-on that stops sweat smell without aluminum or perfume",
+    "description": "Underarm odor + fragrance avoidance"
+  },
+  {
+    "id": "q12",
+    "query": "salicylic acid body wash for back bumps and strawberry legs",
+    "description": "Body wash + body bumps synonyms"
+  },
+  {
+    "id": "q13",
+    "query": "hair gummies for thinning hairline and nail strength",
+    "description": "Supplement format + hair density"
+  },
+  {
+    "id": "q14",
+    "query": "gentle foaming cleanser for dry sensitive face that feels tight",
+    "description": "Gentle cleansing + sensitive skin + face wash"
+  },
+  {
+    "id": "q15",
+    "query": "exfoliating body wash and nourishing body lotion for keratosis pilaris",
+    "description": "Multi-need body care"
+  },
+  {
+    "id": "q16",
+    "query": "scalp serum for itchy dandruff flakes and dry scalp comfort",
+    "description": "Scalp care + dandruff clarifying + scalp comfort"
+  },
+  {
+    "id": "q17",
+    "query": "dark spot serum for uneven pigmentation and dullness",
+    "description": "Dark spots + brightening look"
+  },
+  {
+    "id": "q18",
+    "query": "frizz control hair serum and split end nourishment",
+    "description": "Hair frizz + hair nourishment"
+  },
+  {
+    "id": "q19",
+    "query": "niacinamide serum for open pores and oily t-zone",
+    "description": "Pores + oil control in serum format"
+  },
+  {
+    "id": "q20",
+    "query": "underarm roll on and body wash for summer freshness",
+    "description": "Multi-need underarm + body cleansing"
+  },
+  {
+    "id": "q21",
+    "query": "daily non-sticky sun protection spf 50 for sensitive skin",
+    "description": "Sun protection + sensitive friendly"
+  },
+  {
+    "id": "q22",
+    "query": "sulfate free clarifying shampoo for oily scalp",
+    "description": "Shampoo + sulfate avoidance + scalp oil control"
+  },
+  {
+    "id": "q23",
+    "query": "hair density serum with redensyl and biotin gummies",
+    "description": "Topical serum + ingestible supplement multi-format"
+  },
+  {
+    "id": "q24",
+    "query": "body lotion for very dry itchy winter skin",
+    "description": "Hydration + sensitive body care"
+  },
+  {
+    "id": "q25",
+    "query": "cystic acne infection with pus and painful inflammation",
+    "description": "Severe medical symptom query (medical flag required)"
+  },
+  {
+    "id": "q26",
+    "query": "severe eczema bleeding rash on hands",
+    "description": "Eczema bleeding condition (medical flag required)"
+  },
+  {
+    "id": "q27",
+    "query": "underarm roll on without fragrance",
+    "description": "Category + avoidance combination"
+  },
+  {
+    "id": "q28",
+    "query": "lightweight water gel moisturizer for oily skin and shine",
+    "description": "Moisturizer + oil control"
+  },
+  {
+    "id": "q29",
+    "query": "gentle intimate wash for daily feminine hygiene",
+    "description": "Intimate care + gentle cleansing"
+  },
+  {
+    "id": "q30",
+    "query": "shampoo for hair fall and hair growth oil",
+    "description": "Multi-need: hair fall shampoo + hair oil format"
+  }
+]

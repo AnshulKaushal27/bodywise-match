@@ -30,7 +30,7 @@ describe("/status Page & Health Diagnostics", () => {
   });
 
   it("exposes consistent RULES_VERSION and CATALOGUE_VERSION constants", () => {
-    expect(RULES_VERSION).toBe("1.0.0");
+    expect(RULES_VERSION).toBe("2.0.0");
     expect(CATALOGUE_VERSION).toBe("1.0.0-verified");
     expect(Array.isArray(DEMO_CATALOGUE_SEED)).toBe(true);
     expect(DEMO_CATALOGUE_SEED.length).toBeGreaterThan(0);

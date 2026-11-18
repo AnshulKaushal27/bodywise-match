@@ -31,6 +31,7 @@ import {
 import {
   fetchCatalogueGoals,
   parseMatchConcern,
+  pingServerHealth,
   GoalItem,
   FALLBACK_CATALOGUE_GOALS,
 } from "@/lib/api";
@@ -167,8 +168,9 @@ export default function MatchStep1Page() {
     }
   }, [concernText]);
 
-  // Load catalogue-supported goals from API
+  // Load catalogue-supported goals from API & warm up sleeping server
   React.useEffect(() => {
+    pingServerHealth();
     let isMounted = true;
     async function loadGoals() {
       try {
@@ -239,11 +241,23 @@ export default function MatchStep1Page() {
           "bodywise_parsed_needs",
           JSON.stringify(result.parsed_needs)
         );
+        if (result.parsed_request) {
+          sessionStorage.setItem(
+            "bodywise_parsed_request",
+            JSON.stringify(result.parsed_request)
+          );
+        }
         sessionStorage.setItem("bodywise_request_id", result.request_id);
         sessionStorage.setItem(
           "bodywise_parse_source",
           result.source || (result.strategy === "B" ? "llm" : "rules")
         );
+        if (result.fallback_reason) {
+          sessionStorage.setItem("bodywise_parse_fallback_reason", result.fallback_reason);
+        }
+        if (result.error_category) {
+          sessionStorage.setItem("bodywise_parse_error_category", result.error_category);
+        }
       }
 
       // Navigate to Step 2 (Clarifying questions / summary)
@@ -586,7 +600,7 @@ export default function MatchStep1Page() {
                 disabled={isContinueDisabled}
                 className="w-full sm:w-auto font-semibold text-base px-8 h-12 shadow-ambient min-w-[160px] active:scale-[0.98] motion-safe:transition-transform"
               >
-                Continue
+                {isParsing ? "Reading your request..." : "Continue"}
                 <ArrowRight className="ml-2 w-4 h-4" weight="bold" aria-hidden="true" />
               </Button>
 

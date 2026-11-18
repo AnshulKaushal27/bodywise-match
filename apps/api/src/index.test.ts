@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { buildServer } from "./index";
 import { FastifyInstance } from "fastify";
+import { RULES_VERSION } from "@bodywise/shared";
 
 describe("Fastify API Routes", () => {
   let app: FastifyInstance;
@@ -23,11 +24,11 @@ describe("Fastify API Routes", () => {
     const body = JSON.parse(res.payload);
     expect(body.status).toBe("ok");
     expect(body.service).toBe("bodywise-match-api");
-    expect(body.rules_version).toBe("1.0.0");
+    expect(body.rules_version).toBe(RULES_VERSION);
     expect(body.catalogue_version).toBe("1.0.0-verified");
     expect(body.ephemeral_disk).toBe(true);
     expect(["configured", "in_memory_fallback"]).toContain(body.database);
-    expect(["enabled", "deterministic_only"]).toContain(body.llm);
+    expect(["enabled", "groq", "deterministic_only"]).toContain(body.llm);
   });
 
   it("GET /v1/products returns product array", async () => {

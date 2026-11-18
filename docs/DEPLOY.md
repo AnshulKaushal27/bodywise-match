@@ -105,41 +105,39 @@ This runbook provides complete, step-by-step instructions for deploying the **Bo
    | `NODE_ENV` | `production` | Enables production optimizations |
    | `PORT` | `10000` | Render standard port |
    | `HOST` | `0.0.0.0` | Binds to all interfaces |
-   | `CORS_ORIGINS` | `https://bodywise-match.vercel.app,https://bodywise-match-preview.vercel.app` | Comma-separated allowed frontend origins |
+   | `CORS_ORIGINS` | `https://bodywise-match.vercel.app,https://bodywise-match-preview.vercel.app,https://bodywise-match-x5hd.vercel.app` | Comma-separated allowed frontend origins (Vercel production and previews) |
    | `RATE_LIMIT` | `100` | Requests per minute per IP |
    | `DATABASE_URL` | `postgresql://postgres.[REF]:[PASS]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true` | **Must use pooled port 6543** |
-   | `GROQ_API_KEY` | *(Optional)* `gsk_...` | Groq API key for optional intent extraction. Never log or commit. |
-   | `GROQ_MODEL` | `llama-3.3-70b-versatile` | Groq model for intent extraction (or active equivalent) |
-   | `GROQ_FAST_MODEL` | `llama-3.1-8b-instant` | Lightweight model for reason rewrites |
-   | `LLM_ENABLED` | `true` | Set to `false` to disable LLM calls completely |
-   | `LLM_TIMEOUT_MS` | `8000` | AbortController timeout (8s) |
+   | `GROQ_API_KEY` | *(Production Secret)* `gsk_...` | Groq API key for multi-need intent parsing. Never log, commit, or expose to frontend. |
+   | `GROQ_MODEL` | `llama-3.3-70b-versatile` | Groq primary model for multi-need intent extraction |
+   | `GROQ_FAST_MODEL` | `llama-3.1-8b-instant` | Lightweight model for fast rewrites and fallback repair |
+   | `LLM_ENABLED` | `true` | Set to `false` to disable LLM calls completely (degrades to rules) |
+   | `LLM_TIMEOUT_MS` | `15000` | Timeout in ms (15s allows for cold start wake-up) |
    | `LLM_MAX_INPUT_CHARS` | `1500` | User input character cap before transmission |
    | `LLM_DAILY_CAP` | `500` | Global daily LLM request cap |
+   | `DEBUG_TOKEN` | *(Secret Token)* | Authorizes diagnostic calls to `GET /v1/debug/llm` in production via `x-debug-token` header |
+   | `ENABLE_EMBEDDINGS` | `false` | Local transformers.js embedding retriever toggle (default false, uses BM25) |
+
+   > [!IMPORTANT]
+   > **Secret Isolation Rule (AGENTS.md Rule 2.a):**
+   > `GROQ_API_KEY` and `DEBUG_TOKEN` must ONLY be set on Render (`apps/api`). Never set `GROQ_API_KEY` or any `NEXT_PUBLIC_GROQ_*` variable in Vercel. Fastify redacts all request and response bodies from server logs.
 
    > [!NOTE]
    > **Groq Rate Limits & Deterministic Rules Fallback:**
-   > Groq free-tier rate limits apply (requests per minute and tokens per minute). When `GROQ_API_KEY` is unset, `LLM_ENABLED=false`, a 429 rate limit is encountered, or the daily request quota (`LLM_DAILY_CAP`) is reached, the system **silently and automatically falls back to the deterministic TypeScript rules parser**. The application never fails or displays an error screen to the user. On the confirm screen, the provenance tag transparently updates from `"Interpreted with AI, please check"` to `"Interpreted with rules"`.
+   > Groq free-tier rate limits apply (requests per minute and tokens per minute). When `GROQ_API_KEY` is unset, `LLM_ENABLED=false`, a 429 rate limit is encountered, or the daily request quota (`LLM_DAILY_CAP`) is reached, the system **silently and automatically falls back to the deterministic TypeScript rules parser**. The application never fails or displays an error screen to the user. On the confirm screen, the provenance tag transparently updates from `"Interpreted with AI, please check"` to `"Interpreted with rules (AI unavailable)"`.
 
-4. **Verify Deployment Health:**
-   Once Render builds and deploys, test the health check:
-   ```bash
-   curl -s https://bodywise-match-api.onrender.com/health
-   ```
-   Expected response:
-   ```json
-   {
-     "status": "ok",
-     "service": "bodywise-match-api",
-     "version": "0.1.0",
-     "rules_version": "1.0.0",
-     "catalogue_version": "0.1.0-draft",
-     "database": "configured",
-     "llm": "deterministic_only",
-     "ephemeral_disk": true,
-     "uptime": 45,
-     "timestamp": "2026-11-18T12:00:00.000Z"
-   }
-   ```
+4. **Redeployment & Diagnostic Verification on Render:**
+   - **How to Redeploy:** In the Render dashboard for `bodywise-match-api`, click **Manual Deploy** &rarr; **Deploy latest commit** (or trigger your service deploy hook URL).
+   - **Verify Health:**
+     ```bash
+     curl -s https://bodywise-match-api.onrender.com/health
+     ```
+     Expected response contains `"rules_version": "2.0.0"`.
+   - **Verify LLM Diagnostics (without leaking keys):**
+     ```bash
+     curl -s -H "x-debug-token: YOUR_DEBUG_TOKEN" https://bodywise-match-api.onrender.com/v1/debug/llm
+     ```
+     Returns: `{ "keyPresent": true, "model": "llama-3.3-70b-versatile", "httpStatus": 200, "latencyMs": ..., "jsonModeOk": true, "errorCategory": null }`
 
 ---
 

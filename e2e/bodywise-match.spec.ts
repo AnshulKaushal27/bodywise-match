@@ -65,7 +65,7 @@ test.describe("Bodywise Match - End-to-End Test Suite", () => {
     // Verify collapsible "How we matched" panel
     const howWeMatchedBtn = page.getByRole("button", { name: /how we matched these options/i });
     await expect(howWeMatchedBtn).toBeVisible();
-    await expect(page.getByText(/rules version: 1.0.0/i)).toBeVisible();
+    await expect(page.getByText(/rules version: (1\.0\.0|2\.0\.0)/i)).toBeVisible();
 
     // Select compare checkboxes on two cards
     const compareCheckboxes = page.locator("label").filter({ hasText: "Compare" }).locator("input[type='checkbox']");
@@ -308,5 +308,53 @@ test.describe("Bodywise Match - End-to-End Test Suite", () => {
       return localStorage.getItem("bodywise_saved_trials") === null && sessionStorage.getItem("bodywise_parsed_needs") === null;
     });
     expect(storageEmpty).toBe(true);
+  });
+
+  // 9. Target Acceptance Test: Multi-Need RAG Matching
+  test("9. Target Acceptance Test: 'I want blackhead removal and oily skin treatment'", async ({ page }) => {
+    // 1. Visit Match page
+    await page.goto("/match");
+    await expect(page.getByRole("heading", { name: /what would you like help choosing for/i })).toBeVisible();
+
+    // 2. Fill exact acceptance query
+    const concernInput = page.locator("textarea#concern-input");
+    await concernInput.fill("I want blackhead removal and oily skin treatment");
+
+    // 3. Submit
+    const continueBtn = page.getByRole("button", { name: /^continue$/i });
+    await continueBtn.click();
+    await expect(page).toHaveURL(/\/match\/confirm/);
+
+    // 4. Verify Step 2 Editable Chips
+    await expect(page.getByRole("heading", { name: /here's what we understood/i })).toBeVisible();
+    await expect(page.locator("[data-testid='parse-source-tag']")).toBeVisible();
+
+    // Check Need 1 and Need 2 chips
+    await expect(page.getByText(/need 1/i)).toBeVisible();
+    await expect(page.getByText(/blackhead/i).first()).toBeVisible();
+    await expect(page.getByText(/need 2/i)).toBeVisible();
+    await expect(page.getByText(/oil/i).first()).toBeVisible();
+
+    // 5. Proceed to Step 3 Results
+    const seeOptionsBtn = page.getByRole("button", { name: /see my options/i });
+    if (await seeOptionsBtn.isVisible()) {
+      await seeOptionsBtn.click();
+    } else {
+      await page.goto("/match/results");
+    }
+    await expect(page).toHaveURL(/\/match\/results/);
+
+    // 6. Verify Grouped Sections per Need
+    await expect(page.getByRole("heading", { name: /options that match what you told us/i })).toBeVisible();
+    await expect(page.getByText(/for reduce the look of blackheads/i)).toBeVisible();
+    await expect(page.getByText(/for oil & sebum balance|for oil & sebum control/i)).toBeVisible();
+
+    // 7. Verify Evidence and Source Citations
+    await expect(page.getByText(/why it's here/i).first()).toBeVisible();
+    await expect(page.getByText(/verified facts & provenance/i).first()).toBeVisible();
+
+    // 8. Verify Non-negotiable safety wording (no cure/diagnosis)
+    const pageContent = await page.content();
+    expect(pageContent).not.toMatch(/\b(cure|permanently remove blackheads|treat clinical)\b/i);
   });
 });

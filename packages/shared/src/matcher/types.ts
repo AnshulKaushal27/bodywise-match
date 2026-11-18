@@ -22,6 +22,7 @@ export const MatcherReasonCodeSchema = z.enum([
   "ROUTINE_COMPATIBLE",
   "MISSING_FACTS_NOTED",
   "CAUTION_APPLIED",
+  "CONCEPT_EVIDENCE_MATCH",
 ]);
 
 export type MatcherReasonCode = z.infer<typeof MatcherReasonCodeSchema>;
@@ -39,6 +40,7 @@ export const RoutineContextSchema = z
 
 export type RoutineContext = z.infer<typeof RoutineContextSchema>;
 
+// --- Legacy Single-Goal Schema (for backward compatibility) ---
 export const ParsedNeedsSchema = z.object({
   goal: GoalIdSchema.or(z.string()).nullable(),
   category: ProductCategorySchema.or(z.string()).nullable().optional(),
@@ -52,6 +54,31 @@ export const ParsedNeedsSchema = z.object({
 
 export type ParsedNeeds = z.infer<typeof ParsedNeedsSchema>;
 
+// --- Multi-Need Schemas (Task Part D) ---
+export const ParsedNeedSchema = z.object({
+  id: z.string(), // e.g. "need_1", "need_2"
+  phrase_from_user: z.string(),
+  concepts: z.array(z.string()), // ConceptId[]
+  preferred_category: ProductCategorySchema.nullable().default(null),
+  format_preferences: z.array(z.string()).default([]),
+  priority: z.enum(["primary", "secondary"]).default("primary"),
+  confidence: z.enum(["low", "medium", "high"]).default("medium"),
+  normalised_label: z.string().optional(),
+});
+
+export type ParsedNeed = z.infer<typeof ParsedNeedSchema>;
+
+export const ParsedRequestSchema = z.object({
+  needs: z.array(ParsedNeedSchema),
+  avoidances: z.array(z.string()).default([]),
+  routine_context: z.string().nullable().default(null),
+  uncertainties: z.array(z.string()).default([]),
+  follow_up_question: z.string().nullable().default(null),
+  medical_flag: z.boolean().default(false),
+});
+
+export type ParsedRequest = z.infer<typeof ParsedRequestSchema>;
+
 export const RecommendationSchema = z.object({
   productId: z.string().uuid(),
   rank: z.union([z.literal(1), z.literal(2), z.literal(3)]),
@@ -64,6 +91,37 @@ export const RecommendationSchema = z.object({
 });
 
 export type Recommendation = z.infer<typeof RecommendationSchema>;
+
+export interface NeedRecommendation extends Recommendation {
+  evidenceSnippets: string[];
+  whyHere: string;
+  sourceTag: string;
+  productName?: string;
+  productSlug?: string;
+  category?: string;
+  format?: string;
+  priceInr?: number | null;
+  fragranceFree?: boolean;
+}
+
+export interface NeedMatchGroup {
+  needId: string;
+  needLabel: string;
+  rawPhrase: string;
+  category: string | null;
+  status: "MATCHED" | "NO_FIT";
+  noFitReason?: string;
+  recommendations: NeedRecommendation[];
+}
+
+export interface MultiNeedMatchResult {
+  status: "MATCHES_FOUND" | "NO_FIT";
+  rules_version: "2.0.0";
+  medical_flag: boolean;
+  medical_caution?: string;
+  groups: NeedMatchGroup[];
+  total_evaluated: number;
+}
 
 export type MatchResult =
   | {

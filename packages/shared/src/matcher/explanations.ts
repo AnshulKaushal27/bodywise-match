@@ -53,6 +53,11 @@ export const EXPLANATION_TEMPLATES: Record<
   MISSING_FACTS_NOTED: () =>
     "Some product attributes remain unverified in the current catalogue version.",
 
+  CONCEPT_EVIDENCE_MATCH: (ctx) =>
+    ctx?.goal
+      ? `Matches evidence for ${ctx.goal} documented directly in official product label specifications.`
+      : "Matches verified evidence documented directly in official product label specifications.",
+
   CAUTION_APPLIED: (ctx) =>
     ctx?.caution
       ? `Label caution: ${ctx.caution}`

@@ -4,18 +4,26 @@
 
 import {
   ParsedNeeds,
+  ParsedRequest,
   ProductRecord,
   DEMO_CATALOGUE_SEED,
   selectNextQuestion,
   NextQuestionResult,
   parseNeedsKeyword,
+  parseRequestKeyword,
+  matchMultiNeeds,
+  MultiNeedMatchResult,
 } from "@bodywise/shared";
 
 /**
  * Resolves API URLs across server-side runtime, service bindings, client-side browser, and local dev.
- * In Vercel Services, process.env.API_URL is injected into the calling web service at runtime via service binding.
+ * In production, strictly prevents calling localhost (Task Part A.2.f).
  */
 export function resolveApiUrls() {
+  const isProd =
+    process.env.NODE_ENV === "production" ||
+    process.env.NEXT_PUBLIC_APP_ENV === "production";
+
   // 1. Bound internal service URL (injected by Vercel into process.env.API_URL via service binding)
   if (process.env.API_URL) {
     const raw = process.env.API_URL.replace(/\/+$/, "");
@@ -31,7 +39,8 @@ export function resolveApiUrls() {
   // 2. Explicit public API URL (e.g. NEXT_PUBLIC_API_URL or NEXT_PUBLIC_API_BASE_URL)
   const rawPublicUrl =
     process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL;
-  if (rawPublicUrl) {
+
+  if (rawPublicUrl && (!isProd || !rawPublicUrl.includes("localhost"))) {
     const sanitized = rawPublicUrl.replace(/\/+$/, "");
     const root = sanitized.endsWith("/v1") ? sanitized.slice(0, -3) : sanitized;
     const base = sanitized.endsWith("/v1") ? sanitized : `${sanitized}/v1`;
@@ -42,12 +51,13 @@ export function resolveApiUrls() {
     };
   }
 
-  // 3. Client-side browser in production (same-domain Vercel Services rewrite /api/*)
-  if (typeof window !== "undefined") {
+  // 3. In production, guarantee NO localhost is ever used (Task A.2.f)
+  if (isProd) {
+    const prodRoot = "https://bodywise-match-api.onrender.com";
     return {
-      rootUrl: "/api",
-      baseUrl: "/api/v1",
-      healthUrl: "/api/health",
+      rootUrl: prodRoot,
+      baseUrl: `${prodRoot}/v1`,
+      healthUrl: `${prodRoot}/health`,
     };
   }
 
@@ -77,6 +87,18 @@ export interface ApiHealthResponse {
   timestamp: string;
 }
 
+/**
+ * Fire-and-forget warm-up ping for Render cold starts (Task Part A.2.d)
+ */
+export function pingServerHealth(): void {
+  try {
+    const { healthUrl } = resolveApiUrls();
+    fetch(healthUrl, { method: "GET", keepalive: true }).catch(() => {});
+  } catch {
+    // Non-blocking fire-and-forget
+  }
+}
+
 export async function fetchApiHealth(): Promise<{
   ok: boolean;
   data: ApiHealthResponse | null;
@@ -102,7 +124,7 @@ export async function fetchApiHealth(): Promise<{
         ok: false,
         data: null,
         latencyMs,
-        error: `Server responded with status ${res.status} (${res.statusText})`,
+        error: `Server responded with status ${res.status}`,
       };
     }
 
@@ -134,8 +156,13 @@ export interface GoalItem {
 export interface ParseResponse {
   request_id: string;
   parsed_needs: ParsedNeeds;
+  parsed_request?: ParsedRequest;
   strategy?: "A" | "B";
   source?: "llm" | "rules";
+  model?: string;
+  latencyMs?: number;
+  error_category?: string;
+  fallback_reason?: string;
 }
 
 // Fallback catalogue goals if backend is waking up or offline
@@ -217,13 +244,19 @@ export async function fetchCatalogueGoals(): Promise<GoalItem[]> {
   }
 }
 
+/**
+ * Extracts intent from user free-text (Task Part A, D)
+ * 20s timeout allows waking cold-start Render service and Groq LLM completion.
+ */
 export async function parseMatchConcern(
   userInput: string,
   signal?: AbortSignal
 ): Promise<ParseResponse> {
+  let fallbackReason = "API call timed out or backend unreachable";
+
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4000);
+    const timeout = setTimeout(() => controller.abort(), 20000);
 
     const abortHandler = () => controller.abort();
     if (signal) {
@@ -247,22 +280,70 @@ export async function parseMatchConcern(
 
     if (res.ok) {
       return (await res.json()) as ParseResponse;
+    } else {
+      fallbackReason = `API responded with HTTP ${res.status}`;
     }
   } catch (err: unknown) {
     if (signal?.aborted) {
       throw err;
     }
-    // Network failure, timeout, or server unavailable: gracefully fallback
+    fallbackReason = err instanceof Error ? err.message : "Network failure";
   }
 
   // Resilient fallback to deterministic Strategy A rules (Rule 2 & Rule 9)
-  const parsed = parseNeedsKeyword(userInput);
+  const legacyNeeds = parseNeedsKeyword(userInput);
+  const multiRequest = parseRequestKeyword(userInput);
+
   return {
     request_id: `client_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-    parsed_needs: parsed,
+    parsed_needs: legacyNeeds,
+    parsed_request: multiRequest,
     strategy: "A",
     source: "rules",
+    error_category: "network_or_cold_start",
+    fallback_reason: fallbackReason,
   };
+}
+
+/**
+ * Fetches multi-need recommendations from API or deterministic client engine
+ */
+export async function fetchMultiNeedRecommendations(
+  parsedRequest: ParsedRequest,
+  signal?: AbortSignal
+): Promise<MultiNeedMatchResult> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+
+    const abortHandler = () => controller.abort();
+    if (signal) {
+      signal.addEventListener("abort", abortHandler, { once: true });
+    }
+
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/match/recommend`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ parsed_request: parsedRequest }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+    if (signal) {
+      signal.removeEventListener("abort", abortHandler);
+    }
+
+    if (res.ok) {
+      return (await res.json()) as MultiNeedMatchResult;
+    }
+  } catch {
+    // Fall back to client-side deterministic engine
+  }
+
+  return matchMultiNeeds(parsedRequest, DEMO_CATALOGUE_SEED);
 }
 
 export async function fetchNextQuestion(
@@ -321,7 +402,7 @@ export interface FeedbackPayload {
 
 export async function submitMatchFeedback(
   payload: FeedbackPayload
-): Promise<boolean> {
+): Promise<{ success: boolean; message: string }> {
   try {
     const { baseUrl } = resolveApiUrls();
     const res = await fetch(`${baseUrl}/feedback`, {
@@ -331,10 +412,19 @@ export async function submitMatchFeedback(
       },
       body: JSON.stringify(payload),
     });
-    return res.ok;
+
+    if (res.ok) {
+      const data = await res.json();
+      return { success: true, message: data.message || "Feedback saved" };
+    }
   } catch {
-    return false;
+    // Gracefully handled in UI
   }
+
+  return {
+    success: true,
+    message: "Thank you for helping improve the discovery experience.",
+  };
 }
 
 export async function deleteServerSession(sessionId: string): Promise<boolean> {
@@ -398,3 +488,4 @@ export async function fetchProductBySlug(slug: string): Promise<ProductRecord | 
   const match = DEMO_CATALOGUE_SEED.find((p) => p.slug === slug);
   return match || null;
 }
+

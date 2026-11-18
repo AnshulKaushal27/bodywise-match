@@ -135,21 +135,23 @@ export default function PrivacyPage() {
           </p>
         </section>
 
-        {/* 3. AI Provider Handling (When LLM is Enabled) */}
+        {/* 3. AI Provider Handling (When LLM is Enabled) & Knowledge Base Provenance */}
         <section className="space-y-4 border-t border-border pt-8">
           <h2 className="text-xl sm:text-2xl font-bold font-display text-brand-deep tracking-tight flex items-center gap-2">
             <Stack className="w-6 h-6 text-brand-evergreen" weight="regular" />
-            <span>3. AI Provider Handling (When LLM is Enabled)</span>
+            <span>3. AI Provider Handling &amp; Product Knowledge Base</span>
           </h2>
           <p className="text-sm sm:text-base text-charcoal/85 leading-relaxed">
-            Our default matching parser runs entirely deterministically using pure TypeScript rules without sending data to any AI provider. When the optional server-side LLM parser is enabled, free-text input may be sent to an AI provider (Groq) for shopping intent interpretation only. No photos or images are sent in this version (photo uploads remain strictly disabled).
+            Our primary matching engine runs entirely deterministically using pure TypeScript rules without sending data to any AI provider. When the optional server-side LLM parser is enabled, free-text inputs may be sent to an AI provider (Groq) strictly for multi-need shopping intent interpretation.
           </p>
           <div className="p-4 rounded-card bg-surface border border-border space-y-2.5 text-xs sm:text-sm text-charcoal/85">
+            <p>&bull; <strong>Structured JSON enforcement:</strong> The AI model receives instructions to extract intent into a Zod schema only. It is strictly forbidden from clinical evaluations, medical claims, or inventing products.</p>
+            <p>&bull; <strong>Knowledge card provenance:</strong> Product knowledge cards are built strictly from official published product pages, label packaging, and verified catalogue ingredients. No external brand guesses or unevidenced claims are ever included.</p>
+            <p>&bull; <strong>Deterministic ranking (AI interprets, rules decide):</strong> The LLM does not rank products or write final recommendations. All ranking is pure TypeScript logic using concept evidence matches and verified facts.</p>
             <p>&bull; <strong>Pre-flight PII sanitization:</strong> Automated regex filters strip phone numbers and email addresses before text is transmitted.</p>
             <p>&bull; <strong>1,500 character input cap:</strong> Excessive inputs are truncated to prevent prompt leakage or misuse.</p>
             <p>&bull; <strong>Zero-retention agreement:</strong> Calls are configured with temperature 0 and strict non-training, zero-retention API policies. User text is never used to train foundation models.</p>
-            <p>&bull; <strong>Structured JSON enforcement:</strong> The AI model receives instructions to extract intent into a Zod schema only. It is strictly forbidden from evaluating clinical conditions or inventing product claims.</p>
-            <p>&bull; <strong>8-second timeout &amp; silent fallback:</strong> If the model takes longer than 8 seconds or returns invalid JSON, the system immediately and silently falls back to Strategy A.</p>
+            <p>&bull; <strong>8-second timeout &amp; silent fallback:</strong> If the model takes longer than the timeout window (15 seconds on cold start or 8-second timeout threshold) or returns invalid JSON, the system immediately and silently falls back to Strategy A rules. The UI shows transparent provenance tags (&ldquo;Interpreted with AI&rdquo; or &ldquo;Interpreted with rules&rdquo;).</p>
           </div>
         </section>
 

@@ -11,6 +11,8 @@ export * from "./help";
 export * from "./matcher/index";
 export * from "./matcher/next-question";
 export * from "./parser/strategy-a";
+export * from "./retrieval/index";
+export * from "./data/knowledge.seed";
 
 // --- Fact Verification Provenance (Rule 3) ---
 export const VerificationProvenanceSchema = z.object({

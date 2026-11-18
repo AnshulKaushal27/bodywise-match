@@ -11,7 +11,7 @@ export async function GET() {
     rules_version: RULES_VERSION,
     catalogue_version: CATALOGUE_VERSION,
     database: "client_ephemeral",
-    llm: process.env.GROQ_API_KEY ? "groq" : "deterministic_only",
+    llm: "delegated_to_api",
     ephemeral_disk: true,
     uptime: Math.floor(process.uptime ? process.uptime() : 0),
     timestamp: new Date().toISOString(),

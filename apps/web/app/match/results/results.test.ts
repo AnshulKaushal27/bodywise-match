@@ -56,7 +56,7 @@ describe("Match Results Step 3 Page (apps/web/app/match/results/page.tsx)", () =
     expect(html).toContain("Goal fit");
     expect(html).toContain("Preference fit");
     expect(html).toContain("Deterministic tie-breaks");
-    expect(html).toContain("Rules Version: 1.0.0");
+    expect(html).toMatch(/Rules Version: (1\.0\.0|2\.0\.0)/);
   });
 
   it("renders 'What people report' strip badged with Demo data", () => {
