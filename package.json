@@ -16,7 +16,7 @@
     "test:e2e": "playwright test",
     "llm:smoke": "tsx scripts/llm-smoke.ts",
     "safety:lint": "vitest run apps/web/app/safety-content.test.ts",
-    "typecheck": "pnpm -r exec tsc --noEmit",
+    "typecheck": "pnpm --filter @bodywise/shared build && pnpm -r exec tsc --noEmit",
     "catalogue:validate": "pnpm --filter @bodywise/shared catalogue:validate",
     "catalogue:refresh": "tsx scripts/refresh-catalogue.ts",
     "db:migrate": "pnpm --filter @bodywise/api db:migrate",
