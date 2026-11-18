@@ -231,7 +231,7 @@ export default function PrivacyDataPage() {
         )}
 
         {/* ================= 1. VIEW LOCAL DATA ================= */}
-        <section aria-labelledby="view-local-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="view-local-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-border/70">
             <div className="flex items-center gap-2">
               <Database className="w-5 h-5 text-brand-evergreen" weight="regular" />
@@ -327,7 +327,7 @@ export default function PrivacyDataPage() {
         </section>
 
         {/* ================= 2. EXPORT & DELETE LOCAL DATA ================= */}
-        <section aria-labelledby="export-delete-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="export-delete-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="pb-3 border-b border-border/70">
             <h2 id="export-delete-heading" className="font-display font-bold text-base sm:text-lg text-brand-deep tracking-tight">
               2. Export or Delete Local Data
@@ -365,7 +365,7 @@ export default function PrivacyDataPage() {
         </section>
 
         {/* ================= 3. DELETE SERVER SESSION BY ID ================= */}
-        <section aria-labelledby="server-delete-heading" className="p-6 rounded-card bg-surface border border-border shadow-sm space-y-4">
+        <section aria-labelledby="server-delete-heading" className="p-6 rounded-card bg-surface border border-border shadow-ambient space-y-4">
           <div className="pb-3 border-b border-border/70">
             <h2 id="server-delete-heading" className="font-display font-bold text-base sm:text-lg text-brand-deep tracking-tight">
               3. Delete Server Session by ID

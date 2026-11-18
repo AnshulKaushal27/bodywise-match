@@ -76,7 +76,7 @@ export default function TermsPage() {
         </section>
 
         {/* 2. Informational Only — Not Medical Advice */}
-        <section className="space-y-3">
+        <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-lg sm:text-xl font-bold font-display text-brand-deep">
             2. Informational Discovery Only (No Medical Advice)
           </h2>
@@ -86,7 +86,7 @@ export default function TermsPage() {
         </section>
 
         {/* 3. Catalogue Facts & Provenance */}
-        <section className="space-y-3">
+        <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-lg sm:text-xl font-bold font-display text-brand-deep">
             3. Fact Provenance &amp; &ldquo;As-Is&rdquo; Information
           </h2>
@@ -96,7 +96,7 @@ export default function TermsPage() {
         </section>
 
         {/* 4. Trademarks & Intellectual Property */}
-        <section className="space-y-3">
+        <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-lg sm:text-xl font-bold font-display text-brand-deep">
             4. Trademarks &amp; Intellectual Property
           </h2>
@@ -106,7 +106,7 @@ export default function TermsPage() {
         </section>
 
         {/* 5. Limitation of Liability */}
-        <section className="space-y-3">
+        <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-lg sm:text-xl font-bold font-display text-brand-deep">
             5. Limitation of Liability
           </h2>
@@ -116,7 +116,7 @@ export default function TermsPage() {
         </section>
 
         {/* 6. Privacy & Data Rights */}
-        <section className="space-y-3">
+        <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-lg sm:text-xl font-bold font-display text-brand-deep">
             6. Privacy &amp; Data Rights
           </h2>
