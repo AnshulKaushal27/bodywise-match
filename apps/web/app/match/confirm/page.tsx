@@ -338,7 +338,7 @@ export default function MatchConfirmPage() {
         )}
 
         {/* Main Card: Here's what we understood */}
-        <Card variant="surface" className="p-6 md:p-8 shadow-card border border-border mb-8">
+        <Card variant="surface" className="p-6 md:p-8 shadow-ambient border border-border rounded-card mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-border">
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
@@ -539,10 +539,10 @@ export default function MatchConfirmPage() {
 
         {/* ================= ONE FOLLOW-UP QUESTION CARD AT A TIME ================= */}
         {currentQuestion && !isSkipped && answeredQuestionIds.length < 4 ? (
-          <Card variant="surface" className="p-6 md:p-8 shadow-card border-2 border-brand-evergreen/30 bg-surface relative">
+          <Card variant="surface" className="p-6 md:p-8 shadow-ambient border-2 border-brand-evergreen/30 bg-surface rounded-card relative">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-accent-lime text-brand-deep font-bold font-display text-xs flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-accent-lime text-brand-deep font-bold font-display text-xs flex items-center justify-center shadow-sm">
                   {answeredQuestionIds.length + 1}
                 </span>
                 <span className="text-xs uppercase tracking-wider font-bold text-brand-deep">
@@ -563,7 +563,7 @@ export default function MatchConfirmPage() {
                   key={option.id}
                   type="button"
                   onClick={() => handleAnswerQuestion(option)}
-                  className="p-4 rounded-button text-left font-semibold text-sm md:text-base text-brand-deep bg-surface-sage/40 hover:bg-surface-sage border border-brand-deep/15 hover:border-brand-evergreen transition-all duration-150 focus-ring min-h-[54px] flex items-center justify-between group active:scale-[0.98] motion-safe:transition-transform"
+                  className="p-4 rounded-button text-left font-semibold text-sm md:text-base text-brand-deep bg-surface-sage/40 hover:bg-surface-sage border border-brand-deep/15 hover:border-brand-evergreen transition-all duration-150 focus-ring min-h-[54px] flex items-center justify-between group active:scale-[0.98] motion-safe:transition-transform shadow-ambient"
                 >
                   <span>{option.label}</span>
                   <CaretRight className="w-4 h-4 text-brand-evergreen opacity-0 group-hover:opacity-100 transition-opacity" weight="bold" />
@@ -576,14 +576,14 @@ export default function MatchConfirmPage() {
               <button
                 type="button"
                 onClick={handleNotSure}
-                className="text-muted hover:text-brand-deep underline focus-ring rounded py-1 px-2 active:scale-[0.98] motion-safe:transition-transform"
+                className="text-muted hover:text-brand-deep underline focus-ring rounded py-1 px-2 min-h-[44px] flex items-center active:scale-[0.98] motion-safe:transition-transform"
               >
                 Not sure
               </button>
               <button
                 type="button"
                 onClick={handleSkipBroad}
-                className="text-brand-evergreen hover:text-brand-deep font-semibold focus-ring rounded py-1 px-2 active:scale-[0.98] motion-safe:transition-transform"
+                className="text-brand-evergreen hover:text-brand-deep font-semibold focus-ring rounded py-1 px-2 min-h-[44px] flex items-center active:scale-[0.98] motion-safe:transition-transform"
               >
                 Skip, show broad options &rarr;
               </button>
@@ -596,8 +596,8 @@ export default function MatchConfirmPage() {
           </div>
         ) : (
           /* Completion State: Ready to See Matches */
-          <Card variant="surface" className="p-6 md:p-8 shadow-card border-2 border-brand-evergreen bg-surface-sage/20 text-center">
-            <div className="w-12 h-12 rounded-full bg-accent-lime text-brand-deep mx-auto flex items-center justify-center mb-4">
+          <Card variant="surface" className="p-6 md:p-8 shadow-ambient border-2 border-brand-evergreen bg-surface-sage/20 rounded-card text-center">
+            <div className="w-12 h-12 rounded-full bg-accent-lime text-brand-deep mx-auto flex items-center justify-center mb-4 shadow-sm">
               <CheckCircle className="w-6 h-6 text-brand-deep stroke-[2.5]" weight="regular" aria-hidden="true" />
             </div>
             <h2 className="text-xl md:text-2xl font-bold font-display text-brand-deep mb-2 tracking-tight">
@@ -610,7 +610,7 @@ export default function MatchConfirmPage() {
               variant="primary"
               size="default"
               onClick={handleProceedToMatches}
-              className="font-semibold text-base px-8 h-12 shadow-sm min-w-[200px]"
+              className="font-semibold text-base px-8 h-12 shadow-ambient min-w-[200px] active:scale-[0.98] motion-safe:transition-transform"
             >
               See my options
               <ArrowRight className="ml-2 w-4 h-4" weight="bold" aria-hidden="true" />

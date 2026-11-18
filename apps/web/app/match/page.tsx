@@ -324,7 +324,7 @@ export default function MatchStep1Page() {
         </div>
 
         {/* Card Container */}
-        <Card variant="surface" className="p-6 md:p-8 shadow-card border border-border relative">
+        <Card variant="surface" className="p-6 md:p-8 shadow-ambient border border-border rounded-card relative">
           {/* Section Heading */}
           <div className="mb-6">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-sage/60 text-xs font-semibold text-brand-deep mb-2">
@@ -334,7 +334,7 @@ export default function MatchStep1Page() {
             <h1 className="text-2xl sm:text-3xl font-bold font-display text-brand-deep tracking-tight mb-2">
               What would you like help choosing for?
             </h1>
-            <p className="text-sm text-charcoal/80 leading-relaxed">
+            <p className="text-sm text-charcoal/80 leading-relaxed max-w-[54ch]">
               Describe what you&apos;re looking for in plain language, or pick a goal from our catalogue below.
             </p>
           </div>
@@ -343,22 +343,24 @@ export default function MatchStep1Page() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Textarea with Live Counter and Rotating Placeholder */}
             <div>
-              <div className="flex justify-between items-center mb-1.5">
-                <label
-                  htmlFor="concern-input"
-                  className="text-xs uppercase tracking-wider font-bold text-brand-deep"
-                >
-                  Describe your goal or concern
-                </label>
-                <span
-                  id="char-counter"
-                  aria-live="polite"
-                  className={`text-xs font-medium ${
-                    charCount > 450 ? "text-error-text font-bold" : "text-muted"
-                  }`}
-                >
-                  {charCount}/500
-                </span>
+              <div className="flex flex-col gap-1.5 mb-2">
+                <div className="flex justify-between items-center">
+                  <label
+                    htmlFor="concern-input"
+                    className="text-xs uppercase tracking-wider font-bold text-brand-deep"
+                  >
+                    Describe your goal or concern
+                  </label>
+                  <span
+                    id="char-counter"
+                    aria-live="polite"
+                    className={`text-xs font-medium ${
+                      charCount > 450 ? "text-error-text font-bold" : "text-muted"
+                    }`}
+                  >
+                    {charCount}/500
+                  </span>
+                </div>
               </div>
 
               <div className="relative">
@@ -380,7 +382,7 @@ export default function MatchStep1Page() {
               </div>
 
               {errors.concern && (
-                <p id="concern-error" className="text-xs text-error-text mt-1.5 font-medium flex items-center gap-1.5" role="alert">
+                <p id="concern-error" className="text-xs text-error-text mt-2 font-medium flex items-center gap-1.5" role="alert">
                   <WarningCircle className="w-3.5 h-3.5 shrink-0" weight="regular" aria-hidden="true" />
                   <span>{errors.concern.message}</span>
                 </p>
@@ -582,7 +584,7 @@ export default function MatchStep1Page() {
                 variant="primary"
                 size="default"
                 disabled={isContinueDisabled}
-                className="w-full sm:w-auto font-semibold text-base px-8 h-12 shadow-sm min-w-[160px]"
+                className="w-full sm:w-auto font-semibold text-base px-8 h-12 shadow-ambient min-w-[160px] active:scale-[0.98] motion-safe:transition-transform"
               >
                 Continue
                 <ArrowRight className="ml-2 w-4 h-4" weight="bold" aria-hidden="true" />
