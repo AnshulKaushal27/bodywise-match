@@ -2,6 +2,7 @@
   "name": "bodywise-match-monorepo",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
     "dev": "concurrently -n \"web,api\" -c \"teal,green\" \"pnpm --filter @bodywise/web dev\" \"pnpm --filter @bodywise/api dev\"",
     "dev:web": "pnpm --filter @bodywise/web dev",
@@ -20,7 +21,7 @@
     "catalogue:refresh": "tsx scripts/refresh-catalogue.ts",
     "db:migrate": "pnpm --filter @bodywise/api db:migrate",
     "db:seed": "pnpm --filter @bodywise/api db:seed",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
