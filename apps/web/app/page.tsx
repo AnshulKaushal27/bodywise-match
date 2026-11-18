@@ -156,98 +156,97 @@ export default function HomePage() {
         {/* ================= HERO SECTION ================= */}
         <section
           id="hero-section"
-          className="relative bg-paper overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-border"
+          className="relative bg-paper overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 border-b border-border"
         >
-          {/* Static Compressed WebP Hero Background with CSS Gradient Fallback */}
+          {/* Static Compressed WebP Hero Background Gradient Fallback */}
           <div
             className="absolute inset-0 pointer-events-none select-none -z-10 bg-gradient-to-b from-[#F7F7F1] to-[#DCE8D7]"
             aria-hidden="true"
-          >
-            {/* Desktop Hero Image (Hidden on Mobile) */}
-            <div className="hidden md:block absolute inset-0 opacity-40 mix-blend-multiply">
-              <Image
-                src={heroBgDesktop}
-                alt=""
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-right-top"
-              />
-            </div>
+          />
 
-            {/* Mobile Hero Image (Hidden on Desktop) */}
-            <div className="block md:hidden absolute inset-0 opacity-40 mix-blend-multiply">
-              <Image
-                src={heroBgMobile}
-                alt=""
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Decorative Warm Editorial Blobs (Lime & Sage, No Stock Photos) */}
+          {/* Decorative Warm Editorial Ambient Lighting (Lime & Sage) */}
           <div
-            className="absolute top-[-40px] right-[-60px] w-80 h-80 md:w-96 md:h-96 rounded-full bg-surface-sage/50 blur-3xl -z-10 pointer-events-none"
+            className="absolute top-[-40px] right-[-60px] w-80 h-80 md:w-96 md:h-96 rounded-full bg-surface-sage/40 blur-3xl -z-10 pointer-events-none"
             aria-hidden="true"
           />
           <div
-            className="absolute bottom-[-50px] left-[-80px] w-72 h-72 md:w-96 md:h-96 rounded-full bg-accent-lime/40 blur-3xl -z-10 pointer-events-none"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-surface-sage/20 rounded-full blur-3xl -z-10 pointer-events-none"
+            className="absolute bottom-[-50px] left-[-80px] w-72 h-72 md:w-96 md:h-96 rounded-full bg-accent-lime/30 blur-3xl -z-10 pointer-events-none"
             aria-hidden="true"
           />
 
           <div className="max-w-container mx-auto px-5">
-            <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-              {/* Context Tag */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-sage/70 border border-brand-deep/10 text-xs font-semibold text-brand-deep mb-6">
-                <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" aria-hidden="true" />
-                <span>Calm &bull; Non-diagnostic &bull; Zero signup</span>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              {/* Left Column: Asymmetric Editorial Text & CTAs */}
+              <div className="lg:col-span-7 flex flex-col items-start text-left">
+                {/* Context Tag */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-sage/70 border border-brand-deep/10 text-xs font-semibold text-brand-deep mb-6">
+                  <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" aria-hidden="true" />
+                  <span>Calm &bull; Non-diagnostic &bull; Zero signup</span>
+                </div>
+
+                {/* H1 reduced to text-4xl md:text-5xl (does not shout) */}
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-brand-deep tracking-tight leading-[1.16] mb-5">
+                  Not sure which product fits your concern?
+                </h1>
+
+                {/* Exact Subheading */}
+                <p className="text-base sm:text-lg text-charcoal/85 font-body leading-relaxed mb-8 max-w-[54ch]">
+                  Tell us what you&apos;re looking for. We&apos;ll ask a few quick questions and explain which Be Bodywise options may fit.
+                </p>
+
+                {/* CTAs with 44px min target and tactile :active */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-6">
+                  <Link
+                    href="/match"
+                    className={cn(
+                      "w-full sm:w-auto font-semibold text-base px-8 h-12 shadow-ambient active:scale-[0.98] motion-safe:transition-transform",
+                      buttonVariants({ variant: "primary", size: "lg" })
+                    )}
+                  >
+                    <span>Find my match</span>
+                    <ArrowRight className="ml-2 w-5 h-5 shrink-0" aria-hidden="true" />
+                  </Link>
+                  <Link
+                    href="/products"
+                    className={cn(
+                      "w-full sm:w-auto font-semibold text-base px-6 h-12 active:scale-[0.98] motion-safe:transition-transform",
+                      buttonVariants({ variant: "secondary", size: "lg" })
+                    )}
+                  >
+                    Browse products
+                  </Link>
+                </div>
+
+                {/* Exact Trust Line */}
+                <p className="text-xs sm:text-sm text-muted font-medium flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-brand-evergreen shrink-0" aria-hidden="true" />
+                  <span>No diagnosis. No guaranteed results. Your photo is optional.</span>
+                </p>
               </div>
 
-              {/* Exact H1 */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-brand-deep tracking-tight leading-[1.15] mb-6">
-                Not sure which product fits your concern?
-              </h1>
-
-              {/* Exact Subheading */}
-              <p className="text-lg md:text-xl text-charcoal/85 font-body leading-relaxed mb-8 max-w-2xl">
-                Tell us what you&apos;re looking for. We&apos;ll ask a few quick questions and explain which Be Bodywise options may fit.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-5">
-                <Link
-                  href="/match"
-                  className={cn(
-                    "w-full sm:w-auto font-semibold text-base px-8 h-12 shadow-sm",
-                    buttonVariants({ variant: "primary", size: "lg" })
-                  )}
-                >
-                  Find my match
-                  <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/products"
-                  className={cn(
-                    "w-full sm:w-auto font-semibold text-base px-6 h-12",
-                    buttonVariants({ variant: "secondary", size: "lg" })
-                  )}
-                >
-                  Browse products
-                </Link>
+              {/* Right Column: Editorial Botanical Artwork Card */}
+              <div className="lg:col-span-5 relative w-full">
+                <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] w-full rounded-card overflow-hidden shadow-ambient border border-brand-deep/10 bg-surface-sage/30">
+                  {/* Desktop WebP Hero Image */}
+                  <Image
+                    src={heroBgDesktop}
+                    alt=""
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="hidden sm:block object-cover object-center"
+                  />
+                  {/* Mobile WebP Hero Image */}
+                  <Image
+                    src={heroBgMobile}
+                    alt=""
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="block sm:hidden object-cover object-center"
+                  />
+                </div>
               </div>
-
-              {/* Exact Trust Line */}
-              <p className="text-xs sm:text-sm text-muted font-medium flex items-center justify-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-brand-evergreen shrink-0" aria-hidden="true" />
-                <span>No diagnosis. No guaranteed results. Your photo is optional.</span>
-              </p>
             </div>
           </div>
         </section>
@@ -259,7 +258,7 @@ export default function HomePage() {
           aria-labelledby="how-it-works-heading"
         >
           <div className="max-w-container mx-auto px-5">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="max-w-2xl mb-12 md:mb-16">
               <span className="text-xs uppercase tracking-widest font-bold text-brand-evergreen mb-2 block">
                 Simple 3-Step Flow
               </span>
@@ -269,69 +268,69 @@ export default function HomePage() {
               >
                 How it works
               </h2>
-              <p className="text-sm md:text-base text-charcoal/80 mt-2">
+              <p className="text-sm md:text-base text-charcoal/80 mt-2 max-w-[54ch]">
                 Clear discovery in one session. No signup, no streaks, no unnecessary quizzes.
               </p>
             </div>
 
-            {/* 3 Numbered Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1 */}
-              <Card variant="surface" className="relative p-6 flex flex-col justify-between">
+            {/* Editorial Numbered Timeline Grid (Breathes without cookie-cutter card boxes) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+              {/* Step 1 */}
+              <div className="flex flex-col justify-between pt-4 border-t-2 border-brand-deep/20 md:border-t-0 md:pt-0">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-4 shadow-sm border border-brand-deep/10">
+                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-5 shadow-ambient border border-brand-deep/10">
                     1
                   </div>
-                  <h3 className="font-display font-bold text-lg text-brand-deep mb-2">
+                  <h3 className="font-display font-bold text-lg md:text-xl text-brand-deep mb-2.5 leading-snug">
                     Tell us what you want help choosing.
                   </h3>
-                  <p className="text-sm text-charcoal/80 leading-relaxed">
+                  <p className="text-sm text-charcoal/80 leading-relaxed mb-6">
                     Describe your body, hair, or underarm goal in plain words. We extract the essentials into a clear summary without saving free-text or evaluating medical conditions.
                   </p>
                 </div>
-                <div className="mt-4 pt-4 border-t border-border/60 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4" aria-hidden="true" />
+                <div className="pt-4 border-t border-border/70 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>Free-text is never logged</span>
                 </div>
-              </Card>
+              </div>
 
-              {/* Card 2 */}
-              <Card variant="surface" className="relative p-6 flex flex-col justify-between">
+              {/* Step 2 */}
+              <div className="flex flex-col justify-between pt-4 border-t-2 border-brand-deep/20 md:border-t-0 md:pt-0">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-4 shadow-sm border border-brand-deep/10">
+                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-5 shadow-ambient border border-brand-deep/10">
                     2
                   </div>
-                  <h3 className="font-display font-bold text-lg text-brand-deep mb-2">
+                  <h3 className="font-display font-bold text-lg md:text-xl text-brand-deep mb-2.5 leading-snug">
                     Check and edit what we understood.
                   </h3>
-                  <p className="text-sm text-charcoal/80 leading-relaxed">
+                  <p className="text-sm text-charcoal/80 leading-relaxed mb-6">
                     Review your editable parsed summary. We ask one single clarifying question at a time to split candidate choices, never requesting age or medical history.
                   </p>
                 </div>
-                <div className="mt-4 pt-4 border-t border-border/60 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4" aria-hidden="true" />
+                <div className="pt-4 border-t border-border/70 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>Always editable &bull; Skip anytime</span>
                 </div>
-              </Card>
+              </div>
 
-              {/* Card 3 */}
-              <Card variant="surface" className="relative p-6 flex flex-col justify-between">
+              {/* Step 3 */}
+              <div className="flex flex-col justify-between pt-4 border-t-2 border-brand-deep/20 md:border-t-0 md:pt-0">
                 <div>
-                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-4 shadow-sm border border-brand-deep/10">
+                  <div className="w-10 h-10 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-lg mb-5 shadow-ambient border border-brand-deep/10">
                     3
                   </div>
-                  <h3 className="font-display font-bold text-lg text-brand-deep mb-2">
+                  <h3 className="font-display font-bold text-lg md:text-xl text-brand-deep mb-2.5 leading-snug">
                     See options with reasons and trade-offs.
                   </h3>
-                  <p className="text-sm text-charcoal/80 leading-relaxed">
+                  <p className="text-sm text-charcoal/80 leading-relaxed mb-6">
                     Explore 2&ndash;3 shortlisted products chosen by transparent TypeScript rules. Read why each product appears, what to consider, and when it may not fit.
                   </p>
                 </div>
-                <div className="mt-4 pt-4 border-t border-border/60 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4" aria-hidden="true" />
+                <div className="pt-4 border-t border-border/70 text-xs font-medium text-brand-evergreen flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>No percentage &ldquo;match scores&rdquo;</span>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
         </section>
@@ -434,7 +433,7 @@ export default function HomePage() {
           aria-labelledby="honest-rules-heading"
         >
           <div className="max-w-container mx-auto px-5">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="max-w-2xl mb-12">
               <span className="text-xs uppercase tracking-widest font-bold text-brand-evergreen mb-2 block">
                 Core Guardrails
               </span>
@@ -444,59 +443,76 @@ export default function HomePage() {
               >
                 We keep it honest
               </h2>
-              <p className="text-sm md:text-base text-charcoal/80 mt-2">
+              <p className="text-sm md:text-base text-charcoal/80 mt-2 max-w-[54ch]">
                 We believe health and wellness decisions deserve factual certainty over algorithmic hype.
               </p>
             </div>
 
-            {/* 3 Columns with Lucide Icons */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Column 1 */}
-              <div className="flex flex-col items-start p-6 rounded-card bg-paper border border-border">
-                <div className="w-12 h-12 rounded-full bg-surface-sage flex items-center justify-center text-brand-evergreen mb-4">
-                  <SlidersHorizontal className="w-6 h-6" aria-hidden="true" />
+            {/* Asymmetric 2-Column Grid (Lead Rule on Left, Stacked Rules on Right) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+              {/* Lead Feature Rule: Rules choose, AI helps listen */}
+              <div className="lg:col-span-5 p-7 md:p-8 rounded-card bg-surface-sage/40 border border-brand-deep/10 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-full bg-accent-lime text-brand-deep flex items-center justify-center mb-6 shadow-ambient border border-brand-deep/10">
+                    <SlidersHorizontal className="w-6 h-6" weight="regular" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-brand-deep mb-2">
+                    Rules choose, AI helps listen
+                  </h3>
+                  <p className="text-sm font-semibold text-brand-evergreen mb-3">
+                    Products are chosen by transparent rules.
+                  </p>
+                  <p className="text-sm text-charcoal/80 leading-relaxed">
+                    Deterministic TypeScript logic decides which products match. An LLM may only extract intent into a structured schema—it never invents products, ingredients, or claims.
+                  </p>
                 </div>
-                <h3 className="font-display font-bold text-lg text-brand-deep mb-1">
-                  Rules choose, AI helps listen
-                </h3>
-                <p className="text-sm font-semibold text-brand-evergreen mb-2">
-                  Products are chosen by transparent rules.
-                </p>
-                <p className="text-sm text-charcoal/80 leading-relaxed">
-                  Deterministic TypeScript logic decides which products match. An LLM may only extract intent into a structured schema—it never invents products, ingredients, or claims.
-                </p>
+                <div className="mt-6 pt-4 border-t border-brand-deep/10 text-xs font-semibold text-brand-deep flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-brand-evergreen" aria-hidden="true" />
+                  <span>Pure TypeScript matcher &bull; Zero hallucinated products</span>
+                </div>
               </div>
 
-              {/* Column 2 */}
-              <div className="flex flex-col items-start p-6 rounded-card bg-paper border border-border">
-                <div className="w-12 h-12 rounded-full bg-surface-sage flex items-center justify-center text-brand-evergreen mb-4">
-                  <ShieldCheck className="w-6 h-6" aria-hidden="true" />
+              {/* Stacked Rules 2 & 3 */}
+              <div className="lg:col-span-7 flex flex-col justify-between divide-y divide-border rounded-card bg-paper border border-border p-7 md:p-8">
+                {/* Rule 2 */}
+                <div className="pb-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-11 h-11 rounded-full bg-surface-sage flex items-center justify-center text-brand-evergreen shrink-0 mt-0.5 border border-brand-deep/10">
+                      <ShieldCheck className="w-5 h-5" weight="regular" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-lg md:text-xl text-brand-deep mb-1">
+                        Facts have sources
+                      </h3>
+                      <p className="text-sm font-semibold text-brand-evergreen mb-2">
+                        Every product fact shows where it came from and when.
+                      </p>
+                      <p className="text-sm text-charcoal/80 leading-relaxed">
+                        Ingredients, directions, and cautions are pulled directly from verified packaging labels. If an attribute has not been verified yet, we label it explicitly as &ldquo;Not verified yet&rdquo;.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-display font-bold text-lg text-brand-deep mb-1">
-                  Facts have sources
-                </h3>
-                <p className="text-sm font-semibold text-brand-evergreen mb-2">
-                  Every product fact shows where it came from and when.
-                </p>
-                <p className="text-sm text-charcoal/80 leading-relaxed">
-                  Ingredients, directions, and cautions are pulled directly from verified packaging labels. If an attribute has not been verified yet, we label it explicitly as &ldquo;Not verified yet&rdquo;.
-                </p>
-              </div>
 
-              {/* Column 3 */}
-              <div className="flex flex-col items-start p-6 rounded-card bg-paper border border-border">
-                <div className="w-12 h-12 rounded-full bg-surface-sage flex items-center justify-center text-brand-evergreen mb-4">
-                  <UserCheck className="w-6 h-6" aria-hidden="true" />
+                {/* Rule 3 */}
+                <div className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-11 h-11 rounded-full bg-surface-sage flex items-center justify-center text-brand-evergreen shrink-0 mt-0.5 border border-brand-deep/10">
+                      <UserCheck className="w-5 h-5" weight="regular" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="font-display font-bold text-lg md:text-xl text-brand-deep mb-1">
+                        You stay in control
+                      </h3>
+                      <p className="text-sm font-semibold text-brand-evergreen mb-2">
+                        Edit what we understood. Skip any question.
+                      </p>
+                      <p className="text-sm text-charcoal/80 leading-relaxed">
+                        No forced questionnaire funnels or locked steps. You can refine your parsed summary, skip non-essential questions, and see the exact reasoning behind every shortlist.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-display font-bold text-lg text-brand-deep mb-1">
-                  You stay in control
-                </h3>
-                <p className="text-sm font-semibold text-brand-evergreen mb-2">
-                  Edit what we understood. Skip any question.
-                </p>
-                <p className="text-sm text-charcoal/80 leading-relaxed">
-                  No forced questionnaire funnels or locked steps. You can refine your parsed summary, skip non-essential questions, and see the exact reasoning behind every shortlist.
-                </p>
               </div>
             </div>
           </div>
