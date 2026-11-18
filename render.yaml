@@ -1,0 +1,33 @@
+# Render Web Service Deployment Specification for Bodywise Match API
+# NOTE: The Render free tier web service sleeps after 15 minutes of inactivity (30-60s cold start).
+# Filesystem is strictly EPHEMERAL — never write files or session logs to disk (Rule 8 Privacy First).
+# All persistent state must be managed via Supabase PostgreSQL using the pooled connection string (port 6543).
+
+services:
+  - type: web
+    name: bodywise-match-api
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: pnpm install && pnpm --filter @bodywise/shared build && pnpm --filter @bodywise/api build
+    startCommand: pnpm --filter @bodywise/api start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: CORS_ORIGINS
+        value: https://bodywise-match.vercel.app,https://bodywise-match-preview.vercel.app,http://localhost:3000
+      - key: RATE_LIMIT
+        value: 100
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: LLM_ENABLED
+        value: "true"

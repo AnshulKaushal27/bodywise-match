@@ -1,0 +1,43 @@
+{
+  "name": "bodywise-match-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"web,api\" -c \"teal,green\" \"pnpm --filter @bodywise/web dev\" \"pnpm --filter @bodywise/api dev\"",
+    "dev:web": "pnpm --filter @bodywise/web dev",
+    "dev:api": "pnpm --filter @bodywise/api dev",
+    "build": "pnpm --filter @bodywise/shared build && pnpm --filter @bodywise/api build && pnpm --filter @bodywise/web build",
+    "build:web": "pnpm --filter @bodywise/web build",
+    "build:api": "pnpm --filter @bodywise/api build",
+    "lint": "eslint \"apps/**/*.{ts,tsx}\" \"packages/**/*.{ts,tsx}\" --max-warnings 0",
+    "secret:scan": "tsx scripts/secret-scan.ts",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "llm:smoke": "tsx scripts/llm-smoke.ts",
+    "safety:lint": "vitest run apps/web/app/safety-content.test.ts",
+    "typecheck": "pnpm -r exec tsc --noEmit",
+    "catalogue:validate": "pnpm --filter @bodywise/shared catalogue:validate",
+    "db:migrate": "pnpm --filter @bodywise/api db:migrate",
+    "db:seed": "pnpm --filter @bodywise/api db:seed",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/jsdom": "^30.0.0",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@typescript-eslint/eslint-plugin": "^8.73.0",
+    "@typescript-eslint/parser": "^8.73.0",
+    "axe-core": "^4.14.1",
+    "concurrently": "^9.1.2",
+    "eslint": "^8.57.1",
+    "husky": "^9.1.7",
+    "jsdom": "^31.0.1",
+    "prettier": "^3.5.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.8"
+  }
+}

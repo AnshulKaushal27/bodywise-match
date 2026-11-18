@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline — Bodywise Match</title>
+  <style>
+    :root {
+      --bg-paper: #F7F7F1;
+      --surface: #FFFFFF;
+      --surface-sage: #DCE8D7;
+      --brand-deep: #17352E;
+      --brand-evergreen: #245345;
+      --accent-lime: #D9EE9B;
+      --text-charcoal: #26332E;
+      --text-muted: #66756D;
+      --border: #D8E1DA;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-paper);
+      color: var(--text-charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 40px auto;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 16px rgba(23, 53, 46, 0.05);
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      background-color: var(--surface-sage);
+      color: var(--brand-deep);
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--brand-deep);
+      margin-bottom: 12px;
+    }
+    p {
+      color: var(--text-charcoal);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+    .offline-notice {
+      background-color: var(--surface-sage);
+      border-left: 4px solid var(--brand-evergreen);
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: 28px;
+      color: var(--brand-deep);
+      font-weight: 500;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    button, a {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s ease;
+    }
+    .btn-primary {
+      background-color: var(--brand-evergreen);
+      color: #FFFFFF;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: var(--brand-deep);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--brand-evergreen);
+      border: 1.5px solid var(--brand-evergreen);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-sage);
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Offline Storage Active</span>
+    <h1>You're currently offline</h1>
+    <p>
+      Your internet connection is unavailable, but Bodywise Match is designed to stay resilient.
+    </p>
+
+    <div class="offline-notice">
+      <strong>Your answers are saved on this device.</strong><br>
+      Any goals, avoidances, product comparisons, or notes you prepared remain safely stored in your browser's local storage.
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" onclick="window.location.reload()">Retry Connection</button>
+      <a href="/" class="btn-secondary">Go to Home</a>
+    </div>
+  </div>
+
+  <footer>
+    Bodywise Match &bull; Informational product discovery prototype &bull; Zero mandatory signup
+  </footer>
+</body>
+</html>

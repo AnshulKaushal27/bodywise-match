@@ -1,0 +1,644 @@
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  MagnifyingGlass,
+  X,
+  SlidersHorizontal,
+  Drop,
+  Flask,
+  Wind,
+  Sun,
+  Pill,
+  Sparkle,
+  ArrowRight,
+  ShieldCheck,
+  Check,
+  ArrowCounterClockwise,
+} from "@phosphor-icons/react";
+import {
+  DemoBadge,
+  Card,
+  Button,
+  EmptyState,
+} from "@/components/ui";
+import {
+  ProductRecord,
+  DEMO_CATALOGUE_SEED,
+  CONTROLLED_GOALS,
+} from "@bodywise/shared";
+import { fetchProducts } from "@/lib/api";
+
+const CATEGORIES = [
+  { id: "all", label: "All Categories" },
+  { id: "body_wash", label: "Body Wash" },
+  { id: "face_wash", label: "Face Wash" },
+  { id: "serum", label: "Serum & Roll-On" },
+  { id: "hair_oil", label: "Hair Oil" },
+  { id: "shampoo", label: "Shampoo" },
+  { id: "sunscreen", label: "Sunscreen" },
+  { id: "supplement", label: "Supplements" },
+];
+
+const FORMAT_OPTIONS = [
+  { id: "all", label: "All Formats" },
+  { id: "liquid", label: "Liquid" },
+  { id: "gel", label: "Gel" },
+  { id: "roll-on", label: "Roll-On" },
+  { id: "oil", label: "Oil" },
+  { id: "cream", label: "Cream" },
+  { id: "gummies", label: "Gummies" },
+];
+
+const FRAGRANCE_OPTIONS = [
+  { id: "all", label: "All Formulations" },
+  { id: "fragrance_free", label: "Fragrance-Free Only" },
+  { id: "other", label: "Fragrance / Unverified" },
+];
+
+export default function ProductsPage() {
+  const [products, setProducts] = React.useState<ProductRecord[]>(DEMO_CATALOGUE_SEED);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
+  const [selectedGoal, setSelectedGoal] = React.useState<string>("all");
+  const [selectedFormat, setSelectedFormat] = React.useState<string>("all");
+  const [selectedFragrance, setSelectedFragrance] = React.useState<string>("all");
+
+  // Comparison selection state (up to 3 products)
+  const [selectedForCompare, setSelectedForCompare] = React.useState<string[]>([]);
+
+  // Fetch catalogue products on mount
+  React.useEffect(() => {
+    let isMounted = true;
+    async function loadData() {
+      setLoading(true);
+      try {
+        const data = await fetchProducts();
+        if (isMounted && data.length > 0) {
+          setProducts(data);
+        }
+      } catch {
+        // Fallback already defaults to DEMO_CATALOGUE_SEED
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+    loadData();
+
+    // Load comparison items from sessionStorage if available
+    if (typeof window !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem("bodywise_compare_ids");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) setSelectedForCompare(parsed);
+        }
+      } catch {
+        // Ignore JSON error
+      }
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Sync comparison items to sessionStorage
+  const toggleCompare = (id: string) => {
+    setSelectedForCompare((prev) => {
+      let updated: string[];
+      if (prev.includes(id)) {
+        updated = prev.filter((item) => item !== id);
+      } else {
+        if (prev.length >= 3) {
+          // Replace the oldest or keep max 3
+          updated = [...prev.slice(1), id];
+        } else {
+          updated = [...prev, id];
+        }
+      }
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("bodywise_compare_ids", JSON.stringify(updated));
+      }
+      return updated;
+    });
+  };
+
+  // Helper for Category Icon
+  const getProductTypeIcon = (category: string) => {
+    switch (category) {
+      case "body_wash":
+      case "face_wash":
+        return <Drop className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+      case "serum":
+        return <Flask className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+      case "shampoo":
+      case "conditioner":
+      case "hair_oil":
+        return <Wind className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+      case "sunscreen":
+        return <Sun className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+      case "supplement":
+        return <Pill className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+      default:
+        return <Sparkle className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    }
+  };
+
+  // Filter products
+  const filteredProducts = React.useMemo(() => {
+    return products.filter((prod) => {
+      // Search query matching
+      if (searchQuery.trim().length > 0) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesName = prod.official_name.toLowerCase().includes(q);
+        const matchesDesc = prod.official_description.toLowerCase().includes(q);
+        const matchesCategory = prod.category.toLowerCase().includes(q);
+        const matchesGoals = prod.supported_goals.some((g) => g.toLowerCase().includes(q));
+        if (!matchesName && !matchesDesc && !matchesCategory && !matchesGoals) {
+          return false;
+        }
+      }
+
+      // Category filter
+      if (selectedCategory !== "all" && prod.category !== selectedCategory) {
+        return false;
+      }
+
+      // Goal filter
+      if (selectedGoal !== "all" && !(prod.supported_goals as string[]).includes(selectedGoal)) {
+        return false;
+      }
+
+      // Format filter
+      if (selectedFormat !== "all") {
+        if (!prod.format.toLowerCase().includes(selectedFormat.toLowerCase())) {
+          return false;
+        }
+      }
+
+      // Fragrance filter
+      if (selectedFragrance === "fragrance_free") {
+        if (prod.fragrance_free !== true) return false;
+      } else if (selectedFragrance === "other") {
+        if (prod.fragrance_free === true) return false;
+      }
+
+      return true;
+    });
+  }, [products, searchQuery, selectedCategory, selectedGoal, selectedFormat, selectedFragrance]);
+
+  const hasActiveFilters =
+    searchQuery.trim().length > 0 ||
+    selectedCategory !== "all" ||
+    selectedGoal !== "all" ||
+    selectedFormat !== "all" ||
+    selectedFragrance !== "all";
+
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setSelectedGoal("all");
+    setSelectedFormat("all");
+    setSelectedFragrance("all");
+  };
+
+  return (
+    <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
+      {/* Top Navigation */}
+      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30">
+        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-evergreen hover:text-brand-deep focus-ring px-2 py-1 rounded transition-colors active:scale-[0.98] motion-safe:transition-transform"
+          >
+            <ArrowLeft className="w-4 h-4" weight="regular" />
+            <span>Home</span>
+          </Link>
+
+          <div className="flex items-center gap-3">
+            <DemoBadge />
+            <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
+              Bodywise Match
+            </span>
+          </div>
+
+          <Link
+            href="/match"
+            className="text-xs md:text-sm font-bold text-brand-evergreen hover:text-brand-deep bg-surface-sage/50 hover:bg-surface-sage px-3 py-1.5 rounded-button border border-border focus-ring transition-colors active:scale-[0.98] motion-safe:transition-transform"
+          >
+            Find My Match
+          </Link>
+        </div>
+      </header>
+
+      {/* Main Content Area */}
+      <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full">
+        {/* Header Intro */}
+        <div className="mb-8">
+          <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
+            Catalogue Directory
+          </span>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-brand-deep tracking-tight mt-1 mb-3">
+            Browse Product Catalogue
+          </h1>
+          <p className="text-sm md:text-base text-charcoal/80 max-w-2xl leading-relaxed">
+            Explore verified product facts, packaging cautions, and transparency sources. Filter by your targeted concern, format, or ingredients.
+          </p>
+        </div>
+
+        {/* Floating / Sticky Comparison Bar if products are chosen */}
+        {selectedForCompare.length > 0 && (
+          <div className="mb-6 p-4 rounded-card bg-surface border-2 border-brand-evergreen/40 shadow-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-in">
+            <div className="flex items-center gap-2.5">
+              <span className="w-6 h-6 rounded-full bg-brand-evergreen text-surface text-xs font-bold flex items-center justify-center">
+                {selectedForCompare.length}
+              </span>
+              <span className="text-xs sm:text-sm font-bold text-brand-deep">
+                {selectedForCompare.length} of 3 products chosen for comparison
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedForCompare([]);
+                  if (typeof window !== "undefined") {
+                    sessionStorage.removeItem("bodywise_compare_ids");
+                  }
+                }}
+                className="text-xs text-muted hover:text-charcoal underline focus-ring px-2 py-1"
+              >
+                Clear
+              </button>
+              <Link
+                href={`/compare?ids=${selectedForCompare.join(",")}`}
+                className="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-evergreen text-surface hover:bg-brand-deep px-4 py-2 rounded-button focus-ring shadow-sm transition-colors active:scale-[0.98] motion-safe:transition-transform"
+              >
+                <span>Compare Now</span>
+                <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Search & Filter Toolbar */}
+        <div className="mb-8 space-y-4">
+          {/* Search Box */}
+          <div className="relative">
+            <MagnifyingGlass className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" weight="regular" aria-hidden="true" />
+            <label htmlFor="catalogue-search-input" className="sr-only">
+              Search by product name, goal, format, or ingredient
+            </label>
+            <input
+              id="catalogue-search-input"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by product name, goal, format, or ingredient..."
+              className="w-full pl-10 pr-10 py-3 rounded-button bg-surface border border-border text-charcoal text-sm focus-ring placeholder:text-muted/70 transition-colors shadow-sm min-h-[48px]"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search query"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal focus-ring p-1 rounded min-w-[36px] min-h-[36px] flex items-center justify-center"
+              >
+                <X className="w-4 h-4" weight="bold" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+
+          {/* Filter Chips Container */}
+          <div className="p-4 md:p-5 rounded-card bg-surface border border-border shadow-sm space-y-4">
+            <div className="flex items-center justify-between gap-3 border-b border-border/70 pb-3">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-brand-evergreen" weight="regular" />
+                <h3 className="text-xs md:text-sm font-bold uppercase tracking-wider text-brand-deep">
+                  Filter by Attributes
+                </h3>
+              </div>
+
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-brand-evergreen hover:text-brand-deep underline focus-ring py-1 px-1.5 rounded active:scale-[0.98] motion-safe:transition-transform"
+                >
+                  <ArrowCounterClockwise className="w-3 h-3" weight="regular" />
+                  <span>Reset filters</span>
+                </button>
+              )}
+            </div>
+
+            {/* Category Chips */}
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
+                Category
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((cat) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
+                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
+                      }`}
+                    >
+                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
+                      <span>{cat.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Format Chips */}
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
+                Format
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {FORMAT_OPTIONS.map((fmt) => {
+                  const isActive = selectedFormat === fmt.id;
+                  return (
+                    <button
+                      key={fmt.id}
+                      type="button"
+                      onClick={() => setSelectedFormat(fmt.id)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
+                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
+                      }`}
+                    >
+                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
+                      <span>{fmt.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Goal Filter Chips */}
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
+                Target Concern & Goal
+              </span>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedGoal("all")}
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
+                    selectedGoal === "all"
+                      ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
+                      : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
+                  }`}
+                >
+                  {selectedGoal === "all" && <Check className="w-3 h-3 text-accent-lime" />}
+                  <span>All Goals</span>
+                </button>
+                {CONTROLLED_GOALS.map((goal) => {
+                  const isActive = selectedGoal === goal.id;
+                  return (
+                    <button
+                      key={goal.id}
+                      type="button"
+                      onClick={() => setSelectedGoal(goal.id)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
+                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
+                      }`}
+                    >
+                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
+                      <span>{goal.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Fragrance Filter Chips */}
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
+                Fragrance Declaration
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {FRAGRANCE_OPTIONS.map((opt) => {
+                  const isActive = selectedFragrance === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setSelectedFragrance(opt.id)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
+                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
+                      }`}
+                    >
+                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
+                      <span>{opt.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Results Counter */}
+        <div className="flex items-center justify-between mb-5" role="status" aria-live="polite">
+          <p className="text-xs md:text-sm text-muted font-medium">
+            Showing <strong className="text-brand-deep">{filteredProducts.length}</strong>{" "}
+            {filteredProducts.length === 1 ? "product" : "products"}
+            {hasActiveFilters && " matching active filters"}
+          </p>
+
+          <Link
+            href="/compare"
+            className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-1.5 py-0.5 rounded"
+          >
+            Open Comparison Tool &rarr;
+          </Link>
+        </div>
+
+        {/* Product Cards Grid / Skeleton / Empty State */}
+        {loading ? (
+          /* Skeleton Loading Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className="p-5 rounded-card bg-surface border border-border shadow-sm space-y-4 animate-pulse"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="w-16 h-5 bg-border/60 rounded-full" />
+                  <div className="w-20 h-5 bg-border/40 rounded-full" />
+                </div>
+                <div className="w-14 h-14 rounded-card bg-surface-sage/50" />
+                <div className="space-y-2">
+                  <div className="w-3/4 h-5 bg-border/70 rounded" />
+                  <div className="w-1/2 h-4 bg-border/40 rounded" />
+                </div>
+                <div className="space-y-1.5 pt-2">
+                  <div className="w-full h-3 bg-border/40 rounded" />
+                  <div className="w-5/6 h-3 bg-border/40 rounded" />
+                </div>
+                <div className="pt-3 border-t border-border flex justify-between items-center">
+                  <div className="w-24 h-4 bg-border/50 rounded" />
+                  <div className="w-16 h-4 bg-border/50 rounded" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          /* Empty State */
+          <div className="py-12 px-4 rounded-card bg-surface border border-border text-center">
+            <EmptyState
+              title="No products match your active filters"
+              description="Try clearing search keywords, choosing broader category filters, or selecting 'All Goals'."
+            />
+            <div className="mt-6 flex justify-center">
+              <Button onClick={resetFilters} variant="primary" size="default">
+                Clear all filters
+              </Button>
+            </div>
+          </div>
+        ) : (
+          /* Lighter Product Cards Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((product) => {
+              const isCompared = selectedForCompare.includes(product.id);
+              const categoryLabel =
+                CATEGORIES.find((c) => c.id === product.category)?.label ||
+                product.category.replace(/_/g, " ");
+
+              return (
+                <Card
+                  key={product.id}
+                  variant="surface"
+                  className="p-5 md:p-6 shadow-sm hover:shadow-card transition-all duration-150 border border-border flex flex-col justify-between group"
+                >
+                  <div>
+                    {/* Top Meta Bar */}
+                    <div className="flex items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-border/60">
+                      <div className="flex items-center gap-1.5">
+                        <DemoBadge />
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-sage/60 text-brand-deep capitalize">
+                          {categoryLabel}
+                        </span>
+                      </div>
+
+                      {/* Compare Checkbox */}
+                      <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-semibold text-muted hover:text-brand-evergreen select-none">
+                        <input
+                          type="checkbox"
+                          checked={isCompared}
+                          onChange={() => toggleCompare(product.id)}
+                          className="w-3.5 h-3.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+                        />
+                        <span>Compare</span>
+                      </label>
+                    </div>
+
+                    {/* Thumbnail & Title */}
+                    <div className="flex items-start gap-3.5 mb-3">
+                      <div className="w-12 h-12 rounded-card bg-surface-sage/40 border border-border/80 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        {getProductTypeIcon(product.category)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-display font-bold text-base md:text-lg text-brand-deep leading-snug truncate">
+                          <Link
+                            href={`/products/${product.slug}`}
+                            className="hover:text-brand-evergreen focus-ring rounded"
+                          >
+                            {product.official_name}
+                          </Link>
+                        </h3>
+                        <p className="text-xs text-muted font-medium mt-0.5">
+                          {product.format} &bull; {product.size}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Description excerpt */}
+                    <p className="text-xs text-charcoal/80 line-clamp-2 leading-relaxed mb-3.5">
+                      {product.official_description}
+                    </p>
+
+                    {/* Supported Goals Tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {product.supported_goals.slice(0, 2).map((gId) => {
+                        const goalDef = CONTROLLED_GOALS.find((g) => g.id === gId);
+                        const label = goalDef?.label || gId.replace(/_/g, " ");
+                        return (
+                          <span
+                            key={gId}
+                            className="text-[10.5px] px-2 py-0.5 rounded-full bg-paper text-charcoal border border-border"
+                          >
+                            {label}
+                          </span>
+                        );
+                      })}
+                      {product.supported_goals.length > 2 && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-paper text-muted border border-border">
+                          +{product.supported_goals.length - 2} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Card Action Footer */}
+                  <div className="pt-3 border-t border-border/70 flex items-center justify-between gap-2 mt-auto">
+                    <div className="flex items-center gap-1 text-[11px] text-muted">
+                      <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" />
+                      <span>
+                        {product.fragrance_free === true
+                          ? "Fragrance-free"
+                          : product.fragrance_free === false
+                          ? "Contains fragrance"
+                          : "Fragrance unverified"}
+                      </span>
+                    </div>
+
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
+                    >
+                      <span>View details</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-surface py-6 text-center text-xs text-muted">
+        <div className="max-w-container mx-auto px-5 space-y-2">
+          <p className="font-semibold text-brand-deep">
+            Bodywise Match &bull; Transparent Product Discovery Prototype
+          </p>
+          <p>
+            Informational product finder only. No clinical evaluations, therapeutic claims, or promised outcomes.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}

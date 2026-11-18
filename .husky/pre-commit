@@ -1,0 +1,3 @@
+pnpm secret:scan
+pnpm lint
+pnpm typecheck
