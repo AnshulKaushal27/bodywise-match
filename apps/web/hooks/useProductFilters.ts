@@ -11,23 +11,29 @@ import {
 
 export const CATEGORIES = [
   { id: "all", label: "All Categories" },
-  { id: "body_wash", label: "Body Wash" },
+  { id: "body_wash", label: "Body Wash & Scrubs" },
   { id: "face_wash", label: "Face Wash" },
-  { id: "serum", label: "Serum & Roll-On" },
-  { id: "hair_oil", label: "Hair Oil" },
+  { id: "moisturizer", label: "Moisturizer & Body Lotion" },
+  { id: "serum", label: "Serums & Treatments" },
+  { id: "roll_on", label: "Deodorant & Roll-On" },
   { id: "shampoo", label: "Shampoo" },
+  { id: "conditioner", label: "Conditioner" },
   { id: "sunscreen", label: "Sunscreen" },
-  { id: "supplement", label: "Supplements" },
+  { id: "supplement", label: "Gummies & Supplements" },
+  { id: "kit", label: "Kits & Combos" },
+  { id: "accessory", label: "Tools & Accessories" },
 ];
 
 export const FORMAT_OPTIONS = [
   { id: "all", label: "All Formats" },
   { id: "liquid", label: "Liquid" },
-  { id: "gel", label: "Gel" },
-  { id: "roll-on", label: "Roll-On" },
-  { id: "oil", label: "Oil" },
-  { id: "cream", label: "Cream" },
-  { id: "gummies", label: "Gummies" },
+  { id: "gel", label: "Gel & Foam" },
+  { id: "cream", label: "Cream & Lotion" },
+  { id: "serum", label: "Serum & Drops" },
+  { id: "roll-on", label: "Roll-On Applicator" },
+  { id: "spray", label: "Spray & Mist" },
+  { id: "gummies", label: "Chewable Gummies" },
+  { id: "scrub", label: "Exfoliating Scrub" },
 ];
 
 export const FRAGRANCE_OPTIONS = [

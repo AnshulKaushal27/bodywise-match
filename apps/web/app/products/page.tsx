@@ -36,6 +36,174 @@ import {
 } from "@/hooks/useProductFilters";
 import { FilterDialog } from "./FilterDialog";
 
+// Helper for Category Icon
+function getProductTypeIcon(category: string) {
+  switch (category) {
+    case "body_wash":
+    case "face_wash":
+      return <Drop className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    case "serum":
+    case "roll_on":
+      return <Flask className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    case "shampoo":
+    case "conditioner":
+    case "hair_oil":
+      return <Wind className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    case "sunscreen":
+      return <Sun className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    case "supplement":
+      return <Pill className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+    default:
+      return <Sparkle className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+  }
+}
+
+interface ProductCardItemProps {
+  product: ProductRecord;
+  isCompared: boolean;
+  onToggleCompare: (id: string) => void;
+  isNonMatching?: boolean;
+}
+
+function ProductCardItem({
+  product,
+  isCompared,
+  onToggleCompare,
+  isNonMatching = false,
+}: ProductCardItemProps) {
+  const categoryLabel =
+    CATEGORIES.find((c) => c.id === product.category)?.label ||
+    product.category.replace(/_/g, " ");
+
+  return (
+    <Card
+      key={product.id}
+      variant="surface"
+      className={`p-5 md:p-6 shadow-sm hover:shadow-card transition-all duration-150 border flex flex-col justify-between group ${
+        isNonMatching
+          ? "border-border/70 bg-surface/90 hover:bg-surface hover:border-border"
+          : "border-border bg-surface"
+      }`}
+    >
+      <div>
+        {/* Top Meta Bar */}
+        <div className="flex items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-border/60">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-sage/60 text-brand-deep capitalize">
+              {categoryLabel}
+            </span>
+            {isNonMatching && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-paper text-muted border border-border">
+                Outside active filter
+              </span>
+            )}
+          </div>
+
+          {/* Compare Checkbox */}
+          <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-semibold text-muted hover:text-brand-evergreen select-none">
+            <input
+              type="checkbox"
+              checked={isCompared}
+              onChange={() => onToggleCompare(product.id)}
+              className="w-3.5 h-3.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+            />
+            <span>Compare</span>
+          </label>
+        </div>
+
+        {/* Thumbnail & Title */}
+        <div className="flex items-start gap-3.5 mb-3">
+          <div className="w-12 h-12 rounded-card bg-surface-sage/40 border border-border/80 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden relative">
+            {product.image_url ? (
+              <img
+                src={product.image_url}
+                alt={product.official_name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              getProductTypeIcon(product.category)
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className="font-display font-bold text-base md:text-lg text-brand-deep leading-snug truncate">
+              <Link
+                href={`/products/${product.slug}`}
+                className="hover:text-brand-evergreen focus-ring rounded"
+              >
+                {product.official_name}
+              </Link>
+            </h3>
+            <p className="text-xs text-muted font-medium mt-0.5">
+              {product.format} &bull; {product.size}
+            </p>
+          </div>
+        </div>
+
+        {/* Description excerpt */}
+        <p className="text-xs text-charcoal/80 line-clamp-2 leading-relaxed mb-3.5">
+          {product.official_description}
+        </p>
+
+        {/* Supported Goals Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {product.supported_goals.slice(0, 2).map((gId) => {
+            const goalDef = CONTROLLED_GOALS.find((g) => g.id === gId);
+            const label = goalDef?.label || gId.replace(/_/g, " ");
+            return (
+              <span
+                key={gId}
+                className="text-[10.5px] px-2 py-0.5 rounded-full bg-paper text-charcoal border border-border"
+              >
+                {label}
+              </span>
+            );
+          })}
+          {product.supported_goals.length > 2 && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-paper text-muted border border-border">
+              +{product.supported_goals.length - 2} more
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Card Action Footer */}
+      <div className="pt-3 border-t border-border/70 flex items-center justify-between gap-2 mt-auto">
+        <div className="flex items-center gap-1 text-[11px] text-muted">
+          <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" />
+          <span>
+            {product.fragrance_free === true
+              ? "Fragrance-free"
+              : product.fragrance_free === false
+              ? "Contains fragrance"
+              : "Fragrance unverified"}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring"
+            title="Buy on official website"
+          >
+            <span>Buy</span>
+            <ArrowSquareOut className="w-3 h-3" weight="bold" />
+          </a>
+          <Link
+            href={`/products/${product.slug}`}
+            className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
+          >
+            <span>View details</span>
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 function ProductsPageContent() {
   const [products, setProducts] = React.useState<ProductRecord[]>(DEMO_CATALOGUE_SEED);
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -117,31 +285,22 @@ function ProductsPageContent() {
     });
   };
 
-  // Helper for Category Icon
-  const getProductTypeIcon = (category: string) => {
-    switch (category) {
-      case "body_wash":
-      case "face_wash":
-        return <Drop className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
-      case "serum":
-        return <Flask className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
-      case "shampoo":
-      case "conditioner":
-      case "hair_oil":
-        return <Wind className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
-      case "sunscreen":
-        return <Sun className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
-      case "supplement":
-        return <Pill className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
-      default:
-        return <Sparkle className="w-6 h-6 text-brand-evergreen" weight="regular" aria-hidden="true" />;
+  // Pure deterministic partitioning of catalogue products into matching vs non-matching
+  const { matchingProducts, nonMatchingProducts } = React.useMemo(() => {
+    if (!hasActiveFilters) {
+      return {
+        matchingProducts: products,
+        nonMatchingProducts: [] as ProductRecord[],
+      };
     }
-  };
-
-  // Pure deterministic filtering of catalogue products (guarantees grid count equals dialog count)
-  const filteredProducts = React.useMemo(() => {
-    return filterProducts(products, filterCriteria);
-  }, [products, filterCriteria]);
+    const matching = filterProducts(products, filterCriteria);
+    const matchingIdSet = new Set(matching.map((p) => p.id));
+    const nonMatching = products.filter((p) => !matchingIdSet.has(p.id));
+    return {
+      matchingProducts: matching,
+      nonMatchingProducts: nonMatching,
+    };
+  }, [products, filterCriteria, hasActiveFilters]);
 
   // Apply handler from dialog
   const handleApplyFilters = (draft: ProductFilterCriteria) => {
@@ -335,19 +494,33 @@ function ProductsPageContent() {
         {/* Results Row */}
         <div
           ref={resultsContainerRef}
-          className="flex items-center justify-between mb-5"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5"
           role="status"
           aria-live="polite"
         >
-          <p className="text-xs md:text-sm text-muted font-medium">
-            Showing <strong className="text-brand-deep">{filteredProducts.length}</strong>{" "}
-            {filteredProducts.length === 1 ? "product" : "products"}
-            {hasActiveFilters && " matching active filters"}
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-xs md:text-sm text-muted font-medium">
+              Showing <strong className="text-brand-deep">{matchingProducts.length}</strong>{" "}
+              {matchingProducts.length === 1 ? "product" : "products"}
+              {hasActiveFilters && (
+                <span>
+                  {" "}matching active filters
+                  {nonMatchingProducts.length > 0 && (
+                    <span className="text-muted/80"> ({nonMatchingProducts.length} other in catalogue)</span>
+                  )}
+                </span>
+              )}
+            </p>
+            {hasActiveFilters && matchingProducts.length > 0 && (
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-accent-lime text-brand-deep">
+                Matching Filters
+              </span>
+            )}
+          </div>
 
           <Link
             href="/compare"
-            className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-1.5 py-0.5 rounded"
+            className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-1.5 py-0.5 rounded self-start sm:self-auto"
           >
             Open Comparison Tool &rarr;
           </Link>
@@ -382,148 +555,95 @@ function ProductsPageContent() {
               </div>
             ))}
           </div>
-        ) : filteredProducts.length === 0 ? (
-          /* Empty State */
-          <div className="py-12 px-4 rounded-card bg-surface border border-border text-center">
+        ) : matchingProducts.length === 0 ? (
+          /* Empty Matching State */
+          <div className="py-10 px-6 rounded-card bg-surface border border-border text-center shadow-xs">
             <EmptyState
               title="No products match your active filters"
-              description="Try clearing search keywords, choosing broader category filters, or selecting 'All Goals'."
+              description="Try clearing search keywords, choosing broader category filters, or selecting 'All Goals'. You can also explore the rest of the catalogue below."
             />
-            <div className="mt-6 flex justify-center">
+            <div className="mt-5 flex justify-center">
               <Button onClick={clearAllFilters} variant="primary" size="default">
                 Clear all filters
               </Button>
             </div>
           </div>
         ) : (
-          /* Lighter Product Cards Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => {
-              const isCompared = selectedForCompare.includes(product.id);
-              const categoryLabel =
-                CATEGORIES.find((c) => c.id === product.category)?.label ||
-                product.category.replace(/_/g, " ");
-
-              return (
-                <Card
+          /* Primary Product Cards Grid */
+          <section aria-label="Matching Products">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {matchingProducts.map((product) => (
+                <ProductCardItem
                   key={product.id}
-                  variant="surface"
-                  className="p-5 md:p-6 shadow-sm hover:shadow-card transition-all duration-150 border border-border flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Top Meta Bar */}
-                    <div className="flex items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-border/60">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-sage/60 text-brand-deep capitalize">
-                          {categoryLabel}
-                        </span>
-                      </div>
+                  product={product}
+                  isCompared={selectedForCompare.includes(product.id)}
+                  onToggleCompare={toggleCompare}
+                  isNonMatching={false}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-                      {/* Compare Checkbox */}
-                      <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-semibold text-muted hover:text-brand-evergreen select-none">
-                        <input
-                          type="checkbox"
-                          checked={isCompared}
-                          onChange={() => toggleCompare(product.id)}
-                          className="w-3.5 h-3.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
-                        />
-                        <span>Compare</span>
-                      </label>
-                    </div>
+        {/* Products Not Matching Active Filters (Shown with a clear separation) */}
+        {hasActiveFilters && nonMatchingProducts.length > 0 && (
+          <section aria-label="Other Products outside active filters" className="mt-12 md:mt-16">
+            {/* Visual separation divider */}
+            <div className="relative mb-8 md:mb-10" role="separator" aria-label="Catalogue separation divider">
+              <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t-2 border-dashed border-border" />
+              </div>
+              <div className="relative flex justify-center">
+                <div className="bg-paper px-4 py-1.5 rounded-full border border-border shadow-xs flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-brand-evergreen" aria-hidden="true" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-deep">
+                    Other Catalogue Products
+                  </span>
+                  <span className="text-[11px] font-semibold text-muted">
+                    ({nonMatchingProducts.length})
+                  </span>
+                </div>
+              </div>
+            </div>
 
-                    {/* Thumbnail & Title */}
-                    <div className="flex items-start gap-3.5 mb-3">
-                      <div className="w-12 h-12 rounded-card bg-surface-sage/40 border border-border/80 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden relative">
-                        {product.image_url ? (
-                          <img
-                            src={product.image_url}
-                            alt={product.official_name}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          getProductTypeIcon(product.category)
-                        )}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-display font-bold text-base md:text-lg text-brand-deep leading-snug truncate">
-                          <Link
-                            href={`/products/${product.slug}`}
-                            className="hover:text-brand-evergreen focus-ring rounded"
-                          >
-                            {product.official_name}
-                          </Link>
-                        </h3>
-                        <p className="text-xs text-muted font-medium mt-0.5">
-                          {product.format} &bull; {product.size}
-                        </p>
-                      </div>
-                    </div>
+            {/* Informative separation banner */}
+            <div className="mb-6 p-4 md:p-5 rounded-card bg-surface-sage/35 border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="font-display font-bold text-base md:text-lg text-brand-deep">
+                    Products Not Matching Current Filters
+                  </h2>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-surface text-muted border border-border">
+                    {nonMatchingProducts.length} available
+                  </span>
+                </div>
+                <p className="text-xs text-charcoal/75 mt-1 leading-relaxed">
+                  These items do not pass your active filter criteria, but remain available here for quick comparison and discovery.
+                </p>
+              </div>
 
-                    {/* Description excerpt */}
-                    <p className="text-xs text-charcoal/80 line-clamp-2 leading-relaxed mb-3.5">
-                      {product.official_description}
-                    </p>
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-2 py-1 shrink-0 self-start sm:self-auto"
+              >
+                Reset filters to show all
+              </button>
+            </div>
 
-                    {/* Supported Goals Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {product.supported_goals.slice(0, 2).map((gId) => {
-                        const goalDef = CONTROLLED_GOALS.find((g) => g.id === gId);
-                        const label = goalDef?.label || gId.replace(/_/g, " ");
-                        return (
-                          <span
-                            key={gId}
-                            className="text-[10.5px] px-2 py-0.5 rounded-full bg-paper text-charcoal border border-border"
-                          >
-                            {label}
-                          </span>
-                        );
-                      })}
-                      {product.supported_goals.length > 2 && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-paper text-muted border border-border">
-                          +{product.supported_goals.length - 2} more
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Card Action Footer */}
-                  <div className="pt-3 border-t border-border/70 flex items-center justify-between gap-2 mt-auto">
-                    <div className="flex items-center gap-1 text-[11px] text-muted">
-                      <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" />
-                      <span>
-                        {product.fragrance_free === true
-                           ? "Fragrance-free"
-                          : product.fragrance_free === false
-                          ? "Contains fragrance"
-                          : "Fragrance unverified"}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring"
-                        title="Buy on official website"
-                      >
-                        <span>Buy</span>
-                        <ArrowSquareOut className="w-3 h-3" weight="bold" />
-                      </a>
-                      <Link
-                        href={`/products/${product.slug}`}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
-                      >
-                        <span>View details</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    </div>
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
+            {/* Grid of Non-Matching Products */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {nonMatchingProducts.map((product) => (
+                <ProductCardItem
+                  key={product.id}
+                  product={product}
+                  isCompared={selectedForCompare.includes(product.id)}
+                  onToggleCompare={toggleCompare}
+                  isNonMatching={true}
+                />
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Filters Dialog Primitive */}

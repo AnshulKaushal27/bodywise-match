@@ -163,7 +163,34 @@ export function filterProducts(
     // 3. Format Match (OR within group, substring match, AND across groups)
     if (formats.length > 0) {
       const prodFormat = prod.format.toLowerCase();
-      const matchesFormat = formats.some((fmt) => prodFormat.includes(fmt));
+      const matchesFormat = formats.some((fmt) => {
+        const normFmt = fmt.toLowerCase().trim();
+        if (normFmt === "roll-on" || normFmt === "roll_on" || normFmt === "roll on") {
+          return prodFormat.includes("roll-on") || prodFormat.includes("roll on") || prodFormat.includes("roller");
+        }
+        if (normFmt === "cream" || normFmt === "lotion") {
+          return prodFormat.includes("cream") || prodFormat.includes("lotion") || prodFormat.includes("moisturizer");
+        }
+        if (normFmt === "gel") {
+          return prodFormat.includes("gel") || prodFormat.includes("foam");
+        }
+        if (normFmt === "serum") {
+          return prodFormat.includes("serum");
+        }
+        if (normFmt === "liquid") {
+          return prodFormat.includes("liquid");
+        }
+        if (normFmt === "gummies" || normFmt === "gummy") {
+          return prodFormat.includes("gumm") || prodFormat.includes("chewable");
+        }
+        if (normFmt === "spray") {
+          return prodFormat.includes("spray");
+        }
+        if (normFmt === "scrub") {
+          return prodFormat.includes("scrub");
+        }
+        return prodFormat.includes(normFmt);
+      });
       if (!matchesFormat) return false;
     }
 
@@ -322,15 +349,8 @@ export function parseSearchToFilterParams(rawInput: string): ParsedFilterParams 
       categoryWords.add(catText);
       categoryWords.add(cat.categoryId);
       matchedSubstrings.push(catText);
-      if (cat.categoryId === "roll_on") {
-        if (!result.categories.includes("serum")) result.categories.push("serum");
-        if (!result.formats.includes("roll-on")) result.formats.push("roll-on");
-      } else if (cat.categoryId === "moisturizer") {
-        if (!result.formats.includes("cream")) result.formats.push("cream");
-      } else {
-        if (!result.categories.includes(cat.categoryId)) {
-          result.categories.push(cat.categoryId);
-        }
+      if (!result.categories.includes(cat.categoryId)) {
+        result.categories.push(cat.categoryId);
       }
     }
   }

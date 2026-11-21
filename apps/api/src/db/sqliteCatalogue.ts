@@ -117,9 +117,11 @@ export function getCatalogueDb(): DatabaseSync {
     );
   `);
 
-  // Seed if table is empty
+  // Seed if table is empty or if categories need refreshing
   const countRow = db.prepare("SELECT COUNT(*) as cnt FROM products").get() as { cnt: number };
-  if (!countRow || countRow.cnt === 0) {
+  const checkSample = db.prepare("SELECT category FROM products WHERE slug = '4-aha-bha-underarm-roll-on'").get() as { category?: string } | undefined;
+  if (!countRow || countRow.cnt === 0 || !checkSample || checkSample.category === "other") {
+    db.exec("DELETE FROM products; DELETE FROM products_fts; DELETE FROM support_topics; DELETE FROM support_fts;");
     seedCatalogueData(db);
   }
 

@@ -16,7 +16,10 @@ export type CatalogueType =
   | "hair_oil"
   | "sunscreen"
   | "supplement"
-  | "roll_on";
+  | "roll_on"
+  | "kit"
+  | "accessory"
+  | "other";
 
 export interface TypeMappingEntry {
   type: CatalogueType;
@@ -45,8 +48,8 @@ export const PRODUCT_TYPE_MAPPINGS: TypeMappingEntry[] = [
       "body lotion",
       "body cream",
     ],
-    // In catalogue: face moisturizer is under 'other' (1% Peptide & Ceramide), body lotions under 'body_wash'
-    canonicalCategories: ["other", "body_wash"],
+    // In catalogue: moisturizers have category 'moisturizer'
+    canonicalCategories: ["moisturizer"],
     supportedBodyAreas: ["face", "body"],
     requiresAreaSplit: true,
   },
@@ -109,10 +112,31 @@ export const PRODUCT_TYPE_MAPPINGS: TypeMappingEntry[] = [
   },
   {
     type: "roll_on",
-    displayName: "Roll-On Applicator",
-    synonyms: ["roll-on", "roll on", "roller", "underarm roll-on", "foot roll-on"],
-    canonicalCategories: ["other"],
+    displayName: "Deodorant & Roll-On",
+    synonyms: ["roll-on", "roll on", "roller", "underarm roll-on", "foot roll-on", "deodorant", "deo"],
+    canonicalCategories: ["roll_on"],
     supportedBodyAreas: ["underarm", "body"],
+  },
+  {
+    type: "kit",
+    displayName: "Kits & Combos",
+    synonyms: ["kit", "pack", "combo", "bundle", "duo", "trio"],
+    canonicalCategories: ["kit"],
+    supportedBodyAreas: ["face", "body", "hair", "underarm", "scalp"],
+  },
+  {
+    type: "accessory",
+    displayName: "Tools & Accessories",
+    synonyms: ["razor", "roller", "massager", "tool", "brush"],
+    canonicalCategories: ["accessory"],
+    supportedBodyAreas: ["face", "body", "scalp"],
+  },
+  {
+    type: "other",
+    displayName: "Other",
+    synonyms: [],
+    canonicalCategories: ["other"],
+    supportedBodyAreas: ["face", "body", "hair", "underarm", "scalp"],
   },
 ];
 

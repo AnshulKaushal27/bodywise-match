@@ -59,6 +59,17 @@ export const CATEGORY_IMPLICATIONS: Record<CatalogueCategoryId, CategoryImplicat
     derivedFormat: "roll-on",
     allowedBodyAreas: ["underarm", "body"],
   },
+  kit: {
+    derivedFormat: "kit",
+    allowedBodyAreas: ["face", "body", "hair", "underarm", "scalp"],
+  },
+  accessory: {
+    derivedFormat: "accessory",
+    allowedBodyAreas: ["face", "body", "hair", "scalp"],
+  },
+  other: {
+    allowedBodyAreas: ["face", "body", "hair", "underarm", "scalp"],
+  },
 };
 
 /**

@@ -245,11 +245,13 @@ export function computeShortlist(
     reasonCodes.push("TIER_1_CATEGORY_FILTER");
 
     tier1Products = tier0Products.filter((product) => {
+      if (product.category === confirmedCategory) return true;
+
       if (confirmedCategory === "moisturizer") {
-        if (product.category !== "other" && product.category !== "body_wash") return false;
         const nameLower = product.official_name.toLowerCase();
         const formatLower = product.format.toLowerCase();
         return (
+          product.category === "moisturizer" ||
           nameLower.includes("moisturizer") ||
           nameLower.includes("cream") ||
           nameLower.includes("lotion") ||
@@ -259,6 +261,7 @@ export function computeShortlist(
       }
       if (confirmedCategory === "roll_on") {
         return (
+          product.category === "roll_on" ||
           product.format.toLowerCase().includes("roll-on") ||
           product.official_name.toLowerCase().includes("roll on")
         );
@@ -267,16 +270,6 @@ export function computeShortlist(
       if (catDef && catDef.canonicalProductCategories.includes(product.category)) {
         return true;
       }
-      // 2. Format or official name check for multi-category products
-      if (confirmedCategory === "body_wash" && product.category === "body_wash") return true;
-      if (confirmedCategory === "face_wash" && product.category === "face_wash") return true;
-      if (confirmedCategory === "shampoo" && product.category === "shampoo") return true;
-      if (confirmedCategory === "conditioner" && product.category === "conditioner") return true;
-      if (confirmedCategory === "hair_oil" && product.category === "hair_oil") return true;
-      if (confirmedCategory === "serum" && product.category === "serum") return true;
-      if (confirmedCategory === "sunscreen" && product.category === "sunscreen") return true;
-      if (confirmedCategory === "supplement" && product.category === "supplement") return true;
-
       return false;
     });
   }

@@ -10,6 +10,10 @@ export const ProductCategorySchema = z.enum([
   "hair_oil",
   "supplement",
   "sunscreen",
+  "moisturizer",
+  "roll_on",
+  "kit",
+  "accessory",
   "other",
 ]);
 

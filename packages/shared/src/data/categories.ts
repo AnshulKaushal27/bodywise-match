@@ -14,7 +14,10 @@ export type CatalogueCategoryId =
   | "sunscreen"
   | "supplement"
   | "moisturizer"
-  | "roll_on";
+  | "roll_on"
+  | "kit"
+  | "accessory"
+  | "other";
 
 export interface CategoryDefinition {
   id: CatalogueCategoryId;
@@ -173,7 +176,7 @@ export const CATALOGUE_CATEGORIES: CategoryDefinition[] = [
   {
     id: "moisturizer",
     displayLabel: "Moisturizer / Cream",
-    canonicalProductCategories: ["other", "body_wash"],
+    canonicalProductCategories: ["moisturizer"],
     synonyms: [
       "moisturizer",
       "mosturizer",
@@ -198,8 +201,8 @@ export const CATALOGUE_CATEGORIES: CategoryDefinition[] = [
   },
   {
     id: "roll_on",
-    displayLabel: "Roll-on",
-    canonicalProductCategories: ["other", "serum"],
+    displayLabel: "Deodorant & Roll-On",
+    canonicalProductCategories: ["roll_on"],
     synonyms: [
       "underarm roll-on",
       "underarm roll on",
@@ -211,6 +214,49 @@ export const CATALOGUE_CATEGORIES: CategoryDefinition[] = [
       "roller",
       "deo roll on",
       "deodorant roll on",
+      "deodorant",
+      "underarm deo",
+    ],
+  },
+  {
+    id: "kit",
+    displayLabel: "Kits & Combos",
+    canonicalProductCategories: ["kit"],
+    synonyms: [
+      "routine kit",
+      "routine pack",
+      "essentials kit",
+      "starter kit",
+      "combo pack",
+      "twin pack",
+      "skincare kit",
+      "hair kit",
+      "pigmentation kit",
+      "acne kit",
+      "kit",
+      "kits",
+      "combo",
+      "combos",
+      "bundle",
+      "trio",
+      "duo",
+    ],
+  },
+  {
+    id: "accessory",
+    displayLabel: "Tools & Accessories",
+    canonicalProductCategories: ["accessory"],
+    synonyms: [
+      "scalp massager",
+      "ice roller",
+      "face razor",
+      "razor",
+      "derma roller",
+      "massager",
+      "accessory",
+      "accessories",
+      "tool",
+      "tools",
     ],
   },
 ];

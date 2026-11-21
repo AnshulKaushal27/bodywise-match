@@ -178,5 +178,31 @@ describe("filterProducts pure filter logic (packages/shared/src/filters.ts)", ()
       expect(empty.fragrance).toBe("all");
       expect(empty.search).toBeUndefined();
     });
+
+    it("parses roll-on query with clean roll_on category and does not confuse it with serum", () => {
+      const parsed = parseSearchToFilterParams("underarm roll on");
+      expect(parsed.categories).toContain("roll_on");
+      expect(parsed.categories).not.toContain("serum");
+    });
+
+    it("filters products strictly by roll_on and moisturizer categories", () => {
+      const rollOns = filterProducts(DEMO_CATALOGUE_SEED, { categories: ["roll_on"] });
+      expect(rollOns.length).toBe(19);
+      for (const prod of rollOns) {
+        expect(prod.category).toBe("roll_on");
+      }
+
+      const moisturizers = filterProducts(DEMO_CATALOGUE_SEED, { categories: ["moisturizer"] });
+      expect(moisturizers.length).toBe(10);
+      for (const prod of moisturizers) {
+        expect(prod.category).toBe("moisturizer");
+      }
+
+      const serums = filterProducts(DEMO_CATALOGUE_SEED, { categories: ["serum"] });
+      expect(serums.length).toBe(13);
+      for (const prod of serums) {
+        expect(prod.category).toBe("serum");
+      }
+    });
   });
 });

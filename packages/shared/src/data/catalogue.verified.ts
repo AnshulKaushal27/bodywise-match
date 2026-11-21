@@ -230,7 +230,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "10-magnesium-lotion",
     "official_name": "10% Magnesium Body Lotion - 200 ml",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
@@ -284,7 +284,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "10-magnesium-lotion-300ml",
     "official_name": "10% Magnesium Body Lotion - 300 ml",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
@@ -338,7 +338,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "10-urea-lotion",
     "official_name": "10% Urea Body Lotion - 200 ml",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "rough_texture_smoothing",
       "hydration_barrier"
@@ -393,7 +393,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "10-urea-lotion-300ml",
     "official_name": "10% Urea Body Lotion - 300 ml",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "rough_texture_smoothing",
       "hydration_barrier"
@@ -606,7 +606,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "20-urea-lotion-xp",
     "official_name": "20% Urea Lotion - 300ml",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "rough_texture_smoothing",
       "hydration_barrier"
@@ -877,7 +877,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "5-lactic-acid-body-lotion",
     "official_name": "5% Lactic Acid Body Lotion",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
@@ -1035,7 +1035,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "body-sunscreen-lotion-with-spf-50",
     "official_name": "De-Tan SPF 50+ Body Sunscreen Lotion",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "sunscreen",
     "supported_goals": [
       "sun_protection"
     ],
@@ -1115,7 +1115,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "magnesium-gummies-and-lotion-kit",
     "official_name": "Complete Magnesium Care",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
@@ -1145,7 +1145,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "niacinamide-body-lotion",
     "official_name": "10% Niacinamide Body Lotion",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "dark_spots_look"
     ],
@@ -1244,7 +1244,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "pigmentation-repair-cream",
     "official_name": "Pigmentation Repair Cream",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "moisturizer",
     "supported_goals": [
       "dark_spots_look"
     ],
@@ -1294,11 +1294,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "sabodywash-scrub",
     "official_name": "Strawberry Skin Exfoliation kit",
     "brand_line": "Be Bodywise",
-    "category": "body_wash",
+    "category": "kit",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Liquid body wash",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "#1 Dermatologist recommended kit to reduce strawberry skin. It is enriched with actives like Salicylic Acid & Lactic Acid.🌟 Our Strawberry Skin Exfoliation Kit contains: 1% Salicylic Acid Body Wash: Exfoliates and removes dead skin cells around and on top of ingrown hair 10% AHA Body Scrub: It has 10% Lactic Acid which helps to provide deep exf",
     "label_directions": "Step 1: Apply adequate amount of bodywash on wet skin. Step 2: Post bodywash, take some scrub and massage into skin using gentle, circular motions. Note: ✅ Use the bodywash daily, and scrub 2 times a week for atleast 3 months for best results🗓️.",
@@ -1677,11 +1677,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "1-peptide-ceramide-moisturizer",
     "official_name": "1% Peptide & Ceramide Moisturizer",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "moisturizer",
     "supported_goals": [
       "hydration_barrier"
     ],
-    "format": "Product",
+    "format": "Topical moisturizer / cream",
     "size": "Standard Packaging",
     "official_description": "Lightweight, Non-Comedogenic gel based moisturizer that repairs skin barrier and makes skin soft & supple. Peptide promotes collagen production, slowing signs of ageing while Ceramide will help to retain moisture.🌟 ➡️Repairs Skin Water Barrier Function ➡️Clinically proven to keep skin moisturised up to 72 hours ➡️Boosts moisture retention and red",
     "label_directions": "Step 1:  Cleanse, tone and put treatment serums on skin Step 2: Apply this cream liberally and gently massage until completely absorbed Step 3:Use sunscreen post cream in the morning  ✅ Use daily for 3 months for best results🗓️. Continue after that to protect the skin barrier💙",
@@ -1727,7 +1727,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "20-urea-roll-on-50ml",
     "official_name": "20% Urea Foot Roll On - 50 ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "rough_texture_smoothing",
       "underarm_odor_freshness",
@@ -1779,7 +1779,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "20-urea-roll-on-75ml",
     "official_name": "20% Urea Foot Roll On - 75 ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "rough_texture_smoothing",
       "underarm_odor_freshness",
@@ -1831,7 +1831,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "30-urea-foot-roll-on",
     "official_name": "30% Urea Foot Roll On - 50ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
@@ -1887,7 +1887,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "30-urea-foot-roll-on-75ml",
     "official_name": "30% Urea Foot Roll On 75 ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
@@ -1943,7 +1943,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-roll-on",
     "official_name": "4% AHA BHA Underarm Roll On - 50 mL - Flora",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -1992,7 +1992,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-roll-on-aqua",
     "official_name": "4% AHA BHA Underarm Roll On - 50 mL - Aqua",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2039,7 +2039,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-roll-on-no-fragrance",
     "official_name": "4% AHA BHA Underarm Roll On - 50 mL - No Fragrance",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2086,7 +2086,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-roll-on-oudh",
     "official_name": "4% AHA BHA Underarm Roll On - 50 mL - Oudh",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2133,7 +2133,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-roll-on-watermelon",
     "official_name": "4% AHA BHA Underarm Roll On - 50 mL - Watermelon",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2180,7 +2180,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-rollon-75",
     "official_name": "4% AHA BHA Underarm Roll On - 75 mL - Flora",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2227,7 +2227,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "4-aha-bha-underarm-rollon-frag-free-75",
     "official_name": "4% AHA BHA Underarm Roll On - Fragrance Free - 75 ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2274,7 +2274,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on",
     "official_name": "6% AHA BHA Underarm Roll On - 50mL - Flora",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2327,7 +2327,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-aqua",
     "official_name": "6% AHA BHA Underarm Roll On - 50 ml - Aqua",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2380,7 +2380,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-aqua-75ml",
     "official_name": "6% AHA BHA Underarm Roll On - 75 ml - Aqua",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2433,7 +2433,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-flora-75ml",
     "official_name": "6% AHA BHA Underarm Roll On - 75ml - Flora",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2486,7 +2486,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-frag-free",
     "official_name": "6% AHA BHA Underarm Roll On - 50 ml - Fragrance free",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2539,7 +2539,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-twin-pack-75ml",
     "official_name": "Underarm Twin Defence Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2592,7 +2592,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "6-aha-bha-underarm-roll-on-watermelon",
     "official_name": "6% AHA BHA Underarm Roll On - 50 ml - Watermelon",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2645,11 +2645,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "advanced-hair-growth-pack",
     "official_name": "Advanced Hair Growth Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "5X Faster Hair Growth with 23% Hair Growth Actives This kit contains: 👉Advanced Hair Growth Serum : Infused with Aminexil , Rosemary, Redensyl & Anagain  to combat hair thinning & promote voluminous hair growth  👉Hair Gummies  : Packed with Biotin, Zinc, Multivitamins, which will give your hair the right nutrition to reduce hair fall ✅ Use bot",
     "label_directions": "How to use (Advanced Hair Growth Serum) Step 1: Apply on the affected scalp area  Step 2:Message gently with your fingers to ensure it is absorbed properly and leave it on *With non-oily formulation, you can apply everyday without having to wash your hair before stepping out  How to use (Hair Health",
@@ -2699,11 +2699,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "advanced-hair-growth-pack-xp",
     "official_name": "Advanced Hair Growth Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "5X Faster Hair Growth with 23% Hair Growth Actives This kit contains: 👉Advanced Hair Growth Serum : Infused with Aminexil , Rosemary, Redensyl & Anagain  to combat hair thinning & promote voluminous hair growth  👉Hair Gummies  : Packed with Biotin, Zinc, Multivitamins, which will give your hair the right nutrition to reduce hair fall ✅ Use bot",
     "label_directions": "How to use (Advanced Hair Growth Serum) Step 1: Apply on the affected scalp area  Step 2:Message gently with your fingers to ensure it is absorbed properly and leave it on *With non-oily formulation, you can apply everyday without having to wash your hair before stepping out  How to use (Hair Health",
@@ -2753,13 +2753,13 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "advanced-underarm-pigmentation-kit",
     "official_name": "Advanced Underarm Pigmentation Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "dark_spots_look",
       "underarm_texture_smoothing",
       "underarm_odor_freshness"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Say hello to the Advanced Underarm Pigmentation Kit - now with a stronger, more effective formula! With a higher concentration of actives, this  advanced formula delivers  better odor control and faster pigmentation reduction. 🔹 6% AHA BHA Underarm Roll-On (AM Use)– Our most advanced formula yet! With  4% Lactic Acid for deeper pigmentation redu",
     "label_directions": "Step 1: AM Routine: Apply Roll On directly on underarm skin Step 2: PM Routine: Apply pea sized cream on clean underarm area Follow routine daily for 3 months for best results🗓️. Continue after that to prevent odour & pigmentation💙",
@@ -2805,12 +2805,12 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "aha-bha-body-pack",
     "official_name": "AHA-BHA Body Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "body_bumps_look",
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "#1 Recommended solution for Strawberry Skin, ingrown hair & bumps.     Our AHA-BHA Body Pack contains:   🌟  1% Salicylic Acid Body Wash  : Exfoliates and removes dead skin cells around and on top of ingrown hair 🌟  5% Lactic Acid Body Lotion : Removes dead cells on skin and stimulates cell renewal which reduces bumps and enhance texture     ❌You ",
     "label_directions": "Step 1: Apply adequate amount of bodywash on wet skin. Rinse and pat dry. Step 2: Post shower, apply the moisturising lotion all over the body.",
@@ -2870,7 +2870,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "anti-stretch-mark-roll-on",
     "official_name": "Anti-Stretch Mark Serum Roll On",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "roll_on",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing"
@@ -2901,11 +2901,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "body-de-tan-kit",
     "official_name": "De-Tan Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "dark_spots_look"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Tired of tan that keeps coming back? Meet the Be Bodywise De-Tan Kit - your 2-step routine to correct and protect stubborn tan. ☀️Why you’ll love it:  💎De-tanning: Helps reduce tanning, dark patches, and rough texture. 💎Tested Sun Protection:  SPF validated through In-Vivo & In-Vitro testing. 💎SPF 50+ Broad Spectrum Protection: Advanced SunOne J",
     "label_directions": "Step 1: Apply 1-2 pumps of body wash & gently massage Step 2: Massage a layer of lotion until fully absorbed Step 3: Apply 15 minutes before sun exposure. Re-apply every 2–3 hours during prolonged sun exposure. ☀️What is SPF 50+: Protects skin from UVB rays that cause sunburn and tanning. ☀️What is ",
@@ -2929,11 +2929,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "body-exfoliation-pigmentation-kit",
     "official_name": "Body Exfoliation & Pigmentation Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "dark_spots_look"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "This Body Exfoliation & Pigmentation Kit combines gentle exfoliation for strawberry / chicken skin with targeted repair for pigmented elbows, neck & knees to give you smoother, more even-toned skin. 🔹7% Glycolic Acid Stick - gently exfoliates, unclogs pores, and smoothens rough, bumpy skin - in a mess-free, travel-friendly format. 🔹Pigmentation",
     "label_directions": "AM Routine: Apply cream on the clean pigmented areas - elbow, neck, knees post shower.  PM Routine: Glide stick onto the clean skin with bumps / ingrown hair / rough texture / strawberry skin before bed.  Use it consistently for 3 months for visible results",
@@ -3003,11 +3003,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "daily-hydration-kit",
     "official_name": "Daily Hydration Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Give your skin everyday nourishment with the Daily Hydration Kit — a dermatologist-designed duo that gently cleanses, replenishes moisture, and supports a healthy skin barrier. ✨Why It Works  This routine pairs lipid-rich Triple Milk Extracts with 10% Urea, a key component of the skin’s Natural Moisturizing Factor (NMF). Together, they hydrate, so",
     "label_directions": "Step 1:  Apply a generous amount of body wash to your palms or loofah. Massage onto wet skin in a circular motion. Step 2: Rinse thoroughly after cleansing. Step 3: Take a generous amount of lotion and massage onto your hands and feet, until absorbed. Step 4: Massage an even layer all over the body ",
@@ -3083,12 +3083,12 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "dandruff-hairfall-kit",
     "official_name": "Anti Dandruff & Hairfall Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "scalp_comfort",
       "scalp_clarifying"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Hair fall due to dandruff? Tackle both concerns with one kit. Hair Growth Roll On ● 23% Hair Growth Actives ● Helps control hair fall & boost hair growth ● Non-oily formula | Mess-free applicator 1% ZPTO Anti-Dandruff Shampoo ● Reduces visible flakes in 3 washes ● Keeps your scalp & hair hydrated",
     "label_directions": "✔️ Shampoo: Apply to wet hair and massage into the scalp. Leave it on for 2-3 minutes, then rinse thoroughly with water. ✔️ Roll On: Apply directly on the entire scalp for 2 mins. Do this twice daily, consistently for 3 months. Important: ● Use the shampoo regularly & apply the roll on twice daily f",
@@ -3112,11 +3112,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "face-and-body-acne-kit",
     "official_name": "Face & Body Acne Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "oil_control"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Severe acne doesn't stay on your face — and neither does this kit. Powered by 2.5% Benzoyl Peroxide, this facewash + bodywash duo kills acne-causing bacteria, controls excess oil, and calms inflammation from your face down to your back and body. Non-drying, dermat-approved, and clinically tested — one routine for acne, wherever it shows up.",
     "label_directions": "Step 1: Gently massage adequate quantity of product onto damp skin & later. Step 2: Rinse with water & pat dry.",
@@ -3188,11 +3188,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "face-razor-for-women",
     "official_name": "Face Razor",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "accessory",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Hair removal razor",
     "size": "Standard Packaging",
     "official_description": "Painless and convenient hair removal:  Bodywise Face Razor allows for effortless and quick hair removal without any form of discomfort or pain. Zero pain and cuts: The zig zag pattern on the blade ensures that there are no cuts and the anti-slip handle ensures that you avoid any accidental moves. Precise removal: The curve and the anti-slip grip ",
     "label_directions": "Step 1: Wash your face and pat dry. Apply a moisturizing lotion or facial gel of your choice. Step 2: Take out the razor's protective cover. Step 3: Pull the skin tightly, slide the razor gently downwards at an angle of 45 degrees. Step 4: Once done, clean the blade with a damp cloth and put the cov",
@@ -3222,11 +3222,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "glycolic-acid-stick",
     "official_name": "7% Glycolic Acid Exfoliating Body Stick - 30g",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "body_wash",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Exfoliating body stick",
     "size": "30g",
     "official_description": "India’s First Glycolic Acid Body Stick For Effortless Exfoliation 😍 Say goodbye to KP bumps, ingrown hairs, and strawberry skin without the mess of liquid toners! ✨ Why You’ll Love It? ✅ Dual Exfoliation: The combination of Glycolic & Salicylic Acid unclogs pores, smoothens texture and fights bumps. ✅ Deep Hydration: Shea Butter helps to gently ",
     "label_directions": "1. Apply directly to clean, dry skin before bed. 2. Start with 2-3 applications per week, gradually increasing to daily use if your skin tolerates it. 3. In case of morning use, follow it up with a broad-spectrum sunscreen (SPF 30 +) to keep your skin protected.",
@@ -3252,11 +3252,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hair-fall-control-mini",
     "official_name": "Hair Cleansing and Conditioning Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_fall_appearance"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Prevents hair fall: The sulfate-free, paraben-free shampoo enriched with Keratin improves hair texture, stimulates skin cell turnover to strengthen the scalp barrier and prevent hair loss. Restores volume: Niacinamide & vitamin B5 work together to improve the appearance of your scalp and hair and increase hair fullness. Reduces frizz: Silk protei",
     "label_directions": "How to use (Hair fall Control Shampoo) Step 1: For nurturing your hair, apply Bodywise's Hair Nourish Oil once a week before wash. Step 2: Gently massage 2.5 tea spoons Hair fall Control Shampoo on wet hair and scalp with fingertips, to work into a lather Step 3: Rinse thoroughly, and follow it up w",
@@ -3326,11 +3326,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hair-growth-pack-30ml-xp",
     "official_name": "Advanced Hair Growth Pack with Dropper 30ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "30ml",
     "official_description": "5X Faster Hair Growth with 23% Hair Growth Actives This kit contains: 👉Advanced Hair Growth Serum : Infused with Aminexil , Rosemary, Redensyl & Anagain  to combat hair thinning & promote voluminous hair growth  👉Hair Gummies  : Packed with Biotin, Zinc, Multivitamins, which will give your hair the right nutrition to reduce hair fall ✅ Use bot",
     "label_directions": "How to use (Advanced Hair Growth Serum) Step 1: Apply on the affected scalp area  Step 2:Message gently with your fingers to ensure it is absorbed properly and leave it on *With non-oily formulation, you can apply everyday without having to wash your hair before stepping out  How to use (Hair Health",
@@ -3380,7 +3380,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hair-growth-pack-rosemary-roll-on-90n",
     "official_name": "Advanced Hair Growth Pack with Roll On 25ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
@@ -3434,7 +3434,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hair-growth-pack-rosemary-roll-on-xp-2",
     "official_name": "Advanced Hair Growth Pack with Roll On 25ml",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
@@ -3488,11 +3488,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hair-pro-growth-pack",
     "official_name": "Hair Growth Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "hair_density_appearance"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Recommended solution for Stage 2 Hair Loss  This kit contains: 👉Hair Gummies packed with Biotin, Zinc, Multivitamins, which will give your hair the right nutrition to reduce hair fall 👉Hair Growth Serum made from plant based Redensyl, which will stimulate hair follicles & boost hair regrowth ✅ Use both everyday for 3 months for visible results ",
     "label_directions": "How to use (Hair Growth Concentrate) Step 1: Apply on the entire scalp for 2 min. Step 2: Massage gently with your fingers to ensure it is absorbed properly and leave it on With non-oily formulation, you can apply everyday without having to wash your hair before stepping out. You can use it along wi",
@@ -3542,11 +3542,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "hydrocolloid-acne-pimple-patch",
     "official_name": "Hydrocolloid Acne Pimple Patch",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "serum",
     "supported_goals": [
       "oil_control"
     ],
-    "format": "Product",
+    "format": "Hydrocolloid pimple patch",
     "size": "Standard Packaging",
     "official_description": "Reduces acne inflammation:  Calms surfaced pimples and whiteheads by pulling out sebum and gunk. Prevents acne scarring: Covering the acne with a patch promotes faster healing of the skin and doesn't let it get further infected, reducing chances of scarring. Quick action: Hydrocolloid is a fast healer. These patches can calm down inflamed skin wi",
     "label_directions": "Step 1: On cleansed face, cover the active acne with one patch of suitable size. Step 2: Keep it overnight or a minimum for 6-8 hours and then remove it. Step 3: Once done, repeat the procedure until the acne is completely dry.",
@@ -3572,11 +3572,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "ice-roller",
     "official_name": "Ice Roller (1 N)",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "accessory",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Facial ice roller",
     "size": "1 N",
     "official_description": "Be Bodywise Ice Roller is here to refresh and relax your skin, giving you a perfect pick-me-up whenever needed!🧊 Use consistently for at least 3 months for best results 😁Reduces face and under-eye puffiness 🩸Boosts blood circulation ❤️Minimises redness 🧖‍♀️Tightens pores 🌟Soothes skin Got hurt? You can use this tool to ice the affected area!",
     "label_directions": "Step 1:Open the product and add water till 80% capacity. For better results, you can add rose petals or cucumber. Step 2: Freeze in a freezer for a minimum of 4 hours  Step 3: Once frozen, rinse under water and then open the cover Step 4: Apply ice to the face in 30-second intervals and in circular ",
@@ -3602,11 +3602,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "scalp-massager",
     "official_name": "Scalp Massager",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "accessory",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Scalp massaging brush",
     "size": "Standard Packaging",
     "official_description": "Be Bodywise Scalp Massager is specially formulated to open your hair follicles to boost growth and prevent breakage. Regular use also helps boost blood circulation. ▶Deep cleanses scalp ▶Stimulates scalp ▶Boosts blood circulation ▶Improves follicle health ▶Promotes scalp health ▶Aids hair growth ▶Better hair texture Use while shampooing, oi",
     "label_directions": "1: If you're using this with a shampoo, Apply the shampoo. Take the massager and rub it in circular motions. 2: If you're using a conditioner or hair mask, Apply the conditioner or hair mask and massage gently for thorough application.",
@@ -3630,12 +3630,12 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "strawberry-skin-kit",
     "official_name": "Strawberry Skin Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "body_bumps_look",
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Still struggling with strawberry skin bumps? Try this Strawberry Skin Kit to target strawberry skin, body acne & tan. This duo gently exfoliates & unclogs pores to smoothen your skin's texture. ✨ What’s Inside? ✅ 5% AHA-BHA Exfoliating Body Wash Gently exfoliates with Lactic, Glycolic & Salicylic Acid to clear pores and smooth skin. ✅ 7% Exfoli",
     "label_directions": "AM Routine: Apply a generous amount of body wash to your palms or loofah. Massage onto wet skin & rinse. PM Routine: Glide stick onto the clean skin with bumps / ingrown hair / rough texture / strawberry skin before bed. Use it consistently for 3 months for visible results.",
@@ -3663,12 +3663,12 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "strawberry-skin-pack",
     "official_name": "Strawberry Skin Pack",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "body_bumps_look",
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Complete solution for keratosis pilaris, tiny bumps and strawberry skin🍓     Our Strawberry Skin Pack contains:   ⭐  1% Salicylic Acid Body Wash  : Exfoliates and removes dead skin cells around and on top of ingrown hair  ⭐  10% AHA Body Scrub: It has 10% Lactic Acid which helps to provide deep exfoliation and boost cell turnover    ⭐  5% Lactic ",
     "label_directions": "Step 1: Apply adequate amount of bodywash on wet skin. Step 2: Post bodywash, take some scrub and massage into skin using gentle, circular motions.   Step 3 : Post shower, apply the moisturizing lotion all over the body  Note: Use bodywash & lotion everyday. Use Scrub 1-2 times a week for best resul",
@@ -3749,11 +3749,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "summer-essentials-kit",
     "official_name": "Summer Essentials Trio",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "gentle_daily_cleansing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Stay Fresh & Protected All Summer with the Ultimate Summer Essentials Trio! ☀️  Beat the heat with this power-packed trio designed to keep you cool, fresh, and sun-safe all day!    ✨ What’s Inside?   ✅ 1% Salicylic Acid Bodywash – Fights body acne, prevents strawberry skin, and provides a cooling sensation after every wash ❄️🚿. ✅  4% AHA BHA Und",
     "label_directions": "Step 1 : 1% Salicylic Acid Bodywash : Take adequate amount of bodywash in your palms/loofah. Apply on wet skin in a gentle circular motion.  Step 2 : 4% AHA BHA Underarm Roll On : Roll evenly on underarm skin and allow the product to dry completely.   Step 3 : Ultralight Sunscreen  : On cleansed and",
@@ -3835,11 +3835,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "sun-care-duo-head-to-toe",
     "official_name": "Sun Care Duo for Face and Body",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "sun_protection"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Head-to-toe SPF 50+ protection in one pack. Built with new-gen filters so you're protected end to end. Why the duo •SPF 50+ PA++++ broad-spectrum protection for face and body •Sunscreen that blends in 3 seconds •Body SPF that leaves no white cast  •Body SPF that actively corrects existing tan with unique de-tan blend •Sunscreen that is acne-safe",
     "label_directions": "Step 1- FaceOn cleansed skin; apply a coin-sized amount of Ultra Light Sunscreen to your face, neck, and ears. Step 2- BodySqueeze a generous amount of De-Tan SPF Body Lotion onto arms, legs, neck, chest, feet, and the back of your hands. Massage in. Don't skip high-tan zones: wrists, arms, legs.Ste",
@@ -3863,13 +3863,13 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "underarm-pigmentation-kit-no-fragrance",
     "official_name": "Underarm Pigmentation Kit - No Fragrance",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "dark_spots_look",
       "underarm_texture_smoothing",
       "underarm_odor_freshness"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Want to reduce severe underarm pigmentation in just 3 months?  We're here to help!  Our Underarm Pigmentation Kit contains: 🌟 4% AHA BHA Underarm Roll On (AM Use): 1% Salicylic Acid reduces 99.5% bacteria in 10 minutes & 1% Mandelic Acid reduces pigmentation over time.  🌟 Pigmentation Repair Cream (PM Use): 2% Urea fades pigmentation, 2.5% Lact",
     "label_directions": "Step 1: AM Routine: Apply Roll On directly on underarm skin Step 2: PM Routine: Apply pea sized cream on clean underarm area Follow routine daily for 3 months for best results🗓️. Continue after that to prevent odour & pigmentation💙",
@@ -3928,11 +3928,11 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "urea-skin-heel-repair-kit",
     "official_name": "Urea Skin & Heel Repair Kit",
     "brand_line": "Be Bodywise",
-    "category": "other",
+    "category": "kit",
     "supported_goals": [
       "rough_texture_smoothing"
     ],
-    "format": "Product",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "Give your dry skin the love it deserves with the Urea Skin & Heel Repair Kit – A Clinically Proven solution for Deep Hydration from Head to Heel!   ✨ Why Urea?  Urea is a key component of the skin’s Natural Moisturizing Factor (NMF), locking in moisture 💦, exfoliating dead skin cells 🧽, and strengthening the skin barrier 🛡️ for deep, long-lastin",
     "label_directions": "Step 1: Take a generous amount of lotion and massage onto your hands and feet, until absorbed Step 2: Roll on the product on to clean and dry feet, wait until absorbed.",
@@ -4594,13 +4594,13 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "keratin-shampoo-with-roll-on",
     "official_name": "Anti Hair Fall Kit",
     "brand_line": "Be Bodywise",
-    "category": "shampoo",
+    "category": "kit",
     "supported_goals": [
       "underarm_odor_freshness",
       "underarm_texture_smoothing",
       "hair_fall_appearance"
     ],
-    "format": "Liquid shampoo",
+    "format": "Multi-product routine kit",
     "size": "Standard Packaging",
     "official_description": "8 out of 10 women experience hair fall along with visible hair thinning. If you’re noticing hair fall, widening partition, reduced density, or thinner hair over time — this complete hair care kit is designed to help address hair fall while supporting stronger, healthier-looking hair. Advanced Hair Growth Serum Roll-On ● 23% Clinically Studied Ha",
     "label_directions": "Step 1 Cleanse with shampoo 2–3 times a week, pair with Keratin conditioner. Step 2 Massage roll-on over entire scalp for 2 mins twice every day.",
@@ -4732,7 +4732,7 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "slug": "face-body-sunscreen-kit",
     "official_name": "Daily Sun Shield Kit",
     "brand_line": "Be Bodywise",
-    "category": "sunscreen",
+    "category": "kit",
     "supported_goals": [
       "sun_protection"
     ],
@@ -5307,5 +5307,3 @@ export const DEMO_CATALOGUE_SEED: ProductRecord[] = [
     "is_demo": false
   }
 ];
-
-export const VERIFIED_CATALOGUE: ProductRecord[] = DEMO_CATALOGUE_SEED;

@@ -43,8 +43,8 @@ describe("Signature Polish - Catalogue Stats & Categories", () => {
       "serum",
       "supplement",
       "sunscreen",
-      "shampoo",
       "face wash",
+      "shampoo",
     ]);
   });
 });
