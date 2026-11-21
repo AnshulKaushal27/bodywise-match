@@ -385,7 +385,13 @@ export function selectNext(
     }
 
     if (amCount > 0 && pmCount > 0 && (amCount < total || pmCount < total)) {
-      const counts = [amCount, pmCount];
+      let bothCount = 0;
+      for (const fam of candidateFamilies) {
+        const tod = detectTimeOfDay(fam.primaryProduct);
+        if (tod === "both") bothCount++;
+      }
+      const anyCount = Math.max(0, total - (amCount + pmCount - bothCount));
+      const counts = [amCount, pmCount, anyCount].filter((c) => c > 0);
       const sumSq = counts.reduce((acc, c) => acc + Math.pow(c / total, 2), 0);
       const gini = 1 - sumSq;
       const score = gini * QUESTION_FACET_WEIGHTS.time_of_day;

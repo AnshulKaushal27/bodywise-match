@@ -14,9 +14,6 @@ export function SiteFooter() {
               <span className="font-display font-bold text-lg md:text-xl text-surface tracking-tight">
                 Bodywise Match
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-accent-lime text-brand-deep">
-                Demo data
-              </span>
             </div>
             <p className="text-xs sm:text-sm text-surface-sage/90 max-w-prose leading-relaxed">
               Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.

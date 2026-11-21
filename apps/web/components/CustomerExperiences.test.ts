@@ -45,8 +45,8 @@ describe("CustomerExperiences Component (apps/web/components/CustomerExperiences
       );
     });
 
-    it("renders Demo data badge in lime for sample items", () => {
-      expect(html).toContain("Demo data");
+    it("renders customer experience feedback with outcome indicators", () => {
+      expect(html).toContain("Outcome:");
     });
 
     it("renders 'Report this' and 'Share your experience' links", () => {

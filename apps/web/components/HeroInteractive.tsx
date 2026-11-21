@@ -169,16 +169,27 @@ export function HeroQueryInput() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const effectiveQuery = (userQuery.trim() || placeholderText).trim();
-    if (!effectiveQuery) return;
+    const typed = userQuery.trim();
+    if (typed) {
+      try {
+        sessionStorage.setItem("bodywise_match_initial_query", typed);
+        sessionStorage.setItem("bodywise_match_draft", typed);
+      } catch {
+        // storage quota fallback
+      }
+      router.push(`/match?q=${encodeURIComponent(typed)}`);
+      return;
+    }
 
+    // If user submits empty, clear previous drafts and go to /match cleanly
     try {
-      sessionStorage.setItem("bodywise_match_initial_query", effectiveQuery);
+      sessionStorage.removeItem("bodywise_match_initial_query");
+      sessionStorage.removeItem("bodywise_match_draft");
+      sessionStorage.removeItem("bodywise_match_goal");
     } catch {
       // storage quota fallback
     }
-
-    router.push(`/match?q=${encodeURIComponent(effectiveQuery)}`);
+    router.push("/match");
   };
 
   return (

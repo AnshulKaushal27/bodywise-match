@@ -21,12 +21,12 @@ import {
   SlidersHorizontal,
   X,
   CaretRight,
+  ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import { MatchSessionProvider, useMatchSession } from "@/lib/matchSessionContext";
 import {
   Button,
   Card,
-  DemoBadge,
   ProgressBar,
   Stepper,
   StepItem,
@@ -584,7 +584,6 @@ function MatchResultsInner() {
                   {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
                     <div className="flex items-center gap-2 flex-wrap">
-                      {product.is_demo && <DemoBadge />}
                       {fam.notSpecificallyDescribed ? (
                         <span className="result-pill-slide text-xs font-bold px-3 py-1 rounded-full bg-surface-sage text-brand-deep border border-border shadow-none">
                           In-category option • Not specifically described for {shortlist.unmatchedBenefit}
@@ -615,8 +614,17 @@ function MatchResultsInner() {
 
                   {/* Header Row: Product Image + Name, Format, Size, Price */}
                   <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-                      {getProductTypeIcon(product.category)}
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0 overflow-hidden relative">
+                      {product.image_url || fam.imageUrl ? (
+                        <img
+                          src={product.image_url || fam.imageUrl || ""}
+                          alt={product.official_name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        getProductTypeIcon(product.category)
+                      )}
                     </div>
 
                     <div className="flex-1">
@@ -750,7 +758,16 @@ function MatchResultsInner() {
 
                   {/* Actions Row: View Details & "This doesn't fit" */}
                   <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <a
+                        href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-primary text-white hover:bg-brand-deep px-3.5 py-2 rounded-button min-h-[44px] transition-colors focus-ring active:scale-[0.98]"
+                      >
+                        <span>Buy on official store</span>
+                        <ArrowSquareOut className="w-3.5 h-3.5" weight="bold" />
+                      </a>
                       <Button
                         variant="secondary"
                         size="sm"
@@ -860,7 +877,6 @@ function MatchResultsInner() {
                 Honest customer experiences with observed trade-offs.
               </p>
             </div>
-            <DemoBadge />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -871,7 +887,6 @@ function MatchResultsInner() {
                     <span className="text-[11px] font-bold text-brand-deep truncate max-w-[180px]">
                       {report.productName}
                     </span>
-                    <DemoBadge />
                   </div>
                   <p className="text-xs text-charcoal leading-relaxed mb-3 italic">
                     &ldquo;{report.userQuote}&rdquo;
@@ -1068,13 +1083,13 @@ function MatchResultsInner() {
         {selectedDetailProduct && (
           <div className="space-y-4 py-2 text-xs md:text-sm">
             <div>
-              <h5 className="font-bold text-brand-deep mb-1">Official Description</h5>
+              <h5 className="font-bold text-brand-deep mb-1">Description</h5>
               <p className="text-charcoal leading-relaxed">{selectedDetailProduct.official_description}</p>
             </div>
 
             <div>
-              <h5 className="font-bold text-brand-deep mb-1">Label Directions</h5>
-              <p className="text-charcoal leading-relaxed">{selectedDetailProduct.label_directions || "Apply as directed on official packaging."}</p>
+              <h5 className="font-bold text-brand-deep mb-1">Directions</h5>
+              <p className="text-charcoal leading-relaxed">{selectedDetailProduct.label_directions || "Apply as directed on packaging."}</p>
             </div>
 
             <div>
@@ -1085,15 +1100,23 @@ function MatchResultsInner() {
             </div>
 
             <div className="p-3 rounded-button bg-caution-peach/60 text-caution-text border-l-4 border-caution-text">
-              <h5 className="font-bold mb-1">Label Cautions</h5>
+              <h5 className="font-bold mb-1">Cautions</h5>
               <p>{selectedDetailProduct.cautions ? selectedDetailProduct.cautions.join(". ") : "Perform a small patch test before regular use."}</p>
             </div>
 
-            <div className="pt-2">
-              <SourceTag
-                source={selectedDetailProduct.price_source || "Official Packaging"}
-                lastVerifiedAt={selectedDetailProduct.last_verified_at || "November 2026"}
-              />
+            <div className="pt-3 border-t border-border flex items-center justify-between">
+              <a
+                href={selectedDetailProduct.source_url || `https://bebodywise.com/product/${selectedDetailProduct.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-primary text-white hover:bg-brand-deep px-4 py-2 rounded-button transition-colors focus-ring"
+              >
+                <span>Buy on Be Bodywise</span>
+                <ArrowSquareOut className="w-3.5 h-3.5" weight="bold" />
+              </a>
+              {selectedDetailProduct.price_inr && (
+                <span className="text-xs font-bold text-brand-deep">₹{selectedDetailProduct.price_inr}</span>
+              )}
             </div>
           </div>
         )}

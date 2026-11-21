@@ -17,7 +17,7 @@ import {
   SelfReportedOutcome,
   ComfortReaction,
 } from "@bodywise/shared";
-import { DemoBadge, Button, Card } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 
 function ExperienceFormView() {
   const searchParams = useSearchParams();
@@ -87,7 +87,6 @@ function ExperienceFormView() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>

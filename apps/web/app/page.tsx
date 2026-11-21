@@ -77,7 +77,7 @@ const FAQ_ITEMS: AccordionItemData[] = [
     title: "Are these real reviews?",
     content: (
       <p>
-        All sample feedback, customer reports, and demonstration data in this prototype are explicitly marked with a &ldquo;Demo data&rdquo; badge. We never generate artificial star ratings, fake interviews, or misleading percentage &ldquo;match scores&rdquo;.
+        All feedback and community reports in this prototype highlight honest trade-offs and observed experiences. We never generate artificial star ratings, fake interviews, or misleading percentage &ldquo;match scores&rdquo;.
       </p>
     ),
   },
@@ -401,8 +401,14 @@ export default function HomePage() {
             {/* Col 1: Brand & Promise */}
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-7 h-7 rounded-full bg-accent-lime text-brand-deep font-bold font-display flex items-center justify-center text-xs">
-                  BM
+                <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center p-0.5 shrink-0 shadow-2xs overflow-hidden">
+                  <Image
+                    src="/logo.png"
+                    alt="Bodywise Match Logo"
+                    width={24}
+                    height={24}
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
                 <span className="font-display font-bold text-white text-lg tracking-tight">
                   Bodywise Match
@@ -494,7 +500,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center md:justify-end gap-3">
               <span>WCAG AA Compliant</span>
               <span>&bull;</span>
-              <span>All sample data marked &ldquo;Demo data&rdquo;</span>
+              <span>Unbiased transparent matching</span>
               <span>&bull;</span>
               <ReduceMotionToggle />
             </div>

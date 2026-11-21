@@ -18,7 +18,7 @@ import {
   CustomerExperienceRecord,
   getPublishedExperiencesForProduct,
 } from "@bodywise/shared";
-import { DemoBadge, EmptyState, Dialog } from "@/components/ui";
+import { EmptyState, Dialog } from "@/components/ui";
 
 interface CustomerExperiencesProps {
   productSlug: string;
@@ -114,7 +114,6 @@ export function CustomerExperiences({
         </div>
 
         <div className="flex items-center gap-3">
-          <DemoBadge />
           <Link
             href={`/feedback/experience?slug=${encodeURIComponent(productSlug)}`}
             className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-1.5 py-1 rounded"
@@ -300,9 +299,6 @@ export function CustomerExperiences({
                 {/* Meta Header */}
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
                   <div className="flex items-center gap-2 flex-wrap">
-                    {/* Demo data badge in lime per Rule 4 */}
-                    <DemoBadge />
-
                     {/* Outcome Badge */}
                     <span
                       className={`px-2 py-0.5 rounded-full font-semibold text-[11px] ${

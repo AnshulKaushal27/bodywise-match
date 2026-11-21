@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -39,9 +40,14 @@ export function SiteHeader({ className }: SiteHeaderProps) {
             className="flex items-center gap-2.5 group focus-ring rounded-button p-1"
             aria-label="Bodywise Match Home"
           >
-            <div className="w-8 h-8 rounded-full bg-brand-evergreen flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:bg-brand-deep transition-colors shrink-0">
-              BM
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Bodywise Match Logo"
+              width={32}
+              height={32}
+              priority
+              className="w-8 h-8 object-contain shrink-0 group-hover:scale-105 transition-transform"
+            />
             <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight hidden sm:inline">
               Bodywise Match
             </span>

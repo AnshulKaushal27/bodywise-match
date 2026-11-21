@@ -15,9 +15,9 @@ import {
   Sparkle,
   ArrowRight,
   ShieldCheck,
+  ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import {
-  DemoBadge,
   Card,
   Button,
   EmptyState,
@@ -170,7 +170,6 @@ function ProductsPageContent() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -411,7 +410,6 @@ function ProductsPageContent() {
                     {/* Top Meta Bar */}
                     <div className="flex items-center justify-between gap-2 mb-3.5 pb-2.5 border-b border-border/60">
                       <div className="flex items-center gap-1.5">
-                        {product.is_demo && <DemoBadge />}
                         <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-sage/60 text-brand-deep capitalize">
                           {categoryLabel}
                         </span>
@@ -431,8 +429,17 @@ function ProductsPageContent() {
 
                     {/* Thumbnail & Title */}
                     <div className="flex items-start gap-3.5 mb-3">
-                      <div className="w-12 h-12 rounded-card bg-surface-sage/40 border border-border/80 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                        {getProductTypeIcon(product.category)}
+                      <div className="w-12 h-12 rounded-card bg-surface-sage/40 border border-border/80 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden relative">
+                        {product.image_url ? (
+                          <img
+                            src={product.image_url}
+                            alt={product.official_name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          getProductTypeIcon(product.category)
+                        )}
                       </div>
                       <div className="min-w-0 flex-1">
                         <h3 className="font-display font-bold text-base md:text-lg text-brand-deep leading-snug truncate">
@@ -489,13 +496,25 @@ function ProductsPageContent() {
                       </span>
                     </div>
 
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
-                    >
-                      <span>View details</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring"
+                        title="Buy on official website"
+                      >
+                        <span>Buy</span>
+                        <ArrowSquareOut className="w-3 h-3" weight="bold" />
+                      </a>
+                      <Link
+                        href={`/products/${product.slug}`}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
+                      >
+                        <span>View details</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
                   </div>
                 </Card>
               );

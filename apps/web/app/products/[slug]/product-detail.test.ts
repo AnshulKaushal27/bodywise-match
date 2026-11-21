@@ -29,21 +29,22 @@ describe("Product Detail Route (apps/web/app/products/[slug])", () => {
     React.createElement(ProductDetailClient, { product: productWithNullIngredients })
   );
 
-  it("renders Section 1: Header with name, format, size, category, and compare button", () => {
+  it("renders Section 1: Header with name, format, size, category, compare button, and buy link", () => {
     expect(html).toContain(verifiedProduct.official_name);
     expect(html).toContain(verifiedProduct.format);
     expect(html).toContain(verifiedProduct.size);
     expect(html).toContain(verifiedProduct.category.replace(/_/g, " "));
     expect(html).toContain("+ Add to Compare");
+    expect(html).toContain("Buy on Be Bodywise");
   });
 
-  it("renders Section 2: 'Intended use (from official description)'", () => {
-    expect(html).toContain("Intended use (from official description)");
+  it("renders Section 2: 'Intended use'", () => {
+    expect(html).toContain("Intended use");
     expect(html).toContain(verifiedProduct.official_description);
   });
 
-  it("renders Section 3: 'How to use (official label directions only)'", () => {
-    expect(html).toContain("How to use (official label directions only)");
+  it("renders Section 3: 'How to use'", () => {
+    expect(html).toContain("How to use");
     expect(html).toContain(verifiedProduct.label_directions);
   });
 
@@ -59,8 +60,8 @@ describe("Product Detail Route (apps/web/app/products/[slug])", () => {
     expect(htmlWithNull).toContain("Not verified yet");
   });
 
-  it("renders Section 5: 'Cautions (official label only)' with packaging warnings", () => {
-    expect(html).toContain("Cautions (official label only)");
+  it("renders Section 5: 'Cautions' with packaging warnings", () => {
+    expect(html).toContain("Cautions");
     if (verifiedProduct.cautions && verifiedProduct.cautions.length > 0) {
       expect(html).toContain(verifiedProduct.cautions[0]);
     }
@@ -70,10 +71,9 @@ describe("Product Detail Route (apps/web/app/products/[slug])", () => {
     expect(html).not.toContain("Why it matched / why it may not");
   });
 
-  it("renders Section 7: 'Customer experiences' panel badged with Demo data", () => {
+  it("renders Section 7: 'Customer experiences' panel", () => {
     expect(html).toContain("Customer experiences");
     expect(html).toContain("Self-reported by");
-    expect(html).toContain("Demo data");
   });
 
   it("renders Section 8: 'Need help after ordering?' panel linking to /help", () => {
@@ -94,10 +94,10 @@ describe("Product Detail Route (apps/web/app/products/[slug])", () => {
   });
 
   it("ensures sections appear in exact requested hierarchical order", () => {
-    const intendedIdx = html.indexOf("Intended use (from official description)");
-    const howToUseIdx = html.indexOf("How to use (official label directions only)");
+    const intendedIdx = html.indexOf("Intended use");
+    const howToUseIdx = html.indexOf("How to use");
     const ingredientsIdx = html.indexOf("Ingredients");
-    const cautionsIdx = html.indexOf("Cautions (official label only)");
+    const cautionsIdx = html.indexOf("Cautions");
     const customerExpIdx = html.indexOf("Customer experiences");
     const needHelpIdx = html.indexOf("Need help after ordering?");
     const provenanceIdx = html.indexOf("Data Provenance &amp; Verification");

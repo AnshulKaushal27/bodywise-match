@@ -12,7 +12,7 @@ import {
   Database,
   ArrowsClockwise,
 } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { deleteServerSession } from "@/lib/api";
 
 interface LocalDataSummary {
@@ -192,7 +192,6 @@ export default function PrivacyDataPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>

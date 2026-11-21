@@ -4,7 +4,7 @@ import {
   ArrowLeft,
   Calendar,
 } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge } from "@/components/ui";
+
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata = {
@@ -28,7 +28,6 @@ export default function TermsPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>

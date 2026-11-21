@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { ArrowLeft, Pulse } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge } from "@/components/ui";
+
 import { SiteFooter } from "@/components/SiteFooter";
 import { StatusClient } from "./StatusClient";
 
@@ -26,7 +26,6 @@ export default function StatusPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>

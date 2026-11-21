@@ -24,6 +24,9 @@ pnpm-debug.log*
 # OS Files
 .DS_Store
 Thumbs.db
+*.db
+*.sqlite
+apps/api/data/
 
 # Test reports
 playwright-report/

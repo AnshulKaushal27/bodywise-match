@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ArrowsLeftRight,
   Check,
+  ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import { useChat } from "@/hooks/useChat";
 import { SourceTag } from "@/components/ui";
@@ -356,15 +357,36 @@ export function ChatPanel() {
                       key={cand.familyId}
                       className="p-3 bg-white border border-border rounded-card flex items-center justify-between gap-3 shadow-sm"
                     >
-                      <div className="min-w-0">
-                        <div className="text-xs font-semibold text-brand-deep truncate">
-                          {cand.name}
-                        </div>
-                        <div className="text-[11px] text-text-muted">
-                          {cand.format} {cand.priceInr ? `· ₹${cand.priceInr}` : ""}
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        {(cand.imageUrl || cand.image_url) && (
+                          <div className="w-9 h-9 rounded-md bg-surface-sage/30 border border-border/60 shrink-0 overflow-hidden">
+                            <img
+                              src={cand.imageUrl || cand.image_url || ""}
+                              alt={cand.name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-brand-deep truncate">
+                            {cand.name}
+                          </div>
+                          <div className="text-[11px] text-text-muted">
+                            {cand.format} {cand.priceInr ? `· ₹${cand.priceInr}` : ""}
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
+                        <a
+                          href={`https://bebodywise.com/product/${cand.familyId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-1 text-xs font-semibold bg-brand-primary text-white rounded-button hover:bg-brand-deep flex items-center gap-1"
+                        >
+                          <span>Buy</span>
+                          <ArrowSquareOut className="w-3 h-3" weight="bold" />
+                        </a>
                         <Link
                           href={`/products/${cand.familyId}`}
                           onClick={() => setIsChatOpen(false)}

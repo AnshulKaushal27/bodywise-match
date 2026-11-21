@@ -274,7 +274,7 @@ export async function matchMultiNeeds(
           score += MATCHER_WEIGHTS.AVOIDANCE_SATISFIED_VERIFIED;
           reasonCodes.push(MatcherReasonCodeSchema.enum.AVOIDANCE_SATISFIED_VERIFIED);
           matchedFields.push("fragrance_free: verified");
-          considerIf.push("Verified 100% fragrance-free per official label specifications.");
+          considerIf.push("Verified 100% fragrance-free per verified packaging specifications.");
         }
       }
 
@@ -552,7 +552,7 @@ export function matchProducts(
         score += MATCHER_WEIGHTS.AVOIDANCE_SATISFIED_VERIFIED;
         reasonCodes.push("AVOIDANCE_SATISFIED_VERIFIED");
         matchedFields.push("fragrance_free: verified");
-        considerIf.push("Verified 100% fragrance-free per official label specifications.");
+        considerIf.push("Verified 100% fragrance-free per verified packaging specifications.");
       }
     }
 

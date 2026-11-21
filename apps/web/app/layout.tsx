@@ -22,6 +22,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Bodywise Match — White & Blue Editorial Product Finder",
   description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "Bodywise Match",
     description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",

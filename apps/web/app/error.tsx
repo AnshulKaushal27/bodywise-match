@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Warning, ArrowsClockwise, House } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge } from "@/components/ui";
+
 
 export default function ErrorBoundary({
   error,
@@ -31,7 +31,6 @@ export default function ErrorBoundary({
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>

@@ -8,7 +8,7 @@ import {
   Sparkle,
   ShieldCheck,
 } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge } from "@/components/ui";
+
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata = {
@@ -32,7 +32,6 @@ export default function AboutPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -71,7 +70,7 @@ export default function AboutPage() {
             Bodywise Match is an independent product discovery prototype created for a fellowship technical challenge. It is <strong>not an official Be Bodywise service, website, or mobile application</strong>, and has no formal corporate affiliation with Mosaic Wellness.
           </p>
           <p className="text-sm sm:text-base text-charcoal/85 leading-relaxed">
-            All catalogue data is compiled from public official product descriptions, packaging labels, and customer feedback patterns for educational and demonstration purposes. All sample data on this site is explicitly flagged with a lime <strong>&ldquo;Demo data&rdquo;</strong> badge.
+            All catalogue data is compiled directly from public official product descriptions, packaging labels, and verified manufacturer sources for educational and demonstration purposes.
           </p>
         </section>
 

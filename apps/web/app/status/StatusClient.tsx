@@ -21,7 +21,7 @@ import {
   API_ROOT_URL,
 } from "@/lib/api";
 import { RULES_VERSION, CATALOGUE_VERSION, DEMO_CATALOGUE_SEED } from "@bodywise/shared";
-import { DemoBadge } from "@/components/ui";
+
 
 export function StatusClient() {
   const [health, setHealth] = React.useState<ApiHealthResponse | null>(null);
@@ -232,7 +232,6 @@ export function StatusClient() {
                 <p className="text-[11px] text-foreground/65">Fact Integrity & Sourced Provenance</p>
               </div>
             </div>
-            <DemoBadge />
           </div>
 
           <div className="space-y-2 text-xs text-foreground/80 border-t border-border/60 pt-3">

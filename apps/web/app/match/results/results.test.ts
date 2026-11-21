@@ -25,7 +25,6 @@ describe("Match Results Step 3 Page (apps/web/app/match/results/page.tsx)", () =
   });
 
   it("renders RecommendationCards with MatchLabel pill, format, size, and View details button", () => {
-    expect(html).toContain("Demo data");
     expect(html).toMatch(/(Strong fit|Direct fit|Partial fit|routine)/i);
     expect(html).toContain("Liquid body wash");
     expect(html).toContain("250 mL");
@@ -59,10 +58,9 @@ describe("Match Results Step 3 Page (apps/web/app/match/results/page.tsx)", () =
     expect(html).toMatch(/Rules Version: (1\.0\.0|2\.0\.0|3\.0\.0)/);
   });
 
-  it("renders 'What people report' strip badged with Demo data", () => {
+  it("renders 'What people report' strip", () => {
     expect(html).toContain("What people report");
     expect(html).toContain("Trade-off noted:");
-    expect(html).toContain("Demo data");
   });
 
   it("renders feedback widget: 'Was this shortlist useful?' with Yes / Somewhat / No and Skip", () => {

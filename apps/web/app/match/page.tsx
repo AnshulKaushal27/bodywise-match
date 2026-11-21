@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -74,14 +74,22 @@ const ROTATING_EXAMPLES = [
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i;
 const PHONE_REGEX = /(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{2,4}\)?[-.\s]?)?\d{3,5}[-.\s]?\d{3,5}\b/;
 
-export default function MatchStep1Page() {
+// Helper to format goal prefill text
+function getGoalPrefill(label: string): string {
+  return `I'm looking for a product to support ${label.toLowerCase()}`;
+}
+
+function MatchStep1Content() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const queryParam = searchParams ? searchParams.get("q") : null;
 
   // State
   const [goals, setGoals] = React.useState<GoalItem[]>(FALLBACK_CATALOGUE_GOALS);
   const [loadingGoals, setLoadingGoals] = React.useState(true);
   const [selectedGoal, setSelectedGoal] = React.useState<string | null>(null);
   const [placeholderIndex, setPlaceholderIndex] = React.useState(0);
+  const lastGoalPrefillRef = React.useRef<string>("");
 
   // Parsing & Server Wake-Up State
   const [isParsing, setIsParsing] = React.useState(false);
@@ -137,24 +145,40 @@ export default function MatchStep1Page() {
     return () => clearInterval(timer);
   }, []);
 
-  // Restore draft from sessionStorage on mount (never server)
+  // Restore draft or query parameter on mount / URL change
   React.useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") return;
+
+    if (queryParam && queryParam.trim().length > 0) {
+      const trimmedQuery = queryParam.trim();
+      setValue("concern", trimmedQuery, { shouldValidate: true });
       try {
-        const savedDraft = sessionStorage.getItem("bodywise_match_draft");
-        if (savedDraft) {
-          setValue("concern", savedDraft, { shouldValidate: true });
-        }
-        const savedGoal = sessionStorage.getItem("bodywise_match_goal");
-        if (savedGoal) {
-          setSelectedGoal(savedGoal);
-          setValue("selectedGoalId", savedGoal, { shouldValidate: true });
-        }
+        sessionStorage.setItem("bodywise_match_draft", trimmedQuery);
+        sessionStorage.setItem("bodywise_match_initial_query", trimmedQuery);
+        sessionStorage.removeItem("bodywise_match_goal");
       } catch {
         // Ignore sessionStorage restrictions if blocked
       }
+      setSelectedGoal(null);
+      setValue("selectedGoalId", "");
+      lastGoalPrefillRef.current = "";
+      return;
     }
-  }, [setValue]);
+
+    try {
+      const savedDraft = sessionStorage.getItem("bodywise_match_draft");
+      if (savedDraft) {
+        setValue("concern", savedDraft, { shouldValidate: true });
+      }
+      const savedGoal = sessionStorage.getItem("bodywise_match_goal");
+      if (savedGoal) {
+        setSelectedGoal(savedGoal);
+        setValue("selectedGoalId", savedGoal, { shouldValidate: true });
+      }
+    } catch {
+      // Ignore sessionStorage restrictions if blocked
+    }
+  }, [queryParam, setValue]);
 
   // Persist draft to sessionStorage on change
   React.useEffect(() => {
@@ -196,17 +220,44 @@ export default function MatchStep1Page() {
       if (typeof window !== "undefined") {
         sessionStorage.removeItem("bodywise_match_goal");
       }
+
+      // If text in textarea matches the auto-filled goal prefill, clear it
+      const currentTrimmed = concernText.trim();
+      const isAutoPrefill =
+        (lastGoalPrefillRef.current && currentTrimmed === lastGoalPrefillRef.current) ||
+        goals.some(
+          (g) => getGoalPrefill(g.label).toLowerCase() === currentTrimmed.toLowerCase()
+        );
+
+      if (isAutoPrefill) {
+        setValue("concern", "", { shouldValidate: true });
+        lastGoalPrefillRef.current = "";
+      }
     } else {
-      // Select
+      // Select new goal or change to a different goal
+      const prevGoalId = selectedGoal;
       setSelectedGoal(goal.id);
       setValue("selectedGoalId", goal.id, { shouldValidate: true });
       if (typeof window !== "undefined") {
         sessionStorage.setItem("bodywise_match_goal", goal.id);
       }
-      // If user hasn't typed anything yet, pre-populate text with goal label
-      if (!concernText.trim()) {
-        const prefill = `I'm looking for a product to support ${goal.label.toLowerCase()}`;
-        setValue("concern", prefill, { shouldValidate: true });
+
+      const newPrefill = getGoalPrefill(goal.label);
+      const currentTrimmed = concernText.trim();
+
+      // If user hasn't typed anything yet, or text was previously populated by a goal,
+      // update text to reflect the new goal
+      const isAutoFilledOrEmpty =
+        !currentTrimmed ||
+        (lastGoalPrefillRef.current && currentTrimmed === lastGoalPrefillRef.current) ||
+        Boolean(prevGoalId) ||
+        goals.some(
+          (g) => getGoalPrefill(g.label).toLowerCase() === currentTrimmed.toLowerCase()
+        );
+
+      if (isAutoFilledOrEmpty) {
+        setValue("concern", newPrefill, { shouldValidate: true });
+        lastGoalPrefillRef.current = newPrefill;
       }
     }
   };
@@ -438,6 +489,16 @@ export default function MatchStep1Page() {
                       if (typeof window !== "undefined") {
                         sessionStorage.removeItem("bodywise_match_goal");
                       }
+                      const currentTrimmed = concernText.trim();
+                      const isAutoPrefill =
+                        (lastGoalPrefillRef.current && currentTrimmed === lastGoalPrefillRef.current) ||
+                        goals.some(
+                          (g) => getGoalPrefill(g.label).toLowerCase() === currentTrimmed.toLowerCase()
+                        );
+                      if (isAutoPrefill) {
+                        setValue("concern", "", { shouldValidate: true });
+                        lastGoalPrefillRef.current = "";
+                      }
                     }}
                     className="text-xs text-brand-evergreen hover:underline focus-ring rounded"
                   >
@@ -633,5 +694,19 @@ export default function MatchStep1Page() {
         <p>Independent prototype for a fellowship challenge; not an official Be Bodywise service.</p>
       </footer>
     </div>
+  );
+}
+
+export default function MatchStep1Page() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="min-h-screen bg-paper flex items-center justify-center p-6">
+          <Skeleton className="h-64 w-full max-w-xl rounded-card" />
+        </div>
+      }
+    >
+      <MatchStep1Content />
+    </React.Suspense>
   );
 }

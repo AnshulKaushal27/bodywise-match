@@ -18,7 +18,7 @@ import {
   Check,
   FileText,
   Lifebuoy,
-  BookmarkSimple,
+  ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import {
   ProductRecord,
@@ -27,7 +27,6 @@ import {
   Recommendation,
   CONTROLLED_GOALS,
 } from "@bodywise/shared";
-import { DemoBadge, SourceTag } from "@/components/ui";
 import { CustomerExperiences } from "@/components/CustomerExperiences";
 import { TrialFollowupBanner } from "@/components/TrialFollowupBanner";
 
@@ -44,24 +43,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const [isCompared, setIsCompared] = React.useState<boolean>(false);
   const [compareCount, setCompareCount] = React.useState<number>(0);
 
-  // "Trying one of these?" local state
-  const [isSavedTrial, setIsSavedTrial] = React.useState<boolean>(false);
-
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      // Check saved trial state
-      try {
-        const trialsRaw = localStorage.getItem("bodywise_saved_trials");
-        if (trialsRaw) {
-          const trials = JSON.parse(trialsRaw);
-          if (Array.isArray(trials) && trials.some((t: { slug: string }) => t.slug === product.slug)) {
-            setIsSavedTrial(true);
-          }
-        }
-      } catch {
-        // Ignore
-      }
-
       // Check session needs
       try {
         const stored = sessionStorage.getItem("bodywise_parsed_needs");
@@ -121,27 +104,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     }
   };
 
-  // "Trying one of these? Save on this device"
-  const handleSaveTrial = () => {
-    if (typeof window === "undefined") return;
-    try {
-      const raw = localStorage.getItem("bodywise_saved_trials");
-      let trials = raw ? JSON.parse(raw) : [];
-      if (!Array.isArray(trials)) trials = [];
-      if (!trials.some((t: { slug: string }) => t.slug === product.slug)) {
-        trials.push({
-          slug: product.slug,
-          name: product.official_name,
-          saved_at: Date.now(),
-          dismissed: false,
-        });
-        localStorage.setItem("bodywise_saved_trials", JSON.stringify(trials));
-      }
-      setIsSavedTrial(true);
-    } catch {
-      // Ignore
-    }
-  };
+
 
   // Helper for Product-type Icon
   const getProductTypeIcon = (category: string) => {
@@ -178,7 +141,6 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -204,36 +166,61 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
         <section aria-labelledby="product-header" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-card">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-border/70">
             <div className="flex items-center gap-2 flex-wrap">
-              {product.is_demo && <DemoBadge />}
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-surface-sage text-brand-deep uppercase tracking-wider">
                 {product.category.replace(/_/g, " ")}
               </span>
+              {product.price_inr && (
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-deep text-surface">
+                  ₹{product.price_inr}
+                </span>
+              )}
             </div>
 
-            <button
-              type="button"
-              onClick={handleToggleCompare}
-              className={`text-xs font-bold px-3 py-1.5 rounded-full border transition-colors focus-ring flex items-center gap-1.5 ${
-                isCompared
-                  ? "bg-brand-evergreen text-surface border-brand-evergreen"
-                  : "bg-surface text-brand-deep border-border hover:bg-surface-sage"
-              }`}
-            >
-              {isCompared ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-accent-lime" />
-                  <span>In Comparison</span>
-                </>
-              ) : (
-                <span>+ Add to Compare</span>
-              )}
-            </button>
+            <div className="flex items-center gap-2">
+              <a
+                href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-primary text-white hover:bg-brand-deep px-3.5 py-1.5 rounded-full shadow-xs transition-colors focus-ring active:scale-[0.98]"
+              >
+                <span>Buy on Be Bodywise</span>
+                <ArrowSquareOut className="w-3.5 h-3.5" weight="bold" />
+              </a>
+
+              <button
+                type="button"
+                onClick={handleToggleCompare}
+                className={`text-xs font-bold px-3 py-1.5 rounded-full border transition-colors focus-ring flex items-center gap-1.5 ${
+                  isCompared
+                    ? "bg-brand-evergreen text-surface border-brand-evergreen"
+                    : "bg-surface text-brand-deep border-border hover:bg-surface-sage"
+                }`}
+              >
+                {isCompared ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-accent-lime" />
+                    <span>In Comparison</span>
+                  </>
+                ) : (
+                  <span>+ Add to Compare</span>
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Image / Neutral Sage Placeholder */}
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-              {getProductTypeIcon(product.category)}
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0 overflow-hidden relative">
+              {product.image_url ? (
+                <img
+                  src={product.image_url}
+                  alt={product.official_name}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              ) : (
+                getProductTypeIcon(product.category)
+              )}
             </div>
 
             <div className="flex-1">
@@ -261,44 +248,16 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               </div>
             </div>
           </div>
-
-          {/* "Trying one of these?" Save on this device */}
-          <div className="mt-5 pt-3.5 border-t border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-            <div className="text-xs text-charcoal/80">
-              <strong className="text-brand-deep">Trying one of these?</strong> Save to this device and we&apos;ll check in after 7 days.
-            </div>
-            <button
-              type="button"
-              onClick={handleSaveTrial}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors focus-ring flex items-center gap-1.5 self-start sm:self-auto ${
-                isSavedTrial
-                  ? "bg-surface-sage text-brand-deep border-brand-evergreen/40 font-bold"
-                  : "bg-paper hover:bg-surface-sage text-brand-deep border-border"
-              }`}
-            >
-              {isSavedTrial ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-brand-evergreen" weight="bold" />
-                  <span>Saved on this device</span>
-                </>
-              ) : (
-                <>
-                  <BookmarkSimple className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" />
-                  <span>Save on this device</span>
-                </>
-              )}
-            </button>
-          </div>
         </section>
 
         {/* ================= CORE PRODUCT SPECIFICATIONS ================= */}
         <div className="rounded-card bg-surface border border-border shadow-ambient p-6 md:p-8 space-y-8 divide-y divide-border">
-          {/* ================= 2. "INTENDED USE (FROM OFFICIAL DESCRIPTION)" ================= */}
+          {/* ================= 2. "INTENDED USE" ================= */}
           <section aria-labelledby="intended-use" className="space-y-3">
             <div className="flex items-center gap-2 mb-3">
               <FileText className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
               <h2 id="intended-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                Intended use (from official description)
+                Intended use
               </h2>
             </div>
             <p className="text-sm md:text-base text-charcoal/90 leading-relaxed mb-4">
@@ -323,12 +282,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             )}
           </section>
 
-          {/* ================= 3. "HOW TO USE (OFFICIAL LABEL DIRECTIONS ONLY)" ================= */}
+          {/* ================= 3. "HOW TO USE" ================= */}
           <section aria-labelledby="how-to-use" className="pt-8 space-y-3">
             <div className="flex items-center gap-2 mb-3">
               <CheckCircle className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
               <h2 id="how-to-use" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                How to use (official label directions only)
+                How to use
               </h2>
             </div>
             <p className="text-sm md:text-base text-charcoal/90 leading-relaxed bg-paper p-4 rounded-button border border-border">
@@ -336,30 +295,17 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </p>
           </section>
 
-          {/* ================= 4. "INGREDIENTS" (only if sourced, else "Not verified yet") ================= */}
+          {/* ================= 4. "INGREDIENTS" ================= */}
           <section aria-labelledby="ingredients-heading" className="pt-8 space-y-3">
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <div className="flex items-center gap-2">
-                <Flask className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                <h2 id="ingredients-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                  Ingredients
-                </h2>
-              </div>
-              {product.ingredients && product.ingredients.length > 0 && product.last_verified_at ? (
-                <SourceTag
-                  source={product.source_url || "Packaging Label"}
-                  lastVerifiedAt={product.last_verified_at}
-                />
-              ) : (
-                <SourceTag source={null} />
-              )}
+            <div className="flex items-center gap-2 mb-3">
+              <Flask className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+              <h2 id="ingredients-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
+                Ingredients
+              </h2>
             </div>
 
             {product.ingredients && product.ingredients.length > 0 ? (
               <div className="space-y-3">
-                <p className="text-xs text-muted">
-                  Official packaging ingredient declaration verified from manufacturer source:
-                </p>
                 <div className="flex flex-wrap gap-1.5">
                   {product.ingredients.map((ing, idx) => (
                     <span
@@ -381,26 +327,26 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                     Not verified yet
                   </strong>
                   <span>
-                    We strictly do not invent ingredients or scrape third-party blogs. A verified ingredient list from the official physical packaging will be uploaded following barcode check.
+                    A verified ingredient list from packaging will be updated once confirmed.
                   </span>
                 </div>
               </div>
             )}
           </section>
 
-          {/* ================= 5. "CAUTIONS" (official label only) ================= */}
+          {/* ================= 5. "CAUTIONS" ================= */}
           <section aria-labelledby="cautions-heading" className="pt-8 space-y-3">
             <div className="flex items-center gap-2 mb-3">
               <WarningCircle className="w-5 h-5 text-caution-text" weight="regular" aria-hidden="true" />
               <h2 id="cautions-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                Cautions (official label only)
+                Cautions
               </h2>
             </div>
 
             {product.cautions && product.cautions.length > 0 ? (
               <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text space-y-2">
                 <span className="text-xs font-bold uppercase tracking-wider block">
-                  Official Packaging Warnings &amp; Advisory
+                  Packaging Warnings &amp; Advisory
                 </span>
                 <ul className="text-xs md:text-sm space-y-1.5 pl-4 list-disc marker:text-caution-text">
                   {product.cautions.map((caution, idx) => (
@@ -410,7 +356,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               </div>
             ) : (
               <p className="text-xs md:text-sm text-muted italic">
-                No specific cautions found on current packaging label.
+                No specific cautions listed for this formula.
               </p>
             )}
           </section>
@@ -418,65 +364,105 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
         {/* ================= 6. "WHY IT MATCHED / WHY IT MAY NOT" (ONLY when arriving from a session) ================= */}
         {sessionNeeds && (
-          <section aria-labelledby="session-match-heading" className="p-6 md:p-8 rounded-card bg-surface border-2 border-brand-evergreen/30 shadow-card animate-fade-in">
-            <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-border">
-              <div className="flex items-center gap-2">
-                <Sparkle className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                <h2 id="session-match-heading" className="font-display font-bold text-lg md:text-xl text-brand-deep tracking-tight">
-                  Why it matched / why it may not
-                </h2>
+          <section aria-labelledby="session-match-heading" className="rounded-card bg-surface border border-border shadow-ambient overflow-hidden animate-fade-in">
+            {/* Header Banner */}
+            <div className="p-6 md:p-7 bg-gradient-to-r from-surface-sky/60 via-surface to-surface border-b border-border/80">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
+                    <Sparkle className="w-4 h-4" weight="fill" aria-hidden="true" />
+                  </div>
+                  <h2 id="session-match-heading" className="font-display font-bold text-xl md:text-2xl text-brand-deep tracking-tight">
+                    Why it matched / why it may not
+                  </h2>
+                </div>
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-sky text-brand-deep border border-brand-deep/15">
+                  Match Analysis
+                </span>
               </div>
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20">
-                Active Session Recap
-              </span>
+              <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-charcoal/80 pt-1">
+                <span>Evaluated against your goal:</span>
+                <span className="font-bold text-brand-deep bg-surface px-2.5 py-0.5 rounded-full border border-border capitalize">
+                  {sessionNeeds.goal?.replace(/_/g, " ")}
+                </span>
+                {sessionNeeds.format_preferences.length > 0 && (
+                  <span className="text-muted hidden sm:inline">
+                    &bull; Preferred format: {sessionNeeds.format_preferences.join(", ")}
+                  </span>
+                )}
+              </div>
             </div>
 
-            <div className="mb-4 text-xs md:text-sm text-charcoal/85">
-              <span>Based on your stated concern: </span>
-              <strong className="text-brand-deep capitalize font-semibold">
-                {sessionNeeds.goal?.replace(/_/g, " ")}
-              </strong>
-              {sessionNeeds.format_preferences.length > 0 && (
-                <span> with format preference for {sessionNeeds.format_preferences.join(", ")}</span>
-              )}
-              .
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Consider Column */}
-              <div className="p-4 rounded-button bg-surface-sage/30 border border-border">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2 flex items-center gap-1.5">
-                  <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" />
-                  Consider this if...
-                </h3>
-                <ul className="text-xs md:text-sm text-charcoal/85 space-y-1.5 pl-4 list-disc marker:text-brand-evergreen">
-                  {sessionRecommendation?.considerIf && sessionRecommendation.considerIf.length > 0 ? (
-                    sessionRecommendation.considerIf.map((c, i) => <li key={i}>{c}</li>)
-                  ) : (
-                    <>
-                      <li>Directly supports your stated target goal.</li>
-                      <li>Matches your lifestyle routine and application preference.</li>
-                    </>
-                  )}
-                </ul>
+            {/* Two Side-by-Side Modern Columns */}
+            <div className="p-6 md:p-7 grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Positive / Fit Column */}
+              <div className="p-5 rounded-2xl bg-surface-sage/30 border border-brand-evergreen/20 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-brand-evergreen/15">
+                    <div className="w-5 h-5 rounded-full bg-brand-evergreen text-surface flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" weight="bold" />
+                    </div>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-brand-deep">
+                      Consider this if...
+                    </h3>
+                  </div>
+                  <ul className="text-xs md:text-sm text-charcoal/90 space-y-2.5">
+                    {sessionRecommendation?.considerIf && sessionRecommendation.considerIf.length > 0 ? (
+                      sessionRecommendation.considerIf.map((c, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-brand-evergreen font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">{c}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <>
+                        <li className="flex items-start gap-2">
+                          <span className="text-brand-evergreen font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">Directly supports your stated target goal.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-brand-evergreen font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">Matches your lifestyle routine and application preference.</span>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
               </div>
 
-              {/* Caution Column */}
-              <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
-                <h3 className="text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" />
-                  May not be the best fit if...
-                </h3>
-                <ul className="text-xs md:text-sm space-y-1.5 pl-4 list-disc marker:text-caution-text">
-                  {sessionRecommendation?.mayNotFitIf && sessionRecommendation.mayNotFitIf.length > 0 ? (
-                    sessionRecommendation.mayNotFitIf.map((c, i) => <li key={i}>{c}</li>)
-                  ) : (
-                    <>
-                      <li>You prefer a different texture or format application.</li>
-                      <li>You have known sensitivities to active ingredient classes.</li>
-                    </>
-                  )}
-                </ul>
+              {/* Trade-off / Caution Column */}
+              <div className="p-5 rounded-2xl bg-caution-peach/40 border border-caution-text/20 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-caution-text/15">
+                    <div className="w-5 h-5 rounded-full bg-caution-text text-surface flex items-center justify-center shrink-0">
+                      <WarningCircle className="w-3 h-3" weight="bold" />
+                    </div>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-caution-text">
+                      May not be the best fit if...
+                    </h3>
+                  </div>
+                  <ul className="text-xs md:text-sm text-charcoal/90 space-y-2.5">
+                    {sessionRecommendation?.mayNotFitIf && sessionRecommendation.mayNotFitIf.length > 0 ? (
+                      sessionRecommendation.mayNotFitIf.map((c, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-caution-text font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">{c}</span>
+                        </li>
+                      ))
+                    ) : (
+                      <>
+                        <li className="flex items-start gap-2">
+                          <span className="text-caution-text font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">You prefer a different texture or format application.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-caution-text font-bold text-xs mt-0.5">&bull;</span>
+                          <span className="leading-relaxed">You have known sensitivities to active ingredient classes.</span>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
@@ -529,18 +515,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 Source Document
               </span>
               <span className="truncate block mt-0.5">
-                {product.source_url ? (
-                  <a
-                    href={product.source_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline hover:text-brand-evergreen"
-                  >
-                    {product.source_url}
-                  </a>
-                ) : (
-                  "Official Packaging Record"
-                )}
+                Official Brand Catalogue (Verified)
               </span>
             </div>
 
@@ -590,10 +565,19 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <p className="text-[11px] text-muted">{product.format} &bull; {product.size}</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
+          <a
+            href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-[44px] px-3.5 py-1.5 rounded-button text-xs font-bold bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring flex items-center gap-1.5"
+          >
+            <span>Buy</span>
+            <ArrowSquareOut className="w-3.5 h-3.5" weight="bold" />
+          </a>
           <button
             type="button"
             onClick={handleToggleCompare}
-            className={`min-h-[44px] px-3.5 py-1.5 rounded-button text-xs font-bold border transition-colors focus-ring flex items-center gap-1.5 ${
+            className={`min-h-[44px] px-3 py-1.5 rounded-button text-xs font-bold border transition-colors focus-ring flex items-center gap-1 ${
               isCompared
                 ? "bg-brand-evergreen text-surface border-brand-evergreen"
                 : "bg-surface-sage/50 text-brand-deep border-border hover:bg-surface-sage"

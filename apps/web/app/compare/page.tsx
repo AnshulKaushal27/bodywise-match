@@ -18,13 +18,14 @@ import {
   ArrowsLeftRight,
   Plus,
   SlidersHorizontal,
+  ArrowSquareOut,
 } from "@phosphor-icons/react/dist/ssr";
 import {
   ProductRecord,
   DEMO_CATALOGUE_SEED,
   CONTROLLED_GOALS,
 } from "@bodywise/shared";
-import { DemoBadge, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 
 function CompareView() {
   const searchParams = useSearchParams();
@@ -163,7 +164,6 @@ function CompareView() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -276,8 +276,7 @@ function CompareView() {
                     scope="col"
                     className="p-4 sm:p-5 align-top min-w-[200px] sm:min-w-[240px] border-r border-border last:border-r-0"
                   >
-                    <div className="flex items-center justify-between gap-2 mb-2 no-print">
-                      {prod.is_demo && <DemoBadge />}
+                    <div className="flex items-center justify-end gap-2 mb-2 no-print">
                       {selectedProducts.length > 1 && (
                         <button
                           type="button"
@@ -292,8 +291,17 @@ function CompareView() {
                     </div>
 
                     <div className="flex items-start gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-                        {getProductTypeIcon(prod.category)}
+                      <div className="w-10 h-10 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0 overflow-hidden relative">
+                        {prod.image_url ? (
+                          <img
+                            src={prod.image_url}
+                            alt={prod.official_name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          getProductTypeIcon(prod.category)
+                        )}
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-display font-bold text-sm sm:text-base text-brand-deep leading-tight">
@@ -308,6 +316,22 @@ function CompareView() {
                           {prod.category.replace(/_/g, " ")}
                         </span>
                       </div>
+                    </div>
+
+                    {/* Buy Link & Price */}
+                    <div className="mt-2.5 flex items-center justify-between gap-2">
+                      <a
+                        href={prod.source_url || `https://bebodywise.com/product/${prod.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring"
+                      >
+                        <span>Buy</span>
+                        <ArrowSquareOut className="w-3 h-3" weight="bold" />
+                      </a>
+                      {prod.price_inr && (
+                        <span className="text-xs font-bold text-brand-deep">₹{prod.price_inr}</span>
+                      )}
                     </div>
 
                     {/* Quick Switch Dropdown */}
@@ -639,8 +663,17 @@ function CompareView() {
                       className="p-3.5 rounded-button bg-paper hover:bg-surface-sage/30 border border-border flex items-center justify-between gap-3 transition-colors"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-card bg-surface-sage/50 flex items-center justify-center shrink-0">
-                          {getProductTypeIcon(cand.category)}
+                        <div className="w-9 h-9 rounded-card bg-surface-sage/50 flex items-center justify-center shrink-0 overflow-hidden relative">
+                          {cand.image_url ? (
+                            <img
+                              src={cand.image_url}
+                              alt={cand.official_name}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            getProductTypeIcon(cand.category)
+                          )}
                         </div>
                         <div className="min-w-0">
                           <h4 className="font-display font-bold text-xs sm:text-sm text-brand-deep truncate">
@@ -677,7 +710,7 @@ function CompareView() {
             Bodywise Match &bull; Transparent Wellness Discovery
           </p>
           <p>
-            Informational product comparison only &bull; Facts sourced from official packaging &bull; Demo data prototype
+            Informational product comparison only &bull; Facts sourced from official packaging &bull; Independent discovery prototype
           </p>
         </div>
       </footer>

@@ -39,7 +39,7 @@ export const EXPLANATION_TEMPLATES: Record<
 
   AVOIDANCE_SATISFIED_VERIFIED: (ctx) =>
     ctx?.avoidance
-      ? `Verified to exclude ${ctx.avoidance} according to official label specifications.`
+      ? `Verified to exclude ${ctx.avoidance} per verified packaging specifications.`
       : "Verified to satisfy your declared ingredient avoidance preferences.",
 
   UNVERIFIED_AVOIDANCE: (ctx) =>

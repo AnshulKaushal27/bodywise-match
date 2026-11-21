@@ -7,7 +7,7 @@ import {
   Sparkle,
   Scales,
 } from "@phosphor-icons/react/dist/ssr";
-import { DemoBadge } from "@/components/ui";
+
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata = {
@@ -31,7 +31,6 @@ export default function SafetyPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -132,7 +131,7 @@ export default function SafetyPage() {
           <div className="p-4 rounded-card bg-surface-sage/35 border border-border text-xs sm:text-sm space-y-2 text-charcoal/85">
             <p>1. Apply a pea-sized amount to clean skin on your inner forearm or behind the ear.</p>
             <p>2. Leave it undisturbed for 24 hours (unless burning or redness develops immediately, in which case rinse off at once).</p>
-            <p>3. If no erythema, itchiness, or irritation occurs after 24 hours, the formula is generally suitable for routine use according to official label directions.</p>
+            <p>3. If no erythema, itchiness, or irritation occurs after 24 hours, the formula is generally suitable for routine use according to package directions.</p>
           </div>
         </section>
 
