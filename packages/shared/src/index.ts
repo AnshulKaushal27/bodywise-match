@@ -27,6 +27,7 @@ export * from "./data/categories";
 export * from "./data/categoryMap";
 export * from "./matchSession/guard";
 export * from "./matcher/shortlist";
+export * from "./matcher/visual-scan";
 export * from "./knowledge/index";
 
 // --- Fact Verification Provenance (Rule 3) ---

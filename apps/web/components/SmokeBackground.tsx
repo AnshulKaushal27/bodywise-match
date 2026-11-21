@@ -95,63 +95,82 @@ void main() {
   if (u_pointer_active > 0.5) {
     vec2 pointerCoord = vec2(u_pointer.x * aspect, u_pointer.y) * u_scale;
     float dist = length(p - pointerCoord);
-    float radius = 0.18 * u_scale * aspect;
+    float radius = 0.28 * u_scale * aspect;
     if (dist < radius) {
-      float force = smoothstep(radius, 0.0, dist) * 0.18;
+      float force = smoothstep(radius, 0.0, dist) * 0.35;
       vec2 dir = normalize(p - pointerCoord + vec2(0.001));
       p += dir * force;
     }
   }
 
-  // Domain Warping: q = fbm(p + t*a), r = fbm(p + 4*q + t*b), f = fbm(p + 4*r)
-  float t = u_time;
-  vec2 a = vec2(1.1, 0.65);
-  vec2 b = vec2(-0.75, 0.95);
+  // Prevailing diagonal wind: smoke streams traveling across the screen from left to right
+  float t = u_time * 6.0;
+  vec2 wind = vec2(0.68, 0.28) * t;
 
-  vec2 q = vec2(fbm(p + t * a), fbm(p + t * vec2(a.y, -a.x)));
-  vec2 r = vec2(fbm(p + 4.0 * q + t * b), fbm(p + 4.0 * q + t * vec2(-b.y, b.x)));
-  float f = fbm(p + 4.0 * r);
+  // Domain Warping for fluid curling filaments
+  vec2 a = vec2(0.85, 0.45);
+  vec2 b = vec2(-0.55, 0.70);
+
+  vec2 q = vec2(fbm(p - wind + a), fbm(p - wind + vec2(a.y, -a.x)));
+  vec2 r = vec2(fbm(p + 3.2 * q + t * b), fbm(p + 3.2 * q + t * vec2(-b.y, b.x)));
+  float f = fbm(p + 3.4 * r);
 
   // Normalize f [-0.5, 0.5] to [0.0, 1.0]
   float nf = clamp(0.5 + 0.5 * f, 0.0, 1.0);
 
-  // Brand Palette Mapping for Clean White + Blue Smoke Wisps
-  // Soft Sky Mist: #E3EEFC -> vec3(0.890, 0.933, 0.988)
-  // Accent Sky Highlight: #BBD9FF -> vec3(0.733, 0.851, 1.0)
-  // Depth Blue Ribbon (#3B82F6 max 7%): vec3(0.231, 0.510, 0.965)
-  // Pale Cerulean Tint: #D4E6FC -> vec3(0.831, 0.902, 0.988)
-  vec3 skyMist = vec3(0.890, 0.933, 0.988);
-  vec3 ceruleanTint = vec3(0.831, 0.902, 0.988);
-  vec3 accentSky = vec3(0.733, 0.851, 1.0);
-  vec3 depthBlue = vec3(0.231, 0.510, 0.965);
+  // Ribbon Stream Shaping:
+  // Creates distinct flowing currents across the screen rather than an all-over flood
+  float streamWave = sin(p.x * 1.3 - p.y * 1.7 + q.x * 2.6 - t * 0.75);
+  float streamMod = smoothstep(-0.35, 0.55, streamWave);
 
-  // Rich organic blue smoke color transition
-  vec3 col = mix(skyMist, ceruleanTint, smoothstep(0.22, 0.62, nf));
-  col = mix(col, accentSky, smoothstep(0.40, 0.82, nf) * (u_accent_max * 1.5));
-  col = mix(col, depthBlue, smoothstep(0.74, 1.0, nf) * (u_depth_max * 1.0));
+  // Clear separation: 0 in negative space, dense and vibrant within the plume
+  float plume = smoothstep(0.34, 0.72, nf) * streamMod;
+  float density = pow(plume, 1.4);
 
-  // Wispy smoke haze alpha
-  float alpha = smoothstep(0.18, 0.72, nf) * u_alpha;
+  // Brand Palette Mapping for Explicit, Vivid Blue Smoke Wisps
+  // Crisp Ice Blue Mist at outer wisp edges
+  vec3 iceMist = vec3(0.816, 0.910, 0.992);
+  // Azure Core Bloom
+  vec3 azureBlue = vec3(0.482, 0.722, 0.980);
+  // Vibrant Decorative Cerulean
+  vec3 cerulean = vec3(0.231, 0.510, 0.965);
+  // Royal Blue Spine
+  vec3 royalSpine = vec3(0.114, 0.306, 0.847);
 
-  // Static tiny grain term (< 3%) to prevent color banding
-  float grain = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.024;
+  // Rich organic multi-layered blue smoke color transition
+  vec3 col = mix(iceMist, azureBlue, smoothstep(0.12, 0.45, density));
+  col = mix(col, cerulean, smoothstep(0.40, 0.75, density));
+  col = mix(col, royalSpine, smoothstep(0.70, 1.0, density) * (u_depth_max * 3.5 + 0.40));
+
+  // Explicit smoke alpha: 0 in clear space, up to 0.65 in core plumes
+  float smokeAlpha = density * u_alpha * 1.15;
+
+  // Soft edge falloff at viewport bounds
+  float edgeFade = smoothstep(0.0, 0.08, st.x) * smoothstep(1.0, 0.92, st.x) *
+                   smoothstep(0.0, 0.10, st.y) * smoothstep(1.0, 0.88, st.y);
+  smokeAlpha *= edgeFade;
+
+  // Static tiny grain term to prevent color banding
+  float grain = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.015;
   col += grain;
 
-  gl_FragColor = vec4(col, alpha);
+  gl_FragColor = vec4(col, smokeAlpha);
 }
 `;
 
-// Existing CSS Radial Blooms Fallback
+// Layer 1 Ambient Moving Blue Smoke Streams (Directional & Crossing the Screen)
 export function AmbientFallback() {
   return (
     <div
       data-ambient-fallback="true"
-      className="absolute inset-0 pointer-events-none -z-10 overflow-hidden"
+      className="absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none"
       aria-hidden="true"
     >
-      <div className="absolute -top-28 right-[-5%] w-[480px] h-[480px] rounded-full bg-surface-sky/60 blur-[90px]" />
-      <div className="absolute -bottom-24 -left-16 w-[420px] h-[420px] rounded-full bg-accent-sky/30 blur-[90px]" />
-      <div className="absolute top-1/4 right-1/4 w-[360px] h-[360px] rounded-full bg-[#BBD9FF]/20 blur-[80px]" />
+      {/* Stream 1: Upper diagonal smoke stream drifting across the screen */}
+      <div className="absolute top-[8%] -left-[10%] w-[110%] max-w-[950px] h-[190px] rounded-[100px] bg-gradient-to-r from-transparent via-[#93C5FD]/40 via-[#60A5FA]/30 to-transparent blur-[85px] animate-smoke-stream-1 pointer-events-none" />
+
+      {/* Stream 2: Lower counter-diagonal smoke stream curling across */}
+      <div className="absolute top-[48%] -right-[8%] w-[105%] max-w-[850px] h-[170px] rounded-[90px] bg-gradient-to-l from-transparent via-[#60A5FA]/30 via-[#3B82F6]/20 to-transparent blur-[80px] animate-smoke-stream-2 pointer-events-none" />
     </div>
   );
 }
@@ -172,6 +191,7 @@ export function SmokeBackground() {
   const programRef = React.useRef<WebGLProgram | null>(null);
   const animFrameIdRef = React.useRef<number | null>(null);
   const frameCountRef = React.useRef<number>(0);
+  const totalRenderFramesRef = React.useRef<number>(0);
   const totalElapsedRef = React.useRef<number>(0);
   const frameTimesRef = React.useRef<number[]>([]);
   const pointerPosRef = React.useRef<{ x: number; y: number; active: boolean }>({
@@ -438,8 +458,9 @@ export function SmokeBackground() {
         gl.uniform1f(uScale, scale);
         gl.uniform1i(uOctaves, octaves);
 
-        // Expose debug frame counter on canvas element for test suite verification
-        canvas.setAttribute("data-frame-count", String(frameCountRef.current));
+        // Expose debug frame counter on canvas element for verification
+        totalRenderFramesRef.current++;
+        canvas.setAttribute("data-frame-count", String(totalRenderFramesRef.current));
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
       }
@@ -476,15 +497,19 @@ export function SmokeBackground() {
       }`}
       style={{
         // Seamless bottom fade to paper background
-        maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+        maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
       }}
       aria-hidden="true"
     >
+      {/* Layer 1: Ambient Moving Blue Hue Blooms (Always smooth & active) */}
+      <AmbientFallback />
+
+      {/* Layer 2: WebGL Organic Smoke Canvas */}
       <canvas
         ref={canvasRef}
         data-smoke-canvas="true"
-        className="w-full h-full block"
+        className="w-full h-full block relative z-10"
         style={{
           width: "100%",
           height: "100%",

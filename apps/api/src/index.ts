@@ -35,6 +35,7 @@ import {
 import { handleChatTurn, PageContext } from "./services/chat-pipeline";
 import { testLlmDebug } from "./llm/groqClient";
 import { parseFilterIntent } from "./services/filter-intent-service";
+import { processVisualScan } from "./services/visual-scan-service";
 
 interface SerializedReq {
   id?: string | number;
@@ -339,6 +340,45 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
           });
 
           return result;
+        }
+      );
+
+      // POST /v1/match/visual-scan (Multimodal Vision LLM & Deterministic Matcher)
+      routeScope.post(
+        "/v1/match/visual-scan",
+        {
+          config: {
+            rateLimit: {
+              max: 30,
+              timeWindow: "1 minute",
+            },
+          },
+        },
+        async (req, reply) => {
+          const body = (req.body || {}) as {
+            image?: string;
+            image_base64?: string;
+            preset?: string;
+          };
+
+          const imageBase64 = body.image_base64 || body.image;
+          const preset = body.preset;
+
+          if (!imageBase64 && !preset) {
+            return reply.status(400).send({
+              error: "Please provide either an image or a preset product identifier.",
+            });
+          }
+
+          const result = await processVisualScan({
+            imageBase64,
+            preset,
+          });
+
+          return {
+            request_id: req.id,
+            ...result,
+          };
         }
       );
 

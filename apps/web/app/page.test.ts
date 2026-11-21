@@ -30,8 +30,8 @@ describe("Landing Page (apps/web/app/page.tsx)", () => {
     expect(html).toContain('href="/match"');
     expect(html).toContain("Browse products");
     expect(html).toContain('href="/products"');
-    expect(html).toContain("No diagnosis");
-    expect(html).toContain("No guaranteed results. Your photo is optional.");
+    expect(html).toContain("Scan a product");
+    expect(html).toContain("Snap or upload a photo of any bottle to find matching Be Bodywise formulas:");
   });
 
   it("renders static WebP hero background with priority, alt text, and CSS gradient fallback", () => {

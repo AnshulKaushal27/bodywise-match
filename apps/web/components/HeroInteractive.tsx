@@ -7,6 +7,8 @@ import { useMotion } from "@/lib/motion";
 import { CATALOGUE_STATS } from "@/lib/catalogueStats";
 import { parseSearchToFilterParams } from "@bodywise/shared";
 import { parseFilterIntent } from "@/lib/api";
+import { ProductCameraModal } from "./ProductCameraModal";
+import { AnimatedCameraIcon } from "./AnimatedCameraIcon";
 
 // Verified sample queries known to match real catalogue products
 const VERIFIED_QUERIES = [
@@ -227,40 +229,97 @@ export function HeroQueryInput() {
     router.push("/products");
   };
 
+  const [isCameraOpen, setIsCameraOpen] = React.useState(false);
+
   return (
-    <form
-      id="hero-query-form"
-      onSubmit={handleSubmit}
-      className="w-full max-w-xl mb-6 relative group"
-      role="search"
-      aria-label="Find product matches by concern or ingredient"
-    >
-      <div className="relative flex items-center rounded-button bg-surface border-2 border-brand-deep/15 shadow-ambient transition-all duration-200 focus-within:border-brand-evergreen focus-within:shadow-card p-1.5 sm:p-2">
-        <MagnifyingGlass
-          className="w-5 h-5 text-brand-evergreen ml-2.5 shrink-0"
+    <>
+      <form
+        id="hero-query-form"
+        onSubmit={handleSubmit}
+        className="w-full max-w-xl mb-6 relative group"
+        role="search"
+        aria-label="Find product matches by concern or ingredient"
+      >
+        <div className="relative flex items-center rounded-button bg-surface border-2 border-brand-deep/15 shadow-ambient transition-all duration-200 focus-within:border-brand-evergreen focus-within:shadow-card p-1.5 sm:p-2">
+          <MagnifyingGlass
+            className="w-5 h-5 text-brand-evergreen ml-2.5 shrink-0"
+            aria-hidden="true"
+          />
+
+          <input
+            id="hero-query-input"
+            type="text"
+            value={userQuery}
+            onChange={(e) => setUserQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder={isFocused ? "" : placeholderText}
+            aria-label="Describe what you want help choosing"
+            className="w-full bg-transparent px-3 py-2.5 text-sm sm:text-base text-charcoal placeholder:text-muted/70 focus:outline-none min-h-[44px]"
+          />
+
+          {/* Camera Scan Button */}
+          <button
+            type="button"
+            onClick={() => setIsCameraOpen(true)}
+            aria-label="Scan a product with camera or photo"
+            title="Scan a product with camera or photo"
+            className="group shrink-0 p-2 text-brand-deep/70 hover:text-brand-primary hover:bg-surface-sage/80 rounded-button transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-ring mr-1.5"
+          >
+            <AnimatedCameraIcon className="w-5 h-5 text-brand-primary" />
+            <span className="sr-only">Scan a product with camera</span>
+          </button>
+
+          <button
+            type="submit"
+            className="shrink-0 inline-flex items-center gap-1.5 px-4 sm:px-6 py-2.5 rounded-button bg-brand-evergreen text-white hover:bg-brand-deep font-semibold text-sm transition-all shadow-soft active:scale-[0.98] focus-ring min-h-[44px]"
+          >
+            <span>Find my match</span>
+            <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+          </button>
+        </div>
+      </form>
+
+      {/* Visual Product Matcher Modal */}
+      <ProductCameraModal
+        isOpen={isCameraOpen}
+        onClose={() => setIsCameraOpen(false)}
+      />
+    </>
+  );
+}
+
+export function HeroScanButton() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        className="group relative inline-flex items-center gap-2.5 px-4 sm:px-5 h-11 rounded-button bg-surface hover:bg-gradient-to-r hover:from-surface hover:via-surface-sage/30 hover:to-surface-sage/60 border border-brand-primary/25 hover:border-brand-primary/60 text-brand-deep font-semibold text-sm sm:text-base shadow-2xs hover:shadow-card hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-safe:transition-all duration-200 focus-ring overflow-hidden select-none"
+      >
+        {/* Soft Ambient Light Sheen sweep on hover */}
+        <span
           aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full motion-safe:transition-transform duration-700 ease-out pointer-events-none"
         />
 
-        <input
-          id="hero-query-input"
-          type="text"
-          value={userQuery}
-          onChange={(e) => setUserQuery(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          placeholder={isFocused ? "" : placeholderText}
-          aria-label="Describe what you want help choosing"
-          className="w-full bg-transparent px-3 py-2.5 text-sm sm:text-base text-charcoal placeholder:text-muted/70 focus:outline-none min-h-[44px]"
-        />
+        {/* Tactile Icon Housing Badge with Animated Camera SVG */}
+        <span className="w-7 h-7 rounded-[9px] bg-surface-sage/80 group-hover:bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary transition-colors duration-200 shrink-0 shadow-2xs">
+          <AnimatedCameraIcon className="w-4 h-4 text-brand-primary" />
+        </span>
 
-        <button
-          type="submit"
-          className="shrink-0 inline-flex items-center gap-1.5 px-4 sm:px-6 py-2.5 rounded-button bg-brand-evergreen text-white hover:bg-brand-deep font-semibold text-sm transition-all shadow-soft active:scale-[0.98] focus-ring min-h-[44px]"
-        >
-          <span>Find my match</span>
-          <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
-        </button>
-      </div>
-    </form>
+        {/* Button Label */}
+        <span className="font-semibold text-brand-deep group-hover:text-brand-primary transition-colors duration-150">
+          Scan a product
+        </span>
+      </button>
+
+      <ProductCameraModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+    </>
   );
 }

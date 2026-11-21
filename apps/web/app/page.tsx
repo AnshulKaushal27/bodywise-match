@@ -4,11 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import {
   ArrowRight,
-  ShieldCheck,
-  Sparkle,
-  SlidersHorizontal,
   CheckCircle,
-  Lock,
   Package,
 } from "@phosphor-icons/react/dist/ssr";
 import {
@@ -20,9 +16,9 @@ import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { SiteHeader } from "@/components/SiteHeader";
 import { HashRedirect } from "@/components/HashRedirect";
 import { OrderResolutionPreview } from "@/components/OrderResolutionPreview";
-import { HeroRotatingWord, HeroQueryInput } from "@/components/HeroInteractive";
+import { HeroRotatingWord, HeroQueryInput, HeroScanButton } from "@/components/HeroInteractive";
 import { CatalogueStatsStrip, CategoryBento } from "@/components/CatalogueShowcase";
-import { MarkerHighlight, ScrollReveal } from "@/components/ScrollReveal";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { ReduceMotionToggle } from "@/lib/motion";
 import { AmbientFallback } from "@/components/SmokeBackground";
 import { cn } from "@/lib/utils";
@@ -59,7 +55,7 @@ const FAQ_ITEMS: AccordionItemData[] = [
     title: "Do you store my photo?",
     content: (
       <p>
-        Never. Photo uploads are completely disabled in this MVP prototype (shown with a visible &ldquo;Coming later&rdquo; disabled affordance). When photo guidance features launch in future releases, images will be processed strictly in-session and never stored or shared.
+        Never. Photos analyzed using our camera scanner are processed strictly in-session by our Multimodal AI to extract packaging facts and active ingredients, then immediately discarded. No user photos are ever stored or retained on disk or database.
       </p>
     ),
   },
@@ -116,9 +112,9 @@ export default function HomePage() {
           id="hero-section"
           className="relative isolate bg-paper overflow-hidden -mt-[68px] pt-24 pb-16 md:pt-28 md:pb-24"
         >
-          {/* Static Compressed WebP Hero Background Gradient Fallback */}
+          {/* Static Clean Editorial Paper Base with Subtle Gradient Fallback */}
           <div
-            className="absolute inset-0 pointer-events-none select-none -z-10 bg-gradient-to-b from-[#F5F9FF] via-[#EEF5FF] to-[#E3EEFC]/60"
+            className="absolute inset-0 pointer-events-none select-none -z-10 bg-gradient-to-b from-[#F5F9FF] to-[#E3EEFC]/20"
             aria-hidden="true"
           />
 
@@ -163,8 +159,13 @@ export default function HomePage() {
                 {/* Hero Try It Now input (Effect 2) */}
                 <HeroQueryInput />
 
+                {/* Explanatory helper for camera scan button */}
+                <p className="text-xs sm:text-sm text-charcoal/80 font-medium mb-2.5">
+                  Snap or upload a photo of any bottle to find matching Be Bodywise formulas:
+                </p>
+
                 {/* Secondary Browse link and primary CTAs */}
-                <div className="flex flex-wrap items-center gap-4 mb-6">
+                <div className="flex flex-wrap items-center gap-3.5 mb-6">
                   <Link
                     href="/products"
                     className={cn(
@@ -174,30 +175,7 @@ export default function HomePage() {
                   >
                     Browse products
                   </Link>
-                </div>
-
-                {/* Exact Trust Line with Marker Highlight (Effect 4) */}
-                <p className="text-xs sm:text-sm text-muted font-medium flex items-center gap-2 mb-4">
-                  <ShieldCheck className="w-4 h-4 text-brand-evergreen shrink-0" aria-hidden="true" />
-                  <span>
-                    <MarkerHighlight>No diagnosis</MarkerHighlight>. No guaranteed results. Your photo is optional.
-                  </span>
-                </p>
-
-                {/* Visual Editorial Micro-Trust Pillars */}
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-3.5 border-t border-brand-deep/8 w-full">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/85 backdrop-blur-xs border border-brand-deep/10 text-[11px] font-semibold text-brand-deep shadow-2xs">
-                    <SlidersHorizontal className="w-3 h-3 text-brand-evergreen" aria-hidden="true" />
-                    <span>Deterministic rules</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/85 backdrop-blur-xs border border-brand-deep/10 text-[11px] font-semibold text-brand-deep shadow-2xs">
-                    <CheckCircle className="w-3 h-3 text-brand-evergreen" aria-hidden="true" />
-                    <span>Verified label facts</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/85 backdrop-blur-xs border border-brand-deep/10 text-[11px] font-semibold text-brand-deep shadow-2xs">
-                    <Lock className="w-3 h-3 text-brand-evergreen" aria-hidden="true" />
-                    <span>0% sponsored bias</span>
-                  </span>
+                  <HeroScanButton />
                 </div>
               </div>
 
@@ -213,12 +191,6 @@ export default function HomePage() {
                   style={{ position: "relative" }}
                   className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] w-full rounded-card overflow-hidden shadow-card border border-brand-deep/12 bg-surface"
                 >
-                  {/* Top-Left Floating Provenance Badge */}
-                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10 px-3 py-1 rounded-full bg-surface/90 backdrop-blur-md border border-brand-deep/10 shadow-2xs flex items-center gap-1.5 text-[11px] font-semibold text-brand-deep">
-                    <Sparkle className="w-3.5 h-3.5 text-brand-evergreen shrink-0" aria-hidden="true" />
-                    <span>Official verified formulas</span>
-                  </div>
-
                   <Image
                     src="/hero-products.webp"
                     alt="Be Bodywise verified skincare products and clean formulations"
@@ -228,16 +200,6 @@ export default function HomePage() {
                     sizes="(max-width: 1024px) 100vw, 42vw"
                     className="object-cover object-center"
                   />
-
-                  {/* Editorial card badge with frosted backdrop */}
-                  <div className="absolute bottom-3.5 left-3.5 right-3.5 sm:bottom-4 sm:left-4 sm:right-4 p-3 rounded-button bg-surface/95 backdrop-blur-md border border-brand-deep/10 shadow-sm flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkle className="w-4 h-4 text-brand-evergreen shrink-0" aria-hidden="true" />
-                      <span className="text-xs font-semibold text-brand-deep">
-                        Deterministic matching &bull; Verified ingredients
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -245,7 +207,12 @@ export default function HomePage() {
         </section>
 
         {/* ================= CATALOGUE DIRECTORY BENTO & LIVE STATS STRIP ================= */}
-        <section className="relative bg-gradient-to-b from-[#E3EEFC]/60 via-[#EEF5FF] to-paper py-14 md:py-20">
+        <section className="relative bg-paper py-14 md:py-20 overflow-hidden">
+          {/* Directional Smoke Stream Curling across Section */}
+          <div
+            className="absolute top-1/3 -right-[10%] w-[105%] max-w-[850px] h-[160px] rounded-[80px] bg-gradient-to-l from-transparent via-[#93C5FD]/30 via-[#60A5FA]/20 to-transparent blur-[75px] pointer-events-none animate-smoke-stream-2 -z-10"
+            aria-hidden="true"
+          />
           <div className="max-w-container mx-auto px-5">
             <CatalogueStatsStrip />
             <CategoryBento />
@@ -261,13 +228,13 @@ export default function HomePage() {
           <div className="max-w-container mx-auto px-5">
             {/* Unified Showcase Card */}
             <div className="relative rounded-[24px] bg-gradient-to-br from-surface via-[#F5F9FF] to-surface-sage/30 border border-border p-6 sm:p-10 lg:p-12 shadow-card overflow-hidden">
-              {/* Subtle Ambient Decorative Glows */}
+              {/* Subtle Ambient Moving Decorative Blue Glows */}
               <div
-                className="absolute -top-24 -right-12 w-96 h-96 rounded-full bg-surface-sage/40 blur-[80px] pointer-events-none -z-10"
+                className="absolute -top-24 -right-12 w-96 h-96 rounded-full bg-surface-sage/50 blur-[90px] pointer-events-none -z-10 animate-smoke-3"
                 aria-hidden="true"
               />
               <div
-                className="absolute -bottom-24 -left-12 w-80 h-80 rounded-full bg-accent-lime/15 blur-[80px] pointer-events-none -z-10"
+                className="absolute -bottom-24 -left-12 w-80 h-80 rounded-full bg-[#BBD9FF]/30 blur-[90px] pointer-events-none -z-10 animate-smoke-4"
                 aria-hidden="true"
               />
 
