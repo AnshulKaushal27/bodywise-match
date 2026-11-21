@@ -34,6 +34,13 @@ function MatchConfirmInner() {
 
   const chatTriggerRef = React.useRef<HTMLButtonElement | null>(null);
 
+  // Immediate redirect to products (Step 2 bypassed)
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      router.replace("/products");
+    }
+  }, [router]);
+
   // Read parse source and fallback reason from storage on mount
   React.useEffect(() => {
     try {

@@ -352,13 +352,15 @@ CRITICAL NON-NEGOTIABLE SAFETY RULES:
    - Include the slugs of recommended products in "recommendedProductSlugs".
    - Include helpful action links in "suggestedActions" (e.g. { "label": "View [Product Name]", "url": "/products/[slug]" }).
 
-3. DELIVERY & ORDER SUPPORT:
-   If the user asks about order status, delivery delay, tracking, damaged parcel, or returns:
+3. DELIVERY, ORDER SUPPORT & COMPLAINTS:
+   If the user asks about order status, delivery delay, tracking, damaged parcel, complaints (e.g. "mujhe complaint karni hai"), returns, refunds, or customer support:
    - Set "intent": "delivery_support".
-   - Explain the standard delivery timeframe (3-5 business days).
-   - Advise checking the AWB tracking link sent via courier SMS and registered email.
-   - For issues exceeding 5 business days, advise checking with building security / front desk or contacting official support:
-     Email: support@bebodywise.com | WhatsApp: +91 81286 88128 | Helpline: +91 81286 88128 (Mon-Sat 9AM-6PM).
+   - You MUST NOT recommend products! Set "recommendedProductSlugs": [] and "suggestedActions": [].
+   - Provide empathetic resolution:
+     • Standard delivery timeframe is 3-5 business days.
+     • Check courier AWB tracking link sent via SMS and registered email.
+     • Provide official grievance / support contacts:
+       Email: support@bebodywise.com | WhatsApp: +91 81286 88128 | Helpline: +91 81286 88128 (Mon-Sat 9AM-6PM).
 
 4. ZERO MEDICAL DIAGNOSIS:
    Never diagnose medical conditions, evaluate clinical severity, or promise cures ("designed to help with...", "supports...", "may be relevant to your routine").
@@ -631,6 +633,56 @@ export async function handleChatTurn(input: HandleChatTurnInput): Promise<ChatPi
   const intent = llmOutput?.intent || "update";
 
   const lowerText = sanitized.toLowerCase();
+  const isGreeting =
+    intent === "greeting" ||
+    /^(hi|hello|hey|namaste|namaskar|good\s*(morning|afternoon|evening)|yo|hola|kaise\s*ho)\b/i.test(sanitized.trim());
+
+  const isSupportOrComplaint =
+    intent === "delivery_support" ||
+    intent === "help_question" ||
+    pageContext?.page === "help" ||
+    lowerText.includes("complaint") ||
+    lowerText.includes("shikayat") ||
+    lowerText.includes("complain") ||
+    lowerText.includes("problem") ||
+    lowerText.includes("issue") ||
+    lowerText.includes("order") ||
+    lowerText.includes("delivery") ||
+    lowerText.includes("courier") ||
+    lowerText.includes("tracking") ||
+    lowerText.includes("parcel") ||
+    lowerText.includes("package") ||
+    lowerText.includes("refund") ||
+    lowerText.includes("return") ||
+    lowerText.includes("exchange") ||
+    lowerText.includes("cancel") ||
+    lowerText.includes("damaged") ||
+    lowerText.includes("broken") ||
+    lowerText.includes("kharab") ||
+    lowerText.includes("tuta") ||
+    lowerText.includes("wrong product") ||
+    lowerText.includes("wrong item") ||
+    lowerText.includes("galat") ||
+    lowerText.includes("late") ||
+    lowerText.includes("delay") ||
+    lowerText.includes("helpline") ||
+    lowerText.includes("customer care") ||
+    lowerText.includes("support");
+
+  const hasProductInterest =
+    !isSupportOrComplaint &&
+    !isGreeting &&
+    intent !== "off_topic" &&
+    (
+      intent === "recommendation" ||
+      intent === "product_question" ||
+      intent === "compare_question" ||
+      Boolean(confirmedCategory) ||
+      Boolean(rulesPatch.product_type) ||
+      Boolean(rulesPatch.needs && rulesPatch.needs.length > 0) ||
+      Boolean(llmOutput?.recommendedProductSlugs && llmOutput.recommendedProductSlugs.length > 0)
+    );
+
   const isMedical =
     intent === "medical" ||
     lowerText.includes("cure") ||
@@ -650,24 +702,30 @@ export async function handleChatTurn(input: HandleChatTurnInput): Promise<ChatPi
   if (intent === "off_topic") {
     assistantMessage =
       "I couldn't understand that. Please can you try again? I can help you with product recommendations, ingredient details, usage directions, routine guidance, or delivery and order support.";
-  } else if (llmOutput?.assistantMessage && llmOutput.assistantMessage.trim().length > 0) {
-    // Rich response directly generated from SQLite product context by Groq LLM
-    assistantMessage = llmOutput.assistantMessage.trim();
+  } else if (isSupportOrComplaint) {
+    if (llmOutput?.assistantMessage && llmOutput.assistantMessage.trim().length > 0) {
+      assistantMessage = llmOutput.assistantMessage.trim();
+    } else {
+      assistantMessage = language === "hi-latn"
+        ? "Hum samajhte hain ki aapko complaint ya order ke sath dikkat hai. Standard delivery mein 3-5 business days lagte hain aur courier AWB tracking link aapke SMS/email par bheja gaya hai. Hamari official support team se turant madad ke liye:\n• Email: support@bebodywise.com\n• WhatsApp: +91 81286 88128\n• Helpline: +91 81286 88128 (Mon-Sat 9AM-6PM)"
+        : "I understand you want to register a complaint or need assistance with your order. Standard delivery takes 3-5 business days, and real-time updates are sent via your courier AWB tracking link. For immediate support and complaint resolution, our team is available at:\n• Email: support@bebodywise.com\n• WhatsApp: +91 81286 88128\n• Helpline: +91 81286 88128 (Mon-Sat 9AM-6PM)";
+    }
+  } else if (isGreeting) {
+    assistantMessage = language === "hi-latn"
+      ? "Namaste! Batayein aapko kaunse skin, hair, ya body product ke liye help chahiye?"
+      : "Hello! Tell me what body, hair, or skin care goal you're looking for, and I'll find matching options from our verified catalogue.";
   } else if (isMedical) {
     assistantMessage = language === "hi-latn"
       ? "Hum bimari ya doctori ilaaj nahi batate. Kisi gehre skin reaction ke liye qualified dermatologist se milein. Personal care catalogue se ye gentle options fit ho sakte hain:"
       : "We don't provide medical diagnosis or treatment plans. For persistent rashes or clinical skin concerns, please consult a qualified healthcare professional. Here are cosmetic options that fit your preferences:";
-  } else if (intent === "greeting") {
-    assistantMessage = language === "hi-latn"
-      ? "Namaste! Batayein aapko kaunse skin, hair, ya body product ke liye help chahiye?"
-      : "Hello! Tell me what body, hair, or skin care goal you're looking for, and I'll find matching options from our verified catalogue.";
-  } else if (intent === "delivery_support" || lowerText.includes("delivery") || lowerText.includes("order") || lowerText.includes("tracking") || lowerText.includes("courier")) {
-    assistantMessage = "Standard delivery typically takes 3-5 business days. You can track your parcel using the official courier AWB link sent to your mobile SMS or email. For address adjustments or inquiries, contact official support at support@bebodywise.com or WhatsApp +91 81286 88128.";
-  } else if (sqliteProducts.length > 0) {
+  } else if (hasProductInterest && llmOutput?.assistantMessage && llmOutput.assistantMessage.trim().length > 0) {
+    // Rich response directly generated from SQLite product context by Groq LLM
+    assistantMessage = llmOutput.assistantMessage.trim();
+  } else if (hasProductInterest && sqliteProducts.length > 0) {
     // Deterministic SQLite recommendation fallback
     const top = sqliteProducts[0];
     assistantMessage = `Based on your request, here is a verified option from our catalogue:\n\n**${top.official_name}** (${top.size}) — ₹${top.price_inr ?? "N/A"}\n• Description: ${top.official_description}\n• How to use: ${top.label_directions}\n${top.cautions ? `• Caution: ${top.cautions.join("; ")}\n` : ""}• Key Ingredients: ${top.ingredients.slice(0, 4).join(", ")}`;
-  } else {
+  } else if (hasProductInterest) {
     // Standard Update / Answer turn
     const ack = composeAcknowledgement(finalPatch, language);
     const nextQ = selectNext(nextState, DEMO_CATALOGUE_SEED);
@@ -677,64 +735,73 @@ export async function handleChatTurn(input: HandleChatTurnInput): Promise<ChatPi
     } else {
       assistantMessage = `${ack} You're all set! We found ${shortlist.totalFamilies} matching options for your routine.`;
     }
+  } else {
+    assistantMessage = language === "hi-latn"
+      ? "Main aapki kaise madad kar sakta hoon? Aap mujhse product recommendations, routine guidance, ya order/delivery ke baare mein pooch sakte hain."
+      : "How can I help you today? You can ask me for personalized product recommendations, routine advice, or delivery and order support.";
   }
 
-  // 8. Candidates Resolution (Grounding on SQLite Catalogue)
+  // 8. Candidates Resolution (Grounding on SQLite Catalogue - ONLY if user is interested in products)
   const sqliteRecommended: ShortlistFamilyItem[] = [];
-  const targetSlugs =
-    llmOutput?.recommendedProductSlugs && llmOutput.recommendedProductSlugs.length > 0
-      ? llmOutput.recommendedProductSlugs
-      : sqliteProducts.slice(0, 3).map((p) => p.slug);
 
-  for (const slug of targetSlugs) {
-    const p = getCatalogueProductBySlug(slug) || sqliteProducts.find((sp) => sp.slug === slug);
-    if (p) {
-      const catalogueProduct = DEMO_CATALOGUE_SEED.find((prod) => prod.slug === p.slug) || DEMO_CATALOGUE_SEED[0];
-      sqliteRecommended.push({
-        familyId: p.slug,
-        canonical_name: p.official_name,
-        name: p.official_name,
-        category: p.category,
-        categoryLabel: formatCategoryLabel(p.category as CatalogueCategoryId),
-        format: p.format,
-        priceInr: p.price_inr,
-        price_inr: p.price_inr,
-        imageUrl: p.image_url || catalogueProduct.image_url || null,
-        image_url: p.image_url || catalogueProduct.image_url || null,
-        rank: sqliteRecommended.length + 1,
-        benefitsCovered: p.supported_goals,
-        notSpecificallyDescribed: false,
-        whyText: p.official_description,
-        brandClaim: null,
-        sourceText: "Official verified packaging",
-        sourceUrl: p.source_url ?? "",
-        primaryProduct: catalogueProduct,
-        score: 1.0,
-      });
-      if (p.source_url) {
-        sources.push({
-          source: p.source_url,
-          verifiedAt: "Official Packaging",
-          url: p.source_url,
+  if (hasProductInterest) {
+    const targetSlugs =
+      llmOutput?.recommendedProductSlugs && llmOutput.recommendedProductSlugs.length > 0
+        ? llmOutput.recommendedProductSlugs
+        : sqliteProducts.slice(0, 3).map((p) => p.slug);
+
+    for (const slug of targetSlugs) {
+      const p = getCatalogueProductBySlug(slug) || sqliteProducts.find((sp) => sp.slug === slug);
+      if (p) {
+        const catalogueProduct = DEMO_CATALOGUE_SEED.find((prod) => prod.slug === p.slug) || DEMO_CATALOGUE_SEED[0];
+        sqliteRecommended.push({
+          familyId: p.slug,
+          canonical_name: p.official_name,
+          name: p.official_name,
+          category: p.category,
+          categoryLabel: formatCategoryLabel(p.category as CatalogueCategoryId),
+          format: p.format,
+          priceInr: p.price_inr,
+          price_inr: p.price_inr,
+          imageUrl: p.image_url || catalogueProduct.image_url || null,
+          image_url: p.image_url || catalogueProduct.image_url || null,
+          rank: sqliteRecommended.length + 1,
+          benefitsCovered: p.supported_goals,
+          notSpecificallyDescribed: false,
+          whyText: p.official_description,
+          brandClaim: null,
+          sourceText: "Official verified packaging",
+          sourceUrl: p.source_url ?? "",
+          primaryProduct: catalogueProduct,
+          score: 1.0,
         });
+        if (p.source_url) {
+          sources.push({
+            source: p.source_url,
+            verifiedAt: "Official Packaging",
+            url: p.source_url,
+          });
+        }
       }
     }
   }
 
-  const finalCandidates = sqliteRecommended.length > 0 ? sqliteRecommended : shortlist.topFamilies;
+  const finalCandidates: ShortlistFamilyItem[] = hasProductInterest
+    ? (sqliteRecommended.length > 0 ? sqliteRecommended : shortlist.topFamilies)
+    : [];
 
   // 9. Structured Actions & Quick Replies
   const actions: StructuredAction[] = [];
-  if (Object.keys(finalPatch).length > 0) {
+  if (Object.keys(finalPatch).length > 0 && !isSupportOrComplaint) {
     actions.push({ type: "apply_patch", payload: finalPatch });
   }
-  if (shortlist.totalFamilies > 0 || finalCandidates.length > 0) {
+  if (hasProductInterest && (shortlist.totalFamilies > 0 || finalCandidates.length > 0)) {
     actions.push({
       type: "show_results",
       payload: { count: Math.max(shortlist.totalFamilies, finalCandidates.length), stateHash: shortlist.stateHash },
     });
   }
-  if (llmOutput?.suggestedActions) {
+  if (hasProductInterest && llmOutput?.suggestedActions) {
     for (const act of llmOutput.suggestedActions) {
       actions.push({ type: "open_product", payload: act });
     }
@@ -742,7 +809,33 @@ export async function handleChatTurn(input: HandleChatTurnInput): Promise<ChatPi
 
   // Quick replies
   const quickReplies: Array<{ id: string; label: string; action: string; value: unknown }> = [];
-  if (llmOutput?.quickReplies && llmOutput.quickReplies.length > 0) {
+  if (isSupportOrComplaint) {
+    if (llmOutput?.quickReplies && llmOutput.quickReplies.length > 0) {
+      for (let i = 0; i < llmOutput.quickReplies.length; i++) {
+        quickReplies.push({
+          id: `qr_support_${i}`,
+          label: llmOutput.quickReplies[i],
+          action: "ask",
+          value: llmOutput.quickReplies[i],
+        });
+      }
+    } else {
+      const defaultSupportPills = [
+        "Delivery delay",
+        "Damaged parcel",
+        "Product issue",
+        "Contact helpline",
+      ];
+      for (let i = 0; i < defaultSupportPills.length; i++) {
+        quickReplies.push({
+          id: `qr_sup_default_${i}`,
+          label: defaultSupportPills[i],
+          action: "ask",
+          value: defaultSupportPills[i],
+        });
+      }
+    }
+  } else if (llmOutput?.quickReplies && llmOutput.quickReplies.length > 0) {
     for (let i = 0; i < llmOutput.quickReplies.length; i++) {
       quickReplies.push({
         id: `qr_llm_${i}`,

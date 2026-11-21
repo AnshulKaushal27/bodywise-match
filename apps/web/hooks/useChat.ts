@@ -38,7 +38,11 @@ export function useChat() {
   const [localMessages, setLocalMessages] = React.useState<ChatMessage[]>(() => state.chat.messages || []);
 
   React.useEffect(() => {
-    if (state.chat.messages && state.chat.messages.length > localMessages.length) {
+    if (!state.chat.messages || state.chat.messages.length === 0) {
+      if (localMessages.length > 0) {
+        setLocalMessages([]);
+      }
+    } else if (state.chat.messages.length > localMessages.length) {
       setLocalMessages(state.chat.messages);
     }
   }, [state.chat.messages, localMessages.length]);
@@ -166,12 +170,8 @@ export function useChat() {
           }
         }
 
-        if (response.shortlist) {
-          setCandidateCount(response.shortlist.count);
-        }
-        if (response.candidates) {
-          setLastCandidates(response.candidates);
-        }
+        setCandidateCount(response.shortlist ? response.shortlist.count : (response.candidates?.length ?? 0));
+        setLastCandidates(response.candidates && response.candidates.length > 0 ? response.candidates : []);
       } catch {
         setError("Unable to get response. Switched to offline assistance.");
       } finally {
@@ -193,10 +193,34 @@ export function useChat() {
   }, [dispatch, proposedPatch]);
 
   const clearChat = React.useCallback(() => {
+    dispatch({ type: "CLEAR_CHAT" });
     setLocalMessages([]);
     setProposedPatch(null);
     setError(null);
-  }, []);
+    setLastCandidates([]);
+    setCandidateCount(0);
+  }, [dispatch]);
+
+  const getFilteredProductsUrl = React.useCallback(() => {
+    const params = new URLSearchParams();
+    if (state.slots.product_type.value) {
+      params.set("category", String(state.slots.product_type.value));
+    }
+    if (state.slots.needs && state.slots.needs.length > 0) {
+      const goalIds = state.slots.needs.map((n) => n.concept_id).filter(Boolean);
+      if (goalIds.length > 0) {
+        params.set("goal", goalIds.join(","));
+      }
+    }
+    if (state.slots.fragrance_pref.value === "free_only") {
+      params.set("fragrance", "fragrance_free");
+    }
+    if (state.slots.format.value) {
+      params.set("format", String(state.slots.format.value));
+    }
+    const qs = params.toString();
+    return qs ? `/products?${qs}` : "/products";
+  }, [state]);
 
   return {
     isChatOpen,
@@ -213,5 +237,6 @@ export function useChat() {
     candidateCount,
     lastCandidates,
     clearChat,
+    getFilteredProductsUrl,
   };
 }

@@ -191,4 +191,36 @@ describe("Unified POST /v1/chat API Gateway Contract Tests", () => {
     expect(body.turn_result).toBeDefined();
     expect(body.turn_result.patch.product_type).toBe("body_wash");
   });
+
+  it("does not show product recommendations or candidates on complaint / support turns", async () => {
+    const state = createInitialSessionState();
+    const result = await handleChatTurn({
+      state,
+      message: "mujhe complaint karni hai",
+    });
+
+    expect(result.candidates).toHaveLength(0);
+    expect(result.shortlist.count).toBe(0);
+    expect(result.shortlist.topFamilies).toHaveLength(0);
+    // Actions should not contain product opening actions
+    const hasOpenProductAction = result.actions.some((a) => a.type === "open_product");
+    expect(hasOpenProductAction).toBe(false);
+    // Message should offer support assistance without product sales pitch
+    expect(result.assistantMessage.toLowerCase()).not.toContain("collagen builder");
+    expect(result.assistantMessage.toLowerCase()).not.toContain("hair growth serum");
+  });
+
+  it("does not show product candidates on pure greeting turns", async () => {
+    const state = createInitialSessionState();
+    const result = await handleChatTurn({
+      state,
+      message: "hello",
+    });
+
+    expect(result.candidates).toHaveLength(0);
+    expect(result.shortlist.count).toBe(0);
+    expect(result.shortlist.topFamilies).toHaveLength(0);
+    const hasOpenProductAction = result.actions.some((a) => a.type === "open_product");
+    expect(hasOpenProductAction).toBe(false);
+  });
 });

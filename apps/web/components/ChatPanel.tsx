@@ -35,6 +35,7 @@ export function ChatPanel() {
     candidateCount,
     lastCandidates,
     clearChat,
+    getFilteredProductsUrl,
   } = useChat();
 
   const [input, setInput] = React.useState("");
@@ -70,6 +71,21 @@ export function ChatPanel() {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isChatOpen, isLoading]);
+
+  // Guard: if current chat context or latest user query is support/complaint, suppress product recommendation cards
+  const isSupportTurn = React.useMemo(() => {
+    if (messages.length === 0) return false;
+    const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
+    if (!lastUserMsg) return false;
+    const lower = lastUserMsg.content.toLowerCase();
+    const supportTerms = [
+      "complaint", "shikayat", "complain", "problem", "issue", "order", "delivery",
+      "courier", "tracking", "parcel", "package", "refund", "return", "exchange",
+      "cancel", "damaged", "broken", "kharab", "tuta", "wrong product", "wrong item",
+      "late", "delay", "helpline", "customer care", "support"
+    ];
+    return supportTerms.some((t) => lower.includes(t));
+  }, [messages]);
 
   const handleSend = () => {
     const text = input.trim();
@@ -155,10 +171,11 @@ export function ChatPanel() {
               {messages.length > 0 && (
                 <button
                   type="button"
+                  data-testid="clear-chat"
                   onClick={clearChat}
                   title="Clear chat history"
                   aria-label="Clear chat"
-                  className="p-2 text-text-muted hover:text-charcoal rounded-button min-h-[40px] min-w-[40px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-evergreen"
+                  className="p-2 text-text-muted hover:text-charcoal hover:bg-surface-sage/30 rounded-button min-h-[40px] min-w-[40px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-evergreen transition-colors cursor-pointer"
                 >
                   <Trash weight="regular" className="w-4 h-4" />
                 </button>
@@ -198,7 +215,7 @@ export function ChatPanel() {
                 type="button"
                 onClick={() => {
                   setIsChatOpen(false);
-                  router.push("/match/results");
+                  router.push(getFilteredProductsUrl());
                 }}
                 className="inline-flex items-center gap-1 font-semibold text-brand-evergreen hover:text-brand-deep text-xs focus:outline-none focus:underline"
               >
@@ -345,8 +362,8 @@ export function ChatPanel() {
               );
             })}
 
-            {/* Candidates card preview inside chat if relevant */}
-            {lastCandidates.length > 0 && !isLoading && (
+            {/* Candidates card preview inside chat ONLY if relevant and user has product interest (not support/complaint) */}
+            {lastCandidates.length > 0 && !isLoading && !isSupportTurn && (
               <div className="mt-3 space-y-2">
                 <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider block">
                   Relevant Options

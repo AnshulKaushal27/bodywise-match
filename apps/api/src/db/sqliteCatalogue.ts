@@ -309,6 +309,18 @@ function computeProductQueryRelevance(row: ProductTableRow, cleanQuery: string, 
   return score;
 }
 
+const SEARCH_STOPWORDS = new Set([
+  "a", "an", "the", "and", "or", "in", "on", "at", "to", "for", "of", "with", "by",
+  "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "do", "does", "did",
+  "hai", "hain", "ho", "hona", "hone", "pe", "par", "ka", "ki", "ke", "ko", "se", "me", "mein",
+  "aur", "ya", "bhi", "toh", "to", "ye", "yeh", "wo", "woh",
+  "mera", "meri", "mere", "mujhe", "mujhko", "apna", "apni", "apne",
+  "hum", "humein", "hamara", "humara", "humari", "aap", "aapka", "aapki", "aapke",
+  "karna", "karni", "kare", "karein", "karen", "karo", "kar", "karte", "karti",
+  "rehta", "rehti", "rehte", "rahta", "rahti", "rahte", "hota", "hoti", "hote",
+  "tha", "thi", "the", "chahiye", "batao", "bataiye", "bata", "bataein", "wala", "wali", "wale"
+]);
+
 export function searchCatalogueProducts(
   query: string,
   options?: { category?: string; limit?: number }
@@ -319,31 +331,30 @@ export function searchCatalogueProducts(
 
   let results: ProductTableRow[] = [];
   const words = cleanQuery.split(/\s+/).filter((w) => w.length > 1);
+  const searchWords = words.filter((w) => !SEARCH_STOPWORDS.has(w.toLowerCase()));
 
-  if (cleanQuery.length > 0) {
+  if (searchWords.length > 0) {
     try {
       // Build FTS query with OR matching
-      if (words.length > 0) {
-        const ftsMatch = words.map((w) => `"${w}"*`).join(" OR ");
-        const stmt = db.prepare(`
-          SELECT p.*, bm25(products_fts) as rank
-          FROM products_fts fts
-          JOIN products p ON fts.id = p.id
-          WHERE products_fts MATCH ?
-          ORDER BY rank ASC
-          LIMIT 25
-        `);
-        results = stmt.all(ftsMatch) as unknown as ProductTableRow[];
-      }
+      const ftsMatch = searchWords.map((w) => `"${w}"*`).join(" OR ");
+      const stmt = db.prepare(`
+        SELECT p.*, bm25(products_fts) as rank
+        FROM products_fts fts
+        JOIN products p ON fts.id = p.id
+        WHERE products_fts MATCH ?
+        ORDER BY rank ASC
+        LIMIT 25
+      `);
+      results = stmt.all(ftsMatch) as unknown as ProductTableRow[];
     } catch {
       // Fallback to LIKE if FTS expression syntax error
       results = [];
     }
   }
 
-  // Fallback to LIKE query if FTS yielded few results
-  if (results.length === 0 && cleanQuery.length > 0) {
-    const likePattern = `%${cleanQuery}%`;
+  // Fallback to LIKE query if FTS yielded few results and searchWords exist
+  if (results.length === 0 && searchWords.length > 0) {
+    const likePattern = `%${searchWords[0]}%`;
     const stmt = db.prepare(`
       SELECT * FROM products
       WHERE official_name LIKE ?

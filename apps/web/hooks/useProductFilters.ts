@@ -6,6 +6,7 @@ import {
   ProductFilterCriteria,
   normalizeToken,
   CONTROLLED_GOALS,
+  parseSearchToFilterParams,
 } from "@bodywise/shared";
 
 export const CATEGORIES = [
@@ -51,7 +52,8 @@ export function useProductFilters() {
     if (!searchParams) return { search: "", categories: [], formats: [], goals: [], fragrance: "all" };
 
     // Search query
-    const q = searchParams.get("q") || "";
+    const rawQ = searchParams.get("q") || "";
+    let q = rawQ.trim();
 
     // Categories (supports ?category=face-wash,body-wash or ?category=face_wash)
     const rawCategories = searchParams.getAll("category").flatMap((c) => c.split(","));
@@ -80,6 +82,30 @@ export function useProductFilters() {
         fragrance = "fragrance_free";
       } else if (normFrag === "other" || normFrag === "unverified") {
         fragrance = "other";
+      }
+    }
+
+    // Sanitize q if it contains natural language filler or parsed filters
+    if (q.length > 0) {
+      const parsedQ = parseSearchToFilterParams(q);
+      for (const g of parsedQ.goals) {
+        if (!goals.includes(g)) goals.push(g);
+      }
+      for (const c of parsedQ.categories) {
+        if (!categories.includes(c)) categories.push(c);
+      }
+      for (const f of parsedQ.formats) {
+        if (!formats.includes(f)) formats.push(f);
+      }
+      if (parsedQ.fragrance !== "all" && fragrance === "all") {
+        fragrance = parsedQ.fragrance;
+      }
+
+      if (parsedQ.search !== undefined) {
+        q = parsedQ.search;
+      } else if (goals.length > 0 || categories.length > 0 || formats.length > 0 || fragrance !== "all") {
+        // Filters are active and the remaining query was pure filler; clear search so it doesn't break the filters
+        q = "";
       }
     }
 
@@ -291,6 +317,21 @@ export function useProductFilters() {
     });
   }, [updateFiltersAndSync]);
 
+  // Apply natural language query to filters
+  const applySearchPhrase = React.useCallback(
+    (phrase: string) => {
+      const parsed = parseSearchToFilterParams(phrase);
+      updateFiltersAndSync({
+        search: parsed.search !== undefined ? parsed.search : "",
+        categories: parsed.categories.length > 0 ? parsed.categories : [],
+        formats: parsed.formats.length > 0 ? parsed.formats : [],
+        goals: parsed.goals.length > 0 ? parsed.goals : [],
+        fragrance: parsed.fragrance !== "all" ? parsed.fragrance : "all",
+      });
+    },
+    [updateFiltersAndSync]
+  );
+
   // Current criteria bundle for pure filterProducts()
   const filterCriteria: ProductFilterCriteria = React.useMemo(() => {
     return {
@@ -305,6 +346,7 @@ export function useProductFilters() {
   return {
     searchQuery,
     setSearchQuery: (q: string) => updateFiltersAndSync({ search: q }),
+    applySearchPhrase,
     selectedCategories,
     selectedFormats,
     selectedGoals,

@@ -45,6 +45,7 @@ function ProductsPageContent() {
   const {
     searchQuery,
     setSearchQuery,
+    applySearchPhrase,
     filterCriteria,
     activeChips,
     activeFilterCount,
@@ -175,12 +176,7 @@ function ProductsPageContent() {
             </span>
           </div>
 
-          <Link
-            href="/match"
-            className="text-xs md:text-sm font-bold text-brand-evergreen hover:text-brand-deep bg-surface-sage/50 hover:bg-surface-sage px-3 py-1.5 rounded-button border border-border focus-ring transition-colors active:scale-[0.98] motion-safe:transition-transform"
-          >
-            Find My Match
-          </Link>
+          <div className="w-14" aria-hidden="true" />
         </div>
       </header>
 
@@ -256,6 +252,14 @@ function ProductsPageContent() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (searchQuery.trim()) {
+                      applySearchPhrase(searchQuery.trim());
+                    }
+                  }
+                }}
                 placeholder="Search by product name, goal, format, or ingredient..."
                 className="w-full pl-11 pr-10 py-3 rounded-xl bg-surface border border-border text-charcoal text-sm focus-ring placeholder:text-muted/70 transition-colors shadow-sm min-h-[52px]"
               />

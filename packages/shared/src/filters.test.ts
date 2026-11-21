@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { filterProducts, computeFacetCounts, normalizeToken } from "./filters";
+import { filterProducts, computeFacetCounts, normalizeToken, parseSearchToFilterParams } from "./filters";
 import { DEMO_CATALOGUE_SEED } from "./data/catalogue.seed";
 
 describe("filterProducts pure filter logic (packages/shared/src/filters.ts)", () => {
@@ -103,5 +103,80 @@ describe("filterProducts pure filter logic (packages/shared/src/filters.ts)", ()
   it("normalizes tokens correctly", () => {
     expect(normalizeToken("face-wash")).toBe("face_wash");
     expect(normalizeToken("Oil-Sebum-Balance")).toBe("oil_sebum_balance");
+  });
+
+  describe("parseSearchToFilterParams (Dynamic Search-to-Filters Engine)", () => {
+    it("parses 'oily face ka ilaaj' by applying goal only and NO category", () => {
+      const parsed = parseSearchToFilterParams("oily face ka ilaaj");
+      expect(parsed.goals).toContain("oil_control");
+      expect(parsed.categories).toEqual([]);
+      expect(parsed.fragrance).toBe("all");
+      expect(parsed.formats).toEqual([]);
+      expect(parsed.search).toBeUndefined();
+    });
+
+    it("parses 'chehre ke daag dhabbe aur tanning ke liye serum' with category serum, goal dark_spots_look, and NO search keyword", () => {
+      const parsed = parseSearchToFilterParams("chehre ke daag dhabbe aur tanning ke liye serum");
+      expect(parsed.categories).toContain("serum");
+      expect(parsed.goals).toContain("dark_spots_look");
+      expect(parsed.fragrance).toBe("all");
+      expect(parsed.search).toBeUndefined();
+    });
+
+    it("parses 'meri skin pe bahut tel rehta hai' by applying goal oil_control and NO search keyword", () => {
+      const parsed = parseSearchToFilterParams("meri skin pe bahut tel rehta hai");
+      expect(parsed.goals).toContain("oil_control");
+      expect(parsed.categories).toEqual([]);
+      expect(parsed.search).toBeUndefined();
+      const matches = filterProducts(allProducts, parsed);
+      expect(matches.length).toBeGreaterThan(0);
+    });
+
+    it("parses 'hair fall bohot zyada ho raha hai' with goal hair_fall_appearance and NO residual search", () => {
+      const parsed = parseSearchToFilterParams("hair fall bohot zyada ho raha hai");
+      expect(parsed.goals).toContain("hair_fall_appearance");
+      expect(parsed.search).toBeUndefined();
+      const matches = filterProducts(allProducts, parsed);
+      expect(matches.length).toBeGreaterThan(0);
+    });
+
+    it("prevents conversational stopwords in search from breaking structured filters", () => {
+      const brokenFilterAttempt = filterProducts(allProducts, {
+        goals: ["oil_control"],
+        search: "pe bahut rehta",
+      });
+      expect(brokenFilterAttempt.length).toBeGreaterThan(0);
+      expect(brokenFilterAttempt.every((p) => p.supported_goals.includes("oil_control"))).toBe(true);
+    });
+
+    it("parses 'salicylic acid body wash for back acne' with category body_wash, goal body_bumps_look, and search 'salicylic acid'", () => {
+      const parsed = parseSearchToFilterParams("salicylic acid body wash for back acne");
+      expect(parsed.categories).toContain("body_wash");
+      expect(parsed.goals).toContain("body_bumps_look");
+      expect(parsed.search).toContain("salicylic acid");
+    });
+
+    it("parses 'fragrance free sunscreen' with category sunscreen, fragrance fragrance_free, and no goal", () => {
+      const parsed = parseSearchToFilterParams("fragrance free sunscreen");
+      expect(parsed.categories).toContain("sunscreen");
+      expect(parsed.fragrance).toBe("fragrance_free");
+      expect(parsed.goals).toEqual([]);
+    });
+
+    it("parses raw ingredient 'niacinamide' as search query with no filters", () => {
+      const parsed = parseSearchToFilterParams("niacinamide");
+      expect(parsed.search).toBe("niacinamide");
+      expect(parsed.categories).toEqual([]);
+      expect(parsed.goals).toEqual([]);
+      expect(parsed.fragrance).toBe("all");
+    });
+
+    it("handles empty or whitespace inputs gracefully", () => {
+      const empty = parseSearchToFilterParams("");
+      expect(empty.categories).toEqual([]);
+      expect(empty.goals).toEqual([]);
+      expect(empty.fragrance).toBe("all");
+      expect(empty.search).toBeUndefined();
+    });
   });
 });

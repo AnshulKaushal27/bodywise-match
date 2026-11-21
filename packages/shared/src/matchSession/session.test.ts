@@ -220,4 +220,23 @@ describe("MatchSession Reducer & Conflict/Lock Rules", () => {
     expect(chips[0].provenanceText).toBe('From your words: "dryness"');
     expect(chips[1].provenanceText).toBe('From your words: "muh pe"');
   });
+
+  it("handles CLEAR_CHAT event by emptying message list", () => {
+    let state = createInitialSessionState();
+    state = matchSessionReducer(state, {
+      type: "ADD_CHAT_MESSAGE",
+      message: {
+        id: "msg_1",
+        role: "user",
+        content: "hello",
+        timestamp: Date.now(),
+      },
+    });
+    expect(state.chat.messages).toHaveLength(1);
+
+    state = matchSessionReducer(state, {
+      type: "CLEAR_CHAT",
+    });
+    expect(state.chat.messages).toHaveLength(0);
+  });
 });

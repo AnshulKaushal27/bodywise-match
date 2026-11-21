@@ -118,6 +118,10 @@ export type SessionEvent =
       timestamp?: number;
     }
   | {
+      type: "CLEAR_CHAT";
+      timestamp?: number;
+    }
+  | {
       type: "SET_LANGUAGE";
       language: SessionLanguage;
       timestamp?: number;

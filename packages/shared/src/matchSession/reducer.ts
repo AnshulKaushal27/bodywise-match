@@ -365,6 +365,16 @@ export function matchSessionReducer(
       };
     }
 
+    case "CLEAR_CHAT": {
+      return {
+        ...state,
+        chat: {
+          messages: [],
+        },
+        eventLog: [...state.eventLog, event],
+      };
+    }
+
     case "SET_LANGUAGE": {
       return {
         ...state,

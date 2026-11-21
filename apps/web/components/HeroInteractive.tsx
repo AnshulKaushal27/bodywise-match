@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { useMotion } from "@/lib/motion";
 import { CATALOGUE_STATS } from "@/lib/catalogueStats";
+import { parseSearchToFilterParams } from "@bodywise/shared";
 
 // Verified sample queries known to match real catalogue products
 const VERIFIED_QUERIES = [
@@ -177,11 +178,29 @@ export function HeroQueryInput() {
       } catch {
         // storage quota fallback
       }
-      router.push(`/match?q=${encodeURIComponent(typed)}`);
+      const criteria = parseSearchToFilterParams(typed);
+      const params = new URLSearchParams();
+      if (criteria.search) {
+        params.set("q", criteria.search);
+      }
+      if (criteria.categories && criteria.categories.length > 0) {
+        params.set("category", criteria.categories.join(","));
+      }
+      if (criteria.goals && criteria.goals.length > 0) {
+        params.set("goal", criteria.goals.join(","));
+      }
+      if (criteria.formats && criteria.formats.length > 0) {
+        params.set("format", criteria.formats.join(","));
+      }
+      if (criteria.fragrance && criteria.fragrance !== "all") {
+        params.set("fragrance", criteria.fragrance);
+      }
+      const qs = params.toString();
+      router.push(qs ? `/products?${qs}` : "/products");
       return;
     }
 
-    // If user submits empty, clear previous drafts and go to /match cleanly
+    // If user submits empty, clear previous drafts and go to /products cleanly
     try {
       sessionStorage.removeItem("bodywise_match_initial_query");
       sessionStorage.removeItem("bodywise_match_draft");
@@ -189,7 +208,7 @@ export function HeroQueryInput() {
     } catch {
       // storage quota fallback
     }
-    router.push("/match");
+    router.push("/products");
   };
 
   return (
