@@ -8,6 +8,7 @@ import {
   CONTROLLED_GOALS,
   parseSearchToFilterParams,
 } from "@bodywise/shared";
+import { parseFilterIntent } from "@/lib/api";
 
 export const CATEGORIES = [
   { id: "all", label: "All Categories" },
@@ -323,19 +324,36 @@ export function useProductFilters() {
     });
   }, [updateFiltersAndSync]);
 
-  // Apply natural language query to filters
+  // Apply natural language or exact search query to filters via LLM intent parser
   const applySearchPhrase = React.useCallback(
-    (phrase: string) => {
-      const parsed = parseSearchToFilterParams(phrase);
-      updateFiltersAndSync({
-        search: parsed.search !== undefined ? parsed.search : "",
-        categories: parsed.categories.length > 0 ? parsed.categories : [],
-        formats: parsed.formats.length > 0 ? parsed.formats : [],
-        goals: parsed.goals.length > 0 ? parsed.goals : [],
-        fragrance: parsed.fragrance !== "all" ? parsed.fragrance : "all",
-      });
+    async (phrase: string) => {
+      try {
+        const intent = await parseFilterIntent(phrase, {
+          search: searchQuery,
+          categories: selectedCategories,
+          formats: selectedFormats,
+          goals: selectedGoals,
+          fragrance: selectedFragrance,
+        });
+        updateFiltersAndSync({
+          search: intent.criteria.search || "",
+          categories: intent.criteria.categories,
+          formats: intent.criteria.formats,
+          goals: intent.criteria.goals,
+          fragrance: intent.criteria.fragrance,
+        });
+      } catch {
+        const parsed = parseSearchToFilterParams(phrase);
+        updateFiltersAndSync({
+          search: parsed.search !== undefined ? parsed.search : "",
+          categories: parsed.categories.length > 0 ? parsed.categories : [],
+          formats: parsed.formats.length > 0 ? parsed.formats : [],
+          goals: parsed.goals.length > 0 ? parsed.goals : [],
+          fragrance: parsed.fragrance !== "all" ? parsed.fragrance : "all",
+        });
+      }
     },
-    [updateFiltersAndSync]
+    [updateFiltersAndSync, searchQuery, selectedCategories, selectedFormats, selectedGoals, selectedFragrance]
   );
 
   // Current criteria bundle for pure filterProducts()

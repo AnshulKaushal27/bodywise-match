@@ -30,6 +30,8 @@ import {
   SessionPatch,
   SessionEvent,
   ShortlistFamilyItem,
+  ProductFilterCriteria,
+  parseSearchToFilterParams,
 } from "@bodywise/shared";
 
 export type {
@@ -816,6 +818,65 @@ export async function fetchSessionPreview(state: MatchSessionState): Promise<{
     unmatchedBenefit: shortlist.unmatchedBenefit,
     canExploreOtherCategories: shortlist.canExploreOtherCategories,
     alternativeCategoryMatchesCount: shortlist.alternativeCategoryMatchesCount,
+  };
+}
+
+export interface ParsedFilterIntentResult {
+  request_id: string;
+  intent_type: "exact_name" | "concern_intent" | "filter_modification";
+  criteria: {
+    search?: string;
+    categories: string[];
+    formats: string[];
+    goals: string[];
+    fragrance: string;
+  };
+  explanation?: string;
+  source: "llm" | "fallback";
+}
+
+/**
+ * Calls Fastify /v1/match/parse-filter endpoint.
+ * Evaluates the query using Groq LLM (with deterministic fallback),
+ * determining whether the input is an exact product name, a wellness concern, or a filter modification.
+ */
+export async function parseFilterIntent(
+  query: string,
+  activeFilters?: ProductFilterCriteria
+): Promise<ParsedFilterIntentResult> {
+  const { baseUrl } = resolveApiUrls();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+
+  try {
+    const res = await fetch(`${baseUrl}/match/parse-filter`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, active_filters: activeFilters }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Fallback to client-side deterministic parse
+  }
+
+  // Pure fallback
+  const fallback = parseSearchToFilterParams(query);
+  return {
+    request_id: "client_fallback",
+    intent_type: fallback.search ? "exact_name" : "concern_intent",
+    criteria: {
+      search: fallback.search,
+      categories: fallback.categories,
+      formats: fallback.formats,
+      goals: fallback.goals,
+      fragrance: fallback.fragrance,
+    },
+    source: "fallback",
   };
 }
 

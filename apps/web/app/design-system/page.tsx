@@ -71,6 +71,7 @@ export default function DesignSystemPage() {
                 alt="Bodywise Match Logo"
                 width={26}
                 height={26}
+                unoptimized
                 className="w-6 h-6 object-contain"
               />
             </div>

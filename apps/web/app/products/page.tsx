@@ -606,31 +606,6 @@ function ProductsPageContent() {
               </div>
             </div>
 
-            {/* Informative separation banner */}
-            <div className="mb-6 p-4 md:p-5 rounded-card bg-surface-sage/35 border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="font-display font-bold text-base md:text-lg text-brand-deep">
-                    Products Not Matching Current Filters
-                  </h2>
-                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-surface text-muted border border-border">
-                    {nonMatchingProducts.length} available
-                  </span>
-                </div>
-                <p className="text-xs text-charcoal/75 mt-1 leading-relaxed">
-                  These items do not pass your active filter criteria, but remain available here for quick comparison and discovery.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={clearAllFilters}
-                className="text-xs font-bold text-brand-evergreen hover:text-brand-deep underline focus-ring px-2 py-1 shrink-0 self-start sm:self-auto"
-              >
-                Reset filters to show all
-              </button>
-            </div>
-
             {/* Grid of Non-Matching Products */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {nonMatchingProducts.map((product) => (

@@ -34,6 +34,7 @@ import {
 } from "@bodywise/shared";
 import { handleChatTurn, PageContext } from "./services/chat-pipeline";
 import { testLlmDebug } from "./llm/groqClient";
+import { parseFilterIntent } from "./services/filter-intent-service";
 
 interface SerializedReq {
   id?: string | number;
@@ -299,6 +300,45 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
             shortlist: turnResult.shortlist,
             turn_result: turnResult,
           };
+        }
+      );
+
+      // POST /v1/match/parse-filter (Intelligent LLM filter & query intent parser)
+      routeScope.post(
+        "/v1/match/parse-filter",
+        {
+          config: {
+            rateLimit: {
+              max: 60,
+              timeWindow: "1 minute",
+            },
+          },
+        },
+        async (req, reply) => {
+          const body = (req.body || {}) as {
+            query?: string;
+            active_filters?: {
+              search?: string;
+              categories?: string[];
+              formats?: string[];
+              goals?: string[];
+              fragrance?: string;
+            };
+          };
+
+          if (typeof body.query !== "string") {
+            return reply.status(400).send({
+              error: "Invalid input. 'query' string is required.",
+            });
+          }
+
+          const result = await parseFilterIntent({
+            query: body.query,
+            active_filters: body.active_filters,
+            requestId: String(req.id),
+          });
+
+          return result;
         }
       );
 

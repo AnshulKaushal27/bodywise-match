@@ -76,7 +76,6 @@ describe("Catalogue Directory Route (apps/web/app/products/page.tsx)", () => {
     mockSearchParams = new URLSearchParams();
     const html = renderToStaticMarkup(React.createElement(ProductsPage));
     expect(html).not.toContain("Other Catalogue Products");
-    expect(html).not.toContain("Products Not Matching Current Filters");
     expect(html).not.toContain("Outside active filter");
   });
 
@@ -87,10 +86,9 @@ describe("Catalogue Directory Route (apps/web/app/products/page.tsx)", () => {
     expect(html).toContain("matching active filters");
     expect(html).toContain("88 other in catalogue");
     expect(html).toContain("Matching Filters");
-    // Separation divider and header
+    // Separation divider
     expect(html).toContain("Other Catalogue Products");
-    expect(html).toContain("Products Not Matching Current Filters");
-    expect(html).toContain("88 available");
+    expect(html).toContain("(88)");
     expect(html).toContain("Outside active filter");
   });
 
@@ -99,8 +97,7 @@ describe("Catalogue Directory Route (apps/web/app/products/page.tsx)", () => {
     const html = renderToStaticMarkup(React.createElement(ProductsPage));
     expect(html).toContain("No products match your active filters");
     expect(html).toContain("Other Catalogue Products");
-    expect(html).toContain("Products Not Matching Current Filters");
-    expect(html).toContain("107 available");
+    expect(html).toContain("(107)");
   });
 
   describe("FilterDialog Component", () => {

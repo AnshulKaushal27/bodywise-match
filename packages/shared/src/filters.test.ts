@@ -140,13 +140,13 @@ describe("filterProducts pure filter logic (packages/shared/src/filters.ts)", ()
       expect(matches.length).toBeGreaterThan(0);
     });
 
-    it("prevents conversational stopwords in search from breaking structured filters", () => {
-      const brokenFilterAttempt = filterProducts(allProducts, {
-        goals: ["oil_control"],
-        search: "pe bahut rehta",
-      });
-      expect(brokenFilterAttempt.length).toBeGreaterThan(0);
-      expect(brokenFilterAttempt.every((p) => p.supported_goals.includes("oil_control"))).toBe(true);
+    it("ensures conversational concerns do not leak residual search keywords that break filters", () => {
+      const parsed = parseSearchToFilterParams("meri skin pe bahut tel rehta hai");
+      expect(parsed.goals).toContain("oil_control");
+      expect(parsed.search).toBeUndefined();
+      const matches = filterProducts(allProducts, parsed);
+      expect(matches.length).toBeGreaterThan(0);
+      expect(matches.every((p) => p.supported_goals.includes("oil_control"))).toBe(true);
     });
 
     it("parses 'salicylic acid body wash for back acne' with category body_wash, goal body_bumps_look, and search 'salicylic acid'", () => {
@@ -179,10 +179,23 @@ describe("filterProducts pure filter logic (packages/shared/src/filters.ts)", ()
       expect(empty.search).toBeUndefined();
     });
 
-    it("parses roll-on query with clean roll_on category and does not confuse it with serum", () => {
-      const parsed = parseSearchToFilterParams("underarm roll on");
-      expect(parsed.categories).toContain("roll_on");
-      expect(parsed.categories).not.toContain("serum");
+    it("parses Hinglish hair thinning query 'mere baal kam ho rhe hain' to hair goals without residual junk search", () => {
+      const parsed = parseSearchToFilterParams("mere baal kam ho rhe hain");
+      expect(parsed.goals).toContain("hair_fall_appearance");
+      expect(parsed.goals).toContain("hair_density_appearance");
+      expect(parsed.search).toBeUndefined();
+
+      const matched = filterProducts(DEMO_CATALOGUE_SEED, parsed);
+      expect(matched.length).toBeGreaterThan(0);
+      expect(matched.some((p) => p.official_name.includes("Anti Hair Fall Kit"))).toBe(true);
+    });
+
+    it("parses 'hair fall kit' to kit category and hair_fall_appearance goal", () => {
+      const parsed = parseSearchToFilterParams("hair fall kit");
+      expect(parsed.categories).toContain("kit");
+      expect(parsed.goals).toContain("hair_fall_appearance");
+      const matched = filterProducts(DEMO_CATALOGUE_SEED, parsed);
+      expect(matched.some((p) => p.official_name === "Anti Hair Fall Kit")).toBe(true);
     });
 
     it("filters products strictly by roll_on and moisturizer categories", () => {

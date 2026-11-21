@@ -46,6 +46,7 @@ export function SiteHeader({ className }: SiteHeaderProps) {
               width={32}
               height={32}
               priority
+              unoptimized
               className="w-8 h-8 object-contain shrink-0 group-hover:scale-105 transition-transform"
             />
             <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight hidden sm:inline">

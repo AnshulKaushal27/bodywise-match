@@ -25,14 +25,14 @@ CONTROLLED CONCEPTS:
 - sun_protection: Daily broad-spectrum sun protection (synonyms: sunscreen, spf, uv protection)
 - scalp_comfort: Scalp comfort & itch relief (synonyms: itchy scalp, dry scalp, irritated scalp)
 - frizz_control: Frizz control & strand softness (synonyms: frizz, flyaways, rough hair, unruly hair)
-- hair_fall_look: Reduce visible hair fall & shedding (synonyms: hair fall, shedding, hair loss appearance)
+- hair_fall_look: Reduce visible hair fall & shedding (synonyms: hair fall, shedding, hair loss appearance, baal jhadna, baal girna, baal tutna, comb me baal)
 - body_bumps_look: Reduce the look of body bumps (synonyms: strawberry legs, keratosis pilaris, rough bumps)
 - underarm_freshness: Underarm odor freshness (synonyms: underarm odor, body odor, deodorant)
 - fragrance_free: Fragrance-free formula (synonyms: unscented, no perfume)
 - sensitive_friendly: Sensitive-skin friendly (synonyms: delicate skin, reactive skin, gentle)
 - dandruff_clarifying: Flake & dandruff clarifying (synonyms: dandruff, scalp flakes, anti-dandruff)
-- hair_density_look: Visible hairline & parting density (synonyms: hair thinning, hair density, fuller hair)
-- rough_texture_smoothing: Rough skin texture smoothing (synonyms: rough texture, bumpy skin)
+- hair_density_look: Visible hairline & parting density (synonyms: hair thinning, hair density, fuller hair, baal kam ho rahe, baal kam ho rhe, baal kam hona, patle baal)
+- rough_texture_smoothing: Rough skin texture smoothing (synonyms: rough texture, bumpy skin, cracked heels, dry feet, fati aedi, paer ki aedi, heel repair, cracked feet; preferred_category: roll_on)
 
 ALLOWED CATEGORIES:
 "body_wash", "face_wash", "serum", "shampoo", "conditioner", "hair_oil", "supplement", "sunscreen", "moisturizer", "roll_on", or null

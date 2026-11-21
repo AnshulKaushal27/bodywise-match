@@ -6,6 +6,7 @@ import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { useMotion } from "@/lib/motion";
 import { CATALOGUE_STATS } from "@/lib/catalogueStats";
 import { parseSearchToFilterParams } from "@bodywise/shared";
+import { parseFilterIntent } from "@/lib/api";
 
 // Verified sample queries known to match real catalogue products
 const VERIFIED_QUERIES = [
@@ -168,7 +169,7 @@ export function HeroQueryInput() {
     };
   }, [isMotionOn, isTabVisible, isFocused, userQuery]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const typed = userQuery.trim();
     if (typed) {
@@ -178,26 +179,41 @@ export function HeroQueryInput() {
       } catch {
         // storage quota fallback
       }
-      const criteria = parseSearchToFilterParams(typed);
-      const params = new URLSearchParams();
-      if (criteria.search) {
-        params.set("q", criteria.search);
+
+      try {
+        const intent = await parseFilterIntent(typed);
+        const params = new URLSearchParams();
+        if (intent.criteria.search) {
+          params.set("q", intent.criteria.search);
+        }
+        if (intent.criteria.categories && intent.criteria.categories.length > 0) {
+          params.set("category", intent.criteria.categories.join(","));
+        }
+        if (intent.criteria.goals && intent.criteria.goals.length > 0) {
+          params.set("goal", intent.criteria.goals.join(","));
+        }
+        if (intent.criteria.formats && intent.criteria.formats.length > 0) {
+          params.set("format", intent.criteria.formats.join(","));
+        }
+        if (intent.criteria.fragrance && intent.criteria.fragrance !== "all") {
+          params.set("fragrance", intent.criteria.fragrance);
+        }
+        const qs = params.toString();
+        router.push(qs ? `/products?${qs}` : "/products");
+        return;
+      } catch {
+        // Fallback
+        const criteria = parseSearchToFilterParams(typed);
+        const params = new URLSearchParams();
+        if (criteria.search) params.set("q", criteria.search);
+        if (criteria.categories && criteria.categories.length > 0) params.set("category", criteria.categories.join(","));
+        if (criteria.goals && criteria.goals.length > 0) params.set("goal", criteria.goals.join(","));
+        if (criteria.formats && criteria.formats.length > 0) params.set("format", criteria.formats.join(","));
+        if (criteria.fragrance && criteria.fragrance !== "all") params.set("fragrance", criteria.fragrance);
+        const qs = params.toString();
+        router.push(qs ? `/products?${qs}` : "/products");
+        return;
       }
-      if (criteria.categories && criteria.categories.length > 0) {
-        params.set("category", criteria.categories.join(","));
-      }
-      if (criteria.goals && criteria.goals.length > 0) {
-        params.set("goal", criteria.goals.join(","));
-      }
-      if (criteria.formats && criteria.formats.length > 0) {
-        params.set("format", criteria.formats.join(","));
-      }
-      if (criteria.fragrance && criteria.fragrance !== "all") {
-        params.set("fragrance", criteria.fragrance);
-      }
-      const qs = params.toString();
-      router.push(qs ? `/products?${qs}` : "/products");
-      return;
     }
 
     // If user submits empty, clear previous drafts and go to /products cleanly

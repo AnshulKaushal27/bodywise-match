@@ -163,6 +163,7 @@ export function LivePreview({ onSeeMatches, candidateCount }: LivePreviewProps) 
                           alt={fam.name}
                           width={40}
                           height={40}
+                          unoptimized
                           className="object-cover"
                         />
                       ) : (

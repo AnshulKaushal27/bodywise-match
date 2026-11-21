@@ -28,14 +28,14 @@ CONTROLLED GOAL IDS (use ONLY these IDs for the "goal" field):
 - "oil_control" (excess oil, shiny skin, oily scalp, sebum control)
 - "hydration_barrier" (dry skin, tight skin, hydration, moisture balance)
 - "dark_spots_look" (sun spots, surface discoloration appearance)
-- "hair_fall_appearance" (comb shedding, visible hair fall reduction)
+- "hair_fall_appearance" (comb shedding, visible hair fall reduction, baal jhadna, baal girna, baal tutna)
 - "scalp_comfort" (itchy scalp, dry scalp, flake comfort)
 - "frizz_control" (frizzy hair, flyaways, smoothing)
 - "sun_protection" (daily SPF, broad spectrum UV care)
 - "underarm_odor_freshness" (underarm odor, freshness, roll-on deodorizing)
 - "underarm_texture_smoothing" (uneven underarm texture, armpit darkness appearance)
-- "rough_texture_smoothing" (rough patches, flaky skin, coarse skin surface)
-- "hair_density_appearance" (visible thinning, hairline density, parting fullness)
+- "rough_texture_smoothing" (rough patches, flaky skin, coarse skin surface, cracked heels, dry cracked feet, fati aedi, paer ki aedi, heel repair - primary category: roll_on foot roll-on)
+- "hair_density_appearance" (visible thinning, hairline density, parting fullness, baal kam ho rahe, baal kam ho rhe, baal kam hona, patle baal)
 - "scalp_clarifying" (product buildup, oily greasy roots)
 
 If the user's concern does not match any of these controlled goals, set "goal": null.

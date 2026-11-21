@@ -407,6 +407,7 @@ export default function HomePage() {
                     alt="Bodywise Match Logo"
                     width={24}
                     height={24}
+                    unoptimized
                     className="w-5 h-5 object-contain"
                   />
                 </div>
