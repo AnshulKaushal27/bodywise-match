@@ -22,7 +22,6 @@ import {
   Button,
   Card,
   Chip,
-  DemoBadge,
   ProgressBar,
   Skeleton,
   Stepper,
@@ -323,7 +322,6 @@ export default function MatchStep1Page() {
             <span>Back to home</span>
           </Link>
           <div className="flex items-center gap-3">
-            <DemoBadge />
             <span className="font-display font-bold text-brand-deep text-sm hidden sm:inline">
               Bodywise Match
             </span>

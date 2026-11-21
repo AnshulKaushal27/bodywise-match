@@ -19,7 +19,14 @@ export interface HelpIssueConfig {
   checklist: HelpChecklistItem[];
   fields: HelpFieldDefinition[];
   caution: string;
-  generateTemplate: (values: Record<string, string>) => string;
+  generateTemplate: (values: Record<string, string>, checkedLabels?: string[]) => string;
+}
+
+function formatChecklist(checkedLabels?: string[]): string {
+  if (!checkedLabels || checkedLabels.length === 0) {
+    return "- [No checklist items selected yet]";
+  }
+  return checkedLabels.map((l) => `- ${l}`).join("\n");
 }
 
 export const HELP_ISSUES: HelpIssueConfig[] = [
@@ -36,6 +43,8 @@ export const HELP_ISSUES: HelpIssueConfig[] = [
       { id: "c4", label: "Confirmed order date is at least 3-5 business days ago" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "order_id", label: "Order ID", placeholder: "e.g. BW-1094821" },
       { id: "order_date", label: "Order Date", placeholder: "YYYY-MM-DD", type: "date" },
       { id: "expected_date", label: "Promised / Expected Delivery Date", placeholder: "YYYY-MM-DD", type: "date" },
@@ -43,7 +52,7 @@ export const HELP_ISSUES: HelpIssueConfig[] = [
       { id: "awb_number", label: "Tracking / AWB Number", placeholder: "e.g. 14920381029" },
     ],
     caution: "We cannot check live courier databases or logistics manifests. This template compiles your tracking identifiers for official customer care escalation.",
-    generateTemplate: (v) => `Subject: Delivery Delay Inquiry - Order ${v.order_id || "[Order ID]"}
+    generateTemplate: (v, checked) => `Subject: Delivery Delay Inquiry - Order ${v.order_id || "[Order ID]"}
 
 Dear Be Bodywise Customer Care,
 
@@ -56,11 +65,14 @@ Order Details:
 - Courier Partner: ${v.courier_name || "[Not provided]"}
 - AWB / Tracking Number: ${v.awb_number || "[Not provided]"}
 
-I have checked with household members and verified my delivery address. Could you please check with the courier team and provide an updated delivery status?
+Verification Steps Completed:
+${formatChecklist(checked)}
+
+Could you please check with the courier team and provide an updated delivery status?
 
 Thank you,
-[Your Name]
-[Your Registered Phone Number]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 2. Failed delivery attempt
@@ -75,6 +87,8 @@ Thank you,
       { id: "c3", label: "Checked courier tracking page for automatic re-attempt schedule" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "order_id", label: "Order ID", placeholder: "e.g. BW-1094821" },
       { id: "awb_number", label: "Tracking / AWB Number", placeholder: "e.g. 14920381029" },
       { id: "attempt_date_time", label: "Date & Time Marked as Attempted", placeholder: "e.g. 18 Nov, 2:30 PM" },
@@ -82,21 +96,25 @@ Thank you,
       { id: "landmark_instructions", label: "Landmark / Delivery Instructions", placeholder: "e.g. Opposite City Park, 2nd floor" },
     ],
     caution: "Courier partners typically attempt delivery up to 3 times before returning to origin (RTO). Contacting official support promptly helps prevent return.",
-    generateTemplate: (v) => `Subject: Failed Delivery Attempt Assistance - Order ${v.order_id || "[Order ID]"}
+    generateTemplate: (v, checked) => `Subject: Failed Delivery Attempt Assistance - Order ${v.order_id || "[Order ID]"}
 
 Dear Be Bodywise Support Team,
 
 My tracking status indicates a delivery attempt was made for Order ${v.order_id || "[Order ID]"} (AWB: ${v.awb_number || "[AWB]"}) on ${v.attempt_date_time || "[Date/Time]"}, but no courier contacted me.
 
-Please request the delivery executive to re-attempt delivery with the following coordinates:
-- Primary Phone: [Your registered phone]
+Delivery Coordinates:
+- Primary Phone: ${v.customer_phone || "[Your Phone Number]"}
 - Alternate Phone: ${v.alternate_phone || "[Not provided]"}
 - Delivery Address & Landmark: ${v.landmark_instructions || "[Provide address landmark]"}
+
+Verification Steps Completed:
+${formatChecklist(checked)}
 
 I am available to receive the delivery. Please prevent this parcel from being marked for return (RTO).
 
 Thank you,
-[Your Name]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 3. Damaged or leaking package
@@ -112,6 +130,8 @@ Thank you,
       { id: "c4", label: "Retained original shipping packaging until support confirms resolution" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "order_id", label: "Order ID", placeholder: "e.g. BW-1094821" },
       { id: "delivery_date", label: "Delivery Date", placeholder: "YYYY-MM-DD", type: "date" },
       { id: "damaged_product", label: "Damaged Product Name", placeholder: "e.g. 1% Salicylic Acid Body Wash" },
@@ -119,7 +139,7 @@ Thank you,
       { id: "leak_details", label: "Description of Damage", placeholder: "e.g. Pump broken in transit, half of bottle leaked into box" },
     ],
     caution: "Safety Notice: Never apply liquid from a shattered bottle. We cannot label a batch counterfeit, fake, or expired from photos. Batch codes must be verified by official manufacturer quality control.",
-    generateTemplate: (v) => `Subject: Damaged / Leaking Product Report - Order ${v.order_id || "[Order ID]"}
+    generateTemplate: (v, checked) => `Subject: Damaged / Leaking Product Report - Order ${v.order_id || "[Order ID]"}
 
 Dear Be Bodywise Quality Care,
 
@@ -130,6 +150,9 @@ Damage Details:
 - Packaging Batch Code: ${v.batch_number || "[Batch Number on bottle]"}
 - Damage Observed: ${v.leak_details || "[Describe damage/leakage]"}
 
+Verification Steps Completed:
+${formatChecklist(checked)}
+
 I have attached high-resolution photos showing:
 1. The outer shipping box and courier label
 2. The damaged bottle seal/cap
@@ -138,8 +161,8 @@ I have attached high-resolution photos showing:
 Please advise on replacement or credit arrangements as the product cannot be used safely.
 
 Thank you,
-[Your Name]
-[Your Registered Phone Number]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 4. Near-expiry concern
@@ -154,6 +177,8 @@ Thank you,
       { id: "c3", label: "Calculated remaining months before expiration" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "order_id", label: "Order ID", placeholder: "e.g. BW-1094821" },
       { id: "product_name", label: "Product Name", placeholder: "e.g. 4% AHA BHA Underarm Roll-On" },
       { id: "batch_number", label: "Batch Number", placeholder: "e.g. B26-092" },
@@ -161,7 +186,7 @@ Thank you,
       { id: "exp_date", label: "Printed EXP Date", placeholder: "e.g. 01/2027" },
     ],
     caution: "We cannot confirm batch validity or chemical longevity from photos. Manufacturer guidelines generally maintain products within the stated EXP date when stored as directed.",
-    generateTemplate: (v) => `Subject: Expiration Date Clarification - Order ${v.order_id || "[Order ID]"}
+    generateTemplate: (v, checked) => `Subject: Expiration Date Clarification - Order ${v.order_id || "[Order ID]"}
 
 Dear Be Bodywise Customer Care,
 
@@ -173,10 +198,14 @@ Product Information:
 - Printed Manufacturing Date (MFG): ${v.mfg_date || "[MFG Date]"}
 - Printed Expiry Date (EXP): ${v.exp_date || "[EXP Date]"}
 
+Verification Steps Completed:
+${formatChecklist(checked)}
+
 Given the volume of this product, I would like to verify whether this shelf life meets Be Bodywise's standard freshness window, and whether a replacement from a more recent batch is available.
 
 Thank you,
-[Your Name]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 5. Payment uncertainty
@@ -191,6 +220,8 @@ Thank you,
       { id: "c3", label: "Waited 15-30 minutes for payment gateway webhook reconciliation" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "amount_charged", label: "Total Amount Debited (INR)", placeholder: "e.g. 549" },
       { id: "wallet_credit_used", label: "Wallet Credit Used (if any)", placeholder: "e.g. 50 (or 0)" },
       { id: "discount_coupon", label: "Coupon Code Applied (if any)", placeholder: "e.g. GLOW10" },
@@ -200,7 +231,7 @@ Thank you,
       { id: "order_confirmation_status", label: "Order Status Observed", placeholder: "e.g. Screen showed error, money deducted" },
     ],
     caution: "We do not have access to payment gateway logs or merchant banking systems. Banking gateways automatically refund un-captured deductions within 3-5 business days.",
-    generateTemplate: (v) => `Subject: Payment Deducted - Order Confirmation Query
+    generateTemplate: (v, checked) => `Subject: Payment Deducted - Order Confirmation Query
 
 Dear Be Bodywise Billing Support,
 
@@ -215,11 +246,14 @@ Payment Summary (User-reported values):
 - Transaction Timestamp: ${v.transaction_date_time || "[Date/Time]"}
 - Observed Status: ${v.order_confirmation_status || "Payment successful, no order ID"}
 
+Verification Steps Completed:
+${formatChecklist(checked)}
+
 Could you please verify if this transaction was captured and matched to an Order ID, or if it will be automatically refunded by the gateway?
 
 Thank you,
-[Your Name]
-[Your Registered Phone Number / Email]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 6. Unresolved support request
@@ -234,6 +268,8 @@ Thank you,
       { id: "c3", label: "Confirmed at least 24-48 business hours have passed since last interaction" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "ticket_number", label: "Previous Ticket ID / Subject", placeholder: "e.g. TIK-84019 or Re: Order Delay" },
       { id: "initial_contact_date", label: "Initial Contact Date", placeholder: "YYYY-MM-DD", type: "date" },
       { id: "last_followup_date", label: "Last Follow-Up Date", placeholder: "YYYY-MM-DD", type: "date" },
@@ -241,7 +277,7 @@ Thank you,
       { id: "summary_of_issue", label: "Brief Summary of Unresolved Matter", placeholder: "e.g. Awaiting refund confirmation for returned parcel" },
     ],
     caution: "We cannot prioritize or change the queue status of merchant support tickets. This prepares an organized follow-up thread documenting previous contact dates.",
-    generateTemplate: (v) => `Subject: Escalation Request: Follow-up on Ticket ${v.ticket_number || "[Ticket ID]"}
+    generateTemplate: (v, checked) => `Subject: Escalation Request: Follow-up on Ticket ${v.ticket_number || "[Ticket ID]"}
 
 Dear Customer Care Supervisor,
 
@@ -256,11 +292,14 @@ Interaction Timeline:
 Summary of Unresolved Issue:
 ${v.summary_of_issue || "[Describe the pending resolution, e.g., missing refund / pending replacement]"}
 
+Verification Steps Completed:
+${formatChecklist(checked)}
+
 As the standard response window has elapsed, please escalate this request to a senior representative.
 
 Thank you,
-[Your Name]
-[Registered Phone / Email]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 
   // 7. Product reaction or tolerability
@@ -276,6 +315,8 @@ Thank you,
       { id: "c4", label: "Noted date, time, and application area" },
     ],
     fields: [
+      { id: "customer_name", label: "Your Full Name", placeholder: "e.g. Priya Sharma" },
+      { id: "customer_phone", label: "Your Phone Number", placeholder: "e.g. +91 98765 43210" },
       { id: "product_name", label: "Product Name", placeholder: "e.g. 1% Salicylic Acid Body Wash" },
       { id: "batch_number", label: "Batch Code (printed on bottle)", placeholder: "e.g. B26-104A" },
       { id: "first_use_date", label: "Date of First Application", placeholder: "YYYY-MM-DD", type: "date" },
@@ -283,7 +324,7 @@ Thank you,
       { id: "prior_patch_test", label: "Was a forearm patch test done?", placeholder: "e.g. Yes / No" },
     ],
     caution: "Health & Safety Warning: Stop using the product and consult a qualified health professional if you have a significant reaction. We provide zero clinical evaluations and do not assess medical severity.",
-    generateTemplate: (v) => `Subject: Product Tolerability / Adverse Reaction Notice - ${v.product_name || "[Product Name]"}
+    generateTemplate: (v, checked) => `Subject: Product Tolerability / Adverse Reaction Notice - ${v.product_name || "[Product Name]"}
 
 Dear Be Bodywise Safety & Quality Team,
 
@@ -296,10 +337,13 @@ Incident Details:
 - Patch Test Conducted: ${v.prior_patch_test || "[Yes / No]"}
 - Reaction Experienced: ${v.symptoms_observed || "[Describe symptoms and timeline]"}
 
+Verification Steps Completed:
+${formatChecklist(checked)}
+
 I have stopped using the product completely. Please log this batch for quality review and advise on refund or product return procedure.
 
 Thank you,
-[Your Name]
-[Registered Contact]`,
+${v.customer_name || "[Your Name]"}
+${v.customer_phone || "[Your Phone Number]"}`,
   },
 ];

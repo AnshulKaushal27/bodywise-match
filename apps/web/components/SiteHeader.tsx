@@ -27,7 +27,7 @@ export function SiteHeader({ className }: SiteHeaderProps) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 bg-transparent transition-colors",
+        "sticky top-0 z-30 backdrop-blur-md bg-paper/60 transition-colors",
         className
       )}
     >

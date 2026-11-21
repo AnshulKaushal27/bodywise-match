@@ -139,9 +139,6 @@ function MatchResultsInner() {
     }
   }, [shortlist.stateHash, shortlist.totalFamilies]);
 
-  // Header "DEMO DATA" badge shown ONLY when current page displays >= 1 product with is_demo = true
-  const hasDemoProducts = shortlist.topFamilies.some((f) => f.primaryProduct.is_demo === true);
-
   const [howWeMatchedOpen, setHowWeMatchedOpen] = React.useState(true);
 
   // Compare Checkbox State
@@ -334,7 +331,6 @@ function MatchResultsInner() {
             <span>Back to Step 2</span>
           </Link>
           <div className="flex items-center gap-3">
-            {hasDemoProducts && <DemoBadge />}
             <span className="font-display font-bold text-brand-deep text-sm hidden sm:inline">
               Bodywise Match
             </span>

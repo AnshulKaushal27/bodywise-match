@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, X } from "@phosphor-icons/react/dist/ssr";
 import {
   Button,
-  DemoBadge,
   Stepper,
   StepItem,
 } from "@/components/ui";
@@ -55,7 +54,6 @@ function MatchConfirmInner() {
   }, [state]);
 
   const candidateCount = candidateFamilies.length;
-  const hasDemoProducts = candidateFamilies.some((f) => f.primaryProduct?.is_demo === true);
 
   const handleSeeMatches = () => {
     // Navigate to step 3 (/match/results)
@@ -90,9 +88,7 @@ function MatchConfirmInner() {
             Bodywise Match
           </span>
 
-          <div className="flex items-center gap-2">
-            {hasDemoProducts && <DemoBadge />}
-          </div>
+          <div className="flex items-center gap-2" />
         </div>
       </header>
 

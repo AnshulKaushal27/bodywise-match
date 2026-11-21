@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, MagnifyingGlass, Play, Pause } from "@phosphor-icons/react";
+import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { useMotion } from "@/lib/motion";
 import { CATALOGUE_STATS } from "@/lib/catalogueStats";
 
@@ -110,7 +110,6 @@ export function HeroRotatingWord() {
 export function HeroQueryInput() {
   const router = useRouter();
   const { isMotionOn, isTabVisible } = useMotion();
-  const { isPaused, togglePaused } = useHeroRotationPausedState();
   const [userQuery, setUserQuery] = React.useState("");
   const [isFocused, setIsFocused] = React.useState(false);
   const [placeholderText, setPlaceholderText] = React.useState(VERIFIED_QUERIES[0]);
@@ -215,29 +214,6 @@ export function HeroQueryInput() {
           <span>Find my match</span>
           <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
         </button>
-      </div>
-
-      <div className="flex items-center justify-between px-2 pt-2 text-[11px] text-muted">
-        <span>Try: salicylic acid, niacinamide, or dandruff shampoo</span>
-        <div className="flex items-center gap-2">
-          <span className="hidden sm:inline">Zero login &bull; Instant results</span>
-          {isMotionOn && (
-            <button
-              type="button"
-              onClick={togglePaused}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] text-muted hover:text-brand-deep hover:bg-surface-sage/50 focus-ring transition-colors"
-              aria-label={isPaused ? "Resume category rotation" : "Pause category rotation"}
-              title={isPaused ? "Resume rotation" : "Pause rotation"}
-            >
-              {isPaused ? (
-                <Play className="w-3 h-3 text-brand-evergreen" weight="fill" aria-hidden="true" />
-              ) : (
-                <Pause className="w-3 h-3 text-brand-evergreen" weight="fill" aria-hidden="true" />
-              )}
-              <span className="hidden md:inline">{isPaused ? "Resume" : "Pause"}</span>
-            </button>
-          )}
-        </div>
       </div>
     </form>
   );

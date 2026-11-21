@@ -18,7 +18,7 @@ import {
   HELP_ISSUES,
   OFFICIAL_SUPPORT_CHANNELS,
 } from "@bodywise/shared";
-import { DemoBadge, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 
 interface HelpIssueClientProps {
   issueSlug?: string;
@@ -38,7 +38,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
 
   // 3. Editable Message Template State
   const [messageText, setMessageText] = React.useState<string>(() =>
-    issueConfig.generateTemplate({})
+    issueConfig.generateTemplate({}, [])
   );
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
   const [hasManuallyEdited, setHasManuallyEdited] = React.useState<boolean>(false);
@@ -46,25 +46,37 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
   // Notice for cleared data
   const [clearedNotice, setClearedNotice] = React.useState<boolean>(false);
 
+  // Helper to map checked IDs to human labels
+  const getCheckedLabels = React.useCallback(
+    (ids: string[]) =>
+      issueConfig.checklist.filter((item) => ids.includes(item.id)).map((item) => item.label),
+    [issueConfig.checklist]
+  );
+
   // Load from localStorage on mount
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       try {
+        let currentChecked: string[] = [];
         const storedChecklist = localStorage.getItem(checklistStorageKey);
         if (storedChecklist) {
-          setCheckedIds(JSON.parse(storedChecklist));
+          currentChecked = JSON.parse(storedChecklist);
+          setCheckedIds(currentChecked);
         }
 
+        let currentFields: Record<string, string> = {};
         const storedFields = localStorage.getItem(fieldsStorageKey);
         if (storedFields) {
-          const parsed = JSON.parse(storedFields);
-          setFieldValues(parsed);
-          setMessageText(issueConfig.generateTemplate(parsed));
-        } else {
-          setMessageText(issueConfig.generateTemplate({}));
+          currentFields = JSON.parse(storedFields);
+          setFieldValues(currentFields);
         }
+
+        const labels = issueConfig.checklist
+          .filter((item) => currentChecked.includes(item.id))
+          .map((item) => item.label);
+        setMessageText(issueConfig.generateTemplate(currentFields, labels));
       } catch {
-        setMessageText(issueConfig.generateTemplate({}));
+        setMessageText(issueConfig.generateTemplate({}, []));
       }
     }
   }, [checklistStorageKey, fieldsStorageKey, issueConfig]);
@@ -77,6 +89,14 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         : [...prev, id];
       if (typeof window !== "undefined") {
         localStorage.setItem(checklistStorageKey, JSON.stringify(updated));
+      }
+
+      // Automatically update message template with new checklist state
+      if (!hasManuallyEdited) {
+        const labels = issueConfig.checklist
+          .filter((item) => updated.includes(item.id))
+          .map((item) => item.label);
+        setMessageText(issueConfig.generateTemplate(fieldValues, labels));
       }
       return updated;
     });
@@ -92,7 +112,10 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
 
       // Automatically update message template unless user has manually customized it
       if (!hasManuallyEdited) {
-        setMessageText(issueConfig.generateTemplate(updated));
+        const labels = issueConfig.checklist
+          .filter((item) => checkedIds.includes(item.id))
+          .map((item) => item.label);
+        setMessageText(issueConfig.generateTemplate(updated, labels));
       }
       return updated;
     });
@@ -113,7 +136,8 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
 
   // Reset to auto-filled template
   const handleResetTemplate = () => {
-    setMessageText(issueConfig.generateTemplate(fieldValues));
+    const labels = getCheckedLabels(checkedIds);
+    setMessageText(issueConfig.generateTemplate(fieldValues, labels));
     setHasManuallyEdited(false);
   };
 
@@ -125,7 +149,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
         localStorage.removeItem(fieldsStorageKey);
         setCheckedIds([]);
         setFieldValues({});
-        setMessageText(issueConfig.generateTemplate({}));
+        setMessageText(issueConfig.generateTemplate({}, []));
         setHasManuallyEdited(false);
         setClearedNotice(true);
         setTimeout(() => setClearedNotice(false), 4000);
@@ -148,8 +172,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
             <span>All Help Categories</span>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <DemoBadge />
+          <div className="flex items-center gap-2">
             <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
               Bodywise Match
             </span>
@@ -301,7 +324,7 @@ export function HelpIssueClient({ issueSlug, issueConfig: propConfig }: HelpIssu
                 3. Generated Support Message Template
               </h2>
               <p className="text-xs text-muted">
-                Pre-filled from your details above. You can freely edit this draft before copying.
+                Pre-filled from your details and verified checklist above. You can freely edit this draft before copying.
               </p>
             </div>
 

@@ -83,5 +83,29 @@ describe("Help Issue Dynamic Detail (apps/web/app/help/[issue]/HelpIssueClient.t
       expect(html).toContain("Official Email Support");
       expect(html).toContain("Official WhatsApp Support");
     });
+
+    it("renders 'Your Full Name' and 'Your Phone Number' fields across issue configurations", () => {
+      expect(html).toContain("Your Full Name");
+      expect(html).toContain("Your Phone Number");
+    });
+
+    it("generateTemplate includes name, phone, and selected checklist items in the output", () => {
+      const template = config.generateTemplate(
+        {
+          customer_name: "Priya Sharma",
+          customer_phone: "+91 98765 43210",
+          order_id: "BW-999888",
+        },
+        [
+          "Checked tracking link in official courier SMS or email (AWB number)",
+          "Confirmed order date is at least 3-5 business days ago",
+        ]
+      );
+      expect(template).toContain("Priya Sharma");
+      expect(template).toContain("+91 98765 43210");
+      expect(template).toContain("Verification Steps Completed:");
+      expect(template).toContain("- Checked tracking link in official courier SMS or email (AWB number)");
+      expect(template).toContain("- Confirmed order date is at least 3-5 business days ago");
+    });
   });
 });
