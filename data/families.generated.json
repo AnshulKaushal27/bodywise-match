@@ -1,0 +1,5697 @@
+[
+  {
+    "familyId": "fam-1-ketoconazole-dandruff-shampoo-250ml",
+    "canonical_name": "1% Ketoconazole Anti-Dandruff Shampoo",
+    "slug": "1-ketoconazole-dandruff-shampoo-250ml",
+    "category": "shampoo",
+    "format": "Liquid shampoo",
+    "variants": [
+      {
+        "variantId": "1-ketoconazole-dandruff-shampoo-250ml-v1",
+        "size_value": 250,
+        "size_unit": "mL",
+        "size_label": "250ml",
+        "sku": "1-ketoconazole-dandruff-shampoo-250ml",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-ketoconazole-dandruff-shampoo-250ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid shampoo designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Sodium Lauroyl Sarcosinate",
+        "Cocamidopropyl Betaine",
+        "Sodium Cocoyl Isethionate",
+        "Acrylates Copolymer",
+        "Capryloyl/Caproyl Methyl Glucamide (and) Lauroyl/Myristoyl Methyl Glucamide",
+        "Sodium Methyl Cocoyl Taurate",
+        "Cocamide MEA",
+        "Polyquaternium-7",
+        "PEG-7 Glyceryl Cocoate",
+        "Ketoconazole",
+        "Citric Acid",
+        "Phenoxyethanol and Ethylhexylglycerine",
+        "PEG-150 Distearate",
+        "Polypropylene Glycol Monolaurate",
+        "Fragrance",
+        "Sodium Hydroxide",
+        "Avena Sativa (Oat) Extract",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Disodium EDTA",
+        "CI16255."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "scalp_comfort",
+        "scalp_clarifying"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "1-ketoconazole-dandruff-shampoo-250ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-1-ketoconazole-dandruff-shampoo-150ml",
+    "canonical_name": "1% Ketoconazole Dandruff Shampoo",
+    "slug": "1-ketoconazole-dandruff-shampoo-150ml",
+    "category": "shampoo",
+    "format": "Liquid shampoo",
+    "variants": [
+      {
+        "variantId": "1-ketoconazole-dandruff-shampoo-150ml-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "1-ketoconazole-dandruff-shampoo-150ml",
+        "price_inr": 359,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-ketoconazole-dandruff-shampoo-150ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid shampoo designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Sodium Lauroyl Sarcosinate",
+        "Cocamidopropyl Betaine",
+        "Sodium Cocoyl Isethionate",
+        "Acrylates Copolymer",
+        "Capryloyl/Caproyl Methyl Glucamide (and) Lauroyl/Myristoyl Methyl Glucamide",
+        "Sodium Methyl Cocoyl Taurate",
+        "Cocamide MEA",
+        "Polyquaternium-7",
+        "PEG-7 Glyceryl Cocoate",
+        "Ketoconazole",
+        "Citric Acid",
+        "Phenoxyethanol and Ethylhexylglycerine",
+        "PEG-150 Distearate",
+        "Polypropylene Glycol Monolaurate",
+        "Fragrance",
+        "Sodium Hydroxide",
+        "Avena Sativa (Oat) Extract",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Disodium EDTA",
+        "CI16255."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "scalp_comfort",
+        "scalp_clarifying"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "1-ketoconazole-dandruff-shampoo-150ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-1-peptide-ceramide-moisturizer",
+    "canonical_name": "1% Peptide & Ceramide Moisturizer",
+    "slug": "1-peptide-ceramide-moisturizer",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "1-peptide-ceramide-moisturizer-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "1-peptide-ceramide-moisturizer",
+        "price_inr": 374,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-peptide-ceramide-moisturizer",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy skin.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your skin regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+      "ingredients": [
+        "Aqua",
+        "1.2- Propandiol",
+        "Ethoxydiglycol",
+        "Dicaprylyl Carbonate",
+        "Caprylic Capric Triglyceride",
+        "Dimethicone",
+        "Arachidyl Alcohol (and) Behenyl Alcohol (and) Arachidyl Glucoside",
+        "Copper Tripeptide-1 (2000 ppm)",
+        "D-Panthenol",
+        "Sodium Acrylates Copolymer (and) Lecithin",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum",
+        "Tocopheryl Acetate",
+        "Allantoin",
+        "Hyaluronic Acid",
+        "Disodium EDTA",
+        "Xanthan Gum."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "hydration_barrier"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "1-peptide-ceramide-moisturizer"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-1-salicylic-acid-body-wash",
+    "canonical_name": "1% Salicylic Acid Body Wash",
+    "slug": "1-salicylic-acid-body-wash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "1-salicylic-acid-body-wash-v1",
+        "size_value": 250,
+        "size_unit": "mL",
+        "size_label": "250 mL",
+        "sku": "1-salicylic-acid-body-wash",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-salicylic-acid-body-wash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "1-salicylic-acid-body-wash-350ml-v2",
+        "size_value": 375,
+        "size_unit": "mL",
+        "size_label": "375 mL",
+        "sku": "1-salicylic-acid-body-wash-350ml",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-salicylic-acid-body-wash-350ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      },
+      {
+        "variantId": "salicylic-acid-body-wash-700-v3",
+        "size_value": 700,
+        "size_unit": "mL",
+        "size_label": "700 ml",
+        "sku": "salicylic-acid-body-wash-700",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/salicylic-acid-body-wash-700",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1 Take adequate amount of bodywash in your palms/loofah Step 2 Apply on wet skin in a gentle circular motion Step 3 Rinse thoroughly once you are done",
+      "ingredients": [
+        "Purified Water",
+        "Acrylate Copolymer",
+        "Sodium Lauroyl Sarcosinate",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Salicylic Acid",
+        "Erythritol",
+        "Phenoxyethanol & Ethylhexylglycerin",
+        "IFRA Certified Fragrance",
+        "Biodegradable Encapsulated Salicylic Acid Beads",
+        "Saccharide Isomerate",
+        "Citric Acid",
+        "Chamomile Extract",
+        "Sodium Citrate",
+        "Disodium EDTA",
+        "Vitamin E Acetate",
+        "Brilliant Blue FCF C.I. No. 42090"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "body_bumps_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "1-salicylic-acid-body-wash",
+      "1-salicylic-acid-body-wash-350ml",
+      "salicylic-acid-body-wash-700"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Slug/Name size mismatch for variant 1-salicylic-acid-body-wash-350ml: slug has 350 but name states 375"
+    ]
+  },
+  {
+    "familyId": "fam-salicylic-acid-face-wash",
+    "canonical_name": "1% Salicylic Acid Face Wash (Foam-Based)",
+    "slug": "salicylic-acid-face-wash",
+    "category": "face_wash",
+    "format": "Gel / Foaming cleanser",
+    "variants": [
+      {
+        "variantId": "salicylic-acid-face-wash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "salicylic-acid-face-wash",
+        "price_inr": 239,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/salicylic-acid-face-wash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Gel / Foaming cleanser designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Dead Skin Removal. Reduction in Inflammation. Sebum Reduction",
+      "ingredients": [
+        "Aqua",
+        "C14-16 Olefin Sulfonate",
+        "Decyl Glucoside",
+        "Sodium Lauroyl Sarcosinate",
+        "Maltooligosyl Glucoside and Hydrogenated Starch Hydrolysate",
+        "Sodium Hydroxide",
+        "Allantoin",
+        "Glycerin",
+        "Propylene Glycol",
+        "Sodium Benzoate and Potassium Sorbate",
+        "Glycolic Acid",
+        "Salicylic Acid",
+        "Polysorbate 20",
+        "Coco-Glucoside and Glyceryl Oleate",
+        "Cocamidopropyl hydroxysultaine",
+        "PEG-120 Methyl Glucose Dioleate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "body_bumps_look",
+        "oil_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "salicylic-acid-face-wash"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-salicylic-ceramide-bodywash",
+    "canonical_name": "1% Salicylic Ceramide Body Wash",
+    "slug": "salicylic-ceramide-bodywash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "salicylic-ceramide-bodywash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "salicylic-ceramide-bodywash",
+        "price_inr": 549,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/salicylic-ceramide-bodywash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Apply adequate amount onto wet skin in a gentle circular motion and rinse thoroughly with water.",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "body_bumps_look",
+        "hydration_barrier"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "salicylic-ceramide-bodywash"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-1-zpto-anti-dandruff-shampoo",
+    "canonical_name": "1% ZPTO Anti-Dandruff Shampoo",
+    "slug": "1-zpto-anti-dandruff-shampoo",
+    "category": "shampoo",
+    "format": "Liquid shampoo",
+    "variants": [
+      {
+        "variantId": "1-zpto-anti-dandruff-shampoo-v1",
+        "size_value": 200,
+        "size_unit": "mL",
+        "size_label": "200ml",
+        "sku": "1-zpto-anti-dandruff-shampoo",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/1-zpto-anti-dandruff-shampoo",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid shampoo designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": null,
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "scalp_comfort",
+        "scalp_clarifying"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "1-zpto-anti-dandruff-shampoo"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-10-aha-body-scrub",
+    "canonical_name": "10% AHA Body Scrub",
+    "slug": "10-aha-body-scrub",
+    "category": "body_wash",
+    "format": "Exfoliating body scrub",
+    "variants": [
+      {
+        "variantId": "10-aha-body-scrub-v1",
+        "size_value": 200,
+        "size_unit": "g",
+        "size_label": "200g",
+        "sku": "10-aha-body-scrub",
+        "price_inr": 369,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-aha-body-scrub",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "10-aha-body-scrub-300-v2",
+        "size_value": 300,
+        "size_unit": "g",
+        "size_label": "300g",
+        "sku": "10-aha-body-scrub-300",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-aha-body-scrub-300",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Exfoliating body scrub designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Helianthus Annuus (Sunflower) Seed Oil",
+        "Sodium Hydroxide",
+        "Glycerin",
+        "Cetostearyl alcohol",
+        "Stearic Acid",
+        "Emulsifying wax",
+        "Glyceryl Stearate",
+        "Natural Silica beads",
+        "Cetyl Alcohol",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Avena Sativa (Oat) Kernel Extract",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Perfume",
+        "Xanthan Gum",
+        "Microspheres (Jojoba Infused)",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Allantoin",
+        "Disodium EDTA",
+        "Tocopheryl Acetate."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "10-aha-body-scrub",
+      "10-aha-body-scrub-300"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-10-magnesium-lotion",
+    "canonical_name": "10% Magnesium Body Lotion",
+    "slug": "10-magnesium-lotion",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "10-magnesium-lotion-v1",
+        "size_value": 200,
+        "size_unit": "mL",
+        "size_label": "200 ml",
+        "sku": "10-magnesium-lotion",
+        "price_inr": 349,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-magnesium-lotion",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "10-magnesium-lotion-300ml-v2",
+        "size_value": 300,
+        "size_unit": "mL",
+        "size_label": "300 ml",
+        "sku": "10-magnesium-lotion-300ml",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-magnesium-lotion-300ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Magnesium Chloride",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Setearyl alcohol (and) Cetearath-20",
+        "Isopropyl Myristate",
+        "Stearyl Alcohol",
+        "Caprylic/Capric Triglyceride",
+        "Cetyl Ethylhexanoate",
+        "Cyclopentasiloxane",
+        "Dimethicone",
+        "Glycerin (and) Glyceryl Glucoside",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Perfume",
+        "Polyacrylate-13 (And) Polyisobutene (And) Polysorbate-20",
+        "Stearic Acid",
+        "Theobroma Cacao (Cocoa) Seed Butter",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Imidazolidinyl Urea."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "10-magnesium-lotion",
+      "10-magnesium-lotion-300ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-niacinamide-body-lotion",
+    "canonical_name": "10% Niacinamide Body Lotion",
+    "slug": "niacinamide-body-lotion",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "niacinamide-body-lotion-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "niacinamide-body-lotion",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/niacinamide-body-lotion",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Niacinamide",
+        "Propylene Glycol",
+        "Aloe Vera Extract",
+        "Glycerin",
+        "3-O-Ethyl Ascorbic Acid",
+        "Vitamin E",
+        "Polyacrylamide & C13-14 Isoparaffin & Laureth-7",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Almond Oil",
+        "Coconut Oil",
+        "Fragrance",
+        "Grapeseed Oil",
+        "Polyacrylate Crosspolymer-6"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "dark_spots_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "niacinamide-body-lotion"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-10-urea-lotion",
+    "canonical_name": "10% Urea Body Lotion",
+    "slug": "10-urea-lotion",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "10-urea-lotion-v1",
+        "size_value": 200,
+        "size_unit": "mL",
+        "size_label": "200 ml",
+        "sku": "10-urea-lotion",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-urea-lotion",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "10-urea-lotion-300ml-v2",
+        "size_value": 300,
+        "size_unit": "mL",
+        "size_label": "300 ml",
+        "sku": "10-urea-lotion-300ml",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/10-urea-lotion-300ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Urea",
+        "Glycerin",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Ceteareth-20 (and) Cetostearyl Alcohol",
+        "Garcinia Indica (Kokum) Seed Butter",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Butylene Glycol",
+        "Cetyl Alcohol",
+        "Cyclopentasiloxane",
+        "Dimethicone",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Perfume",
+        "Tocopheryl Acetate",
+        "Stearic Acid",
+        "Zinc Oxide",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Imidazolidinyl Urea",
+        "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum (Ceramide Complex)."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing",
+        "hydration_barrier"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "10-urea-lotion",
+      "10-urea-lotion-300ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-12-aha-scrub",
+    "canonical_name": "12% AHA Scrub",
+    "slug": "12-aha-scrub",
+    "category": "body_wash",
+    "format": "Exfoliating body scrub",
+    "variants": [
+      {
+        "variantId": "12-aha-scrub-v1",
+        "size_value": 300,
+        "size_unit": "g",
+        "size_label": "300g",
+        "sku": "12-aha-scrub",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/12-aha-scrub",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Exfoliating body scrub designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Helianthus Annuus (Sunflower) Seed Oil",
+        "Sodium Hydroxide",
+        "Glycerin",
+        "Cetostearyl alcohol",
+        "Stearic Acid",
+        "Emulsifying wax",
+        "Glyceryl Stearate",
+        "Natural Silica beads",
+        "Cetyl Alcohol",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Avena Sativa (Oat) Kernel Extract",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Perfume",
+        "Xanthan Gum",
+        "Microspheres (Jojoba Infused)",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Allantoin",
+        "Disodium EDTA",
+        "Tocopheryl Acetate."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "12-aha-scrub"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-2-5-benzoyl-peroxide-bodywash",
+    "canonical_name": "2.5% Benzoyl Peroxide Body wash",
+    "slug": "2-5-benzoyl-peroxide-bodywash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "2-5-benzoyl-peroxide-bodywash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "2-5-benzoyl-peroxide-bodywash",
+        "price_inr": 174,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/2-5-benzoyl-peroxide-bodywash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Cocamidopropyl betaine",
+        "Decylglucoside",
+        "Acrylates Copolymer",
+        "C12-15 Alkyl Benzoate",
+        "Disodium Cocoamphodiacetate",
+        "Polysorbate 20",
+        "Sodium C14-16 Olefin Sulfonate",
+        "Glycerin",
+        "Benzoyl Peroxide",
+        "Propylene Glycol",
+        "Centella Asiatica (Gotukola) Leaf Extract",
+        "PEG-40 Hydrogenated castor Oil",
+        "Fragrance",
+        "Phenoxyethanol",
+        "Xanthan gum",
+        "Aloe barbadensis (Aloe vera) Extract",
+        "CI 42090."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "2-5-benzoyl-peroxide-bodywash"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-benzoyl-peroxide-facewash",
+    "canonical_name": "2.5% Benzoyl Peroxide Facewash",
+    "slug": "benzoyl-peroxide-facewash",
+    "category": "face_wash",
+    "format": "Gel / Foaming cleanser",
+    "variants": [
+      {
+        "variantId": "benzoyl-peroxide-facewash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "benzoyl-peroxide-facewash",
+        "price_inr": 199,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/benzoyl-peroxide-facewash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Gel / Foaming cleanser designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Decyl Glucoside",
+        "Cocamidopropyl Betaine",
+        "Isopropyl Myristate",
+        "Benzoyl Peroxide",
+        "Glycerin",
+        "Propylene Glycol",
+        "Polysorbate-20",
+        "Glyceryl Monostearate",
+        "Cetostearyl Alcohol",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Phenoxyethanol",
+        "Triethanolamine",
+        "Tocopheryl Acetate",
+        "Aloe barbadensis (Aloe vera) Extract",
+        "D-Panthenol",
+        "Disodium EDTA."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "oil_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "benzoyl-peroxide-facewash"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-2-aha-body-wash",
+    "canonical_name": "2% AHA Body Wash",
+    "slug": "2-aha-body-wash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "2-aha-body-wash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "2-aha-body-wash",
+        "price_inr": 199,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/2-aha-body-wash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "aha-body-wash-deal-v2",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "aha-body-wash-deal",
+        "price_inr": 199,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/aha-body-wash-deal",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Coco Glucoside",
+        "Cocamidopropyl Betaine",
+        "Glycerine",
+        "Triethanolamine",
+        "Glycolic Acid",
+        "Lactic Acid",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Erythritol",
+        "Polysorbate-20",
+        "Propylene Glycol",
+        "Perfume",
+        "Milliglobules",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Saccharide Isomerate (and) Aqua (and) Citric Acid (and) Sodium Citrate",
+        "Sodium Citrate",
+        "Vitis Vinifera (Grape) Seed Extract",
+        "Disodium EDTA",
+        "Tocopheryl Acetate",
+        "CI 15985."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "2-aha-body-wash",
+      "aha-body-wash-deal"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Duplicate size detected in family: null-null on product aha-body-wash-deal"
+    ]
+  },
+  {
+    "familyId": "fam-2-salicylic-acid-face-wash",
+    "canonical_name": "2% Salicylic Acid Face Wash",
+    "slug": "2-salicylic-acid-face-wash",
+    "category": "face_wash",
+    "format": "Gel / Foaming cleanser",
+    "variants": [
+      {
+        "variantId": "2-salicylic-acid-face-wash-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "2-salicylic-acid-face-wash",
+        "price_inr": 232,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/2-salicylic-acid-face-wash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Gel / Foaming cleanser designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Purified Water",
+        "Decyl Glucoside",
+        "Cooamidopropylbetain",
+        "Glycerin",
+        "Salicylic Acid",
+        "Cocodiethanolamide",
+        "Polysorbate-20",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Polyquaternium-30",
+        "Menthol",
+        "Allantoin",
+        "Phenoxyethanol"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "body_bumps_look",
+        "oil_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "2-salicylic-acid-face-wash"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-20-urea-roll-on-50ml",
+    "canonical_name": "20% Urea Foot Roll On",
+    "slug": "20-urea-roll-on-50ml",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "20-urea-roll-on-50ml-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 ml",
+        "sku": "20-urea-roll-on-50ml",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/20-urea-roll-on-50ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "20-urea-roll-on-75ml-v2",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75 ml",
+        "sku": "20-urea-roll-on-75ml",
+        "price_inr": 549,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/20-urea-roll-on-75ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Monika, 38, Mumbai. Avantika, 43, Nagpur. Nimisha, 39, Jaipur. Sarita, 50, Kanpur. Kavita, 55, Prayagraj",
+      "ingredients": [
+        "Aqua",
+        "Urea",
+        "Disodium EDTA",
+        "Polyacrylate-13 (And) Polyisobutene (And) Polysorbate 20",
+        "Glyceryl Stearate",
+        "Cetostearyl alcohol",
+        "Cetyl Palmitate",
+        "Stearic Acid",
+        "PEG-100 Stearate",
+        "Isopropyl Myristate",
+        "Olea Europaea (Olive) Fruit Oil",
+        "Caprylic/Capric Triglyceride",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Lactic Acid",
+        "Tocopheryl Acetate",
+        "Glycerin",
+        "Salicylic Acid",
+        "Perfume",
+        "Menthol"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "rough_texture_smoothing",
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "20-urea-roll-on-50ml",
+      "20-urea-roll-on-75ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-20-urea-lotion-xp",
+    "canonical_name": "20% Urea Lotion",
+    "slug": "20-urea-lotion-xp",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "20-urea-lotion-xp-v1",
+        "size_value": 300,
+        "size_unit": "mL",
+        "size_label": "300ml",
+        "sku": "20-urea-lotion-xp",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/20-urea-lotion-xp",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3",
+      "ingredients": [
+        "Aqua",
+        "Urea",
+        "Glycerin",
+        "Cetearyl Alcohol (and) Ceteareth-20",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Butylene Glycol",
+        "Cyclopentasiloxane",
+        "Garcinia Indica (Kokum) Seed Butter",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Cetyl Alcohol",
+        "Benzyl Alcohol (and) Ethylhexylglycerin (and) Tocopherol",
+        "Cetyl Ethylhexanoate",
+        "Cetyl Palmite (and) Cetyl Oleate (Cetylated Fatty Ester Complex)",
+        "Cyclopentasiloxane (and) Dimethiconol",
+        "Diethylene glycol monoethyl ether",
+        "Dimethicone",
+        "Glycerin (and) Glyceryl Glucoside",
+        "Perfume",
+        "Tocopheryl Acetate",
+        "Stearic Acid",
+        "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+        "Zinc Oxide",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing",
+        "hydration_barrier"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "20-urea-lotion-xp"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-30-urea-foot-roll-on",
+    "canonical_name": "30% Urea Foot Roll On",
+    "slug": "30-urea-foot-roll-on",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "30-urea-foot-roll-on-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50ml",
+        "sku": "30-urea-foot-roll-on",
+        "price_inr": 549,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/30-urea-foot-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "30-urea-foot-roll-on-75ml-v2",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75 ml",
+        "sku": "30-urea-foot-roll-on-75ml",
+        "price_inr": 649,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/30-urea-foot-roll-on-75ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Monika, 38, Mumbai. Avantika, 43, Nagpur. Nimisha, 39, Jaipur. Sarita, 50, Kanpur. Kavita, 55, Prayagraj",
+      "ingredients": [
+        "Purified Water",
+        "Urea",
+        "Cyclopentasiloxane",
+        "Isopropyl Myristate",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Dimethicone",
+        "Glyceryl Stearate (and) PEG-100 Stearate",
+        "Cetostearyl Alcohol",
+        "Sodium Hydroxide",
+        "Fragrance",
+        "Glycerin",
+        "Salicylic Acid",
+        "Cetylated Fatty Ester Complex",
+        "Polysorbate-20",
+        "Glycolic Acid",
+        "Glyceryl Monostearate",
+        "Phenoxyethanol",
+        "Olea Europaea (Olive) Fruit Oil",
+        "Cetyl Palmitate",
+        "Stearic Acid",
+        "Polyacrylate-13 (and) Polyisobutene (and) Polysorbate 20",
+        "Disodium EDTA",
+        "Menthol",
+        "Tocopheryl Acetate."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "30-urea-foot-roll-on",
+      "30-urea-foot-roll-on-75ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-roll-on-aqua",
+    "canonical_name": "4% AHA BHA Underarm Roll On - Aqua",
+    "slug": "4-aha-bha-underarm-roll-on-aqua",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-roll-on-aqua-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 mL",
+        "sku": "4-aha-bha-underarm-roll-on-aqua",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-roll-on-aqua",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-roll-on-aqua"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-roll-on",
+    "canonical_name": "4% AHA BHA Underarm Roll On - Flora",
+    "slug": "4-aha-bha-underarm-roll-on",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-roll-on-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 mL",
+        "sku": "4-aha-bha-underarm-roll-on",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "4-aha-bha-underarm-rollon-75-v2",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75 mL",
+        "sku": "4-aha-bha-underarm-rollon-75",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-rollon-75",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-roll-on",
+      "4-aha-bha-underarm-rollon-75"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-rollon-frag-free-75",
+    "canonical_name": "4% AHA BHA Underarm Roll On - Fragrance Free",
+    "slug": "4-aha-bha-underarm-rollon-frag-free-75",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-rollon-frag-free-75-v1",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75 ml",
+        "sku": "4-aha-bha-underarm-rollon-frag-free-75",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-rollon-frag-free-75",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-rollon-frag-free-75"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-roll-on-no-fragrance",
+    "canonical_name": "4% AHA BHA Underarm Roll On - No Fragrance",
+    "slug": "4-aha-bha-underarm-roll-on-no-fragrance",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-roll-on-no-fragrance-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 mL",
+        "sku": "4-aha-bha-underarm-roll-on-no-fragrance",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-roll-on-no-fragrance",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-roll-on-no-fragrance"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-roll-on-oudh",
+    "canonical_name": "4% AHA BHA Underarm Roll On - Oudh",
+    "slug": "4-aha-bha-underarm-roll-on-oudh",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-roll-on-oudh-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 mL",
+        "sku": "4-aha-bha-underarm-roll-on-oudh",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-roll-on-oudh",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-roll-on-oudh"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-4-aha-bha-underarm-roll-on-watermelon",
+    "canonical_name": "4% AHA BHA Underarm Roll On - Watermelon",
+    "slug": "4-aha-bha-underarm-roll-on-watermelon",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "4-aha-bha-underarm-roll-on-watermelon-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 mL",
+        "sku": "4-aha-bha-underarm-roll-on-watermelon",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/4-aha-bha-underarm-roll-on-watermelon",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "4-aha-bha-underarm-roll-on-watermelon"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-advanced-magnesium-gummies-30n",
+    "canonical_name": "5-in-1 Magnesium Gummies with Beads",
+    "slug": "advanced-magnesium-gummies-30n",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "advanced-magnesium-gummies-30n-v1",
+        "size_value": 30,
+        "size_unit": "count",
+        "size_label": "30N",
+        "sku": "advanced-magnesium-gummies-30n",
+        "price_inr": 649,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-magnesium-gummies-30n",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6",
+      "ingredients": [
+        "Chicory Root Inulin (Prebiotic)",
+        "MagnaSorb™ - Magnesium Blend (Liposomal Magnesium",
+        "Magnesium Glycinate",
+        "Magnesium Malate",
+        "Magnesium Taurate",
+        "Magnesium Citrate",
+        "Plant based cellulose",
+        "Povidone k-30",
+        "Starch",
+        "Mannitol",
+        "NI Flavour (Mixed Berry))",
+        "Myo-Inositol",
+        "Gelling Agent (Pectin)",
+        "Acidity Regulator (Citric Acid)",
+        "Vitamin D3 (Cholecalciferol - Lichen Source)",
+        "Vitamin B6 (Pyridoxine HCl) (mg)",
+        "Natural flavour (Mixed Berry). Natural colour (Black carrot extract)",
+        "Vitamin B9 (Dietary Folate)",
+        "Maize starch",
+        "Binding Agent (Guar gum)."
+      ],
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "advanced-magnesium-gummies-30n"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-advanced-magnesium-gummies-60n",
+    "canonical_name": "5-in-1 Magnesium Gummies with Glycinate & Vitamin D3",
+    "slug": "advanced-magnesium-gummies-60n",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "advanced-magnesium-gummies-60n-v1",
+        "size_value": 60,
+        "size_unit": "count",
+        "size_label": "60N",
+        "sku": "advanced-magnesium-gummies-60n",
+        "price_inr": 999,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-magnesium-gummies-60n",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6",
+      "ingredients": [
+        "Chicory Root Inulin (Prebiotic)",
+        "MagnaSorb™ - Magnesium Blend (Liposomal Magnesium",
+        "Magnesium Glycinate",
+        "Magnesium Malate",
+        "Magnesium Taurate",
+        "Magnesium Citrate",
+        "Plant based cellulose",
+        "Povidone k-30",
+        "Starch",
+        "Mannitol",
+        "NI Flavour (Mixed Berry))",
+        "Myo-Inositol",
+        "Gelling Agent (Pectin)",
+        "Acidity Regulator (Citric Acid)",
+        "Vitamin D3 (Cholecalciferol - Lichen Source)",
+        "Vitamin B6 (Pyridoxine HCl) (mg)",
+        "Natural flavour (Mixed Berry). Natural colour (Black carrot extract)",
+        "Vitamin B9 (Dietary Folate)",
+        "Maize starch",
+        "Binding Agent (Guar gum)."
+      ],
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "advanced-magnesium-gummies-60n"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Ingredients differ between advanced-magnesium-gummies-60n and magnesium-glycinate-gummies-60n. Cannot merge into same formula family."
+    ]
+  },
+  {
+    "familyId": "fam-magnesium-glycinate-gummies-60n",
+    "canonical_name": "5-in-1 Magnesium Gummies with Glycinate & Vitamin D3",
+    "slug": "magnesium-glycinate-gummies-60n",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "magnesium-glycinate-gummies-60n-v1",
+        "size_value": 60,
+        "size_unit": "count",
+        "size_label": "60N",
+        "sku": "magnesium-glycinate-gummies-60n",
+        "price_inr": 999,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/magnesium-glycinate-gummies-60n",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6",
+      "ingredients": [
+        "Chicory Root Inulin (Prebiotic)",
+        "MagnaSorb™ - Magnesium Blend (Liposomal Magnesium",
+        "Magnesium Glycinate",
+        "Magnesium Malate",
+        "Magnesium Taurate",
+        "Magnesium Citrate",
+        "Plant based cellulose",
+        "Povidone k-30",
+        "Starch",
+        "Mannitol",
+        "NI Flavour (Mixed Berry))",
+        "Myo-Inositol",
+        "Gelling Agent (Pectin)",
+        "Acidity Regulator (Citric Acid)",
+        "Vitamin D3 (Cholecalciferol - Lichen Source)",
+        "Vitamin B6 (Pyridoxine HCl) (mg)",
+        "flavour (Mixed Berry). colour (Black carrot extract)",
+        "Vitamin B9 (Dietary Folate)",
+        "Maize starch",
+        "Binding Agent (Guar gum)."
+      ],
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "magnesium-glycinate-gummies-60n"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Ingredients differ between advanced-magnesium-gummies-60n and magnesium-glycinate-gummies-60n. Cannot merge into same formula family."
+    ]
+  },
+  {
+    "familyId": "fam-5-aha-bha-bodywash",
+    "canonical_name": "5% AHA BHA Exfoliating Body Wash",
+    "slug": "5-aha-bha-bodywash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "5-aha-bha-bodywash-v1",
+        "size_value": 250,
+        "size_unit": "mL",
+        "size_label": "250 mL",
+        "sku": "5-aha-bha-bodywash",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-aha-bha-bodywash",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "5-aha-bha-bodywash-700ml-v2",
+        "size_value": 700,
+        "size_unit": "mL",
+        "size_label": "700ml",
+        "sku": "5-aha-bha-bodywash-700ml",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-aha-bha-bodywash-700ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Vitamin E",
+      "ingredients": [
+        "Aqua",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Lactic Acid",
+        "2- Propandiol",
+        "Glycerin",
+        "Glycolic Acid",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Aloe Barbadensis (Aloevera) Leaf Extract",
+        "Perfume",
+        "Polysorbate 20",
+        "Salicylic Acid",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Erythritol",
+        "Natural Perlite Beads",
+        "Encapsulated Blue Beads",
+        "Disodium EDTA",
+        "Tocopheryl Acetate",
+        "CI 42090."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "body_bumps_look",
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "5-aha-bha-bodywash",
+      "5-aha-bha-bodywash-700ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-5-aha-bha-bodywash-250ml-flora",
+    "canonical_name": "5% AHA BHA Exfoliating Body Wash - Flora",
+    "slug": "5-aha-bha-bodywash-250ml-flora",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "5-aha-bha-bodywash-250ml-flora-v1",
+        "size_value": 250,
+        "size_unit": "mL",
+        "size_label": "250ml",
+        "sku": "5-aha-bha-bodywash-250ml-flora",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-aha-bha-bodywash-250ml-flora",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "5-aha-bha-bodywash-700ml-flora-v2",
+        "size_value": 700,
+        "size_unit": "mL",
+        "size_label": "700ml",
+        "sku": "5-aha-bha-bodywash-700ml-flora",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-aha-bha-bodywash-700ml-flora",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Vitamin E",
+      "ingredients": [
+        "Aqua",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Lactic Acid",
+        "2- Propandiol",
+        "Glycerin",
+        "Glycolic Acid",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Aloe Barbadensis (Aloevera) Leaf Extract",
+        "Perfume",
+        "Polysorbate 20",
+        "Salicylic Acid",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Erythritol",
+        "Natural Perlite Beads",
+        "Encapsulated Blue Beads",
+        "Disodium EDTA",
+        "Tocopheryl Acetate",
+        "CI 42090."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "body_bumps_look",
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "5-aha-bha-bodywash-250ml-flora",
+      "5-aha-bha-bodywash-700ml-flora"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-5-lactic-acid-body-lotion",
+    "canonical_name": "5% Lactic Acid Body Lotion",
+    "slug": "5-lactic-acid-body-lotion",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "5-lactic-acid-body-lotion-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "5-lactic-acid-body-lotion",
+        "price_inr": 449,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-lactic-acid-body-lotion",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Sodium lactate",
+        "Glycerin",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Cetearyl Alcohol (and) Ceteareth-20",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Theobroma Cacao (Cocoa) Seed Butter",
+        "Cyclopentasiloxane",
+        "Stearyl Alcohol",
+        "Dimethicone",
+        "Glycerin (and) Glyceryl Glucoside",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Perfume",
+        "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+        "Stearic acid",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Imidazolidinyl Urea"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "5-lactic-acid-body-lotion"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-5-niacinamide-body-wash",
+    "canonical_name": "5% Niacinamide Body Wash",
+    "slug": "5-niacinamide-body-wash",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "niacinamide-body-wash-700-v1",
+        "size_value": 700,
+        "size_unit": "mL",
+        "size_label": "700 ml",
+        "sku": "niacinamide-body-wash-700",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/niacinamide-body-wash-700",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "5-niacinamide-body-wash-v2",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "5-niacinamide-body-wash",
+        "price_inr": 329,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/5-niacinamide-body-wash",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Acrylate Copolymer",
+        "Cocamidopropyl Betaine",
+        "Coco Glucoside",
+        "Sodium Lauroyl Sarcosinate",
+        "Niacinamide",
+        "Triethanolamine",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Erythritol",
+        "Perfume",
+        "Phenoxyethanol and Ethylhexylglycerin",
+        "Avena Sativa (Oat) Kernel Extract",
+        "Polysorbate-20",
+        "Blue Beads",
+        "Saccharide Isomerate (and) Citric Acid (and) Sodium Citrate",
+        "Disodium EDTA",
+        "Natural Vitamin E",
+        "CI 17200."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing",
+        "dark_spots_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "5-niacinamide-body-wash",
+      "niacinamide-body-wash-700"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-6-aha-bha-underarm-roll-on-aqua",
+    "canonical_name": "6% AHA BHA Underarm Roll On - Aqua",
+    "slug": "6-aha-bha-underarm-roll-on-aqua",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-aqua-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 ml",
+        "sku": "6-aha-bha-underarm-roll-on-aqua",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-aqua",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-aqua-75ml-v2",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75 ml",
+        "sku": "6-aha-bha-underarm-roll-on-aqua-75ml",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-aqua-75ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "6-aha-bha-underarm-roll-on-aqua",
+      "6-aha-bha-underarm-roll-on-aqua-75ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-6-aha-bha-underarm-roll-on",
+    "canonical_name": "6% AHA BHA Underarm Roll On - Flora",
+    "slug": "6-aha-bha-underarm-roll-on",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50mL",
+        "sku": "6-aha-bha-underarm-roll-on",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-flora-75ml-v2",
+        "size_value": 75,
+        "size_unit": "mL",
+        "size_label": "75ml",
+        "sku": "6-aha-bha-underarm-roll-on-flora-75ml",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-flora-75ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "6-aha-bha-underarm-roll-on",
+      "6-aha-bha-underarm-roll-on-flora-75ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-6-aha-bha-underarm-roll-on-frag-free",
+    "canonical_name": "6% AHA BHA Underarm Roll On - Fragrance free",
+    "slug": "6-aha-bha-underarm-roll-on-frag-free",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-frag-free-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 ml",
+        "sku": "6-aha-bha-underarm-roll-on-frag-free",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-frag-free",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "6-aha-bha-underarm-roll-on-frag-free"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-6-aha-bha-underarm-roll-on-watermelon",
+    "canonical_name": "6% AHA BHA Underarm Roll On - Watermelon",
+    "slug": "6-aha-bha-underarm-roll-on-watermelon",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-watermelon-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50 ml",
+        "sku": "6-aha-bha-underarm-roll-on-watermelon",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-watermelon",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "6-aha-bha-underarm-roll-on-watermelon"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-glycolic-acid-stick",
+    "canonical_name": "7% Glycolic Acid Exfoliating Body Stick",
+    "slug": "glycolic-acid-stick",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "glycolic-acid-stick-v1",
+        "size_value": 30,
+        "size_unit": "g",
+        "size_label": "30g",
+        "sku": "glycolic-acid-stick",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/glycolic-acid-stick",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Exfoliates rough skin.  Locks in moisture. Unclogs Pores. Nourishes Skin",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "glycolic-acid-stick"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-advanced-hair-growth-pack",
+    "canonical_name": "Advanced Hair Growth Pack",
+    "slug": "advanced-hair-growth-pack",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "advanced-hair-growth-pack-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "advanced-hair-growth-pack",
+        "price_inr": 949,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-hair-growth-pack",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "advanced-hair-growth-pack-xp-v2",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "advanced-hair-growth-pack-xp",
+        "price_inr": 949,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-hair-growth-pack-xp",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Eat one gummy everyday. See visible reduction in hair fall after 3 months. Use the serum once everyday. Start seeing hair regrowth after 6 months. Be consistent with your hair regimen with daily reminders & rewards on the Be Bodywise app.",
+      "ingredients": [
+        "Hair Growth Concentrate : Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090 Hair Health Gummies : Chicory Root Extract",
+        "Pectin (440)",
+        "Citric acid (E330)",
+        "Natural Color(Red Beet powder)",
+        "Natural flavors (Strawberry)",
+        "Biotin",
+        "Vitamin C",
+        "Vitamin E",
+        "Vitamin A",
+        "Zinc (As Zinc Citrate dihydrate)"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "advanced-hair-growth-pack",
+      "advanced-hair-growth-pack-xp"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Duplicate size detected in family: null-null on product advanced-hair-growth-pack-xp"
+    ]
+  },
+  {
+    "familyId": "fam-hair-growth-pack-30ml-xp",
+    "canonical_name": "Advanced Hair Growth Pack with Dropper",
+    "slug": "hair-growth-pack-30ml-xp",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "hair-growth-pack-30ml-xp-v1",
+        "size_value": 30,
+        "size_unit": "mL",
+        "size_label": "30ml",
+        "sku": "hair-growth-pack-30ml-xp",
+        "price_inr": 848,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-pack-30ml-xp",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Eat one gummy everyday. See visible reduction in hair fall after 3 months. Use the serum once everyday. Start seeing hair regrowth after 6 months. Be consistent with your hair regimen with daily reminders & rewards on the Be Bodywise app.",
+      "ingredients": [
+        "Hair Growth Concentrate : Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090 Hair Health Gummies : Chicory Root Extract",
+        "Pectin (440)",
+        "Citric acid (E330)",
+        "Natural Color(Red Beet powder)",
+        "Natural flavors (Strawberry)",
+        "Biotin",
+        "Vitamin C",
+        "Vitamin E",
+        "Vitamin A",
+        "Zinc (As Zinc Citrate dihydrate)"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-pack-30ml-xp"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-growth-pack-rosemary-roll-on-90n",
+    "canonical_name": "Advanced Hair Growth Pack with Roll On",
+    "slug": "hair-growth-pack-rosemary-roll-on-90n",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "hair-growth-pack-rosemary-roll-on-90n-v1",
+        "size_value": 25,
+        "size_unit": "mL",
+        "size_label": "25ml",
+        "sku": "hair-growth-pack-rosemary-roll-on-90n",
+        "price_inr": 1399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-pack-rosemary-roll-on-90n",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Preeti, 32. Manisha Kalra, 35. Siya, 26",
+      "ingredients": [
+        "Hair Growth Serum Roll On: Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090 Hair Health Gummies: Chicory Root Extract",
+        "Pectin (440)",
+        "Citric acid (E330)",
+        "Natural Color(Red Beet powder)",
+        "Natural flavors (Strawberry)",
+        "Biotin",
+        "Vitamin C",
+        "Vitamin E",
+        "Vitamin A",
+        "Zinc (As Zinc Citrate dihydrate)"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-pack-rosemary-roll-on-90n"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Ingredients differ between hair-growth-pack-rosemary-roll-on-90n and hair-growth-pack-rosemary-roll-on-xp-2. Cannot merge into same formula family."
+    ]
+  },
+  {
+    "familyId": "fam-hair-growth-pack-rosemary-roll-on-xp-2",
+    "canonical_name": "Advanced Hair Growth Pack with Roll On",
+    "slug": "hair-growth-pack-rosemary-roll-on-xp-2",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "hair-growth-pack-rosemary-roll-on-xp-2-v1",
+        "size_value": 25,
+        "size_unit": "mL",
+        "size_label": "25ml",
+        "sku": "hair-growth-pack-rosemary-roll-on-xp-2",
+        "price_inr": 899,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-pack-rosemary-roll-on-xp-2",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Preeti, 32. Manisha Kalra, 35. Siya, 26",
+      "ingredients": [
+        "Hair Growth Serum Roll On: Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090 Hair Health Gummies: Chicory Root Extract",
+        "Pectin (440)",
+        "Citric acid (E330)",
+        "Color(Red Beet powder)",
+        "flavors (Strawberry)",
+        "Biotin",
+        "Vitamin C",
+        "Vitamin E",
+        "Vitamin A",
+        "Zinc (As Zinc Citrate dihydrate)"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-pack-rosemary-roll-on-xp-2"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Ingredients differ between hair-growth-pack-rosemary-roll-on-90n and hair-growth-pack-rosemary-roll-on-xp-2. Cannot merge into same formula family."
+    ]
+  },
+  {
+    "familyId": "fam-hair-growth-serum-roll-on-50ml",
+    "canonical_name": "Advanced Hair Growth Roll On",
+    "slug": "hair-growth-serum-roll-on-50ml",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-roll-on-50ml-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50mL",
+        "sku": "hair-growth-serum-roll-on-50ml",
+        "price_inr": 849,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-roll-on-50ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Pooja, 33, Pune. Bhavika, 25, Delhi. Sangeetha, 36, Mysore",
+      "ingredients": [
+        "Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Propylene Glycol",
+        "Glycerin (and) Aqua (and) Sodium Metabisulfite (and) Larix Europaea Wood Extract (and) Glycine (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Trigonella Foenum-Graecum (Fenugreek) Seed Extract",
+        "Diaminopyrim-idine Oxide (Aminexil )",
+        "Pisum Sativum (Pea) Sprout Extract (and) Phenoxyethanol (and) Sodium Benzoate (and) Aqua (Anagain)",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Red Clover Extract",
+        "Rosmarinus Officinalis (Rosemary) Leaf Extract",
+        "D-Panthanol",
+        "Glycerin",
+        "Moringa Oleifera (Moringa) Leaf Extract",
+        "Ethylenediaminetetraacetic Acid",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (and) Sodium Benzoate (and) Gluconolactone (and) Calcium Gluconate (Baicapil)",
+        "Serenoa Serrulata (Saw Palmetto) Fruit Extract",
+        "Fragrance",
+        "CI 19140",
+        "CI 42090."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-serum-roll-on-50ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-advanced-hair-growth-serum",
+    "canonical_name": "Advanced Hair Growth Serum",
+    "slug": "advanced-hair-growth-serum",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-30ml-xp-1-v1",
+        "size_value": 30,
+        "size_unit": "mL",
+        "size_label": "30ml",
+        "sku": "hair-growth-serum-30ml-xp-1",
+        "price_inr": 349,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-30ml-xp-1",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "advanced-hair-growth-serum-v2",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "advanced-hair-growth-serum",
+        "price_inr": 849,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-hair-growth-serum",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Use the serum once everyday. Start seeing hair regrowth after 3 months. Be consistent with your hair regimen with daily reminders & rewards on the Be Bodywise app.",
+      "ingredients": [
+        "Advanced Hair Growth Serum : Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Propylene Glycol",
+        "Glycerin (and) Aqua (and) Sodium Metabisulfite (and) Larix Europaea Wood Extract (and) Glycine (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Trigonella Foenum-Graecum (Fenugreek) Seed Extract",
+        "Diaminopyrim-idine Oxide (Aminexil )",
+        "Pisum Sativum (Pea) Sprout Extract (and) Phenoxyethanol (and) Sodium Benzoate (and) Aqua (Anagain)",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Red Clover Extract",
+        "Rosmarinus Officinalis (Rosemary) Leaf Extract",
+        "D-Panthanol",
+        "Glycerin",
+        "Moringa Oleifera (Moringa) Leaf Extract",
+        "Ethylenediaminetetraacetic Acid",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (and) Sodium Benzoate (and) Gluconolactone (and) Calcium Gluconate (Baicapil)",
+        "Serenoa Serrulata (Saw Palmetto) Fruit Extract",
+        "Fragrance",
+        "CI 19140",
+        "CI 42090."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "advanced-hair-growth-serum",
+      "hair-growth-serum-30ml-xp-1"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-growth-serum-roll-on",
+    "canonical_name": "Advanced Hair Growth Serum",
+    "slug": "hair-growth-serum-roll-on",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-roll-on-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hair-growth-serum-roll-on",
+        "price_inr": 569,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Pooja, 33, Pune. Bhavika, 25, Delhi. Sangeetha, 36, Mysore. Step 4. Step 5. Step 6. Step 7. Step 8",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-serum-roll-on"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-growth-serum-roll-on-2-months-xp",
+    "canonical_name": "Advanced Hair Growth Serum Roll-On (Pack of 2)",
+    "slug": "hair-growth-serum-roll-on-2-months-xp",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-roll-on-2-months-xp-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hair-growth-serum-roll-on-2-months-xp",
+        "price_inr": 969,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-roll-on-2-months-xp",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "New hair growth. Hair volume improvement. Hair texture improvement",
+      "ingredients": [
+        "8% actives in Enriched Base With 13% Super Ingredients (5% Saw Palmetto, 2% Red Clover Extract, 3% Fenugreek, 3% Moringa) Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-serum-roll-on-2-months-xp"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-growth-serum-pp-roll-on",
+    "canonical_name": "Advanced Hair Growth Serum Roll-On for Post-Pregnancy Hair Thinning",
+    "slug": "hair-growth-serum-pp-roll-on",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-pp-roll-on-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hair-growth-serum-pp-roll-on",
+        "price_inr": 569,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-pp-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Propylene Glycol",
+        "Glycerin (and) Aqua (and) Sodium Metabisulfite (and) Larix Europaea Wood Extract (and) Glycine (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Trigonella Foenum-Graecum (Fenugreek) Seed Extract",
+        "Diaminopyrim-idine Oxide (Aminexil )",
+        "Pisum Sativum (Pea) Sprout Extract (and) Phenoxyethanol (and) Sodium Benzoate (and) Aqua (Anagain)",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Red Clover Extract",
+        "Rosmarinus Officinalis (Rosemary) Leaf Extract",
+        "D-Panthanol",
+        "Glycerin",
+        "Moringa Oleifera (Moringa) Leaf Extract",
+        "Ethylenediaminetetraacetic Acid",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (and) Sodium Benzoate (and) Gluconolactone (and) Calcium Gluconate (Baicapil)",
+        "Serenoa Serrulata (Saw Palmetto) Fruit Extract",
+        "Fragrance",
+        "CI 19140",
+        "CI 42090."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-serum-pp-roll-on"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-advanced-underarm-pigmentation-kit",
+    "canonical_name": "Advanced Underarm Pigmentation Kit",
+    "slug": "advanced-underarm-pigmentation-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "advanced-underarm-pigmentation-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "advanced-underarm-pigmentation-kit",
+        "price_inr": 859,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/advanced-underarm-pigmentation-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Shweta, 23, Pune. Arunika, 26, Bengaluru. Vibha, 24, Chandigarh",
+      "ingredients": [
+        "6% AHA BHA Underarm Roll On :Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "dark_spots_look",
+        "underarm_texture_smoothing",
+        "underarm_odor_freshness"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "advanced-underarm-pigmentation-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-aha-bha-body-pack",
+    "canonical_name": "AHA-BHA Body Pack",
+    "slug": "aha-bha-body-pack",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "aha-bha-body-pack-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "aha-bha-body-pack",
+        "price_inr": 688,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/aha-bha-body-pack",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy skin.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your skin regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+      "ingredients": [
+        "1% Salicylic Acid Body Wash : Purified Water",
+        "Acrylate Copolymer",
+        "Sodium Lauroyl Sarcosinate",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Salicylic Acid",
+        "Erythritol",
+        "Phenoxyethanol & Ethylhexylglycerin",
+        "IFRA Certified Fragrance",
+        "Saccharide Isomerate",
+        "Citric Acid",
+        "Chamomile Extract",
+        "Biodegradable Encapsulated Salicylic Acid Beads",
+        "Sodium Citrate",
+        "Sodium EDTA",
+        "Brilliant Blue FCF C.I. No. 42090 5% Lactic Acid Body Lotion : Water",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Aloe Vera Extract",
+        "CICA Extract",
+        "Cucumber Extract",
+        "L-Arginine",
+        "Glycerin",
+        "Triethanolamine",
+        "Xanthan Gum",
+        "Vitamin E",
+        "Polyacrylamide & C13-14 Isoparaffin & Laureth-7",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Sunflower Oil",
+        "Argan Oil",
+        "Fragrance",
+        "Polyacrylate Crosspolymer-6"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "body_bumps_look",
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "aha-bha-body-pack"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-dandruff-hairfall-kit",
+    "canonical_name": "Anti Dandruff & Hairfall Kit",
+    "slug": "dandruff-hairfall-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "dandruff-hairfall-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "dandruff-hairfall-kit",
+        "price_inr": 1049,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/dandruff-hairfall-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Pooja, 33, Pune. Sangeetha, 36, Mysore",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "scalp_comfort",
+        "scalp_clarifying"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "dandruff-hairfall-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-keratin-shampoo-with-roll-on",
+    "canonical_name": "Anti Hair Fall Kit",
+    "slug": "keratin-shampoo-with-roll-on",
+    "category": "shampoo",
+    "format": "Liquid shampoo",
+    "variants": [
+      {
+        "variantId": "keratin-shampoo-with-roll-on-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "keratin-shampoo-with-roll-on",
+        "price_inr": 899,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/keratin-shampoo-with-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid shampoo designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6. Step 7. Natasha, 31, Pune. Priya, 35, Pune",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing",
+        "hair_fall_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "keratin-shampoo-with-roll-on"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-anti-stretch-mark-roll-on",
+    "canonical_name": "Anti-Stretch Mark Serum Roll On",
+    "slug": "anti-stretch-mark-roll-on",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "anti-stretch-mark-roll-on-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "anti-stretch-mark-roll-on",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/anti-stretch-mark-roll-on",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Anisha, 27, Mumbai. Sujata, 33, Delhi. Anku, 25, Gujarat",
+      "ingredients": null,
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "anti-stretch-mark-roll-on"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-biotin-hair-gummies-120",
+    "canonical_name": "Biotin Hair Gummies (120)",
+    "slug": "biotin-hair-gummies-120",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "biotin-hair-gummies-120-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "biotin-hair-gummies-120",
+        "price_inr": 1699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/biotin-hair-gummies-120",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Eat one gummy everyday after any meal. Follow a 3 month routine. Be consistent with your hair regimen with daily reminders & rewards on the Be Bodywise app.",
+      "ingredients": [
+        "Chicory Root Extract",
+        "Pectin (E440)",
+        "Acidity Regulator (E330)",
+        "Beta-Sitosterol",
+        "Vitamin H (Biotin)",
+        "Vitamin B6 (Pyridoxine HCl)",
+        "Ferrous Fumarate",
+        "Grape Seed Extract",
+        "Vitamin B12(Cyanocobalamin)",
+        "Vitamin B9 (Folic acid)",
+        "Vitamin D2 (Ergocalciferol)",
+        "Zinc Citrate Dihydrate",
+        "Sesbania Extract",
+        "Vitamin A (Retinol Palmitate)",
+        "Vitamin C (Ascorbic Acid )",
+        "Vitamin E (Tocopherol Acetate)",
+        "Strawberry Color",
+        "Strawberry Flavor",
+        "Guar Gum",
+        "Maize Starch. CONTAINS PERMITTED COLOURS AND ADDED FLAVOURS (Strawberry)"
+      ],
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "biotin-hair-gummies-120"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-biotin-multivitamin-hair-gummies-2m",
+    "canonical_name": "Biotin Hair Gummies (60)",
+    "slug": "biotin-multivitamin-hair-gummies-2m",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "biotin-multivitamin-hair-gummies-2m-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "biotin-multivitamin-hair-gummies-2m",
+        "price_inr": 849,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/biotin-multivitamin-hair-gummies-2m",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Eat one gummy everyday after any meal. Follow a 3 month routine. Be consistent with your hair regimen with daily reminders & rewards on the Be Bodywise app.",
+      "ingredients": [
+        "Chicory Root Extract",
+        "Pectin (E440)",
+        "Acidity Regulator (E330)",
+        "Beta-Sitosterol",
+        "Vitamin H (Biotin)",
+        "Vitamin B6 (Pyridoxine HCl)",
+        "Ferrous Fumarate",
+        "Grape Seed Extract",
+        "Vitamin B12(Cyanocobalamin)",
+        "Vitamin B9 (Folic acid)",
+        "Vitamin D2 (Ergocalciferol)",
+        "Zinc Citrate Dihydrate",
+        "Sesbania Extract",
+        "Vitamin A (Retinol Palmitate)",
+        "Vitamin C (Ascorbic Acid )",
+        "Vitamin E (Tocopherol Acetate)",
+        "Strawberry Color",
+        "Strawberry Flavor",
+        "Guar Gum",
+        "Maize Starch. CONTAINS PERMITTED COLOURS AND ADDED FLAVOURS (Strawberry)"
+      ],
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "biotin-multivitamin-hair-gummies-2m"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-body-exfoliation-pigmentation-kit",
+    "canonical_name": "Body Exfoliation & Pigmentation Kit",
+    "slug": "body-exfoliation-pigmentation-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "body-exfoliation-pigmentation-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "body-exfoliation-pigmentation-kit",
+        "price_inr": 848,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/body-exfoliation-pigmentation-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "7% Glycolic Acid Exfoliating Body Stick - 30g : Octyldodecanol",
+        "Ozokerite Wax",
+        "Glycolic Acid",
+        "Isopropyl Myristate",
+        "PEG-100 Stearate",
+        "Cyclopentasiloxane",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Cetostearyl Alcohol",
+        "Glyceryl Stearate",
+        "Hard Paraffin Wax",
+        "Ricinus Communis (Castor) Seed Oil",
+        "Polysorbate-80",
+        "Caprylic/Capric Triglyceride",
+        "Vinyl Dimethicone/Methicone Silsesquioxane Crosspolymer",
+        "Helianthus Annuus (Sunflower) Seed Oil",
+        "Stearic Acid",
+        "Hydrogenated Polyisobutene",
+        "Synthetic Wax",
+        "Tocopheryl Acetate",
+        "Salicylic Acid",
+        "Ascorbyl Tetraisopalmitate",
+        "Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate",
+        "Simmondsia Chinensis (Jojoba) Seed Oil Pigmentation Repair Cream : Aqua",
+        "Cetostearyl Alcohol",
+        "Caprylic/Capric Triglyceride",
+        "Propylene Glycol",
+        "Cetearyl Alcohol & Ceteareth-20",
+        "Lactic Acid",
+        "Glycerin",
+        "PEG-100 Stearate (and) Glyceryl Stearate",
+        "Urea",
+        "Sorbitan Monostearate",
+        "Niacinamide",
+        "Sodium hydroxide",
+        "Kojic Acid dipalmitate",
+        "Phenoxyethanol",
+        "Ethylhexylglycerin",
+        "Fragrance",
+        "Carbomer",
+        "Disodium Edetate",
+        "Retinol"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "dark_spots_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "body-exfoliation-pigmentation-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-body-sunscreen-spray-with-spf-50-deal",
+    "canonical_name": "Body Sunscreen Spray with SPF",
+    "slug": "body-sunscreen-spray-with-spf-50-deal",
+    "category": "sunscreen",
+    "format": "Sunscreen spray",
+    "variants": [
+      {
+        "variantId": "body-sunscreen-spray-with-spf-50-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "body-sunscreen-spray-with-spf-50",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/body-sunscreen-spray-with-spf-50",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "body-sunscreen-spray-with-spf-50-deal-v2",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "body-sunscreen-spray-with-spf-50-deal",
+        "price_inr": 249,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/body-sunscreen-spray-with-spf-50-deal",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Sunscreen spray designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Aqua (and) Octyl Methoxycinnamate (and) Butyl Methoxydibenzoylmethane (and) Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine (and) 1",
+        "3 Butylene glycol (and) Diethylhexyl Butamido Triazone (and) Phospholipids (and) Ethylhexyl Glycerine",
+        "Potassium Lauroyl Wheat Amino Acids (and) Palm Glycerides (and) Capryloyl Glycine",
+        "Glycerine",
+        "Isopropyl myristate",
+        "Propanediol",
+        "Isododecane (and) Disteardimonium Hectorite (and) Propylene Carbonate",
+        "Niacinamide",
+        "Triheptanoin (and) C13-16 Isoalkane",
+        "Ahnfeltiopsis Concinna Extract",
+        "Polyglyceryl-3 Rice Branate (and) Sucrose Stearate (and) Cetearyl Alcohol",
+        "Coco-Caprylate/Caprate",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Xylitol (and) Glucose (and) Anhydroxylitol (and) Phoenix Dactylifera extract",
+        "Xanthan Gum",
+        "Sodium Gluconate",
+        "Titanium Dioxide",
+        "Butylated hydroxytoluene",
+        "Talc (and) Titanium Dioxide (and) Cyclopentasiloxane (and) Dimethicone",
+        "Menthyl Lactate."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "body-sunscreen-spray-with-spf-50",
+      "body-sunscreen-spray-with-spf-50-deal"
+    ],
+    "needs_review": true,
+    "review_reasons": [
+      "Duplicate size detected in family: null-null on product body-sunscreen-spray-with-spf-50-deal"
+    ]
+  },
+  {
+    "familyId": "fam-brow-lash-serum",
+    "canonical_name": "Brow & Lash Growth Serum",
+    "slug": "brow-lash-serum",
+    "category": "serum",
+    "format": "Topical skin serum",
+    "variants": [
+      {
+        "variantId": "brow-lash-serum-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "brow-lash-serum",
+        "price_inr": 379,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/brow-lash-serum",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical skin serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Butylene Glycol",
+        "Propanediol",
+        "Pisum Sativum (Pea) Sprout Extract (and) Phenoxyethanol (and) Sodium Benzoate (and) Aqua (Anagain)",
+        "Glycerin (and) Aqua (and) Sodium Metabisulfite (and) Larix Europaea Wood Extract (and) Glycine (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Biotinoyl Tripeptide-1 (and) Glycerin (and) Aqua (and) Caprylyl Glycol (and) Ethylhexylglycerin (and) Panthenol (and) Trehalose (LashLD)",
+        "Diaminopyrimidine Oxide (Aminexil)",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Rosmarinus Officinalis (Rosemary) Extract",
+        "Hydroxyethyl cellulose",
+        "Xanthan Gum"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "brow-lash-serum"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-calcium-gummies",
+    "canonical_name": "Calcium Gummies",
+    "slug": "calcium-gummies",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "calcium-gummies-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "calcium-gummies",
+        "price_inr": 231,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/calcium-gummies",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Joint Pain. Muscle Pain. Fatigue. Archana, 33, Bangalore. Sejal, 36, Mumbai",
+      "ingredients": [
+        "Chicory root extract",
+        "Gelling Agent (Pectin)",
+        "Acidity Regulator (Citric Acid)",
+        "Calcium (Tri Calcium Phosphate)",
+        "Vitamin D3 (Cholecalciferol - Lichen Source)",
+        "Vitamin B12 (Cyanocobalamin SD)",
+        "flavour (Mixed berry)",
+        "colour (Black carrot extract)",
+        "Maize starch",
+        "Guar gum."
+      ],
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "calcium-gummies"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-collagen-skin-gummies",
+    "canonical_name": "Collagen Builder Gummies",
+    "slug": "collagen-skin-gummies",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "collagen-skin-gummies-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "collagen-skin-gummies",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/collagen-skin-gummies",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Collagen Boosting Blend: Asparagus Extract",
+        "Sea Buckthorn",
+        "Aloe Vera Extract",
+        "Bamboo Extract",
+        "Acerola Cherry Extract",
+        "Spinach Extract",
+        "Curcumin Extract",
+        "Eucalyptus Extract Others: Fructooligosaccharides (FOS)",
+        "Pectin (E440)",
+        "Acidity Regulator (E330)",
+        "Hyaluronic Acid",
+        "Sesbania Extract",
+        "Vitamin A (Retinol Palmitate)",
+        "Vitamin C (Ascorbic Acid)",
+        "Vitamin E (D-alpha Tocopherol)",
+        "Zinc Citrate Dihydrate",
+        "Orange Flavour",
+        "Orange Colour",
+        "Guar Gum",
+        "Maize Starch CONTAINS PERMITTED COLOUR(S) AND ADDED FLAVOUR"
+      ],
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "collagen-skin-gummies"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-magnesium-gummies-and-lotion-kit",
+    "canonical_name": "Complete Magnesium Care",
+    "slug": "magnesium-gummies-and-lotion-kit",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "magnesium-gummies-and-lotion-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "magnesium-gummies-and-lotion-kit",
+        "price_inr": 1498,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/magnesium-gummies-and-lotion-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6. Step 7. Step 8. Step 9",
+      "ingredients": null,
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "magnesium-gummies-and-lotion-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-daily-hydration-kit",
+    "canonical_name": "Daily Hydration Kit",
+    "slug": "daily-hydration-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "daily-hydration-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "daily-hydration-kit",
+        "price_inr": 899,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/daily-hydration-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3",
+      "ingredients": [
+        "20% Urea Lotion : Aqua",
+        "Urea",
+        "Glycerin",
+        "Cetearyl Alcohol (and) Ceteareth-20",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Butylene Glycol",
+        "Cyclopentasiloxane",
+        "Garcinia Indica (Kokum) Seed Butter",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Cetyl Alcohol",
+        "Benzyl Alcohol (and) Ethylhexylglycerin (and) Tocopherol",
+        "Cetyl Ethylhexanoate",
+        "Cetyl Palmite (and) Cetyl Oleate (Cetylated Fatty Ester Complex)",
+        "Cyclopentasiloxane (and) Dimethiconol",
+        "Diethylene glycol monoethyl ether",
+        "Dimethicone",
+        "Glycerin (and) Glyceryl Glucoside",
+        "Perfume",
+        "Tocopheryl Acetate",
+        "Stearic Acid",
+        "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+        "Zinc Oxide",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum 20% Urea Roll On : Purified Water",
+        "Urea",
+        "Dimethicone",
+        "Cyclopentasiloxane",
+        "Glycerin",
+        "Cetyl Palmitate",
+        "Cetostearyl alcohol",
+        "Isopropyl Myristate",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Glyceryl Stearate (and) PEG-100 Stearate",
+        "Perfume",
+        "Olea Europaea (Olive) Fruit Oil",
+        "Salicylic Acid",
+        "Stearic Acid",
+        "Glyceryl Monostearate",
+        "Phenoxyethanol",
+        "Cetylated Fatty Ester Complex (Cetosome)",
+        "Tocopheryl Acetate",
+        "Polyacrylate-13 (And) Polyisobutene (And) Polysorbate-20",
+        "Polysorbate 20",
+        "Disodium EDTA",
+        "Mentha Piperita"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "daily-hydration-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-face-body-sunscreen-kit",
+    "canonical_name": "Daily Sun Shield Kit",
+    "slug": "face-body-sunscreen-kit",
+    "category": "sunscreen",
+    "format": "Sunscreen lotion",
+    "variants": [
+      {
+        "variantId": "face-body-sunscreen-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "face-body-sunscreen-kit",
+        "price_inr": 839,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/face-body-sunscreen-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": null,
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "face-body-sunscreen-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-body-de-tan-kit",
+    "canonical_name": "De-Tan Kit",
+    "slug": "body-de-tan-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "body-de-tan-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "body-de-tan-kit",
+        "price_inr": 1178,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/body-de-tan-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "SunOne. Niacinamide",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "dark_spots_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "body-de-tan-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-body-sunscreen-lotion-with-spf-50",
+    "canonical_name": "De-Tan SPF 50+ Body Sunscreen Lotion",
+    "slug": "body-sunscreen-lotion-with-spf-50",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "body-sunscreen-lotion-with-spf-50-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "body-sunscreen-lotion-with-spf-50",
+        "price_inr": 549,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/body-sunscreen-lotion-with-spf-50",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Nandini, 27, Mumbai. Pragati, 26, Alibaug. Taniya, 37, Goa",
+      "ingredients": [
+        "Aqua",
+        "C12-15 Alkyl Benzoate",
+        "Niacinamide",
+        "Cyclopentasiloxane",
+        "Diethylamino Hydroxybenzoyl Hexyl Benzoate",
+        "Urea",
+        "Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine",
+        "Ethylhexyl Triazone",
+        "Glyceryl Stearate",
+        "Ceramide EOP",
+        "Cetostearyl Alcohol",
+        "Sodium Stearoyl Glutamate",
+        "Glycyrrhiza Glabra (Licorice) Root Extract",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Titanium Dioxide",
+        "Glycerin",
+        "Propylene Glycol",
+        "Ethylhexylglycerin",
+        "Cetyl Alcohol",
+        "Punica Granatum (Pomegranate) Fruit Extract",
+        "Methylene Bis-Benzotriazolyl Tetramethylbutylphenol",
+        "Phenoxyethanol",
+        "AMPS/HEMA Crosspolymer",
+        "Fragrance",
+        "C13-15 Alkane",
+        "Propanediol",
+        "Phospholipid",
+        "Disodium EDTA",
+        "Decyl Glucoside",
+        "Tocopheryl Acetate",
+        "Menthol",
+        "Sodium Metabisulfite",
+        "Sodium Sulfite",
+        "Coco-Glucoside",
+        "Glutathione",
+        "Sodium Hyaluronate",
+        "Tartaric Acid",
+        "Xanthan Gum",
+        "Butylene Glycol",
+        "Psidium Guajava Fruit Extract",
+        "Carica Papaya Fruit Extract",
+        "Cetearth -20",
+        "PEG -100 stearate",
+        "Sodium Lauroyl Lactylate",
+        "Hydroxyacetophenone",
+        "Saxifraga Sarmentosa Extract",
+        "Ceramide NP",
+        "Ceramide AP",
+        "Phytosphingosine",
+        "Cholesterol",
+        "Carbomer."
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "body-sunscreen-lotion-with-spf-50"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-face-and-body-acne-kit",
+    "canonical_name": "Face & Body Acne Kit",
+    "slug": "face-and-body-acne-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "face-and-body-acne-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "face-and-body-acne-kit",
+        "price_inr": 349,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/face-and-body-acne-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4",
+      "ingredients": [
+        "Facewash: Aqua",
+        "Decyl Glucoside",
+        "Cocamidopropyl Betaine",
+        "Isopropyl Myristate",
+        "Benzoyl Peroxide",
+        "Glycerin",
+        "Propylene Glycol",
+        "Polysorbate-20",
+        "Glyceryl Monostearate",
+        "Cetostearyl Alcohol",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Phenoxyethanol",
+        "Triethanolamine",
+        "Tocopheryl Acetate",
+        "Aloe barbadensis (Aloe Vera) Extract",
+        "D-Panthenol",
+        "Disodium EDTA. Formulated without: Paraben",
+        "Silicone",
+        "Sulphate",
+        "Alcohol",
+        "Allergens",
+        "Fragrance",
+        "Mineral Oil. Bodywash: Aqua",
+        "Cocamidopropyl Betaine",
+        "Decylglucoside",
+        "Acrylates Copolymer",
+        "C12-15 Alkyl Benzoate",
+        "Disodium Cocoamphodiacetate",
+        "Polysorbate 20",
+        "Sodium C14-16 Olefin Sulfonate",
+        "Glycerin",
+        "Benzoyl Peroxide",
+        "Propylene Glycol",
+        "Centella Asiatica (Gotukola) Leaf Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Fragrance",
+        "Phenoxyethanol",
+        "Xanthan Gum",
+        "Aloe barbadensis (Aloe Vera) Extract",
+        "CI 42090. Formulated without: Paraben",
+        "Silicone",
+        "Alcohol",
+        "Allergen",
+        "Testing on Animals."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "oil_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "face-and-body-acne-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-face-razor-for-women",
+    "canonical_name": "Face Razor",
+    "slug": "face-razor-for-women",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "face-razor-for-women-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "face-razor-for-women",
+        "price_inr": 199,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/face-razor-for-women",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "undefined"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "face-razor-for-women"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-folli-advanced-plus-hair-growth-serum",
+    "canonical_name": "Folli Advanced+ Hair Growth Serum Roll On - 3% Redensyl, 3% Rosemary",
+    "slug": "folli-advanced-plus-hair-growth-serum",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "folli-advanced-plus-hair-growth-serum-v1",
+        "size_value": 25,
+        "size_unit": "mL",
+        "size_label": "25 ml",
+        "sku": "folli-advanced-plus-hair-growth-serum",
+        "price_inr": 849,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/folli-advanced-plus-hair-growth-serum",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5. Step 6. Step 7. Step 8. Step 9. Niharika, 34, Mumbai. Anjana, 28, Bangalore",
+      "ingredients": null,
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "folli-advanced-plus-hair-growth-serum"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-anti-frizz-serum",
+    "canonical_name": "Frizz Control and Damage Repair Hair Serum",
+    "slug": "anti-frizz-serum",
+    "category": "serum",
+    "format": "Topical skin serum",
+    "variants": [
+      {
+        "variantId": "anti-frizz-serum-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "anti-frizz-serum",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/anti-frizz-serum",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical skin serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Shake Pump Rub Apply <div class=\"sc-b25f611-0 bFwGVS CONTAINED VERTICAL_TOP_SPACING_COMPACT VERTICAL_BOTTOM_SPACING_COMPACT SUPPORTED_FOR_DESKTOP \" data-widgettype=\"",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "frizz_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "anti-frizz-serum"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-glutathione-gummies-60",
+    "canonical_name": "Glutathione Gummies",
+    "slug": "glutathione-gummies-60",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "glutathione-gummies-60-v1",
+        "size_value": 60,
+        "size_unit": "count",
+        "size_label": "60N",
+        "sku": "glutathione-gummies-60",
+        "price_inr": 689,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/glutathione-gummies-60",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Chicory Root Inulin (Prebiotic)",
+        "Gelling Agent (Pectin)",
+        "L-Reduced Glutathione (OPITAC Tm)",
+        "Strawberry Powder",
+        "Acidity Regulator (Citric Acid)",
+        "Vitamin C (L-Ascorbic Acid)",
+        "Flavour (Mixed Berry)",
+        "Vitamin E (D-Alpha Tocopherol)",
+        "Monk Fruit",
+        "Vitamin D3 (Cholecalciferol -Vitashine™)",
+        "Vitamin A (Retinyl Palmitate)",
+        "Vitamin B12 (Cyanocobalamin)",
+        "Maize Starch",
+        "Binding Agent (Guar Gum)."
+      ],
+      "cautions": [
+        "Consult a healthcare professional if irritation or adverse symptoms develop."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "glutathione-gummies-60"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-fall-control-mini",
+    "canonical_name": "Hair Cleansing and Conditioning Kit",
+    "slug": "hair-fall-control-mini",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "hair-fall-control-mini-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hair-fall-control-mini",
+        "price_inr": 749,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-fall-control-mini",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Hair fall Control Shampoo : DM Water",
+        "Guarhydroxypropyltrimonium chloride",
+        "Polyquaternium-10",
+        "Di Sodium EDTA",
+        "Almond Oil",
+        "Cetostearyl Alcohol",
+        "Quaternium 91 and Cetrimonium Methosulfate",
+        "Cetrimonium Chloride",
+        "Shea Butter",
+        "Glycerin",
+        "Avocado Oil",
+        "Condicare CT",
+        "Caprylic Capric Trigylceride",
+        "PG - Amodimethicone",
+        "Fragrance",
+        "Argan Oil",
+        "Tilia Tomentosa Bud Extract",
+        "Pro- Vitamin B5",
+        "Niacin",
+        "Biotin",
+        "Methylchloroisothiazolinone and Methylisothiazolinone Deep Moisturizing Conditioner : DM WATER",
+        "Quaternium-91",
+        "Cetrimonium Methosulfate",
+        "CETRIMOINUM CHLORIDE",
+        "Hydroxyethyl Cellulose",
+        "Guarhydroxytrimonium Chloride",
+        "Polyquaternium-10",
+        "Argan Oil",
+        "D-Panthenol",
+        "CETOSTEARYL ALCOHOL",
+        "SHEA BUTTER",
+        "Cocoa Butter",
+        "GLYCERIN",
+        "AVOCADO OIL",
+        "Quaternium-75",
+        "Silk Protein",
+        "PG-Amodimethicone",
+        "Fragrance",
+        "Olive oil",
+        "Biotin",
+        "D-Panthenol",
+        "Niacinamide (Vitamin B3)",
+        "Tilia Tomentosa Bud Extract",
+        "Methylchloroisothiazolinone (and) Methylisothiazolinone",
+        "Disodium EDTA"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_fall_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-fall-control-mini"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-pro-growth-pack",
+    "canonical_name": "Hair Growth Pack",
+    "slug": "hair-pro-growth-pack",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "hair-pro-growth-pack-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hair-pro-growth-pack",
+        "price_inr": 949,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-pro-growth-pack",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Ayushi Saraf, 28. Meenakshi, 30. Manisha Kalra, 35",
+      "ingredients": [
+        "Hair Growth Concentrate : Aqua",
+        "Propanediol",
+        "Butylene Glycol",
+        "Saw Palmetto Extract",
+        "Butylene Glycol (and) Aqua (and) PPG-26-Buteth-26 (and) PEG-40 Hydrogenated Castor Oil (and) Apigenin (and) Oleanolic Acid (and) Biotinoyl Tripeptide-1 (Procapil)",
+        "Fenugreek Extract",
+        "Moringa Extract",
+        "Aqua (and) Glycerin (and) Sodium Metabisulite (and) Glycine (and) Larix Europaea Wood Extract (and) Zinc Chloride (and) Camellia Sinensis Leaf Extract (Redensyl)",
+        "Propanediol (and) Aqua (and) Arginine (and) Lactic Acid (and) Glycine Soja (Soybean) Germ Extract (and) Triticum Vulgare (Wheat) Germ Extract (and) Scutellaria Baicalensis Root Extract (Baicapil)",
+        "Red Clover Extract",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "D-Panthanol",
+        "Glycerine",
+        "EDTA",
+        "Fragrance",
+        "Colour -CI.No.19140 (and) CI.No. 42090 Hair Health Gummies : Chicory Root Extract",
+        "Pectin (440)",
+        "Citric acid (E330)",
+        "Natural Color(Red Beet powder)",
+        "Natural flavors (Strawberry)",
+        "Biotin",
+        "Vitamin C",
+        "Vitamin E",
+        "Vitamin A",
+        "Zinc (As Zinc Citrate dihydrate)"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-pro-growth-pack"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-growth-serum-spray",
+    "canonical_name": "Hair Growth Serum Spray",
+    "slug": "hair-growth-serum-spray",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-growth-serum-spray-v1",
+        "size_value": 30,
+        "size_unit": "mL",
+        "size_label": "30 ml",
+        "sku": "hair-growth-serum-spray",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-growth-serum-spray",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Pooja, 33, Pune. Bhavika, 25, Delhi. Sangeetha, 36, Mysore. Step 4. Step 5. Step 6. Step 7. Step 8",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-growth-serum-spray"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hair-strengthening-serum",
+    "canonical_name": "Hair Strengthening Serum",
+    "slug": "hair-strengthening-serum",
+    "category": "serum",
+    "format": "Leave-on hair serum",
+    "variants": [
+      {
+        "variantId": "hair-strengthening-serum-50-ml-v1",
+        "size_value": 50,
+        "size_unit": "mL",
+        "size_label": "50mL",
+        "sku": "hair-strengthening-serum-50-ml",
+        "price_inr": 299,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-strengthening-serum-50-ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      },
+      {
+        "variantId": "hair-strengthening-serum-v2",
+        "size_value": 100,
+        "size_unit": "mL",
+        "size_label": "100mL",
+        "sku": "hair-strengthening-serum",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hair-strengthening-serum",
+        "last_verified_at": "2026-11-18",
+        "is_default": false
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Leave-on hair serum designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Reduction in Frizz. Hair Nourishment. Protection from UV rays & heat damage",
+      "ingredients": [
+        "Cyclopentasiloxane",
+        "Dimethiconol",
+        "Phenyl Trimethicone",
+        "Simmondsia Chinensis (Jojoba) Seed Oil",
+        "Perfume",
+        "Argania Spinosa Kernel (Argan) Oil",
+        "Olea Europaea (Olive) Fruit Oil",
+        "Helianthus Annuus",
+        "(Sunflower) Seed Oil"
+      ],
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "hair_density_appearance"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hair-strengthening-serum",
+      "hair-strengthening-serum-50-ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-hydrocolloid-acne-pimple-patch",
+    "canonical_name": "Hydrocolloid Acne Pimple Patch",
+    "slug": "hydrocolloid-acne-pimple-patch",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "hydrocolloid-acne-pimple-patch-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "hydrocolloid-acne-pimple-patch",
+        "price_inr": 299,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/hydrocolloid-acne-pimple-patch",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "oil_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "hydrocolloid-acne-pimple-patch"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-ice-roller",
+    "canonical_name": "Ice Roller",
+    "slug": "ice-roller",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "ice-roller-v1",
+        "size_value": 1,
+        "size_unit": "count",
+        "size_label": "1 N",
+        "sku": "ice-roller",
+        "price_inr": 249,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/ice-roller",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": null,
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "ice-roller"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-deep-moisturizing-conditioner",
+    "canonical_name": "Keratin Conditioner",
+    "slug": "deep-moisturizing-conditioner",
+    "category": "conditioner",
+    "format": "Cream rinse-off conditioner",
+    "variants": [
+      {
+        "variantId": "deep-moisturizing-conditioner-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "deep-moisturizing-conditioner",
+        "price_inr": 399,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/deep-moisturizing-conditioner",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Cream rinse-off conditioner designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Hair Nourishment. Improvement in Hair Shine. Seal the cuticle",
+      "ingredients": [
+        "DM WATER",
+        "Quaternium-91",
+        "Cetrimonium Methosulfate",
+        "CETRIMOINUM CHLORIDE",
+        "Hydroxyethyl Cellulose",
+        "Guarhydroxytrimonium Chloride",
+        "Polyquaternium-10",
+        "Argan Oil",
+        "D-Panthenol",
+        "CETOSTEARYL ALCOHOL",
+        "SHEA BUTTER",
+        "Cocoa Butter",
+        "GLYCERIN",
+        "AVOCADO OIL",
+        "Quaternium-75",
+        "Silk Protein",
+        "PG-Amodimethicone",
+        "Fragrance",
+        "Olive oil",
+        "Biotin",
+        "D-Panthenol",
+        "Niacinamide (Vitamin B3)",
+        "Tilia Tomentosa Bud Extract",
+        "Methylchloroisothiazolinone (and) Methylisothiazolinone",
+        "Disodium EDTA"
+      ],
+      "cautions": null,
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "frizz_control"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "deep-moisturizing-conditioner"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-lightest-mineral-sunscreen-spf50",
+    "canonical_name": "Lightest Mineral Sunscreen SPF 50+",
+    "slug": "lightest-mineral-sunscreen-spf50",
+    "category": "sunscreen",
+    "format": "Sunscreen lotion",
+    "variants": [
+      {
+        "variantId": "lightest-mineral-sunscreen-spf50-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "lightest-mineral-sunscreen-spf50",
+        "price_inr": 449,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/lightest-mineral-sunscreen-spf50",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Zinc Oxide (and) Dimethicone (and) Isodecyl Neopentanoate",
+        "Aqua",
+        "Caprylic/Capric Triglyceride",
+        "Glycerin",
+        "Cocos Nucifera (Coconut) Oil",
+        "Cyclopentasiloxane and Dimethicone/Vinyl Dimethicone Crosspolymer",
+        "Polysorbate-80",
+        "Aloe Barbadensis Leaf Extract",
+        "Cetostearyl alcohol",
+        "Niacinamide",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Prunus Amygdalus Dulcis (Sweet Almond) Oil",
+        "Sambucus Nigra (Elderberry) Fruit Extract (and) Punica Granatum (Pomegranate) Peel Extract (and) Prunus Cerasus (Cherry) Extract (and) Hydrolyzed Wheat Protein (and) Glycerin (and) Aqua",
+        "Camellia Sinensis (Green Tea) Extract",
+        "Cetearyl Alcohol (and) Cetearyl Glucoside",
+        "Melaleuca Alternifolia (Tea Tree) Leaf Water",
+        "Tocopheryl Acetate",
+        "Zinc PCA",
+        "Polyglyceryl-4 Diisostearate/Polyhydroxystearate/Sebacate",
+        "Sodium Acrylates Copolymer (and) Lecithin",
+        "Sodium Polyacrylate",
+        "Titanium Dioxide",
+        "Xanthan Gum",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum ( (Ceramide Complex))",
+        "Disteardimonium Hectorite (and) Caprylic/Capric Triglyceride (and) Propylene Carbonate."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "lightest-mineral-sunscreen-spf50"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-multivitamin-gummies",
+    "canonical_name": "Multivitamin Gummies",
+    "slug": "multivitamin-gummies",
+    "category": "supplement",
+    "format": "Chewable dietary supplement",
+    "variants": [
+      {
+        "variantId": "multivitamin-gummies-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "multivitamin-gummies",
+        "price_inr": 699,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/multivitamin-gummies",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Chewable dietary supplement designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Chicory Root Extract",
+        "Maltitol",
+        "Pectin (E440)",
+        "Acidity Regulator (E330)",
+        "Vitamin C (L-ascorbic Acid)",
+        "Vitamin E (D-Alpha Tocopherol)",
+        "Vitamin B5 (Pantothenic Acid)",
+        "Vitamin B6 (Pyridoxine HCI)",
+        "Vitamin A (Retinyl Palmitate)",
+        "Vitamin B9 (Dietary Folates)",
+        "Vitamin D3 Veg Lichen (Cholecalciferol)",
+        "Vitamin B12 (Cyanocobalamin)",
+        "Biotin (D-Biotin)",
+        "Zinc (Zinc Citrate Dihydrate)",
+        "Iron (Ferrous Fumarate)",
+        "Iodine (Potassium Iodine)",
+        "Colour (E160A)",
+        "Orange Flavour. CONTAINS PERMITTED COLOUR (S) AND ADDED FLAVOUR (S) (Orange)"
+      ],
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "multivitamin-gummies"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-pigmentation-repair-cream",
+    "canonical_name": "Pigmentation Repair Cream",
+    "slug": "pigmentation-repair-cream",
+    "category": "body_wash",
+    "format": "Topical moisturizer / lotion",
+    "variants": [
+      {
+        "variantId": "pigmentation-repair-cream-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "pigmentation-repair-cream",
+        "price_inr": 599,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/pigmentation-repair-cream",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical moisturizer / lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Cetostearyl Alcohol",
+        "Caprylic/Capric Triglyceride",
+        "Propylene Glycol",
+        "Cetearyl Alcohol & Ceteareth-20",
+        "Lactic Acid",
+        "Glycerin",
+        "PEG-100 Stearate (and) Glyceryl Stearate",
+        "Urea",
+        "Sorbitan Monostearate",
+        "Niacinamide",
+        "Sodium hydroxide",
+        "Kojic Acid dipalmitate",
+        "Phenoxyethanol",
+        "Ethylhexylglycerin",
+        "Fragrance",
+        "Carbomer",
+        "Disodium Edetate",
+        "Retinol"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "dark_spots_look"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "pigmentation-repair-cream"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-scalp-massager",
+    "canonical_name": "Scalp Massager",
+    "slug": "scalp-massager",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "scalp-massager-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "scalp-massager",
+        "price_inr": 199,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/scalp-massager",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy hair.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your hair regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "scalp-massager"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-sabodywash-scrub",
+    "canonical_name": "Strawberry Skin Exfoliation kit",
+    "slug": "sabodywash-scrub",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "sabodywash-scrub-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "sabodywash-scrub",
+        "price_inr": 649,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/sabodywash-scrub",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "1% Salicylic Acid Body Wash: Purified Water",
+        "Acrylate Copolymer",
+        "Sodium Lauroyl Sarcosinate",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Salicylic Acid",
+        "Erythritol",
+        "Phenoxyethanol & Ethylhexylglycerin",
+        "IFRA Certified Fragrance",
+        "Saccharide Isomerate",
+        "Citric Acid",
+        "Chamomile Extract",
+        "Biodegradable Encapsulated Salicylic Acid Beads",
+        "Sodium Citrate",
+        "Sodium EDTA",
+        "Brilliant Blue FCF C.I. No. 42090 10% AHA Body Scrub: Aqua",
+        "Lactic Acid",
+        "Helianthus Annuus (Sunflower) Seed Oil",
+        "Sodium Hydroxide",
+        "Glycerin",
+        "Cetostearyl alcohol",
+        "Stearic Acid",
+        "Emulsifying wax",
+        "Glyceryl Stearate",
+        "Natural Silica beads",
+        "Cetyl Alcohol",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Avena Sativa (Oat) Kernel Extract",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Perfume",
+        "Xanthan Gum",
+        "Microspheres (Jojoba Infused)",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Allantoin",
+        "Disodium EDTA",
+        "Tocopheryl Acetate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "sabodywash-scrub"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-strawberry-skin-kit",
+    "canonical_name": "Strawberry Skin Kit",
+    "slug": "strawberry-skin-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "strawberry-skin-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "strawberry-skin-kit",
+        "price_inr": 698,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/strawberry-skin-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Vitamin E. Shea Butter",
+      "ingredients": null,
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "body_bumps_look",
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "strawberry-skin-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-strawberry-skin-pack",
+    "canonical_name": "Strawberry Skin Pack",
+    "slug": "strawberry-skin-pack",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "strawberry-skin-pack-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "strawberry-skin-pack",
+        "price_inr": 999,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/strawberry-skin-pack",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "The Be Bodywise app will be a partner for you in your journey to healthy skin.. Get daily reminders & rewards on the Be Bodywise app for staying consistent with your skin regimen.. SAVE UPTO 30% on your next order using the wallet on our app.",
+      "ingredients": [
+        "1% Salicylic Acid Body Wash : Purified Water",
+        "Acrylate Copolymer",
+        "Sodium Lauroyl Sarcosinate",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Salicylic Acid",
+        "Erythritol",
+        "Phenoxyethanol & Ethylhexylglycerin",
+        "IFRA Certified Fragrance",
+        "Saccharide Isomerate",
+        "Citric Acid",
+        "Chamomile Extract",
+        "Biodegradable Encapsulated Salicylic Acid Beads",
+        "Sodium Citrate",
+        "Sodium EDTA",
+        "Brilliant Blue FCF C.I. No. 42090 5% Lactic Acid Body Lotion : Water",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Aloe Vera Extract",
+        "CICA Extract",
+        "Cucumber Extract",
+        "L-Arginine",
+        "Glycerin",
+        "Triethanolamine",
+        "Xanthan Gum",
+        "Vitamin E",
+        "Polyacrylamide & C13-14 Isoparaffin & Laureth-7",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Sunflower Oil",
+        "Argan Oil",
+        "Fragrance",
+        "Polyacrylate Crosspolymer-6 10% AHA Scrub : Aqua",
+        "Lactic Acid",
+        "Helianthus Annuus (Sunflower) Seed Oil",
+        "Sodium Hydroxide",
+        "Glycerin",
+        "Cetostearyl alcohol",
+        "Stearic Acid",
+        "Emulsifying wax",
+        "Glyceryl Stearate",
+        "Natural Silica beads",
+        "Cetyl Alcohol",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Aloe Barbadensis (Aloe Vera) Leaf Extract",
+        "Avena Sativa (Oat) Kernel Extract",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Perfume",
+        "Xanthan Gum",
+        "Microspheres (Jojoba Infused)",
+        "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+        "Allantoin",
+        "Disodium EDTA",
+        "Tocopheryl Acetate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "body_bumps_look",
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "strawberry-skin-pack"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-summer-essentials-kit",
+    "canonical_name": "Summer Essentials Trio",
+    "slug": "summer-essentials-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "summer-essentials-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "summer-essentials-kit",
+        "price_inr": 999,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/summer-essentials-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "1% Salicylic Acid Bodywash : Purified Water",
+        "Acrylate Copolymer",
+        "Sodium Lauroyl Sarcosinate",
+        "Coco-Glucoside",
+        "Cocamidopropyl Betaine",
+        "Triethanolamine",
+        "Salicylic Acid",
+        "Erythritol",
+        "Phenoxyethanol & Ethylhexylglycerin",
+        "IFRA Certified Fragrance",
+        "Saccharide Isomerate",
+        "Citric Acid",
+        "Chamomile Extract",
+        "Biodegradable Encapsulated Salicylic Acid Beads",
+        "Sodium Citrate",
+        "Sodium EDTA",
+        "Brilliant Blue FCF C.I. No. 42090 4% AHA BHA Underarm Roll On : Aqua",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Tocopheryl Acetate",
+        "Silica",
+        "Perfume. Ultralight Sunscreen : Aqua",
+        "Aqua (and) C12-15 Alkyl Benzolate (and) Diethylamino Hydroxybenzoyl Hexyl Benzoate (and) Ethylhexyl Triazone (and) Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine (and) Ethylhexylglycerin (and) Phospholipid",
+        "2- Propandiol",
+        "Octyldodecanol",
+        "Arachidyl Alcohol (and) Behenyl Alcohol (and) Arachidyl Glucoside",
+        "Isododecane",
+        "Phenyl Trimethicone",
+        "2-Hexanediol",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Niacinamide",
+        "Salix Alba (Willow) Bark Extract",
+        "Salix Alba (Willow) Bark Extract (and) Camellia Sinensis Leaf Extract (and) Centella Asiatica Leaf Extract (and) Cladosiphon Okamuranus Extract (and) Coffea Arabica (Coffee) Seed Extract (and) Citrus Aurantium Bergamia (Bergamot) Leaf Extract (and) Pinus Densiflora Leaf Extract (and) Decyl Glucoside (and) 1",
+        "2-Hexanediol (ACZERO)",
+        "Sodium Polyacryloyldimethyl Taurate",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Glycyrrhiza Glabra (Licorice) Root Extract",
+        "Tocopheryl Acetate",
+        "Allantoin",
+        "Menthyl Lactate",
+        "Bakuchiol",
+        "Polyacrylate Crosspolymer-6",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum",
+        "Sodium Hyaluronate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "summer-essentials-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-sun-care-duo-head-to-toe",
+    "canonical_name": "Sun Care Duo for Face and Body",
+    "slug": "sun-care-duo-head-to-toe",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "sun-care-duo-head-to-toe-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "sun-care-duo-head-to-toe",
+        "price_inr": 949,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/sun-care-duo-head-to-toe",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Step 1. Step 2. Step 3. Step 4. Step 5",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": null,
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "sun-care-duo-head-to-toe"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-triple-milk-deep-hydrating-bodywash-xp",
+    "canonical_name": "Triple Milk Deep Hydrating Body wash",
+    "slug": "triple-milk-deep-hydrating-bodywash-xp",
+    "category": "body_wash",
+    "format": "Liquid body wash",
+    "variants": [
+      {
+        "variantId": "triple-milk-deep-hydrating-bodywash-xp-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "triple-milk-deep-hydrating-bodywash-xp",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/triple-milk-deep-hydrating-bodywash-xp",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Liquid body wash designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Softens skin. Prevents Dehydration. Calms Redness. Repairs Skin's Barrier",
+      "ingredients": null,
+      "cautions": null,
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "gentle_daily_cleansing",
+        "hydration_barrier"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "triple-milk-deep-hydrating-bodywash-xp"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-ultra-light-sunscreen-spf50",
+    "canonical_name": "Ultra Light Sunscreen SPF50+",
+    "slug": "ultra-light-sunscreen-spf50",
+    "category": "sunscreen",
+    "format": "Sunscreen lotion",
+    "variants": [
+      {
+        "variantId": "ultra-light-sunscreen-spf50-v1",
+        "size_value": 50,
+        "size_unit": "g",
+        "size_label": "50 g",
+        "sku": "ultra-light-sunscreen-spf50",
+        "price_inr": 499,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/ultra-light-sunscreen-spf50",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Sunscreen lotion designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Blends in 3 seconds. Suitable for all Indian skin tones. Acne Safe",
+      "ingredients": [
+        "Aqua",
+        "Aqua (and) C12-15 Alkyl Benzolate (and) Diethylamino Hydroxybenzoyl Hexyl Benzoate (and) Ethylhexyl Triazone (and) Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine (and) Ethylhexylglycerin (and) Phospholipid",
+        "2- Propandiol",
+        "Octyldodecanol",
+        "Arachidyl Alcohol (and) Behenyl Alcohol (and) Arachidyl Glucoside",
+        "Isododecane",
+        "Phenyl Trimethicone",
+        "2-Hexanediol",
+        "Centella Asiatica (Gotu Kola) Extract",
+        "Niacinamide",
+        "Salix Alba (Willow) Bark Extract",
+        "Salix Alba (Willow) Bark Extract (and) Camellia Sinensis Leaf Extract (and) Centella Asiatica Leaf Extract (and) Cladosiphon Okamuranus Extract (and) Coffea Arabica (Coffee) Seed Extract (and) Citrus Aurantium Bergamia (Bergamot) Leaf Extract (and) Pinus Densiflora Leaf Extract (and) Decyl Glucoside (and) 1",
+        "2-Hexanediol (ACZERO)",
+        "Sodium Polyacryloyldimethyl Taurate",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Glycyrrhiza Glabra (Licorice) Root Extract",
+        "Tocopheryl Acetate",
+        "Allantoin",
+        "Menthyl Lactate",
+        "Bakuchiol",
+        "Polyacrylate Crosspolymer-6",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum",
+        "Sodium Hyaluronate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": true,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "sun_protection"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "ultra-light-sunscreen-spf50"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-underarm-pigmentation-kit-no-fragrance",
+    "canonical_name": "Underarm Pigmentation Kit - No Fragrance",
+    "slug": "underarm-pigmentation-kit-no-fragrance",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "underarm-pigmentation-kit-no-fragrance-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "underarm-pigmentation-kit-no-fragrance",
+        "price_inr": 799,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/underarm-pigmentation-kit-no-fragrance",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "4% AHA BHA Underarm Roll On :Aqua",
+        "Propylene Glycol",
+        "Shea Butter",
+        "Lactic Acid",
+        "Sodium Lactate",
+        "Glycerin",
+        "Lysolecithin (and) Sclerotium Gum (and) Xanthan Gum (and) Pullulan",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Polysorbate 20",
+        "Alpha Arbutin",
+        "Vitamin E Acetate",
+        "Silica Pigmentation Repair Cream : Aqua",
+        "Cetostearyl Alcohol",
+        "Caprylic/Capric Triglyceride",
+        "Propylene Glycol",
+        "Cetearyl Alcohol & Ceteareth-20",
+        "Lactic Acid",
+        "Glycerin",
+        "PEG-100 Stearate (and) Glyceryl Stearate",
+        "Urea",
+        "Sorbitan Monostearate",
+        "Niacinamide",
+        "Sodium hydroxide",
+        "Kojic Acid dipalmitate",
+        "Phenoxyethanol",
+        "Ethylhexylglycerin",
+        "Fragrance",
+        "Carbomer",
+        "Disodium Edetate",
+        "Retinol"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": false,
+      "suitable_for": null,
+      "supported_goals": [
+        "dark_spots_look",
+        "underarm_texture_smoothing",
+        "underarm_odor_freshness"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "underarm-pigmentation-kit-no-fragrance"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-6-aha-bha-underarm-roll-on-twin-pack-75ml",
+    "canonical_name": "Underarm Twin Defence Pack",
+    "slug": "6-aha-bha-underarm-roll-on-twin-pack-75ml",
+    "category": "other",
+    "format": "Topical roll-on applicator",
+    "variants": [
+      {
+        "variantId": "6-aha-bha-underarm-roll-on-twin-pack-75ml-v1",
+        "size_value": 50,
+        "size_unit": "g",
+        "size_label": "50 g",
+        "sku": "6-aha-bha-underarm-roll-on-twin-pack-75ml",
+        "price_inr": 998,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/6-aha-bha-underarm-roll-on-twin-pack-75ml",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Topical roll-on applicator designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Shweta, 23, Pune. Arunika, 26, Bengaluru. Vibha, 24, Chandigarh",
+      "ingredients": [
+        "Aqua",
+        "Lactic Acid",
+        "Propylene Glycol",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Glycerin",
+        "Perfume",
+        "Aqua (and) Sodium Benzoate (and) Potassium Sorbate",
+        "Kojic Acid",
+        "Mandelic Acid",
+        "Salicylic Acid",
+        "Silica",
+        "Alpha Arbutin",
+        "Morus Alba (Mulberry) Extract",
+        "PEG-40 Hydrogenated Castor Oil",
+        "Tocopheryl Acetate",
+        "Acacia Senegal Gum (and) Xanthan Gum",
+        "Polysorbate 20",
+        "Xanthan Gum",
+        "Sodium lactate"
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "Oily and blemish-prone skin"
+      ],
+      "supported_goals": [
+        "underarm_odor_freshness",
+        "underarm_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "6-aha-bha-underarm-roll-on-twin-pack-75ml"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  },
+  {
+    "familyId": "fam-urea-skin-heel-repair-kit",
+    "canonical_name": "Urea Skin & Heel Repair Kit",
+    "slug": "urea-skin-heel-repair-kit",
+    "category": "other",
+    "format": "Product",
+    "variants": [
+      {
+        "variantId": "urea-skin-heel-repair-kit-v1",
+        "size_value": null,
+        "size_unit": null,
+        "size_label": "Standard Packaging",
+        "sku": "urea-skin-heel-repair-kit",
+        "price_inr": 749,
+        "price_checked_at": "2026-11-18",
+        "image_url": null,
+        "source_url": "https://bebodywise.com/product/urea-skin-heel-repair-kit",
+        "last_verified_at": "2026-11-18",
+        "is_default": true
+      }
+    ],
+    "shared_facts": {
+      "brand_line": "Be Bodywise",
+      "official_description": "Product designed for regular personal care and surface skin maintenance.",
+      "label_directions": "Refer to product packaging label for official application directions.",
+      "ingredients": [
+        "Aqua",
+        "Urea",
+        "Glycerin",
+        "Butyrospermum Parkii (Shea) Butter",
+        "Ceteareth-20 (and) Cetostearyl Alcohol",
+        "Garcinia Indica (Kokum) Seed Butter",
+        "Mangifera Indica (Mango) Seed Butter",
+        "Butylene Glycol",
+        "Cetyl Alcohol",
+        "Cyclopentasiloxane",
+        "Dimethicone",
+        "Phenoxyethanol (and) Ethylhexylglycerin",
+        "Perfume",
+        "Tocopheryl Acetate",
+        "Stearic Acid",
+        "Zinc Oxide",
+        "Butylated Hydroxytoluene",
+        "Disodium EDTA",
+        "Imidazolidinyl Urea",
+        "Polyacrylate-13 and Polyisobutene and Polysorbate-20",
+        "Ceramide NP (and) Ceramide AP (and) Ceramide EOP (and) Phytosphingosine (and) Cholesterol (and) Sodium Lauroyl Lactylate (and) Carbomer (and) Xanthan Gum (Ceramide Complex)."
+      ],
+      "cautions": [
+        "Conduct a patch test prior to initial use."
+      ],
+      "fragrance_free": null,
+      "suitable_for": [
+        "All skin types"
+      ],
+      "supported_goals": [
+        "rough_texture_smoothing"
+      ],
+      "is_demo": false
+    },
+    "mergedFrom": [
+      "urea-skin-heel-repair-kit"
+    ],
+    "needs_review": false,
+    "review_reasons": []
+  }
+]

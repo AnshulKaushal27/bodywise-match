@@ -125,7 +125,7 @@ export default function DesignSystemPage() {
             <div className="p-4 rounded-xl border border-border bg-paper flex flex-col justify-between h-36 shadow-sm">
               <div>
                 <span className="text-xs font-mono font-bold text-brand-deep">--bg-paper</span>
-                <p className="text-xs text-muted">#F7F7F1 • Canvas Warm Off-White</p>
+                <p className="text-xs text-muted">#F5F9FF • Canvas Cool Off-White</p>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="font-medium text-charcoal">Base Surface</span>
@@ -140,32 +140,32 @@ export default function DesignSystemPage() {
                 <p className="text-xs text-muted">#FFFFFF • Pure Card Surface</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="font-medium text-charcoal">13.0:1 on charcoal</span>
+                <span className="font-medium text-charcoal">14.0:1 on charcoal</span>
                 <Badge variant="success">AAA</Badge>
               </div>
             </div>
 
-            {/* Surface Sage */}
+            {/* Surface Sky */}
             <div className="p-4 rounded-xl border border-border bg-surface-sage flex flex-col justify-between h-36">
               <div>
-                <span className="text-xs font-mono font-bold text-brand-deep">--surface-sage</span>
-                <p className="text-xs text-muted">#DCE8D7 • Calming Sage Backing</p>
+                <span className="text-xs font-mono font-bold text-brand-deep">--surface-sky</span>
+                <p className="text-xs text-muted">#E3EEFC • Calming Sky Backing</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="font-medium text-brand-deep">10.2:1 with pine</span>
+                <span className="font-medium text-brand-deep">12.5:1 with navy</span>
                 <Badge variant="success">AAA</Badge>
               </div>
             </div>
 
-            {/* Brand Evergreen */}
+            {/* Brand Primary */}
             <div className="p-4 rounded-xl border border-transparent bg-brand-evergreen text-white flex flex-col justify-between h-36 shadow-sm">
               <div>
-                <span className="text-xs font-mono font-bold">--brand-evergreen</span>
-                <p className="text-xs text-white/80">#245345 • Primary Active Tone</p>
+                <span className="text-xs font-mono font-bold">--brand-primary</span>
+                <p className="text-xs text-white/80">#1D4ED8 • Primary Action Tone</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span>8.3:1 with white</span>
-                <span className="px-2 py-0.5 rounded-full bg-white/20 text-white font-bold text-[10px]">AAA</span>
+                <span>6.73:1 with white</span>
+                <span className="px-2 py-0.5 rounded-full bg-white/20 text-white font-bold text-[10px]">AA</span>
               </div>
             </div>
 
@@ -173,22 +173,22 @@ export default function DesignSystemPage() {
             <div className="p-4 rounded-xl border border-transparent bg-brand-deep text-white flex flex-col justify-between h-36 shadow-sm">
               <div>
                 <span className="text-xs font-mono font-bold">--brand-deep</span>
-                <p className="text-xs text-white/80">#17352E • Deep Pine Headings</p>
+                <p className="text-xs text-white/80">#0B2447 • Deep Navy Headings</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span>12.2:1 on paper</span>
+                <span>14.9:1 on paper</span>
                 <span className="px-2 py-0.5 rounded-full bg-white/20 text-white font-bold text-[10px]">AAA</span>
               </div>
             </div>
 
-            {/* Accent Lime */}
+            {/* Accent Sky */}
             <div className="p-4 rounded-xl border border-brand-deep/20 bg-accent-lime text-brand-deep flex flex-col justify-between h-36 shadow-sm">
               <div>
-                <span className="text-xs font-mono font-bold">--accent-lime</span>
-                <p className="text-xs text-brand-deep/80">#D9EE9B • Restrained Accent</p>
+                <span className="text-xs font-mono font-bold">--accent-sky</span>
+                <p className="text-xs text-brand-deep/80">#BBD9FF • Restrained Accent</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold">10.7:1 with deep pine</span>
+                <span className="font-bold">11.0:1 with deep navy</span>
                 <span className="px-2 py-0.5 rounded-full bg-brand-deep/10 text-brand-deep font-bold text-[10px]">AAA</span>
               </div>
             </div>
@@ -209,10 +209,10 @@ export default function DesignSystemPage() {
             <div className="p-4 rounded-xl border border-border bg-surface flex flex-col justify-between h-36">
               <div>
                 <span className="text-xs font-mono font-bold text-charcoal">--text-charcoal</span>
-                <p className="text-xs text-muted">#26332E • High-Legibility Body</p>
+                <p className="text-xs text-muted">#1B2A41 • High-Legibility Body</p>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-charcoal font-medium">12.2:1 on paper</span>
+                <span className="text-charcoal font-medium">13.3:1 on paper</span>
                 <Badge variant="success">AAA</Badge>
               </div>
             </div>
@@ -318,7 +318,7 @@ export default function DesignSystemPage() {
               4. Chips, Badges & Fact Provenance
             </h2>
             <p className="text-sm text-muted">
-              Selected chips use accent-lime. Rule 4: All sample data is explicitly flagged with DemoBadge.
+              Selected chips use accent-sky (#BBD9FF). Rule 4: All sample data is explicitly flagged with DemoBadge.
             </p>
           </div>
 

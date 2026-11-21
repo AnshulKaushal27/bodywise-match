@@ -139,7 +139,7 @@ export function StatusClient() {
             </div>
             <span
               className={`w-2.5 h-2.5 rounded-full ${
-                isOnline ? "bg-emerald-500 animate-pulse" : "bg-amber-500"
+                isOnline ? "bg-brand-primary animate-pulse" : "bg-amber-500"
               }`}
               title={isOnline ? "Operational" : "Cold start or offline"}
             />
@@ -171,7 +171,7 @@ export function StatusClient() {
             </div>
             <div className="flex justify-between py-1">
               <span className="text-foreground/60">Ephemeral Disk:</span>
-              <span className="font-semibold text-emerald-800">Active (No local file writes)</span>
+              <span className="font-semibold text-success-text">Active (No local file writes)</span>
             </div>
           </div>
           {error && !isOnline && (
@@ -185,7 +185,7 @@ export function StatusClient() {
         <div className="bg-surface border border-border rounded-card p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-sage/40 flex items-center justify-center text-brand-evergreen">
+              <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
                 <Cpu className="w-4 h-4" weight="regular" />
               </div>
               <div>
@@ -193,7 +193,7 @@ export function StatusClient() {
                 <p className="text-[11px] text-foreground/65">Deterministic Pure TypeScript</p>
               </div>
             </div>
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Deterministic rules active" />
+            <span className="w-2.5 h-2.5 rounded-full bg-brand-primary" title="Deterministic rules active" />
           </div>
 
           <div className="space-y-2 text-xs text-foreground/80 border-t border-border/60 pt-3">
@@ -215,7 +215,7 @@ export function StatusClient() {
             </div>
             <div className="flex justify-between py-1">
               <span className="text-foreground/60">Medical Diagnosis:</span>
-              <span className="font-semibold text-emerald-800">Zero (Explicitly forbidden)</span>
+              <span className="font-semibold text-success-text">Zero (Explicitly forbidden)</span>
             </div>
           </div>
         </div>
@@ -224,7 +224,7 @@ export function StatusClient() {
         <div className="bg-surface border border-border rounded-card p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-sage/40 flex items-center justify-center text-brand-evergreen">
+              <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
                 <BookOpen className="w-4 h-4" weight="regular" />
               </div>
               <div>
@@ -256,7 +256,7 @@ export function StatusClient() {
             </div>
             <div className="flex justify-between py-1">
               <span className="text-foreground/60">Fabricated Claims:</span>
-              <span className="font-semibold text-emerald-800">Zero tolerance</span>
+              <span className="font-semibold text-success-text">Zero tolerance</span>
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ export function StatusClient() {
         <div className="bg-surface border border-border rounded-card p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-sage/40 flex items-center justify-center text-brand-evergreen">
+              <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
                 <Database className="w-4 h-4" weight="regular" />
               </div>
               <div>
@@ -275,7 +275,7 @@ export function StatusClient() {
             </div>
             <span
               className={`w-2.5 h-2.5 rounded-full ${
-                health?.database === "configured" ? "bg-emerald-500" : "bg-brand-evergreen"
+                health?.database === "configured" ? "bg-brand-primary" : "bg-brand-evergreen"
               }`}
               title="Database status"
             />
@@ -296,7 +296,7 @@ export function StatusClient() {
             </div>
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Logging Redaction (Rule 8):</span>
-              <span className="font-semibold text-emerald-800">Request bodies redacted</span>
+              <span className="font-semibold text-success-text">Request bodies redacted</span>
             </div>
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Signup Requirement:</span>
@@ -315,7 +315,7 @@ export function StatusClient() {
         <div className="bg-surface border border-border rounded-card p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-sage/40 flex items-center justify-center text-brand-evergreen">
+              <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
                 <Sparkle className="w-4 h-4" weight="regular" />
               </div>
               <div>
@@ -323,13 +323,13 @@ export function StatusClient() {
                 <p className="text-[11px] text-foreground/65">Strategy A & B Architecture</p>
               </div>
             </div>
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Parser online" />
+            <span className="w-2.5 h-2.5 rounded-full bg-brand-primary" title="Parser online" />
           </div>
 
           <div className="space-y-2 text-xs text-foreground/80 border-t border-border/60 pt-3">
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Strategy A (Deterministic):</span>
-              <span className="font-semibold text-emerald-800">Always Active (Offline capable)</span>
+              <span className="font-semibold text-success-text">Always Active (Offline capable)</span>
             </div>
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Strategy B (Groq LLM):</span>
@@ -354,7 +354,7 @@ export function StatusClient() {
         <div className="bg-surface border border-border rounded-card p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-brand-sage/40 flex items-center justify-center text-brand-evergreen">
+              <div className="w-8 h-8 rounded-lg bg-surface-sage flex items-center justify-center text-brand-evergreen">
                 <ShieldCheck className="w-4 h-4" weight="regular" />
               </div>
               <div>
@@ -362,13 +362,13 @@ export function StatusClient() {
                 <p className="text-[11px] text-foreground/65">Content & Medical Guardrails</p>
               </div>
             </div>
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Safeguards active" />
+            <span className="w-2.5 h-2.5 rounded-full bg-brand-primary" title="Safeguards active" />
           </div>
 
           <div className="space-y-2 text-xs text-foreground/80 border-t border-border/60 pt-3">
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Prohibited Terminology:</span>
-              <span className="font-semibold text-emerald-800">CI Safety Linter Verified</span>
+              <span className="font-semibold text-success-text">CI Safety Linter Verified</span>
             </div>
             <div className="flex justify-between py-1 border-b border-border/40">
               <span className="text-foreground/60">Medical Diagnosis Claim:</span>

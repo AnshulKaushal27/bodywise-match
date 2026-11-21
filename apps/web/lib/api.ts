@@ -13,7 +13,33 @@ import {
   parseRequestKeyword,
   matchMultiNeeds,
   MultiNeedMatchResult,
+  selectNextFacetQuestion,
+  NextFacetQuestionResult,
+  QuestionFacetOption,
+  calculateMatchPreview,
+  MatchPreviewResult,
+  PreviewFamily,
+  LimitingChip,
+  MatchSessionState,
+  ChatMessage,
+  SelectNextQuestionResult,
+  SessionLanguage,
+  selectNext,
+  computeShortlist,
+  extractPatchViaRules,
+  SessionPatch,
+  SessionEvent,
+  ShortlistFamilyItem,
 } from "@bodywise/shared";
+
+export type {
+  NextFacetQuestionResult,
+  QuestionFacetOption,
+  MatchPreviewResult,
+  PreviewFamily,
+  LimitingChip,
+  SelectNextQuestionResult,
+};
 
 /**
  * Resolves API URLs across server-side runtime, service bindings, client-side browser, and local dev.
@@ -382,6 +408,94 @@ export async function fetchNextQuestion(
   );
 }
 
+/**
+ * Fetches live shortlist preview for /match/confirm
+ */
+export async function fetchMatchPreview(
+  parsedRequest: ParsedRequest,
+  answeredFacets: Record<string, string> = {},
+  signal?: AbortSignal
+): Promise<MatchPreviewResult> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
+    const abortHandler = () => controller.abort();
+    if (signal) {
+      signal.addEventListener("abort", abortHandler, { once: true });
+    }
+
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/match/preview`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        parsed: parsedRequest,
+        answeredFacets,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+    if (signal) {
+      signal.removeEventListener("abort", abortHandler);
+    }
+
+    if (res.ok) {
+      return (await res.json()) as MatchPreviewResult;
+    }
+  } catch {
+    // Fall back to client-side deterministic preview calculation
+  }
+
+  return calculateMatchPreview(parsedRequest, DEMO_CATALOGUE_SEED, answeredFacets);
+}
+
+/**
+ * Fetches the next catalogue-driven facet clarifying question (Information Gain)
+ */
+export async function fetchNextFacetQuestion(
+  parsedRequest: ParsedRequest,
+  answeredFacets: Record<string, string> = {},
+  askedCount: number = 0,
+  signal?: AbortSignal
+): Promise<NextFacetQuestionResult> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
+    const abortHandler = () => controller.abort();
+    if (signal) {
+      signal.addEventListener("abort", abortHandler, { once: true });
+    }
+
+    const { baseUrl } = resolveApiUrls();
+    const res = await fetch(`${baseUrl}/match/next-question`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        parsed: parsedRequest,
+        answeredFacets,
+        askedCount,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+    if (signal) {
+      signal.removeEventListener("abort", abortHandler);
+    }
+
+    if (res.ok) {
+      return (await res.json()) as NextFacetQuestionResult;
+    }
+  } catch {
+    // Fall back to client-side deterministic question selector
+  }
+
+  return selectNextFacetQuestion(parsedRequest, DEMO_CATALOGUE_SEED, answeredFacets, askedCount);
+}
+
 export interface FeedbackPayload {
   request_id?: string;
   session_id?: string;
@@ -488,4 +602,221 @@ export async function fetchProductBySlug(slug: string): Promise<ProductRecord | 
   const match = DEMO_CATALOGUE_SEED.find((p) => p.slug === slug);
   return match || null;
 }
+
+export interface MatchChatResponse {
+  patch: SessionPatch;
+  events: SessionEvent[];
+  assistantMessage: string;
+  quickReplies: Array<{ id: string; label: string; action: string; value: unknown }>;
+  nextQuestion: SelectNextQuestionResult | null;
+  candidateCount: number;
+  sourceTag?: {
+    source: string;
+    verifiedAt: string;
+    url?: string;
+  };
+  meta: {
+    source: "llm" | "rules";
+    fallbackReason?: string;
+  };
+}
+
+export interface UnifiedChatInput {
+  state: MatchSessionState;
+  message: string;
+  history?: ChatMessage[];
+  pageContext?: {
+    page: "home" | "confirm" | "results" | "products" | "product_detail" | "compare" | "help";
+    focusFamilyId?: string;
+    comparedFamilyIds?: string[];
+  };
+  language?: SessionLanguage;
+  mode?: "rules" | "retrieval" | "digest" | "hybrid";
+}
+
+export interface UnifiedChatResponse {
+  request_id?: string;
+  patch: SessionPatch;
+  assistantMessage: string;
+  quickReplies: Array<{ id: string; label: string; action: string; value: unknown }>;
+  actions: Array<{ type: string; payload: unknown }>;
+  candidates: ShortlistFamilyItem[];
+  shortlist: {
+    stateHash: string;
+    count: number;
+    topFamilies: ShortlistFamilyItem[];
+  };
+  sources: Array<{ source: string; verifiedAt: string; url?: string }>;
+  meta?: {
+    mode: string;
+    fallbackReason?: string;
+    tokenEstimate?: number;
+    latencyMs?: number;
+  };
+}
+
+export async function sendUnifiedChat(input: UnifiedChatInput): Promise<UnifiedChatResponse> {
+  const { baseUrl } = resolveApiUrls();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const res = await fetch(`${baseUrl}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Fallback to client-side pure rules logic
+  }
+
+  // Client-side deterministic fallback
+  const rules = extractPatchViaRules(input.message);
+  const nextQ = selectNext(input.state, DEMO_CATALOGUE_SEED);
+  const shortlist = computeShortlist(input.state, DEMO_CATALOGUE_SEED);
+
+  return {
+    patch: rules.patch,
+    assistantMessage: nextQ.done
+      ? `Understood. We found ${shortlist.totalFamilies} products matching your criteria.`
+      : `Noted. ${nextQ.question || ""}`,
+    quickReplies: (nextQ.options || []).slice(0, 3).map((o) => ({
+      id: o.id,
+      label: o.label,
+      action: "answer_facet",
+      value: { facetId: nextQ.facet, value: o.value },
+    })),
+    actions: [
+      { type: "apply_patch", payload: rules.patch },
+      { type: "show_results", payload: { count: shortlist.totalFamilies, stateHash: shortlist.stateHash } },
+    ],
+    candidates: shortlist.topFamilies,
+    shortlist: {
+      stateHash: shortlist.stateHash,
+      count: shortlist.totalFamilies,
+      topFamilies: shortlist.topFamilies.slice(0, 3),
+    },
+    sources: [],
+    meta: {
+      mode: "rules",
+      fallbackReason: "Local rules active",
+    },
+  };
+}
+
+export async function sendMatchChat(input: {
+  state: MatchSessionState;
+  message: string;
+  history?: ChatMessage[];
+  language?: SessionLanguage;
+}): Promise<MatchChatResponse> {
+  const res = await sendUnifiedChat({
+    state: input.state,
+    message: input.message,
+    history: input.history,
+    language: input.language,
+  });
+
+  const nextQ = selectNext(input.state, DEMO_CATALOGUE_SEED);
+
+  return {
+    patch: res.patch,
+    events: [],
+    assistantMessage: res.assistantMessage,
+    quickReplies: res.quickReplies,
+    nextQuestion: nextQ.done ? null : nextQ,
+    candidateCount: res.shortlist.count,
+    sourceTag: res.sources.length > 0 ? res.sources[0] : undefined,
+    meta: {
+      source: res.meta?.mode === "rules" ? "rules" : "llm",
+      fallbackReason: res.meta?.fallbackReason,
+    },
+  };
+}
+
+export async function fetchNextSessionQuestion(
+  state: MatchSessionState
+): Promise<SelectNextQuestionResult> {
+  const { baseUrl } = resolveApiUrls();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+
+  try {
+    const res = await fetch(`${baseUrl}/match/next-question`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Fallback to deterministic client evaluation
+  }
+
+  return selectNext(state, DEMO_CATALOGUE_SEED);
+}
+
+export async function fetchSessionPreview(state: MatchSessionState): Promise<{
+  stateHash: string;
+  count: number;
+  familiesTop: PreviewFamily[];
+  status: "NO_FIT" | "FOCUSED";
+  unmatchedBenefit?: string | null;
+  canExploreOtherCategories?: boolean;
+  alternativeCategoryMatchesCount?: number;
+}> {
+  const { baseUrl } = resolveApiUrls();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+
+  try {
+    const res = await fetch(`${baseUrl}/match/preview`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch {
+    // Client fallback to single shared computation
+  }
+
+  const shortlist = computeShortlist(state, DEMO_CATALOGUE_SEED);
+  return {
+    stateHash: shortlist.stateHash,
+    count: shortlist.totalFamilies,
+    familiesTop: shortlist.topFamilies.slice(0, 3).map((f) => ({
+      familyId: f.familyId,
+      name: f.canonical_name,
+      category: f.category,
+      categoryLabel: f.categoryLabel,
+      format: f.format,
+      priceInr: f.priceInr,
+      imageUrl: f.imageUrl,
+      whyLine: f.whyText,
+      rank: f.rank,
+      benefitsCovered: f.benefitsCovered,
+      notSpecificallyDescribed: f.notSpecificallyDescribed,
+    })),
+    status: shortlist.totalFamilies === 0 ? "NO_FIT" : "FOCUSED",
+    unmatchedBenefit: shortlist.unmatchedBenefit,
+    canExploreOtherCategories: shortlist.canExploreOtherCategories,
+    alternativeCategoryMatchesCount: shortlist.alternativeCategoryMatchesCount,
+  };
+}
+
 

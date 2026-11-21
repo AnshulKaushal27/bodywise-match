@@ -13,6 +13,21 @@ export * from "./matcher/next-question";
 export * from "./parser/strategy-a";
 export * from "./retrieval/index";
 export * from "./data/knowledge.seed";
+export * from "./filters";
+export * from "./families/index";
+export * from "./matcher/facet-selector";
+export * from "./matcher/preview";
+export * from "./data/synonyms.hinglish";
+export * from "./data/typeMap";
+export * from "./matchSession/index";
+export * from "./questions/selectNext";
+export * from "./parser/tolerant-parser";
+export * from "./parser/rules-patcher";
+export * from "./data/categories";
+export * from "./data/categoryMap";
+export * from "./matchSession/guard";
+export * from "./matcher/shortlist";
+export * from "./knowledge/index";
 
 // --- Fact Verification Provenance (Rule 3) ---
 export const VerificationProvenanceSchema = z.object({

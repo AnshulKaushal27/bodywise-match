@@ -237,6 +237,7 @@ export default function MatchStep1Page() {
 
       // Persist parsed needs for Step 2 in sessionStorage
       if (typeof window !== "undefined") {
+        sessionStorage.removeItem("bodywise_hybrid_match_session");
         sessionStorage.setItem(
           "bodywise_parsed_needs",
           JSON.stringify(result.parsed_needs)
@@ -247,6 +248,7 @@ export default function MatchStep1Page() {
             JSON.stringify(result.parsed_request)
           );
         }
+        sessionStorage.setItem("bodywise_user_raw_input", inputQuery);
         sessionStorage.setItem("bodywise_request_id", result.request_id);
         sessionStorage.setItem(
           "bodywise_parse_source",
@@ -254,9 +256,13 @@ export default function MatchStep1Page() {
         );
         if (result.fallback_reason) {
           sessionStorage.setItem("bodywise_parse_fallback_reason", result.fallback_reason);
+        } else {
+          sessionStorage.removeItem("bodywise_parse_fallback_reason");
         }
         if (result.error_category) {
           sessionStorage.setItem("bodywise_parse_error_category", result.error_category);
+        } else {
+          sessionStorage.removeItem("bodywise_parse_error_category");
         }
       }
 

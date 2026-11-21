@@ -199,7 +199,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
       <TrialFollowupBanner />
 
       {/* Main Content: Exact Section Order Required */}
-      <main id="main-content" className="max-w-prose md:max-w-3xl mx-auto px-5 py-8 md:py-12 flex-1 w-full space-y-10">
+      <main id="main-content" className="max-w-prose md:max-w-3xl mx-auto px-5 pt-8 pb-24 md:py-12 flex-1 w-full space-y-10">
         {/* ================= 1. HEADER (name, image, format, size) ================= */}
         <section aria-labelledby="product-header" className="p-6 md:p-8 rounded-card bg-surface border border-border shadow-card">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-border/70">
@@ -364,7 +364,9 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   {product.ingredients.map((ing, idx) => (
                     <span
                       key={idx}
-                      className="text-xs px-2.5 py-1 rounded-full bg-paper text-charcoal border border-border"
+                      className={`text-xs px-2.5 py-1 rounded-full border border-border ${
+                        idx % 2 === 0 ? "bg-surface-sage/35 text-brand-deep font-medium" : "bg-paper text-charcoal"
+                      }`}
                     >
                       {ing}
                     </span>
@@ -580,6 +582,34 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           </p>
         </section>
       </main>
+
+      {/* Mobile Sticky Action Bar (< 768px) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-border p-3 px-4 shadow-lg flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-xs font-bold text-brand-deep truncate">{product.official_name}</p>
+          <p className="text-[11px] text-muted">{product.format} &bull; {product.size}</p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={handleToggleCompare}
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-button text-xs font-bold border transition-colors focus-ring flex items-center gap-1.5 ${
+              isCompared
+                ? "bg-brand-evergreen text-surface border-brand-evergreen"
+                : "bg-surface-sage/50 text-brand-deep border-border hover:bg-surface-sage"
+            }`}
+          >
+            {isCompared ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-accent-lime" />
+                <span>Compared</span>
+              </>
+            ) : (
+              <span>+ Compare</span>
+            )}
+          </button>
+        </div>
+      </div>
 
       {/* Page Footer */}
       <footer className="border-t border-border bg-surface py-6 text-center text-xs text-muted">

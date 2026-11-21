@@ -12,14 +12,22 @@ const config: Config = {
         paper: "var(--bg-paper)",
         surface: {
           DEFAULT: "var(--surface)",
-          sage: "var(--surface-sage)",
+          sage: "var(--surface-sky)", // Alias for surface-sky
+          sky: "var(--surface-sky)",
         },
         brand: {
           deep: "var(--brand-deep)",
-          evergreen: "var(--brand-evergreen)",
+          evergreen: "var(--brand-primary)", // Alias for brand-primary
+          primary: "var(--brand-primary)",
+          "primary-hover": "var(--brand-primary-hover)",
         },
         accent: {
-          lime: "var(--accent-lime)",
+          lime: "var(--accent-sky)", // Alias for accent-sky
+          sky: "var(--accent-sky)",
+        },
+        decorative: {
+          500: "var(--decorative-blue-500)",
+          400: "var(--decorative-blue-400)",
         },
         charcoal: "var(--text-charcoal)",
         muted: "var(--text-muted)",
@@ -63,11 +71,11 @@ const config: Config = {
         dialog: "24px",
       },
       boxShadow: {
-        soft: "0 6px 24px rgba(23, 53, 46, 0.08)",
-        card: "0 2px 10px rgba(23, 53, 46, 0.06)",
-        subtle: "0 1px 3px rgba(23, 53, 46, 0.04)",
-        elevated: "0 12px 36px rgba(23, 53, 46, 0.10)",
-        ambient: "0 6px 24px rgba(23, 53, 46, 0.08)",
+        soft: "0 6px 24px rgba(11, 36, 71, 0.08)",
+        card: "0 2px 10px rgba(11, 36, 71, 0.06)",
+        subtle: "0 1px 3px rgba(11, 36, 71, 0.04)",
+        elevated: "0 12px 36px rgba(11, 36, 71, 0.10)",
+        ambient: "0 6px 24px rgba(11, 36, 71, 0.08)",
       },
       maxWidth: {
         container: "1120px",

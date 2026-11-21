@@ -15,8 +15,6 @@ import {
   Sparkle,
   ArrowRight,
   ShieldCheck,
-  Check,
-  ArrowCounterClockwise,
 } from "@phosphor-icons/react/dist/ssr";
 import {
   DemoBadge,
@@ -28,44 +26,36 @@ import {
   ProductRecord,
   DEMO_CATALOGUE_SEED,
   CONTROLLED_GOALS,
+  filterProducts,
+  ProductFilterCriteria,
 } from "@bodywise/shared";
 import { fetchProducts } from "@/lib/api";
+import {
+  useProductFilters,
+  CATEGORIES,
+} from "@/hooks/useProductFilters";
+import { FilterDialog } from "./FilterDialog";
 
-const CATEGORIES = [
-  { id: "all", label: "All Categories" },
-  { id: "body_wash", label: "Body Wash" },
-  { id: "face_wash", label: "Face Wash" },
-  { id: "serum", label: "Serum & Roll-On" },
-  { id: "hair_oil", label: "Hair Oil" },
-  { id: "shampoo", label: "Shampoo" },
-  { id: "sunscreen", label: "Sunscreen" },
-  { id: "supplement", label: "Supplements" },
-];
-
-const FORMAT_OPTIONS = [
-  { id: "all", label: "All Formats" },
-  { id: "liquid", label: "Liquid" },
-  { id: "gel", label: "Gel" },
-  { id: "roll-on", label: "Roll-On" },
-  { id: "oil", label: "Oil" },
-  { id: "cream", label: "Cream" },
-  { id: "gummies", label: "Gummies" },
-];
-
-const FRAGRANCE_OPTIONS = [
-  { id: "all", label: "All Formulations" },
-  { id: "fragrance_free", label: "Fragrance-Free Only" },
-  { id: "other", label: "Fragrance / Unverified" },
-];
-
-export default function ProductsPage() {
+function ProductsPageContent() {
   const [products, setProducts] = React.useState<ProductRecord[]>(DEMO_CATALOGUE_SEED);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = React.useState<string>("");
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
-  const [selectedGoal, setSelectedGoal] = React.useState<string>("all");
-  const [selectedFormat, setSelectedFormat] = React.useState<string>("all");
-  const [selectedFragrance, setSelectedFragrance] = React.useState<string>("all");
+  const [isFilterDialogOpen, setIsFilterDialogOpen] = React.useState<boolean>(false);
+
+  // Filters hook handling search, attributes, and URL search param synchronization
+  const {
+    searchQuery,
+    setSearchQuery,
+    filterCriteria,
+    activeChips,
+    activeFilterCount,
+    hasActiveFilters,
+    removeFilter,
+    clearAllFilters,
+    updateFiltersAndSync,
+  } = useProductFilters();
+
+  const filtersButtonRef = React.useRef<HTMLButtonElement>(null);
+  const resultsContainerRef = React.useRef<HTMLDivElement>(null);
 
   // Comparison selection state (up to 3 products)
   const [selectedForCompare, setSelectedForCompare] = React.useState<string[]>([]);
@@ -114,7 +104,6 @@ export default function ProductsPage() {
         updated = prev.filter((item) => item !== id);
       } else {
         if (prev.length >= 3) {
-          // Replace the oldest or keep max 3
           updated = [...prev.slice(1), id];
         } else {
           updated = [...prev, id];
@@ -148,62 +137,23 @@ export default function ProductsPage() {
     }
   };
 
-  // Filter products
+  // Pure deterministic filtering of catalogue products (guarantees grid count equals dialog count)
   const filteredProducts = React.useMemo(() => {
-    return products.filter((prod) => {
-      // Search query matching
-      if (searchQuery.trim().length > 0) {
-        const q = searchQuery.toLowerCase().trim();
-        const matchesName = prod.official_name.toLowerCase().includes(q);
-        const matchesDesc = prod.official_description.toLowerCase().includes(q);
-        const matchesCategory = prod.category.toLowerCase().includes(q);
-        const matchesGoals = prod.supported_goals.some((g) => g.toLowerCase().includes(q));
-        if (!matchesName && !matchesDesc && !matchesCategory && !matchesGoals) {
-          return false;
-        }
-      }
+    return filterProducts(products, filterCriteria);
+  }, [products, filterCriteria]);
 
-      // Category filter
-      if (selectedCategory !== "all" && prod.category !== selectedCategory) {
-        return false;
-      }
-
-      // Goal filter
-      if (selectedGoal !== "all" && !(prod.supported_goals as string[]).includes(selectedGoal)) {
-        return false;
-      }
-
-      // Format filter
-      if (selectedFormat !== "all") {
-        if (!prod.format.toLowerCase().includes(selectedFormat.toLowerCase())) {
-          return false;
-        }
-      }
-
-      // Fragrance filter
-      if (selectedFragrance === "fragrance_free") {
-        if (prod.fragrance_free !== true) return false;
-      } else if (selectedFragrance === "other") {
-        if (prod.fragrance_free === true) return false;
-      }
-
-      return true;
+  // Apply handler from dialog
+  const handleApplyFilters = (draft: ProductFilterCriteria) => {
+    updateFiltersAndSync({
+      categories: draft.categories,
+      formats: draft.formats,
+      goals: draft.goals,
+      fragrance: draft.fragrance,
     });
-  }, [products, searchQuery, selectedCategory, selectedGoal, selectedFormat, selectedFragrance]);
-
-  const hasActiveFilters =
-    searchQuery.trim().length > 0 ||
-    selectedCategory !== "all" ||
-    selectedGoal !== "all" ||
-    selectedFormat !== "all" ||
-    selectedFragrance !== "all";
-
-  const resetFilters = () => {
-    setSearchQuery("");
-    setSelectedCategory("all");
-    setSelectedGoal("all");
-    setSelectedFormat("all");
-    setSelectedFragrance("all");
+    // Smooth scroll to results if user is lower down or on mobile
+    if (resultsContainerRef.current) {
+      resultsContainerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -238,7 +188,7 @@ export default function ProductsPage() {
       {/* Main Content Area */}
       <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full">
         {/* Header Intro */}
-        <div className="mb-8">
+        <div className="mb-6">
           <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
             Catalogue Directory
           </span>
@@ -286,180 +236,106 @@ export default function ProductsPage() {
           </div>
         )}
 
-        {/* Search & Filter Toolbar */}
-        <div className="mb-8 space-y-4">
-          {/* Search Box */}
-          <div className="relative">
-            <MagnifyingGlass className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" weight="regular" aria-hidden="true" />
-            <label htmlFor="catalogue-search-input" className="sr-only">
-              Search by product name, goal, format, or ingredient
-            </label>
-            <input
-              id="catalogue-search-input"
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by product name, goal, format, or ingredient..."
-              className="w-full pl-10 pr-10 py-3 rounded-button bg-surface border border-border text-charcoal text-sm focus-ring placeholder:text-muted/70 transition-colors shadow-sm min-h-[48px]"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                aria-label="Clear search query"
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal focus-ring p-1 rounded min-w-[36px] min-h-[36px] flex items-center justify-center"
-              >
-                <X className="w-4 h-4" weight="bold" aria-hidden="true" />
-              </button>
-            )}
-          </div>
-
-          {/* Filter Chips Container */}
-          <div className="p-4 md:p-5 rounded-card bg-surface border border-border shadow-sm space-y-4">
-            <div className="flex items-center justify-between gap-3 border-b border-border/70 pb-3">
-              <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-brand-evergreen" weight="regular" />
-                <h3 className="text-xs md:text-sm font-bold uppercase tracking-wider text-brand-deep">
-                  Filter by Attributes
-                </h3>
-              </div>
-
-              {hasActiveFilters && (
+        {/* Sticky Toolbar Row */}
+        <section
+          aria-label="Catalogue Search and Filter Toolbar"
+          className="sticky top-[57px] z-20 bg-paper/95 backdrop-blur-sm pt-2 pb-3.5 border-b border-border mb-4 transition-colors"
+        >
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Search Input Box */}
+            <div className="relative flex-1">
+              <MagnifyingGlass
+                className="w-5 h-5 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                weight="regular"
+                aria-hidden="true"
+              />
+              <label htmlFor="catalogue-search-input" className="sr-only">
+                Search by product name, goal, format, or ingredient
+              </label>
+              <input
+                id="catalogue-search-input"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by product name, goal, format, or ingredient..."
+                className="w-full pl-11 pr-10 py-3 rounded-xl bg-surface border border-border text-charcoal text-sm focus-ring placeholder:text-muted/70 transition-colors shadow-sm min-h-[52px]"
+              />
+              {searchQuery && (
                 <button
                   type="button"
-                  onClick={resetFilters}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-brand-evergreen hover:text-brand-deep underline focus-ring py-1 px-1.5 rounded active:scale-[0.98] motion-safe:transition-transform"
+                  onClick={() => setSearchQuery("")}
+                  aria-label="Clear search query"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal focus-ring p-1.5 rounded-full min-w-[36px] min-h-[36px] flex items-center justify-center transition-colors"
                 >
-                  <ArrowCounterClockwise className="w-3 h-3" weight="regular" />
-                  <span>Reset filters</span>
+                  <X className="w-4 h-4" weight="bold" aria-hidden="true" />
                 </button>
               )}
             </div>
 
-            {/* Category Chips */}
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
-                Category
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {CATEGORIES.map((cat) => {
-                  const isActive = selectedCategory === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      onClick={() => setSelectedCategory(cat.id)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
-                        isActive
-                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
-                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
-                      }`}
-                    >
-                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
-                      <span>{cat.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Format Chips */}
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
-                Format
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {FORMAT_OPTIONS.map((fmt) => {
-                  const isActive = selectedFormat === fmt.id;
-                  return (
-                    <button
-                      key={fmt.id}
-                      type="button"
-                      onClick={() => setSelectedFormat(fmt.id)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
-                        isActive
-                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
-                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
-                      }`}
-                    >
-                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
-                      <span>{fmt.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Goal Filter Chips */}
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
-                Target Concern & Goal
-              </span>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedGoal("all")}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
-                    selectedGoal === "all"
-                      ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
-                      : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
-                  }`}
-                >
-                  {selectedGoal === "all" && <Check className="w-3 h-3 text-accent-lime" />}
-                  <span>All Goals</span>
-                </button>
-                {CONTROLLED_GOALS.map((goal) => {
-                  const isActive = selectedGoal === goal.id;
-                  return (
-                    <button
-                      key={goal.id}
-                      type="button"
-                      onClick={() => setSelectedGoal(goal.id)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
-                        isActive
-                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
-                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
-                      }`}
-                    >
-                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
-                      <span>{goal.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Fragrance Filter Chips */}
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-2">
-                Fragrance Declaration
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {FRAGRANCE_OPTIONS.map((opt) => {
-                  const isActive = selectedFragrance === opt.id;
-                  return (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => setSelectedFragrance(opt.id)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-colors focus-ring min-h-[36px] flex items-center gap-1.5 ${
-                        isActive
-                          ? "bg-brand-evergreen text-surface border-brand-evergreen font-bold shadow-sm"
-                          : "bg-surface-sage/30 text-charcoal border-border hover:bg-surface-sage hover:border-brand-evergreen/40"
-                      }`}
-                    >
-                      {isActive && <Check className="w-3 h-3 text-accent-lime" />}
-                      <span>{opt.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            {/* Secondary Filters Button */}
+            <button
+              ref={filtersButtonRef}
+              type="button"
+              onClick={() => setIsFilterDialogOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={isFilterDialogOpen}
+              className="h-[52px] min-h-[52px] rounded-xl px-5 border border-border bg-surface text-brand-deep hover:bg-surface-sage/30 hover:border-brand-evergreen/50 active:scale-[0.98] focus-ring inline-flex items-center justify-center gap-2.5 font-bold text-sm transition-all shadow-sm shrink-0"
+            >
+              <SlidersHorizontal className="w-5 h-5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+              <span>Filters</span>
+              {activeFilterCount > 0 && (
+                <span className="px-2 py-0.5 text-xs font-bold bg-accent-lime text-brand-deep rounded-full tracking-tight min-w-[20px] text-center shadow-xs">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
           </div>
-        </div>
 
-        {/* Results Counter */}
-        <div className="flex items-center justify-between mb-5" role="status" aria-live="polite">
+          {/* Active Filter Chips Row (rendered only when filters are active) */}
+          {activeChips.length > 0 && (
+            <div
+              className="flex flex-wrap items-center gap-2 pt-3 overflow-x-auto text-xs"
+              role="region"
+              aria-label="Active Filters"
+            >
+              <span className="text-muted font-medium text-[11px] uppercase tracking-wider mr-1">
+                Active:
+              </span>
+              {activeChips.map((chip) => (
+                <span
+                  key={`${chip.groupId}-${chip.id}`}
+                  className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-full bg-surface-sage/60 border border-border text-brand-deep font-semibold text-xs transition-colors"
+                >
+                  <span>{chip.label}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeFilter(chip.groupId, chip.id)}
+                    aria-label={`Remove filter: ${chip.label}`}
+                    className="p-1 rounded-full text-muted hover:text-brand-deep hover:bg-surface-sage focus-ring min-w-[28px] min-h-[28px] flex items-center justify-center transition-colors active:scale-[0.98]"
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" aria-hidden="true" />
+                  </button>
+                </span>
+              ))}
+
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="text-xs font-semibold text-brand-evergreen hover:text-brand-deep underline focus-ring px-2 py-1 min-h-[44px] flex items-center ml-1"
+              >
+                Clear all
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* Results Row */}
+        <div
+          ref={resultsContainerRef}
+          className="flex items-center justify-between mb-5"
+          role="status"
+          aria-live="polite"
+        >
           <p className="text-xs md:text-sm text-muted font-medium">
             Showing <strong className="text-brand-deep">{filteredProducts.length}</strong>{" "}
             {filteredProducts.length === 1 ? "product" : "products"}
@@ -511,7 +387,7 @@ export default function ProductsPage() {
               description="Try clearing search keywords, choosing broader category filters, or selecting 'All Goals'."
             />
             <div className="mt-6 flex justify-center">
-              <Button onClick={resetFilters} variant="primary" size="default">
+              <Button onClick={clearAllFilters} variant="primary" size="default">
                 Clear all filters
               </Button>
             </div>
@@ -606,7 +482,7 @@ export default function ProductsPage() {
                       <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" />
                       <span>
                         {product.fragrance_free === true
-                          ? "Fragrance-free"
+                           ? "Fragrance-free"
                           : product.fragrance_free === false
                           ? "Contains fragrance"
                           : "Fragrance unverified"}
@@ -626,6 +502,16 @@ export default function ProductsPage() {
             })}
           </div>
         )}
+
+        {/* Filters Dialog Primitive */}
+        <FilterDialog
+          isOpen={isFilterDialogOpen}
+          onClose={() => setIsFilterDialogOpen(false)}
+          appliedFilters={filterCriteria}
+          onApply={handleApplyFilters}
+          products={products}
+          triggerRef={filtersButtonRef}
+        />
       </main>
 
       {/* Footer */}
@@ -640,5 +526,13 @@ export default function ProductsPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-paper" />}>
+      <ProductsPageContent />
+    </React.Suspense>
   );
 }

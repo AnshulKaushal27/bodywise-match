@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "catalogue:validate": "tsx src/scripts/validate-catalogue.ts"
+    "catalogue:validate": "tsx src/scripts/validate-catalogue.ts",
+    "catalogue:facets": "tsx src/scripts/catalogue-facets.ts"
   },
   "dependencies": {
     "minisearch": "^7.2.0",

@@ -4,6 +4,9 @@
   "private": true,
   "packageManager": "pnpm@10.5.2",
   "scripts": {
+    "theme:contrast": "tsx scripts/theme-contrast.ts",
+    "theme:scan": "tsx scripts/theme-scan.ts",
+    "theme:pixels": "tsx scripts/theme-pixels.ts",
     "dev": "concurrently -n \"web,api\" -c \"teal,green\" \"pnpm --filter @bodywise/web dev\" \"pnpm --filter @bodywise/api dev\"",
     "dev:web": "pnpm --filter @bodywise/web dev",
     "dev:api": "pnpm --filter @bodywise/api dev",
@@ -18,9 +21,13 @@
     "safety:lint": "vitest run apps/web/app/safety-content.test.ts",
     "typecheck": "pnpm --filter @bodywise/shared build && pnpm -r exec tsc --noEmit",
     "catalogue:validate": "pnpm --filter @bodywise/shared catalogue:validate",
+    "catalogue:facets": "pnpm --filter @bodywise/shared catalogue:facets",
+    "catalogue:families": "tsx scripts/detect-families.ts",
     "catalogue:refresh": "tsx scripts/refresh-catalogue.ts",
+    "catalogue:sanitize": "tsx scripts/sanitize-catalogue.ts",
     "knowledge:build": "tsx scripts/build-knowledge.ts",
     "eval:match": "tsx scripts/eval-match.ts",
+    "eval:chat": "tsx scripts/eval-chat.ts",
     "db:migrate": "pnpm --filter @bodywise/api db:migrate",
     "db:seed": "pnpm --filter @bodywise/api db:seed",
     "prepare": "husky || true"

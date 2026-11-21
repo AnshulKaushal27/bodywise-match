@@ -31,3 +31,36 @@ This document establishes the architecture, non-negotiable rules, and developmen
 - `pnpm test`: Runs Vitest test suites.
 - `pnpm typecheck`: Runs strict TypeScript typechecks across all packages.
 - `pnpm lint`: Lints the monorepo code.
+
+## 5. Skills and Workflow
+
+### 5.1 Skill Roles & Responsibilities
+- **Impeccable:** Primary design judgement, UI critique, styling polish, and layout refinement.
+- **UI/UX Pro Max:** Reference data lookup for UX rules, charts, component patterns, and stack-specific guidelines. (Recommendations only; never persists or overwrites tokens).
+- **Vercel Agent Skills (`web-design-guidelines`, `vercel-react-best-practices`, `vercel-composition-patterns`):** Code quality, accessibility verification, React 18 composition patterns, and Next.js performance rules.
+- **Playwright Skill:** Headless browser automation for exploratory UI validation and cross-viewport checks. (Existing `@playwright/test` suite remains authoritative regression suite).
+- **Frontend Design (Anthropic):** Generic fallback guidance for visual direction (lowest priority).
+
+### 5.2 Precedence Order
+When skills or recommendations conflict, precedence is strictly resolved in this order:
+1. **User Rules, AGENTS.md & Brand Lock:** Absolute highest authority. Non-negotiable safety guardrails and tokens cannot be overridden.
+2. **Impeccable:** Highest design authority for aesthetic judgment, polish, and layout hierarchy.
+3. **UI/UX Pro Max:** Reference data provider for guidelines, accessibility checks, and UX heuristics.
+4. **Vercel Guidelines:** Web interface guidelines and React performance best practices.
+5. **Anthropic Frontend Design:** General aesthetic direction (lowest precedence).
+
+### 5.3 Brand Lock Tokens (Immutable)
+- **Palette (White + Blue):** `bg-paper` (#F5F9FF), `surface` (#FFFFFF), `surface-sky`/`surface-sage` (#E3EEFC), `brand-deep` (#0B2447), `brand-primary`/`brand-evergreen` (#1D4ED8, hover #1E40AF), `accent-sky`/`accent-lime` (#BBD9FF — badges/shapes only, never small text; text on it is #0B2447), `decorative-blue` (#3B82F6 / #60A5FA), `text-charcoal` (#1B2A41), `text-muted` (#5B6B82), `border` (#D5E0EF), `caution-peach` (#FBE3D3) with `caution-text` (#7A3B14), `success-bg` (#E3F0FF) with `success-text` (#0B4A9E).
+- **Radii:** Cards `18px` (`rounded-card`), Buttons/Inputs `12px` (`rounded-button`).
+- **Typography:** Display `DM Sans`, Body `Inter`. Column width `max-w-prose` (680px max).
+- **Interactions:** Calm editorial wellness aesthetic, motion level 3 max (150–300ms, transform/opacity only), `prefers-reduced-motion` safe, WCAG AA compliant (4.5:1 min), 44px min touch targets.
+
+### 5.4 Execution & Git Safety
+- **Git Safety:** Zero commits, pushes, merges, rebases, resets, stashes, or branch creations without explicit user permission. Read-only git only.
+- **Execution Safety:** All commands must run in the foreground with explicit timeouts (`timeout 120 ...`), one at a time. No background test suites left running.
+- **Secrets & Safety:** Never log or read `.env` files or API keys. Never alter medical safety copy or deterministic matching logic.
+
+### 5.5 Workflow Standard
+Every frontend change follows the strict 5-stage lifecycle:
+$$\text{Inspect} \longrightarrow \text{Plan} \longrightarrow \text{Implement} \longrightarrow \text{Test} \longrightarrow \text{Verify}$$
+

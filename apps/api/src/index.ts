@@ -1,8 +1,11 @@
+import { initEnv, getConfig, logLlmStartup } from "./config";
+// 1. Initialize environment loader before any other imports evaluate
+initEnv();
+
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
-import * as dotenv from "dotenv";
 import { randomUUID } from "crypto";
 import {
   CATALOGUE_VERSION,
@@ -20,23 +23,17 @@ import {
   matchProducts,
   matchMultiNeeds,
   selectNextQuestion,
+  selectNextFacetQuestion,
+  calculateMatchPreview,
+  selectNext,
+  computeShortlist,
+  MatchSessionState,
+  ChatMessage,
+  SessionLanguage,
+  createInitialSessionState,
 } from "@bodywise/shared";
-import { parseUserRequest } from "./services/parse-service";
+import { handleChatTurn, PageContext } from "./services/chat-pipeline";
 import { testLlmDebug } from "./llm/groqClient";
-
-dotenv.config();
-
-const PORT = parseInt(process.env.PORT || "4000", 10);
-const HOST = process.env.HOST || "0.0.0.0";
-const rawCors =
-  process.env.CORS_ORIGINS ||
-  process.env.CORS_ORIGIN ||
-  "http://localhost:3000,https://bodywise-match-x5hd.vercel.app";
-const CORS_ORIGINS = rawCors
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
-const DEFAULT_RATE_LIMIT = parseInt(process.env.RATE_LIMIT || "100", 10);
 
 interface SerializedReq {
   id?: string | number;
@@ -49,12 +46,11 @@ interface SerializedRes {
   statusCode?: number;
 }
 
-// Startup check: if GROQ_API_KEY is missing, log a single line and continue
-if (!process.env.GROQ_API_KEY || process.env.LLM_ENABLED === "false") {
-  console.log("LLM disabled: using rules parser");
-}
-
 export function buildServer(opts?: { rateLimitMax?: number }) {
+  const config = getConfig();
+  const CORS_ORIGINS = config.corsOrigins;
+  const DEFAULT_RATE_LIMIT = opts?.rateLimitMax ?? config.rateLimit;
+
   // Redacting logger: Strictly never logs request bodies or user inputs (Rule 8)
   const app = fastify({
     genReqId: () => randomUUID(),
@@ -146,10 +142,11 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         };
       });
 
-      // GET /v1/debug/llm (Task A.1)
+      // GET /v1/debug/llm (Task A.1 & Step 1.5)
       routeScope.get("/v1/debug/llm", async (req, reply) => {
-        const isProduction = process.env.NODE_ENV === "production";
-        const debugToken = process.env.DEBUG_TOKEN;
+        const config = getConfig();
+        const isProduction = config.nodeEnv === "production";
+        const debugToken = config.debugToken;
         const headerToken = req.headers["x-debug-token"];
 
         if (isProduction && (!debugToken || headerToken !== debugToken)) {
@@ -199,7 +196,45 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         return { product };
       });
 
-      // POST /v1/match/parse (Extracts multi-need intent, Task Part D)
+      // POST /v1/chat (Primary Unified Gateway for all chat & interpretation)
+      routeScope.post("/v1/chat", async (req, reply) => {
+        const body = (req.body || {}) as {
+          state?: MatchSessionState;
+          message?: string;
+          history?: ChatMessage[];
+          pageContext?: PageContext;
+          language?: SessionLanguage;
+          mode?: "rules" | "retrieval" | "digest" | "hybrid";
+        };
+
+        if (!body.message || typeof body.message !== "string") {
+          return reply.status(400).send({
+            error: "Invalid request. 'message' string is required.",
+          });
+        }
+
+        const sessionState = body.state || createInitialSessionState();
+
+        const result = await handleChatTurn({
+          state: sessionState,
+          message: body.message,
+          history: body.history,
+          pageContext: body.pageContext,
+          language: body.language,
+          mode: body.mode,
+          requestId: String(req.id),
+        });
+
+        return {
+          request_id: req.id,
+          ...result,
+          events: [],
+          candidateCount: result.shortlist.count,
+          sourceTag: result.sources.length > 0 ? result.sources[0] : undefined,
+        };
+      });
+
+      // POST /v1/match/parse (Thin wrapper delegating to handleChatTurn)
       routeScope.post<{ Body: { user_input: string } }>(
         "/v1/match/parse",
         {
@@ -223,39 +258,109 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
             });
           }
 
-          const parsedResult = await parseUserRequest(
-            user_input,
-            String(req.id)
-          );
+          const sessionState = createInitialSessionState();
+          const turnResult = await handleChatTurn({
+            state: sessionState,
+            message: user_input,
+            requestId: String(req.id),
+          });
 
           // Build legacy parsed_needs for backward compatibility
           const legacyNeeds: ParsedNeeds = parseNeedsKeyword(user_input);
 
           return {
             request_id: req.id,
-            parsed_request: parsedResult.parsed_request,
+            parsed_request: {
+              needs: turnResult.patch.needs || [{
+                id: "need_1",
+                concept_id: turnResult.patch.product_type || "general",
+                phrase_from_user: user_input,
+                normalised_label: user_input,
+                confidence: 1,
+                status: "confirmed",
+                source: "user_text",
+                evidence_text: user_input,
+              }],
+              primary_category: turnResult.patch.product_type || null,
+              format_preference: turnResult.patch.format || null,
+              body_area: turnResult.patch.body_area || null,
+              time_of_day: turnResult.patch.time_of_day || null,
+              avoidances: turnResult.patch.avoidances || [],
+              confidence: 1,
+              strategy: "A",
+            },
             parsed_needs: legacyNeeds,
-            strategy: parsedResult.strategy,
-            source: parsedResult.source,
-            model: parsedResult.model,
-            latencyMs: parsedResult.latencyMs,
-            error_category: parsedResult.error_category,
-            fallback_reason: parsedResult.fallback_reason,
+            strategy: "A",
+            source: turnResult.meta.mode === "rules" ? "rules" : "llm",
+            model: "groq-llama-3.3-70b",
+            latencyMs: turnResult.meta.latencyMs,
+            fallback_reason: turnResult.meta.fallbackReason,
+            patch: turnResult.patch,
+            shortlist: turnResult.shortlist,
+            turn_result: turnResult,
           };
         }
       );
 
-      // POST /v1/match/next-question (Single question that best splits remaining candidates, Rule 2)
-      routeScope.post<{
-        Body: {
-          parsed_needs: ParsedNeeds;
+      // POST /v1/match/next-question (Deterministic, Rule 2 & Section F)
+      routeScope.post("/v1/match/next-question", async (req, reply) => {
+        const body = (req.body || {}) as Record<string, unknown>;
+
+        // 1. Shared MatchSessionState contract (Primary)
+        if (body.state) {
+          const sessionState = body.state as MatchSessionState;
+          const result = selectNext(sessionState, DEMO_CATALOGUE_SEED);
+          return {
+            request_id: req.id,
+            ...result,
+          };
+        }
+
+        // 2. Multi-need parsed request contract (Backward compatibility)
+        let parsedRequest: ParsedRequest | null = null;
+        if (body.parsed) {
+          const safe = ParsedRequestSchema.safeParse(body.parsed);
+          if (safe.success) parsedRequest = safe.data;
+        } else if (body.parsed_request) {
+          const safe = ParsedRequestSchema.safeParse(body.parsed_request);
+          if (safe.success) parsedRequest = safe.data;
+        } else if (body.needs && Array.isArray(body.needs)) {
+          const safe = ParsedRequestSchema.safeParse(body);
+          if (safe.success) parsedRequest = safe.data;
+        }
+
+        if (parsedRequest) {
+          const answeredFacets = (body.answeredFacets || body.answered_facets || {}) as Record<
+            string,
+            string
+          >;
+          const askedCount =
+            typeof body.askedCount === "number"
+              ? body.askedCount
+              : typeof body.asked_count === "number"
+              ? body.asked_count
+              : 0;
+          const result = selectNextFacetQuestion(
+            parsedRequest,
+            DEMO_CATALOGUE_SEED,
+            answeredFacets,
+            askedCount
+          );
+          return {
+            request_id: req.id,
+            ...result,
+          };
+        }
+
+        // 3. Legacy single-goal parsed_needs fallback
+        const { parsed_needs, answered_question_ids } = body as {
+          parsed_needs?: ParsedNeeds;
           answered_question_ids?: string[];
         };
-      }>("/v1/match/next-question", async (req, reply) => {
-        const { parsed_needs, answered_question_ids } = req.body || {};
+
         if (!parsed_needs) {
           return reply.status(400).send({
-            error: "Invalid request. 'parsed_needs' is required.",
+            error: "Invalid request. 'state', 'parsed', or 'parsed_needs' is required.",
           });
         }
 
@@ -281,9 +386,129 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
         };
       });
 
+      // POST /v1/match/preview (Live shortlist preview for /match/confirm)
+      routeScope.post("/v1/match/preview", async (req, reply) => {
+        const body = (req.body || {}) as Record<string, unknown>;
+
+        // 1. Shared MatchSessionState contract (Primary Single Shared Computation Engine)
+        if (body.state) {
+          const sessionState = body.state as MatchSessionState;
+          const shortlist = computeShortlist(sessionState, DEMO_CATALOGUE_SEED);
+          return {
+            request_id: req.id,
+            stateHash: shortlist.stateHash,
+            count: shortlist.totalFamilies,
+            familiesTop: shortlist.topFamilies.slice(0, 3).map((f) => ({
+              familyId: f.familyId,
+              name: f.canonical_name,
+              canonical_name: f.canonical_name,
+              category: f.category,
+              categoryLabel: f.categoryLabel,
+              format: f.format,
+              priceInr: f.priceInr,
+              price_inr: f.price_inr,
+              imageUrl: f.imageUrl,
+              image_url: f.image_url,
+              whyLine: f.whyText,
+              rank: f.rank,
+              benefitsCovered: f.benefitsCovered,
+              notSpecificallyDescribed: f.notSpecificallyDescribed,
+              primaryProduct: f.primaryProduct,
+            })),
+            status: shortlist.totalFamilies === 0 ? "NO_FIT" : "FOCUSED",
+            filtersApplied: shortlist.filtersApplied,
+            rulesVersion: shortlist.rulesVersion,
+            unmatchedBenefit: shortlist.unmatchedBenefit,
+            canExploreOtherCategories: shortlist.canExploreOtherCategories,
+            alternativeCategoryMatchesCount: shortlist.alternativeCategoryMatchesCount,
+          };
+        }
+
+        // 2. Multi-need parsed request contract (Backward compatibility)
+        let parsedRequest: ParsedRequest | null = null;
+        if (body.parsed) {
+          const safe = ParsedRequestSchema.safeParse(body.parsed);
+          if (safe.success) parsedRequest = safe.data;
+        } else if (body.parsed_request) {
+          const safe = ParsedRequestSchema.safeParse(body.parsed_request);
+          if (safe.success) parsedRequest = safe.data;
+        } else if (body.needs && Array.isArray(body.needs)) {
+          const safe = ParsedRequestSchema.safeParse(body);
+          if (safe.success) parsedRequest = safe.data;
+        }
+
+        if (!parsedRequest) {
+          return reply.status(400).send({
+            error: "Invalid request. 'state' or 'parsed' with valid ParsedRequest is required.",
+          });
+        }
+
+        const answeredFacets = (body.answeredFacets || body.answered_facets || {}) as Record<
+          string,
+          string
+        >;
+        const preview = calculateMatchPreview(parsedRequest, DEMO_CATALOGUE_SEED, answeredFacets);
+
+        return {
+          request_id: req.id,
+          ...preview,
+        };
+      });
+
+      // POST /v1/match/chat (Thin wrapper delegating to handleChatTurn)
+      routeScope.post("/v1/match/chat", async (req, reply) => {
+        const body = (req.body || {}) as {
+          state?: MatchSessionState;
+          message?: string;
+          history?: ChatMessage[];
+          language?: SessionLanguage;
+        };
+
+        if (!body.state || !body.message || typeof body.message !== "string") {
+          return reply.status(400).send({
+            error: "Invalid request. 'state' and 'message' are required.",
+          });
+        }
+
+        const result = await handleChatTurn({
+          state: body.state,
+          message: body.message,
+          history: body.history,
+          language: body.language,
+          requestId: String(req.id),
+        });
+
+        return {
+          request_id: req.id,
+          ...result,
+          events: [],
+          candidateCount: result.shortlist.count,
+          sourceTag: result.sources.length > 0 ? result.sources[0] : undefined,
+        };
+      });
+
       // POST /v1/match/recommend (Pure TypeScript deterministic matching, Task Part E)
       routeScope.post("/v1/match/recommend", async (req, reply) => {
         const body = (req.body || {}) as Record<string, unknown>;
+
+        // 0. Shared MatchSessionState contract (Primary Single Shared Engine)
+        if (body.state) {
+          const sessionState = body.state as MatchSessionState;
+          const shortlist = computeShortlist(sessionState, DEMO_CATALOGUE_SEED);
+          return {
+            request_id: req.id,
+            status: shortlist.totalFamilies === 0 ? "NO_FIT" : "MATCHES_FOUND",
+            stateHash: shortlist.stateHash,
+            rules_version: shortlist.rulesVersion,
+            totalFamilies: shortlist.totalFamilies,
+            groups: shortlist.groups,
+            topFamilies: shortlist.topFamilies,
+            filtersApplied: shortlist.filtersApplied,
+            canExploreOtherCategories: shortlist.canExploreOtherCategories,
+            unmatchedBenefit: shortlist.unmatchedBenefit,
+            alternativeCategoryMatchesCount: shortlist.alternativeCategoryMatchesCount,
+          };
+        }
 
         // 1. Check if multi-need request payload was sent
         let parsedRequest: ParsedRequest | null = null;
@@ -409,8 +634,10 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
 }
 
 if (process.env.NODE_ENV !== "test") {
+  const config = getConfig();
+  logLlmStartup(config);
   const server = buildServer();
-  server.listen({ port: PORT, host: HOST }, (err, address) => {
+  server.listen({ port: config.port, host: config.host }, (err, address) => {
     if (err) {
       server.log.error(err);
       process.exit(1);

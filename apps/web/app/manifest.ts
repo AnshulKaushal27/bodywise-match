@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",
     start_url: "/",
     display: "standalone",
-    background_color: "#F7F7F1",
-    theme_color: "#245345",
+    background_color: "#F5F9FF",
+    theme_color: "#1D4ED8",
     icons: [
       {
         src: "/icon-192.png",

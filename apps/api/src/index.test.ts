@@ -148,6 +148,69 @@ describe("Fastify API Routes", () => {
     expect(res.statusCode).toBe(400);
   });
 
+  it("POST /v1/match/next-question handles multi-need parsed request with facet options", async () => {
+    const res = await app.inject({
+      method: "POST",
+      url: "/v1/match/next-question",
+      payload: {
+        parsed: {
+          medical_flag: false,
+          needs: [
+            {
+              id: "need_1",
+              phrase_from_user: "dry skin",
+              normalised_label: "Hydration",
+              concepts: ["dryness", "hydration"],
+            },
+          ],
+          avoidances: [],
+        },
+        askedCount: 0,
+      },
+    });
+    expect(res.statusCode).toBe(200);
+    const body = JSON.parse(res.payload);
+    expect(body.request_id).toBeDefined();
+    expect(body.candidateCount).toBeGreaterThan(0);
+    expect(body.done).toBe(false);
+    expect(body.facet).toBeDefined();
+    expect(body.options).toBeDefined();
+    expect(body.options.length).toBeGreaterThan(0);
+    // Last option should be neutral "Any / not sure"
+    const lastOpt = body.options[body.options.length - 1];
+    expect(lastOpt.label).toBe("Any / not sure");
+  });
+
+  it("POST /v1/match/preview returns live candidate families and per-need counts", async () => {
+    const res = await app.inject({
+      method: "POST",
+      url: "/v1/match/preview",
+      payload: {
+        parsed: {
+          medical_flag: false,
+          needs: [
+            {
+              id: "need_1",
+              phrase_from_user: "dry skin",
+              normalised_label: "Hydration",
+              concepts: ["dryness", "hydration"],
+            },
+          ],
+          avoidances: [],
+        },
+      },
+    });
+    expect(res.statusCode).toBe(200);
+    const body = JSON.parse(res.payload);
+    expect(body.request_id).toBeDefined();
+    expect(body.count).toBeGreaterThan(0);
+    expect(body.familiesTop).toBeDefined();
+    expect(body.familiesTop.length).toBeLessThanOrEqual(3);
+    expect(body.perNeedCounts).toBeDefined();
+    expect(body.perNeedCounts[0].count).toBeGreaterThan(0);
+    expect(body.status).toMatch(/focused|broad/);
+  });
+
   it("POST /v1/match/recommend produces deterministic matches", async () => {
     const res = await app.inject({
       method: "POST",

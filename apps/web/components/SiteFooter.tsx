@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { ShieldCheck, Info } from "@phosphor-icons/react/dist/ssr";
+import { ReduceMotionToggle } from "@/lib/motion";
 
 export function SiteFooter() {
   return (
@@ -31,34 +32,34 @@ export function SiteFooter() {
             <h4 className="font-display font-bold text-surface text-sm mb-3">
               Discovery
             </h4>
-            <ul className="space-y-2 text-xs text-surface-sage/80">
+            <ul className="space-y-1 text-xs text-surface-sage/80">
               <li>
-                <Link href="/match" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/match" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Find my match
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/products" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Browse catalogue
                 </Link>
               </li>
               <li>
-                <Link href="/compare" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/compare" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Compare products
                 </Link>
               </li>
               <li>
-                <Link href="/help" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/help" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Order &amp; product helper
                 </Link>
               </li>
               <li>
-                <Link href="/design-system" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/design-system" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Design tokens
                 </Link>
               </li>
               <li>
-                <Link href="/status" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/status" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   System status
                 </Link>
               </li>
@@ -70,34 +71,44 @@ export function SiteFooter() {
             <h4 className="font-display font-bold text-surface text-sm mb-3">
               Trust &amp; Policies
             </h4>
-            <ul className="space-y-2 text-xs text-surface-sage/80">
+            <ul className="space-y-1 text-xs text-surface-sage/80">
               <li>
-                <Link href="/about" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/about" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/how-it-works" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
+                  How it works
+                </Link>
+              </li>
+              <li>
+                <Link href="/safeguards" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
+                  Our safeguards
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Privacy policy
                 </Link>
               </li>
               <li>
-                <Link href="/privacy/data" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/privacy/data" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Manage your data
                 </Link>
               </li>
               <li>
-                <Link href="/safety" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/safety" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Safety &amp; medical notice
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/contact" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-surface transition-colors focus-ring rounded py-0.5 inline-block">
+                <Link href="/terms" className="hover:text-surface transition-colors focus-ring rounded py-2 min-h-[44px] inline-flex items-center">
                   Terms of use
                 </Link>
               </li>
@@ -117,16 +128,16 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-[11px] text-surface-sage/60 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10 text-[11px] text-surface-sage/60 text-center sm:text-left">
             <p>
               &copy; {new Date().getFullYear()} Bodywise Match Prototype &bull; Independent submission for Mosaic Fellowship.
             </p>
-            <div className="flex items-center gap-3">
-              <span>WCAG AA 4.5:1 Contrast</span>
-              <span>&bull;</span>
-              <span>Reading column 680px</span>
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3">
+              <span>WCAG AA 4.5:1</span>
               <span>&bull;</span>
               <span>Zero mandatory signup</span>
+              <span className="hidden sm:inline">&bull;</span>
+              <ReduceMotionToggle />
             </div>
           </div>
         </div>

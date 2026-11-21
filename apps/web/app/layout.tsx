@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
@@ -13,10 +13,34 @@ const dmSans = DM_Sans({
 
 import { FirstVisitNotice } from "@/components/FirstVisitNotice";
 import { OfflineBanner } from "@/components/OfflineBanner";
+import { ClientProviders } from "@/components/ClientProviders";
+
+export const viewport: Viewport = {
+  themeColor: "#1D4ED8",
+};
 
 export const metadata: Metadata = {
-  title: "Bodywise Match — Warm Editorial Product Finder",
+  title: "Bodywise Match — White & Blue Editorial Product Finder",
   description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",
+  openGraph: {
+    title: "Bodywise Match",
+    description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Bodywise Match" }],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Bodywise Match",
+  applicationCategory: "LifestyleApplication",
+  operatingSystem: "All",
+  description: "Find a product that fits your goal, understand what other customers report, and know what to do if the experience goes wrong.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "INR",
+  },
 };
 
 export default function RootLayout({
@@ -26,6 +50,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${GeistSans.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-[100dvh] bg-paper text-charcoal font-body antialiased selection:bg-accent-lime selection:text-brand-deep flex flex-col justify-between">
         <a
           href="#main-content"
@@ -35,7 +65,7 @@ export default function RootLayout({
         </a>
         <OfflineBanner />
         <FirstVisitNotice />
-        {children}
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

@@ -7,6 +7,8 @@ import PrivacyPage from "./privacy/page";
 import SafetyPage from "./safety/page";
 import ContactPage from "./contact/page";
 import TermsPage from "./terms/page";
+import HowItWorksPage from "./how-it-works/page";
+import SafeguardsPage from "./safeguards/page";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FirstVisitNotice } from "@/components/FirstVisitNotice";
 
@@ -165,14 +167,45 @@ describe("Static Editorial & Policy Pages", () => {
     });
   });
 
+  describe("/how-it-works Route (apps/web/app/how-it-works/page.tsx)", () => {
+    const html = renderToStaticMarkup(React.createElement(HowItWorksPage));
+
+    it("renders page title, intro, and 3-step vertical timeline", () => {
+      expect(html).toContain("How it works");
+      expect(html).toContain("Simple 3-Step Flow");
+      expect(html).toContain("Tell us what you want help choosing.");
+      expect(html).toContain("Check and edit what we understood.");
+      expect(html).toContain("See options with reasons and trade-offs.");
+      expect(html).toContain("Find my match");
+      expect(html).toContain('href="/match"');
+    });
+  });
+
+  describe("/safeguards Route (apps/web/app/safeguards/page.tsx)", () => {
+    const html = renderToStaticMarkup(React.createElement(SafeguardsPage));
+
+    it("renders heading 'Our safeguards' and subtitle 'We keep it honest'", () => {
+      expect(html).toContain("Our safeguards");
+      expect(html).toContain("We keep it honest");
+      expect(html).toContain("Rules choose, AI helps listen");
+      expect(html).toContain("Facts have sources");
+      expect(html).toContain("You stay in control");
+      expect(html).toContain('href="/safety"');
+      expect(html).toContain('href="/privacy"');
+      expect(html).toContain('href="/match"');
+    });
+  });
+
   describe("Global Footer & First-Visit Notice", () => {
     it("SiteFooter renders global disclaimer 'Informational only, not medical advice.' and prototype notice", () => {
       const footerHtml = renderToStaticMarkup(React.createElement(SiteFooter));
       expect(footerHtml).toContain("independent prototype developed for a fellowship challenge");
       expect(footerHtml).toContain("not an official Be Bodywise service");
       expect(footerHtml).toContain("Informational only, not medical advice.");
-      expect(footerHtml).toContain("Reading column 680px");
+      expect(footerHtml).toContain("Zero mandatory signup");
       expect(footerHtml).toContain('href="/about"');
+      expect(footerHtml).toContain('href="/how-it-works"');
+      expect(footerHtml).toContain('href="/safeguards"');
       expect(footerHtml).toContain('href="/privacy"');
       expect(footerHtml).toContain('href="/safety"');
       expect(footerHtml).toContain('href="/contact"');

@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowRight,
   Lifebuoy,
   Clock,
@@ -22,7 +21,8 @@ import {
   HELP_ISSUES,
   OFFICIAL_SUPPORT_CHANNELS,
 } from "@bodywise/shared";
-import { DemoBadge, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export default function HelpLandingPage() {
   const [clearedNotice, setClearedNotice] = React.useState<boolean>(false);
@@ -70,31 +70,7 @@ export default function HelpLandingPage() {
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
       {/* Top Navigation */}
-      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-evergreen hover:text-brand-deep focus-ring px-2 py-1 rounded transition-colors active:scale-[0.98] motion-safe:transition-transform"
-          >
-            <ArrowLeft className="w-4 h-4" weight="regular" />
-            <span>Home</span>
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <DemoBadge />
-            <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
-              Bodywise Match
-            </span>
-          </div>
-
-          <Link
-            href="/products"
-            className="text-xs font-semibold text-muted hover:text-charcoal focus-ring px-2 py-1 rounded"
-          >
-            Browse Products
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Container */}
       <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full space-y-8">
@@ -141,7 +117,7 @@ export default function HelpLandingPage() {
             <button
               type="button"
               onClick={handleClearLocalData}
-              className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-error-text underline focus-ring py-1 px-1.5 rounded active:scale-[0.98] motion-safe:transition-transform"
+              className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-error-text underline focus-ring py-1 px-2 rounded min-h-[44px] active:scale-[0.98] motion-safe:transition-transform"
               title="Clears saved order and checklist drafts in this browser"
             >
               <Trash className="w-3.5 h-3.5" weight="regular" />
@@ -183,7 +159,7 @@ export default function HelpLandingPage() {
                   </span>
                   <Link
                     href={`/help/${issue.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded active:scale-[0.98] motion-safe:transition-transform"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-2.5 py-1.5 rounded-button min-h-[44px] active:scale-[0.98] motion-safe:transition-transform"
                   >
                     <span>Prepare details</span>
                     <ArrowRight className="w-3.5 h-3.5" weight="regular" />

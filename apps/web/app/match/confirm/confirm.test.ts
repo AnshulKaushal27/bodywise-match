@@ -11,44 +11,31 @@ vi.mock("next/navigation", () => ({
 import { renderToStaticMarkup } from "react-dom/server";
 import MatchConfirmPage from "./page";
 
-describe("Match Confirm Step 2 Page (apps/web/app/match/confirm/page.tsx)", () => {
+describe("Match Confirm Hybrid Flow Page (apps/web/app/match/confirm/page.tsx)", () => {
   const html = renderToStaticMarkup(React.createElement(MatchConfirmPage));
 
-  it("renders Heading: 'Here\\'s what we understood'", () => {
-    expect(html).toContain("Here&#x27;s what we understood");
+  it("renders Understanding section heading", () => {
+    expect(html).toMatch(/What we understood/i);
   });
 
-  it("renders grouped summary fields: Goal, Product, Format, Avoid, Routine", () => {
-    expect(html).toContain("Goal:");
-    expect(html).toContain("Product:");
-    expect(html).toContain("Format:");
-    expect(html).toContain("Avoid:");
-    expect(html).toContain("Routine:");
-  });
-
-  it("renders confidence hints ('Clear' or 'Guessing, please check')", () => {
-    expect(html).toMatch(/(Clear|Guessing, please check)/);
-  });
-
-  it("renders '+ Add a preference' button", () => {
-    expect(html).toContain("Add a preference");
-  });
-
-  it("renders small caution callout: 'This helps choose products. It isn't medical advice.'", () => {
-    expect(html).toContain("This helps choose products. It isn&#x27;t medical advice.");
-  });
-
-  it("renders persistent 'You misunderstood me' reset button", () => {
+  it("renders persistent 'You misunderstood me' reset action", () => {
     expect(html).toContain("You misunderstood me");
   });
 
-  it("renders escape options: 'Not sure' and 'Skip, show broad options'", () => {
-    // When a question is shown or in default render
-    expect(html).toMatch(/(Not sure|Skip, show broad options|Sufficient clarity)/);
+  it("renders Guided Question Card with secondary 'Prefer to type? Chat instead' action", () => {
+    expect(html).toContain("Prefer to type? Chat instead");
+  });
+
+  it("renders 'See' matches button", () => {
+    expect(html).toMatch(/See \d+ matches/);
+  });
+
+  it("renders Live Shortlist candidate preview", () => {
+    expect(html).toContain("Live Shortlist");
   });
 
   it("renders interpretation provenance tag ('Interpreted with rules' or 'Interpreted with AI')", () => {
-    expect(html).toMatch(/Interpreted with (rules|AI, please check)/);
+    expect(html).toMatch(/Interpreted with (rules|AI)/);
   });
 
   it("never includes questions asking for age, diagnosis, medical history, or contact details", () => {

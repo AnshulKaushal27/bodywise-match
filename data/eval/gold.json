@@ -1,0 +1,282 @@
+[
+  {
+    "id": "q01",
+    "expectedCategory": "face_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-face-wash", "fam-2-salicylic-acid-face-wash"]
+  },
+  {
+    "id": "q02",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-1-salicylic-acid-body-wash", "fam-salicylic-ceramide-bodywash"]
+  },
+  {
+    "id": "q03",
+    "expectedCategory": "shampoo",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-shampoo", "fam-ketoconazole-shampoo"]
+  },
+  {
+    "id": "q04",
+    "expectedCategory": "moisturizer",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-10-urea-body-lotion", "fam-5-lactic-acid-body-lotion"]
+  },
+  {
+    "id": "q05",
+    "expectedCategory": "sunscreen",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-ultra-light-sunscreen-spf50", "fam-lightest-mineral-sunscreen-spf50"]
+  },
+  {
+    "id": "q06",
+    "expectedCategory": "serum",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-hair-growth-serum-roll-on", "fam-advanced-hair-growth-serum"]
+  },
+  {
+    "id": "q07",
+    "expectedCategory": "conditioner",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-deep-moisturizing-conditioner"]
+  },
+  {
+    "id": "q08",
+    "expectedCategory": "roll_on",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-4-aha-bha-underarm-roll-on", "fam-6-aha-bha-underarm-roll-on"]
+  },
+  {
+    "id": "q09",
+    "expectedCategory": "hair_oil",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-rosemary-hair-growth-oil"]
+  },
+  {
+    "id": "q10",
+    "expectedCategory": "supplement",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-biotin-hair-gummies", "fam-multivitamin-gummies"]
+  },
+  {
+    "id": "q11",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-1-salicylic-acid-body-wash"]
+  },
+  {
+    "id": "q12",
+    "expectedCategory": "face_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-face-wash", "fam-benzoyl-peroxide-facewash"]
+  },
+  {
+    "id": "q13",
+    "expectedCategory": "moisturizer",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-10-urea-body-lotion", "fam-5-lactic-acid-body-lotion"]
+  },
+  {
+    "id": "q14",
+    "expectedCategory": "sunscreen",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-ultra-light-sunscreen-spf50"]
+  },
+  {
+    "id": "q15",
+    "expectedCategory": "shampoo",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-shampoo", "fam-ketoconazole-shampoo"]
+  },
+  {
+    "id": "q16",
+    "expectedCategory": "serum",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-hair-growth-serum-roll-on"]
+  },
+  {
+    "id": "q17",
+    "expectedCategory": "roll_on",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-4-aha-bha-underarm-roll-on", "fam-6-aha-bha-underarm-roll-on"]
+  },
+  {
+    "id": "q18",
+    "expectedCategory": "conditioner",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-deep-moisturizing-conditioner"]
+  },
+  {
+    "id": "q19",
+    "expectedCategory": "hair_oil",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-rosemary-hair-growth-oil"]
+  },
+  {
+    "id": "q20",
+    "expectedCategory": "supplement",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-biotin-hair-gummies", "fam-multivitamin-gummies"]
+  },
+  {
+    "id": "q21",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-1-salicylic-acid-body-wash"]
+  },
+  {
+    "id": "q22",
+    "expectedCategory": "moisturizer",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-10-urea-body-lotion"]
+  },
+  {
+    "id": "q23",
+    "expectedCategory": "shampoo",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-shampoo"]
+  },
+  {
+    "id": "q24",
+    "expectedCategory": "sunscreen",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-ultra-light-sunscreen-spf50"]
+  },
+  {
+    "id": "q25",
+    "expectedCategory": "face_wash",
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-face-wash"]
+  },
+  {
+    "id": "q26",
+    "expectedCategory": null,
+    "expectedIntent": "medical",
+    "isMedical": true,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q27",
+    "expectedCategory": null,
+    "expectedIntent": "medical",
+    "isMedical": true,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q28",
+    "expectedCategory": null,
+    "expectedIntent": "medical",
+    "isMedical": true,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q29",
+    "expectedCategory": null,
+    "expectedIntent": "medical",
+    "isMedical": true,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q30",
+    "expectedCategory": null,
+    "expectedIntent": "medical",
+    "isMedical": true,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q31",
+    "expectedCategory": null,
+    "expectedIntent": "off_topic",
+    "isMedical": false,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q32",
+    "expectedCategory": null,
+    "expectedIntent": "off_topic",
+    "isMedical": false,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q33",
+    "expectedCategory": null,
+    "expectedIntent": "off_topic",
+    "isMedical": false,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q34",
+    "expectedCategory": null,
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q35",
+    "expectedCategory": null,
+    "expectedIntent": "update",
+    "isMedical": false,
+    "acceptableCandidates": []
+  },
+  {
+    "id": "q36",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "product_question",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-1-salicylic-acid-body-wash"]
+  },
+  {
+    "id": "q37",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "product_question",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-10-aha-body-scrub"]
+  },
+  {
+    "id": "q38",
+    "expectedCategory": "face_wash",
+    "expectedIntent": "product_question",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-2-salicylic-acid-face-wash", "fam-salicylic-acid-face-wash"]
+  },
+  {
+    "id": "q39",
+    "expectedCategory": "body_wash",
+    "expectedIntent": "compare_question",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-10-aha-body-scrub", "fam-5-aha-bha-exfoliating-body-wash"]
+  },
+  {
+    "id": "q40",
+    "expectedCategory": "face_wash",
+    "expectedIntent": "compare_question",
+    "isMedical": false,
+    "acceptableCandidates": ["fam-salicylic-acid-face-wash", "fam-benzoyl-peroxide-facewash"]
+  }
+]

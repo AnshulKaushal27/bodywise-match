@@ -19,6 +19,8 @@ import MatchPage from "./match/page";
 import MatchConfirmPage from "./match/confirm/page";
 import MatchResultsPage from "./match/results/page";
 import ProductsPage from "./products/page";
+import { FilterDialog } from "./products/FilterDialog";
+import { DEMO_CATALOGUE_SEED } from "@bodywise/shared";
 import ComparePage from "./compare/page";
 import HelpPage from "./help/page";
 import ExperienceFeedbackPage from "./feedback/experience/page";
@@ -28,6 +30,8 @@ import PrivacyPage from "./privacy/page";
 import SafetyPage from "./safety/page";
 import ContactPage from "./contact/page";
 import TermsPage from "./terms/page";
+import HowItWorksPage from "./how-it-works/page";
+import SafeguardsPage from "./safeguards/page";
 import NotFoundPage from "./not-found";
 import ErrorBoundary from "./error";
 import { FirstVisitNotice } from "@/components/FirstVisitNotice";
@@ -95,6 +99,23 @@ describe("Comprehensive axe Accessibility Audit across All Views", () => {
     expect(results.violations).toEqual([]);
   });
 
+  it("Catalogue Filter Dialog (open) has 0 WCAG AA accessibility violations", async () => {
+    const results = await runAxe(
+      React.createElement(FilterDialog, {
+        isOpen: true,
+        onClose: () => {},
+        appliedFilters: {},
+        onApply: () => {},
+        products: DEMO_CATALOGUE_SEED,
+        triggerRef: { current: null },
+      })
+    );
+    if (results.violations.length > 0) {
+      console.error("Filter Dialog Axe Violations:", JSON.stringify(results.violations, null, 2));
+    }
+    expect(results.violations).toEqual([]);
+  });
+
   it("Comparison Matrix (/compare) has 0 WCAG AA accessibility violations", async () => {
     const results = await runAxe(React.createElement(ComparePage));
     if (results.violations.length > 0) {
@@ -127,8 +148,8 @@ describe("Comprehensive axe Accessibility Audit across All Views", () => {
     expect(results.violations).toEqual([]);
   });
 
-  it("Editorial Policies (/about, /privacy, /safety, /contact, /terms) have 0 violations", async () => {
-    for (const Comp of [AboutPage, PrivacyPage, SafetyPage, ContactPage, TermsPage]) {
+  it("Editorial Policies (/about, /privacy, /safety, /contact, /terms, /how-it-works, /safeguards) have 0 violations", async () => {
+    for (const Comp of [AboutPage, PrivacyPage, SafetyPage, ContactPage, TermsPage, HowItWorksPage, SafeguardsPage]) {
       const results = await runAxe(React.createElement(Comp));
       if (results.violations.length > 0) {
         console.error("Static Policy Page Axe Violations:", JSON.stringify(results.violations, null, 2));

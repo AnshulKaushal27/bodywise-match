@@ -11,15 +11,18 @@ import {
   CaretUp,
   Question,
   ShieldCheck,
-  ShieldWarning,
   Drop,
   Flask,
   Sun,
   Pill,
   Wind,
   ChatCircleDots,
+  ChatCircleText,
   SlidersHorizontal,
+  X,
+  CaretRight,
 } from "@phosphor-icons/react/dist/ssr";
+import { MatchSessionProvider, useMatchSession } from "@/lib/matchSessionContext";
 import {
   Button,
   Card,
@@ -30,26 +33,23 @@ import {
   SourceTag,
   EmptyState,
   Dialog,
-  Callout,
 } from "@/components/ui";
 import {
-  ParsedNeeds,
-  ParsedRequest,
-  ProductRecord,
-  ProductCategory,
+  computeShortlist,
+  ShortlistResult,
+  ShortlistFamilyItem,
+  formatCategoryLabel,
+  formatFormatLabel,
+  selectNext,
+  SelectNextQuestionResult,
+  SessionQuestionOption,
   DEMO_CATALOGUE_SEED,
-  matchProducts,
-  matchMultiNeeds,
-  MatchResult,
-  MultiNeedMatchResult,
-  NeedRecommendation,
-  NeedMatchGroup,
-  Recommendation,
+  ProductRecord,
   RULES_VERSION,
-  CONTROLLED_GOALS,
-  normalizeCosmeticWording,
+  createInitialSessionState,
+  matchSessionReducer,
 } from "@bodywise/shared";
-import { submitMatchFeedback, fetchMultiNeedRecommendations } from "@/lib/api";
+import { submitMatchFeedback } from "@/lib/api";
 
 const MATCH_STEPS: StepItem[] = [
   { id: "step-1", label: "Describe concern", description: "Goal & preferences" },
@@ -57,66 +57,91 @@ const MATCH_STEPS: StepItem[] = [
   { id: "step-3", label: "Explained matches", description: "Shortlisted options" },
 ];
 
-const DEFAULT_PARSED: ParsedNeeds = {
-  goal: "body_bumps_look",
-  category: "body_wash",
-  format_preferences: ["liquid"],
-  avoidances: [],
-  routine_context: null,
-  uncertainties: [],
-  confidence: "high",
-};
-
-const DEFAULT_PARSED_REQUEST: ParsedRequest = {
-  needs: [
-    {
-      id: "need_1",
-      phrase_from_user: "reduce the look of body bumps",
-      concepts: ["body_bumps_look"],
-      preferred_category: "body_wash",
-      format_preferences: ["liquid"],
-      priority: "primary",
-      confidence: "high",
-      normalised_label: "Reduce the look of body bumps",
-    },
-  ],
-  avoidances: [],
-  routine_context: null,
-  uncertainties: [],
-  follow_up_question: null,
-  medical_flag: false,
-};
-
 // Demo Community Reports (honest trade-offs, strictly flagged with Demo data badge per Rule 4)
 const DEMO_COMMUNITY_REPORTS = [
   {
-    productName: "Demo 1% Salicylic Acid Body Wash",
+    productName: "1% Salicylic Acid Body Wash",
     userQuote: "Helped with rough texture on upper arms after 2 weeks of consistent shower use. Doesn't dry out skin.",
     tradeOff: "Noticeable foaming; requires thorough rinsing so no film remains on skin.",
     verifiedPurchase: true,
   },
   {
-    productName: "Demo 4% AHA BHA Underarm Roll-On",
+    productName: "4% AHA BHA Underarm Roll-On",
     userQuote: "Solid odor control throughout high-heat workdays. The liquid dries down in about 90 seconds.",
     tradeOff: "Do not apply immediately following underarm razor shaving or friction cuts.",
     verifiedPurchase: true,
   },
   {
-    productName: "Demo Redensyl Hair Density Serum",
+    productName: "Redensyl Hair Density Serum",
     userQuote: "Lightweight water-gel dropper formula. Easy to massage into partings before sleeping.",
     tradeOff: "Needs daily diligence for 60+ days; non-greasy but must be applied consistently.",
     verifiedPurchase: true,
   },
 ];
 
-export default function MatchResultsPage() {
-  // State
-  const [parsedNeeds, setParsedNeeds] = React.useState<ParsedNeeds>(DEFAULT_PARSED);
-  const [parsedRequest, setParsedRequest] = React.useState<ParsedRequest>(DEFAULT_PARSED_REQUEST);
-  const [matchResult, setMatchResult] = React.useState<MatchResult>(() =>
-    matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED)
-  );
-  const [multiMatchResult, setMultiMatchResult] = React.useState<MultiNeedMatchResult | null>(null);
+function MatchResultsInner() {
+  const { state, dispatch, setIsChatOpen } = useMatchSession();
+
+  // Fallback default sample state for initial SSR / direct navigation (AGENTS.md resilient UX)
+  const effectiveState = React.useMemo(() => {
+    if (state.slots.needs.length === 0 && !state.slots.product_type.value) {
+      let def = createInitialSessionState();
+      def = matchSessionReducer(def, {
+        type: "APPLY_PATCH",
+        source: "default",
+        status: "confirmed",
+        patch: {
+          needs: [
+            {
+              id: "need_1",
+              concept_id: "body_bumps_look",
+              phrase_from_user: "reduce the look of body bumps",
+              normalised_label: "Reduce the look of body bumps",
+              confidence: 0.9,
+              status: "confirmed",
+              source: "user_text",
+              evidence_text: "reduce the look of body bumps",
+            },
+          ],
+          product_type: "body_wash",
+          format: "liquid",
+        },
+      });
+      return def;
+    }
+    return state;
+  }, [state]);
+
+  // Single shared computation engine (Section C)
+  const shortlist: ShortlistResult = React.useMemo(() => {
+    return computeShortlist(effectiveState, DEMO_CATALOGUE_SEED);
+  }, [effectiveState]);
+
+  // Dev Mismatch Warning Banner (preview stateHash/count vs results stateHash/count)
+  const [mismatchWarning, setMismatchWarning] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
+      const previewHash = sessionStorage.getItem("bodywise_preview_state_hash");
+      const previewCount = sessionStorage.getItem("bodywise_preview_count");
+
+      if (previewHash && previewHash !== shortlist.stateHash) {
+        setMismatchWarning(
+          `Dev Mismatch Warning: Preview stateHash (${previewHash}) differs from results stateHash (${shortlist.stateHash})`
+        );
+      } else if (previewCount && previewCount !== String(shortlist.totalFamilies)) {
+        setMismatchWarning(
+          `Dev Mismatch Warning: Preview count (${previewCount}) differs from results count (${shortlist.totalFamilies})`
+        );
+      } else {
+        setMismatchWarning(null);
+      }
+    }
+  }, [shortlist.stateHash, shortlist.totalFamilies]);
+
+  // Header "DEMO DATA" badge shown ONLY when current page displays >= 1 product with is_demo = true
+  const hasDemoProducts = shortlist.topFamilies.some((f) => f.primaryProduct.is_demo === true);
+
   const [howWeMatchedOpen, setHowWeMatchedOpen] = React.useState(true);
 
   // Compare Checkbox State
@@ -127,10 +152,7 @@ export default function MatchResultsPage() {
   const [selectedDetailProduct, setSelectedDetailProduct] = React.useState<ProductRecord | null>(null);
 
   // "This Doesn't Fit" Modal State
-  const [rejectingRecommendation, setRejectingRecommendation] = React.useState<{
-    rec: Recommendation | NeedRecommendation;
-    product: ProductRecord;
-  } | null>(null);
+  const [rejectingFamily, setRejectingFamily] = React.useState<ShortlistFamilyItem | null>(null);
 
   // Shortlist Feedback Widget State
   const [feedbackRating, setFeedbackRating] = React.useState<"yes" | "somewhat" | "no" | null>(null);
@@ -139,7 +161,10 @@ export default function MatchResultsPage() {
   const [feedbackSubmitted, setFeedbackSubmitted] = React.useState(false);
   const [sessionId, setSessionId] = React.useState<string>("session-default");
 
-  // Load parsed needs and run deterministic matcher
+  // Clarifying Question Modal State
+  const [isAskQuestionOpen, setIsAskQuestionOpen] = React.useState<boolean>(false);
+  const [facetQuestion, setFacetQuestion] = React.useState<SelectNextQuestionResult | null>(null);
+
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       let activeSessionId = localStorage.getItem("bodywise_last_session_id");
@@ -148,129 +173,25 @@ export default function MatchResultsPage() {
         localStorage.setItem("bodywise_last_session_id", activeSessionId);
       }
       setSessionId(activeSessionId);
-
-      try {
-        const rawReq = sessionStorage.getItem("bodywise_parsed_request");
-        const rawNeeds = sessionStorage.getItem("bodywise_parsed_needs");
-
-        let activeReq = DEFAULT_PARSED_REQUEST;
-        let activeNeeds = DEFAULT_PARSED;
-
-        if (rawReq) {
-          activeReq = JSON.parse(rawReq) as ParsedRequest;
-          setParsedRequest(activeReq);
-        }
-
-        if (rawNeeds) {
-          activeNeeds = JSON.parse(rawNeeds) as ParsedNeeds;
-          setParsedNeeds(activeNeeds);
-        } else if (rawReq && activeReq.needs.length > 0) {
-          const first = activeReq.needs[0];
-          activeNeeds = {
-            goal: first.concepts[0] || "body_bumps_look",
-            category: first.preferred_category,
-            format_preferences: first.format_preferences,
-            avoidances: activeReq.avoidances,
-            routine_context: activeReq.routine_context,
-            uncertainties: activeReq.uncertainties,
-            confidence: first.confidence,
-          };
-          setParsedNeeds(activeNeeds);
-        }
-
-        // Run multi-need matching
-        matchMultiNeeds(activeReq, DEMO_CATALOGUE_SEED).then((res) => {
-          setMultiMatchResult(res);
-        }).catch(() => {});
-
-        // Also run single-need matching for backward compatibility
-        const singleRes = matchProducts(activeNeeds, DEMO_CATALOGUE_SEED);
-        setMatchResult(singleRes);
-
-        // Attempt async API fetch if server is reachable
-        fetchMultiNeedRecommendations(activeReq)
-          .then((apiRes) => {
-            if (apiRes && apiRes.groups) {
-              setMultiMatchResult(apiRes);
-            }
-          })
-          .catch(() => {
-            // Keep local deterministic match
-          });
-      } catch {
-        const singleRes = matchProducts(DEFAULT_PARSED, DEMO_CATALOGUE_SEED);
-        setMatchResult(singleRes);
-        matchMultiNeeds(DEFAULT_PARSED_REQUEST, DEMO_CATALOGUE_SEED)
-          .then(setMultiMatchResult)
-          .catch(() => {});
-      }
     }
   }, []);
 
-  // Recalculate matches
-  const recomputeMatches = (updatedNeeds: ParsedNeeds) => {
-    setParsedNeeds(updatedNeeds);
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("bodywise_parsed_needs", JSON.stringify(updatedNeeds));
-    }
-    const singleRes = matchProducts(updatedNeeds, DEMO_CATALOGUE_SEED);
-    setMatchResult(singleRes);
-
-    const updatedReq: ParsedRequest = {
-      ...parsedRequest,
-      needs: [
-        {
-          id: "need_1",
-          phrase_from_user: updatedNeeds.goal || "care",
-          concepts: [updatedNeeds.goal || "body_bumps_look"],
-          preferred_category: (updatedNeeds.category as ProductCategory) || null,
-          format_preferences: updatedNeeds.format_preferences,
-          priority: "primary",
-          confidence: updatedNeeds.confidence,
-          normalised_label: normalizeCosmeticWording(updatedNeeds.goal || "care"),
-        },
-      ],
-      avoidances: updatedNeeds.avoidances,
-      routine_context: typeof updatedNeeds.routine_context === "string" ? updatedNeeds.routine_context : null,
-    };
-    setParsedRequest(updatedReq);
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("bodywise_parsed_request", JSON.stringify(updatedReq));
-    }
-    matchMultiNeeds(updatedReq, DEMO_CATALOGUE_SEED)
-      .then(setMultiMatchResult)
-      .catch(() => {});
+  const handleOpenAskQuestion = () => {
+    const q = selectNext(state, DEMO_CATALOGUE_SEED);
+    setFacetQuestion(q);
+    setIsAskQuestionOpen(true);
   };
 
-  // Handle "This doesn't fit" Correction
-  const handleApplyCorrection = (reason: "wrong_format" | "avoid_ingredient" | "too_expensive" | "wrong_goal" | "other") => {
-    if (!rejectingRecommendation) return;
-    const { product } = rejectingRecommendation;
-
-    const updated = { ...parsedNeeds };
-
-    if (reason === "wrong_format") {
-      const otherFormats = ["liquid", "roll-on", "oil", "gummies"].filter(
-        (f) => !product.format.toLowerCase().includes(f)
-      );
-      if (otherFormats.length > 0) {
-        updated.format_preferences = [otherFormats[0]];
-      }
-    } else if (reason === "avoid_ingredient") {
-      if (product.fragrance_free !== true && !updated.avoidances.includes("fragrance")) {
-        updated.avoidances = [...updated.avoidances, "fragrance"];
-      } else {
-        updated.avoidances = [...updated.avoidances, "parabens"];
-      }
-    } else if (reason === "wrong_goal") {
-      const altGoals = CONTROLLED_GOALS.filter((g) => g.id !== updated.goal);
-      if (altGoals.length > 0) {
-        updated.goal = altGoals[0].id;
-      }
-    }
-
-    recomputeMatches(updated);
-    setRejectingRecommendation(null);
+  const handleAnswerFacetQuestion = (opt: SessionQuestionOption) => {
+    if (!facetQuestion?.facet) return;
+    dispatch({
+      type: "ANSWER_QUESTION",
+      facetId: facetQuestion.facet,
+      value: opt.value,
+      label: opt.label,
+      source: "question",
+    });
+    setIsAskQuestionOpen(false);
   };
 
   // Compare Checkbox Toggle
@@ -282,6 +203,51 @@ export default function MatchResultsPage() {
         ? [...prev, productId]
         : prev
     );
+  };
+
+  // Handle "This doesn't fit" Correction
+  const handleApplyCorrection = (
+    reason: "wrong_format" | "avoid_ingredient" | "too_expensive" | "wrong_goal" | "other"
+  ) => {
+    if (!rejectingFamily) return;
+    const { primaryProduct } = rejectingFamily;
+
+    if (reason === "wrong_format") {
+      const otherFormats = ["liquid", "roll-on", "oil", "serum", "gel"].filter(
+        (f) => !primaryProduct.format.toLowerCase().includes(f)
+      );
+      if (otherFormats.length > 0) {
+        dispatch({
+          type: "APPLY_PATCH",
+          source: "user_text",
+          status: "confirmed",
+          patch: { format: otherFormats[0] },
+        });
+      }
+    } else if (reason === "avoid_ingredient") {
+      if (primaryProduct.fragrance_free !== true) {
+        dispatch({
+          type: "APPLY_PATCH",
+          source: "user_text",
+          status: "confirmed",
+          patch: { avoidances: [...confirmedAvoidances, "fragrance"] },
+        });
+      } else {
+        dispatch({
+          type: "APPLY_PATCH",
+          source: "user_text",
+          status: "confirmed",
+          patch: { avoidances: [...confirmedAvoidances, "parabens"] },
+        });
+      }
+    } else if (reason === "wrong_goal") {
+      dispatch({
+        type: "REMOVE_CHIP",
+        slotKey: "product_type",
+      });
+    }
+
+    setRejectingFamily(null);
   };
 
   // Submit Feedback Widget
@@ -322,39 +288,38 @@ export default function MatchResultsPage() {
     }
   };
 
-  const formatMatchLabel = (label: string) => {
-    switch (label) {
-      case "STRONG_FORMAT_FIT":
-        return "Strong fit for your format preference";
-      case "GOAL_FIT":
-        return "Direct fit for your primary goal";
-      case "ROUTINE_FIT":
-        return "Fits your daily routine habits";
-      case "CAUTIONARY_FIT":
-        return "Cautious fit • Unverified avoidance noted";
-      default:
-        return "Partial fit for stated concern";
-    }
-  };
-
-  // One-line summary recap
-  const goalDef = CONTROLLED_GOALS.find((g) => g.id === parsedNeeds.goal);
-  const recapGoal = goalDef?.label || parsedNeeds.goal?.replace(/_/g, " ") || "Body care";
-  const recapCategory = parsedNeeds.category ? parsedNeeds.category.replace(/_/g, " ") : null;
-  const recapFormat = parsedNeeds.format_preferences.length > 0 ? parsedNeeds.format_preferences.join(", ") : null;
-  const recapAvoid = parsedNeeds.avoidances.length > 0 ? `No ${parsedNeeds.avoidances.join(", ")}` : null;
-
-  const recapSegments = [recapGoal, recapCategory, recapFormat, recapAvoid].filter(Boolean);
-
   const comparedProducts = DEMO_CATALOGUE_SEED.filter((p) =>
     comparedProductIds.includes(p.id)
   );
 
-  const multiGroups = multiMatchResult?.groups;
-  const hasMultiGroups = Boolean(multiGroups && multiGroups.length > 0);
-  const isAnyMatched = hasMultiGroups && multiGroups
-    ? multiGroups.some((g) => g.status === "MATCHED" && g.recommendations.length > 0)
-    : matchResult?.status === "MATCHES_FOUND" && matchResult.shortlist.length > 0;
+  const displayedFamilies = shortlist.topFamilies.slice(0, 3);
+  const isAnyMatched = shortlist.topFamilies.length > 0;
+
+  // Active slots for recap & refine
+  const confirmedCategory =
+    state.slots.product_type?.value && state.slots.product_type?.status === "confirmed"
+      ? state.slots.product_type.value
+      : null;
+  const confirmedNeeds = state.slots.needs?.filter((n) => n.status === "confirmed") || [];
+  const confirmedAvoidances =
+    state.slots.avoidances?.status === "confirmed" ? state.slots.avoidances.value || [] : [];
+  const confirmedFormat =
+    state.slots.format?.value && state.slots.format?.status === "confirmed"
+      ? state.slots.format.value
+      : null;
+  const confirmedFragrance =
+    state.slots.fragrance_pref?.value && state.slots.fragrance_pref?.status === "confirmed"
+      ? state.slots.fragrance_pref.value
+      : null;
+
+  const recapSegments = [
+    confirmedCategory ? formatCategoryLabel(confirmedCategory) : null,
+    confirmedNeeds.length > 0
+      ? confirmedNeeds.map((n) => n.normalised_label || n.phrase_from_user).join(", ")
+      : null,
+    confirmedFormat ? formatFormatLabel(confirmedFormat) : null,
+    confirmedAvoidances.length > 0 ? `No ${confirmedAvoidances.join(", ")}` : null,
+  ].filter(Boolean);
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
@@ -369,7 +334,7 @@ export default function MatchResultsPage() {
             <span>Back to Step 2</span>
           </Link>
           <div className="flex items-center gap-3">
-            <DemoBadge />
+            {hasDemoProducts && <DemoBadge />}
             <span className="font-display font-bold text-brand-deep text-sm hidden sm:inline">
               Bodywise Match
             </span>
@@ -389,18 +354,14 @@ export default function MatchResultsPage() {
           <ProgressBar value={100} max={100} showLabel />
         </div>
 
-        {/* Medical Caution Callout (Task Part E.7) */}
-        {(parsedRequest.medical_flag || multiMatchResult?.medical_flag) && (
-          <div className="mb-6">
-            <Callout
-              variant="caution"
-              title="Informational only &bull; Cosmetic wellness boundaries"
-              icon={<ShieldWarning className="w-5 h-5 text-caution-text flex-shrink-0" weight="regular" />}
-            >
-              <p className="text-xs md:text-sm">
-                Your request touches symptoms or concerns (such as acne, infection, pain, or allergy) that may warrant a medical evaluation. Products in our catalogue are non-prescription cosmetic options intended for personal hygiene and appearance support. Please consult a qualified medical professional for diagnosis or treatment. Review our <Link href="/safety" className="underline font-semibold hover:text-brand-deep">Safety &amp; Scope</Link> principles.
-              </p>
-            </Callout>
+        {/* Dev Mismatch Banner */}
+        {mismatchWarning && (
+          <div
+            role="alert"
+            className="mb-6 p-4 rounded-card bg-red-50 border-2 border-red-500 text-red-900 font-mono text-xs flex items-center gap-2"
+          >
+            <WarningCircle className="w-5 h-5 text-red-600 shrink-0" weight="bold" />
+            <span>{mismatchWarning}</span>
           </div>
         )}
 
@@ -409,6 +370,12 @@ export default function MatchResultsPage() {
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-sage/60 text-xs font-semibold text-brand-deep mb-2">
             <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
             <span>Step 3 &bull; Shortlisted Options</span>
+          </div>
+
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-evergreen" aria-live="polite">
+              Showing top {Math.min(3, shortlist.totalFamilies)} of {shortlist.totalFamilies}
+            </span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-brand-deep tracking-tight mb-3">
@@ -421,11 +388,7 @@ export default function MatchResultsPage() {
               <span className="font-bold text-brand-deep uppercase tracking-wider text-[11px]">
                 Looking for:
               </span>
-              <span>
-                {hasMultiGroups && multiGroups
-                  ? multiGroups.map((g) => g.needLabel).join(" • ")
-                  : recapSegments.join(" • ")}
-              </span>
+              <span>{recapSegments.length > 0 ? recapSegments.join(" • ") : "Personal care matches"}</span>
             </div>
 
             <Link
@@ -435,421 +398,388 @@ export default function MatchResultsPage() {
               Change
             </Link>
           </div>
+
+          {/* Refine Bar */}
+          <div className="mt-3 p-3 px-4 rounded-card bg-paper border border-border shadow-2xs flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2 flex-wrap max-w-full overflow-x-auto py-0.5">
+              <span className="text-xs font-semibold text-muted uppercase tracking-wider shrink-0">
+                Refine shortlist:
+              </span>
+
+              {confirmedCategory && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-surface-sage border border-border text-brand-deep shadow-2xs">
+                  <span>Category: {formatCategoryLabel(confirmedCategory)}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_CHIP",
+                        slotKey: "product_type",
+                      })
+                    }
+                    className="text-brand-deep/70 hover:text-brand-deep p-1 rounded min-w-[28px] min-h-[28px] inline-flex items-center justify-center focus-ring"
+                    aria-label={`Remove filter: ${formatCategoryLabel(confirmedCategory)}`}
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" />
+                  </button>
+                </span>
+              )}
+
+              {confirmedNeeds.map((n) => (
+                <span
+                  key={n.id}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-surface-sage border border-border text-brand-deep shadow-2xs"
+                >
+                  <span>Goal: {n.normalised_label || n.phrase_from_user}</span>
+                  <button
+                    type="button"
+                    onClick={() => dispatch({ type: "REMOVE_CHIP", slotKey: "needs", needId: n.id })}
+                    className="text-brand-deep/70 hover:text-brand-deep p-1 rounded min-w-[28px] min-h-[28px] inline-flex items-center justify-center focus-ring"
+                    aria-label={`Remove filter: ${n.normalised_label || n.phrase_from_user}`}
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" />
+                  </button>
+                </span>
+              ))}
+
+              {confirmedAvoidances.map((a) => (
+                <span
+                  key={a}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-surface-sage border border-border text-brand-deep shadow-2xs"
+                >
+                  <span>No {a}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      dispatch({
+                        type: "APPLY_PATCH",
+                        source: "user_text",
+                        status: "confirmed",
+                        patch: {
+                          avoidances: confirmedAvoidances.filter((x) => x !== a),
+                        },
+                      })
+                    }
+                    className="text-brand-deep/70 hover:text-brand-deep p-1 rounded min-w-[28px] min-h-[28px] inline-flex items-center justify-center focus-ring"
+                    aria-label={`Remove avoidance: ${a}`}
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" />
+                  </button>
+                </span>
+              ))}
+
+              {confirmedFormat && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-surface-sage border border-border text-brand-deep shadow-2xs">
+                  <span>Format: {formatFormatLabel(confirmedFormat)}</span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_CHIP",
+                        slotKey: "format",
+                      })
+                    }
+                    className="text-brand-deep/70 hover:text-brand-deep p-1 rounded min-w-[28px] min-h-[28px] inline-flex items-center justify-center focus-ring"
+                    aria-label="Remove format filter"
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" />
+                  </button>
+                </span>
+              )}
+
+              {confirmedFragrance && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-surface-sage border border-border text-brand-deep shadow-2xs">
+                  <span>
+                    Fragrance: {confirmedFragrance === "free_only" ? "Fragrance-free" : "Light scent"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      dispatch({
+                        type: "REMOVE_CHIP",
+                        slotKey: "fragrance_pref",
+                      })
+                    }
+                    className="text-brand-deep/70 hover:text-brand-deep p-1 rounded min-w-[28px] min-h-[28px] inline-flex items-center justify-center focus-ring"
+                    aria-label="Remove fragrance filter"
+                  >
+                    <X className="w-3.5 h-3.5" weight="bold" />
+                  </button>
+                </span>
+              )}
+
+              {!confirmedCategory &&
+                confirmedNeeds.length === 0 &&
+                confirmedAvoidances.length === 0 &&
+                !confirmedFormat &&
+                !confirmedFragrance && (
+                  <span className="text-xs text-muted italic">No active filters</span>
+                )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsChatOpen(true)}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-button border border-border text-brand-evergreen bg-paper hover:bg-surface-sage font-medium text-xs transition-colors min-h-[44px] focus-ring"
+              >
+                <ChatCircleText className="w-4 h-4" weight="regular" />
+                <span>Chat instead</span>
+              </button>
+
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleOpenAskQuestion}
+                className="min-h-[44px] text-xs font-medium gap-1.5"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" />
+                <span>Ask me a question</span>
+              </Button>
+            </div>
+          </div>
         </div>
+
+        {/* Section B.2: In-Category Notice & Button for Exploration */}
+        {shortlist.canExploreOtherCategories && shortlist.unmatchedBenefit && (
+          <div className="mb-6 p-4 rounded-card bg-surface-sage/50 border border-brand-evergreen/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+            <div>
+              <h4 className="font-bold text-brand-deep text-sm mb-1">
+                Not specifically described for &ldquo;{shortlist.unmatchedBenefit}&rdquo;
+              </h4>
+              <p className="text-xs text-charcoal/80">
+                Products shown are in your chosen category ({formatCategoryLabel(confirmedCategory)}).
+              </p>
+            </div>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                dispatch({
+                  type: "REMOVE_CHIP",
+                  slotKey: "product_type",
+                });
+              }}
+              className="shrink-0 text-xs font-semibold min-h-[44px]"
+            >
+              Also see other product types for {shortlist.unmatchedBenefit}
+              {shortlist.alternativeCategoryMatchesCount
+                ? ` (${shortlist.alternativeCategoryMatchesCount})`
+                : ""}
+            </Button>
+          </div>
+        )}
 
         {/* ================= RESULTS / SHORTLIST ================= */}
         {isAnyMatched ? (
-          <div className="space-y-10 mb-12">
-            {hasMultiGroups && multiGroups ? (
-              /* Multi-Need Grouped Display (Task Part E & F) */
-              multiGroups.map((group: NeedMatchGroup, groupIdx: number) => (
-                <section key={group.needId || `group_${groupIdx}`} className="space-y-6">
-                  {/* Group Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-brand-evergreen/20">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="w-5 h-5 rounded-full bg-brand-evergreen text-white text-xs font-bold flex items-center justify-center">
-                          {groupIdx + 1}
+          <div className="space-y-6 mb-12">
+            {displayedFamilies.map((fam: ShortlistFamilyItem, famIdx: number) => {
+              const product = fam.primaryProduct;
+              const isCompared = comparedProductIds.includes(product.id);
+
+              return (
+                <Card
+                  key={fam.familyId}
+                  variant="surface"
+                  data-cursor-label="View"
+                  className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden result-card-stagger"
+                  style={{ animationDelay: `${famIdx * 60}ms` }}
+                >
+                  {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {product.is_demo && <DemoBadge />}
+                      {fam.notSpecificallyDescribed ? (
+                        <span className="result-pill-slide text-xs font-bold px-3 py-1 rounded-full bg-surface-sage text-brand-deep border border-border shadow-none">
+                          In-category option • Not specifically described for {shortlist.unmatchedBenefit}
                         </span>
-                        <span className="text-xs font-bold uppercase tracking-wider text-brand-evergreen">
-                          Need {groupIdx + 1}
+                      ) : (
+                        <span className="result-pill-slide text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
+                          Direct fit for {fam.categoryLabel}
                         </span>
-                      </div>
-                      <h2 className="text-xl sm:text-2xl font-bold font-display text-brand-deep">
-                        For {group.needLabel}
-                      </h2>
-                      <p className="text-xs text-muted">
-                        Understood from: &ldquo;{group.rawPhrase}&rdquo;
-                      </p>
+                      )}
                     </div>
 
-                    {group.category && (
-                      <span className="text-xs font-semibold px-3 py-1 rounded-full bg-surface-sage text-brand-deep border border-brand-deep/15 capitalize self-start sm:self-auto">
-                        Best-fitting product type: {group.category.replace(/_/g, " ")}
+                    <div className="flex items-center gap-4 text-xs font-medium text-muted">
+                      <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen min-h-[44px]">
+                        <input
+                          type="checkbox"
+                          checked={isCompared}
+                          onChange={() => toggleCompare(product.id)}
+                          className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+                        />
+                        <span>Compare</span>
+                      </label>
+                      <span className="text-border">&bull;</span>
+                      <span>
+                        Rank {fam.rank} of {shortlist.totalFamilies}
                       </span>
-                    )}
+                    </div>
                   </div>
 
-                  {/* Group Recommendations or NO_FIT */}
-                  {group.status === "NO_FIT" || group.recommendations.length === 0 ? (
-                    <div className="p-6 rounded-card bg-surface border border-border text-center">
-                      <WarningCircle className="w-8 h-8 text-muted mx-auto mb-2" weight="regular" />
-                      <h3 className="font-bold text-brand-deep text-sm mb-1">
-                        No direct catalogue fit found for this need
+                  {/* Header Row: Product Image + Name, Format, Size, Price */}
+                  <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
+                      {getProductTypeIcon(product.category)}
+                    </div>
+
+                    <div className="flex-1">
+                      <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
+                        {product.official_name}
                       </h3>
-                      <p className="text-xs text-muted max-w-md mx-auto">
-                        {group.noFitReason ||
-                          "No product in our catalogue currently carries verified published evidence matching this specific concern. We never invent products or make unverified claims."}
+                      <p className="text-xs md:text-sm text-muted font-medium mb-2">
+                        {product.format} &bull; {product.size}
+                        {fam.priceInr !== null && ` • ₹${fam.priceInr}`}
+                      </p>
+                      <p className="text-sm text-charcoal/85 leading-relaxed">
+                        {product.official_description}
                       </p>
                     </div>
-                  ) : (
-                    <div className="space-y-6">
-                      {group.recommendations.map((rec: NeedRecommendation) => {
-                        const product = DEMO_CATALOGUE_SEED.find((p) => p.id === rec.productId);
-                        if (!product) return null;
-                        const isCompared = comparedProductIds.includes(product.id);
+                  </div>
 
-                        return (
-                          <Card
-                            key={`${group.needId}_${rec.productId}`}
-                            variant="surface"
-                            className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden"
-                          >
-                            {/* Top Bar: MatchLabel pill & Rank & Compare Checkbox */}
-                            <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
-                              <div className="flex items-center gap-2 flex-wrap">
-                                {product.is_demo && <DemoBadge />}
-                                <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
-                                  {formatMatchLabel(rec.matchLabel)}
-                                </span>
-                              </div>
+                  {/* Section D.3: "Why it's here" (Citing specific reason codes & brand claim) */}
+                  <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
+                      <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                      Why it&apos;s here
+                    </h4>
+                    <p className="text-sm text-charcoal leading-relaxed font-medium mb-2">
+                      {fam.whyText}
+                    </p>
 
-                              <div className="flex items-center gap-4 text-xs font-medium text-muted">
-                                <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen">
-                                  <input
-                                    type="checkbox"
-                                    checked={isCompared}
-                                    onChange={() => toggleCompare(product.id)}
-                                    className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
-                                  />
-                                  <span>Compare</span>
-                                </label>
-                                <span className="text-border">&bull;</span>
-                                <span>Rank {rec.rank} of {group.recommendations.length}</span>
-                              </div>
-                            </div>
-
-                            {/* Header Row: Product Image + Name, Format, Size */}
-                            <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
-                              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-                                {getProductTypeIcon(product.category)}
-                              </div>
-
-                              <div className="flex-1">
-                                <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
-                                  {product.official_name}
-                                </h3>
-                                <p className="text-xs md:text-sm text-muted font-medium mb-2">
-                                  {product.format} &bull; {product.size}
-                                </p>
-                                <p className="text-sm text-charcoal/85 leading-relaxed">
-                                  {product.official_description}
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* "Why it's here" (Citing specific catalogue facts and source tags) */}
-                            <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
-                              <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
-                                <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                                Why it&apos;s here
-                              </h4>
-                              <p className="text-sm text-charcoal leading-relaxed font-medium mb-2">
-                                {rec.whyHere || rec.considerIf[0] || "Directly relevant to your stated wellness goal."}
-                              </p>
-
-                              {rec.evidenceSnippets && rec.evidenceSnippets.length > 0 && (
-                                <blockquote className="my-2.5 p-3 rounded bg-surface border-l-4 border-brand-evergreen text-xs italic text-brand-deep">
-                                  &ldquo;{rec.evidenceSnippets[0]}&rdquo;
-                                </blockquote>
-                              )}
-
-                              <div className="mt-2">
-                                <SourceTag
-                                  source={rec.sourceTag || "Official Store Catalogue Formulation"}
-                                  lastVerifiedAt={product.last_verified_at || "November 2026"}
-                                />
-                              </div>
-                            </div>
-
-                            {/* Two Columns: "Consider this if..." and "May not be the best fit if..." */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                              <div className="p-4 rounded-button bg-surface border border-border">
-                                <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
-                                  <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                                  Consider this if...
-                                </h4>
-                                <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
-                                  {rec.considerIf.slice(1).length > 0 ? (
-                                    rec.considerIf.slice(1).map((item, idx) => <li key={idx}>{item}</li>)
-                                  ) : (
-                                    <li>Matches your lifestyle application preference.</li>
-                                  )}
-                                  <li>Formulated for regular, non-invasive daily personal care.</li>
-                                </ul>
-                              </div>
-
-                              <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
-                                <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                  <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
-                                  May not be the best fit if...
-                                </h4>
-                                <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
-                                  {rec.mayNotFitIf.map((caution, idx) => (
-                                    <li key={idx}>{caution}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-
-                            {/* Verified Facts List with SourceTag */}
-                            <div className="mb-6 p-4 rounded-button bg-paper border border-border">
-                              <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
-                                <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                                Verified Facts &amp; Provenance
-                              </h4>
-
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                                <div>
-                                  <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
-                                  {product.ingredients !== null && product.last_verified_at ? (
-                                    <SourceTag
-                                      source={product.source_url || "Official Packaging"}
-                                      lastVerifiedAt={product.last_verified_at}
-                                    />
-                                  ) : (
-                                    <SourceTag source={null} lastVerifiedAt={null} />
-                                  )}
-                                </div>
-
-                                <div>
-                                  <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
-                                  {product.fragrance_free !== null && product.last_verified_at ? (
-                                    <SourceTag
-                                      source="Official Packaging"
-                                      lastVerifiedAt={product.last_verified_at}
-                                    />
-                                  ) : (
-                                    <SourceTag source={null} lastVerifiedAt={null} />
-                                  )}
-                                </div>
-
-                                <div>
-                                  <span className="text-muted block mb-1 font-semibold">Price verification:</span>
-                                  {product.price_inr !== null ? (
-                                    <SourceTag
-                                      source={`₹${product.price_inr} • Official Store`}
-                                      lastVerifiedAt={product.price_checked_at || "November 2026"}
-                                    />
-                                  ) : (
-                                    <SourceTag source={null} />
-                                  )}
-                                </div>
-
-                                <div>
-                                  <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
-                                  <SourceTag
-                                    source="Official Label Directions"
-                                    lastVerifiedAt={product.last_verified_at || "November 2026"}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Actions Row: View Details & "This doesn't fit" */}
-                            <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
-                              <div className="flex items-center gap-3">
-                                <Button
-                                  variant="secondary"
-                                  size="sm"
-                                  onClick={() => setSelectedDetailProduct(product)}
-                                >
-                                  View details
-                                </Button>
-                                <button
-                                  type="button"
-                                  data-testid="this-doesnt-fit-btn"
-                                  onClick={() => setRejectingRecommendation({ rec, product })}
-                                  className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-1 px-2"
-                                >
-                                  This doesn&apos;t fit
-                                </button>
-                              </div>
-
-                              <span className="text-xs text-muted font-medium">
-                                Zero percentage scores
-                              </span>
-                            </div>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  )}
-                </section>
-              ))
-            ) : matchResult.status === "MATCHES_FOUND" ? (
-              /* Single Goal Shortlist Fallback */
-              matchResult.shortlist.map((rec: Recommendation) => {
-                const product = DEMO_CATALOGUE_SEED.find((p) => p.id === rec.productId);
-                if (!product) return null;
-                const isCompared = comparedProductIds.includes(product.id);
-
-                return (
-                  <Card
-                    key={rec.productId}
-                    variant="surface"
-                    className="p-6 md:p-8 shadow-card border border-border relative overflow-hidden"
-                  >
-                    <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {product.is_demo && <DemoBadge />}
-                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-accent-lime text-brand-deep border border-brand-deep/20 shadow-none">
-                          {formatMatchLabel(rec.matchLabel)}
+                    {fam.brandClaim && (
+                      <blockquote className="my-2.5 p-3 rounded bg-surface border-l-4 border-brand-evergreen text-xs italic text-brand-deep leading-relaxed">
+                        <span className="marker-underline-lime not-italic font-medium">&ldquo;{fam.brandClaim}&rdquo;</span>
+                        <span className="block mt-1 text-[11px] not-italic text-charcoal/70 font-sans">
+                          Brand claim, per the official page
                         </span>
-                      </div>
+                      </blockquote>
+                    )}
 
-                      <div className="flex items-center gap-4 text-xs font-medium text-muted">
-                        <label className="inline-flex items-center gap-2 cursor-pointer select-none text-brand-deep hover:text-brand-evergreen">
-                          <input
-                            type="checkbox"
-                            checked={isCompared}
-                            onChange={() => toggleCompare(product.id)}
-                            className="w-4 h-4 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
-                          />
-                          <span>Compare</span>
-                        </label>
-                        <span className="text-border">&bull;</span>
-                        <span>Rank {rec.rank} of {matchResult.shortlist.length}</span>
-                      </div>
+                    <div className="mt-2 text-xs text-charcoal/80 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen shrink-0" weight="regular" aria-hidden="true" />
+                      <span>Source:</span>
+                      <a
+                        href={fam.sourceUrl || product.source_url || "https://bebodywise.com"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-brand-evergreen hover:underline focus-ring rounded"
+                      >
+                        {fam.sourceText || "bebodywise.com, checked 20 Nov 2026"}
+                      </a>
                     </div>
+                  </div>
 
-                    <div className="flex flex-col sm:flex-row items-start gap-5 mb-6">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-card bg-surface-sage/40 border border-border flex items-center justify-center shrink-0">
-                        {getProductTypeIcon(product.category)}
-                      </div>
-
-                      <div className="flex-1">
-                        <h3 className="font-display font-bold text-xl sm:text-2xl text-brand-deep mb-1 tracking-tight">
-                          {product.official_name}
-                        </h3>
-                        <p className="text-xs md:text-sm text-muted font-medium mb-2">
-                          {product.format} &bull; {product.size}
-                        </p>
-                        <p className="text-sm text-charcoal/85 leading-relaxed">
-                          {product.official_description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-6 bg-surface-sage/30 rounded-button p-4 border border-brand-deep/5">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-brand-deep mb-1.5 flex items-center gap-1.5">
-                        <Sparkle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                        Why it&apos;s here
+                  {/* Two Columns: "Consider this if..." and "May not be the best fit if..." */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="p-4 rounded-button bg-surface border border-border">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
+                        <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                        Consider this if...
                       </h4>
-                      <p className="text-sm text-charcoal leading-relaxed font-medium">
-                        {rec.considerIf[0] || "Directly relevant to your stated wellness goal and preferences."}
-                      </p>
+                      <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
+                        <li>Directly matches your stated {fam.categoryLabel.toLowerCase()} goal.</li>
+                        <li>Formulated for regular, non-invasive daily personal care.</li>
+                      </ul>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div className="p-4 rounded-button bg-surface border border-border">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-brand-evergreen mb-2.5 flex items-center gap-1.5">
-                          <CheckCircle className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                          Consider this if...
-                        </h4>
-                        <ul className="text-xs md:text-sm text-charcoal/85 space-y-2 pl-4 list-disc marker:text-brand-evergreen">
-                          {rec.considerIf.slice(1).length > 0 ? (
-                            rec.considerIf.slice(1).map((item, idx) => <li key={idx}>{item}</li>)
-                          ) : (
-                            <li>Matches your lifestyle application preference.</li>
-                          )}
-                          <li>Formulated for regular, non-invasive daily personal care.</li>
-                        </ul>
-                      </div>
-
-                      <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
-                        <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                          <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
-                          May not be the best fit if...
-                        </h4>
-                        <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
-                          {rec.mayNotFitIf.map((caution, idx) => (
-                            <li key={idx}>{caution}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="mb-6 p-4 rounded-button bg-paper border border-border">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
-                        <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
-                        Verified Facts &amp; Provenance
+                    <div className="p-4 rounded-button bg-caution-peach/60 border-l-4 border-caution-text text-caution-text">
+                      <h4 className="text-xs font-bold uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                        <WarningCircle className="w-3.5 h-3.5 text-caution-text" weight="regular" aria-hidden="true" />
+                        May not be the best fit if...
                       </h4>
+                      <ul className="text-xs md:text-sm space-y-2 pl-4 list-disc marker:text-caution-text">
+                        {product.cautions && product.cautions.length > 0 ? (
+                          product.cautions.map((caution, cIdx) => <li key={cIdx}>{caution}</li>)
+                        ) : (
+                          <li>You require prescription-strength dermatological intervention.</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                        <div>
-                          <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
-                          {product.ingredients !== null && product.last_verified_at ? (
-                            <SourceTag
-                              source={product.source_url || "Official Packaging"}
-                              lastVerifiedAt={product.last_verified_at}
-                            />
-                          ) : (
-                            <SourceTag source={null} lastVerifiedAt={null} />
-                          )}
-                        </div>
+                  {/* Verified Facts List with SourceTag */}
+                  <div className="mb-6 p-4 rounded-button bg-paper border border-border">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-muted mb-3 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-brand-evergreen" weight="regular" aria-hidden="true" />
+                      Verified Facts &amp; Provenance
+                    </h4>
 
-                        <div>
-                          <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
-                          {product.fragrance_free !== null && product.last_verified_at ? (
-                            <SourceTag
-                              source="Official Packaging"
-                              lastVerifiedAt={product.last_verified_at}
-                            />
-                          ) : (
-                            <SourceTag source={null} lastVerifiedAt={null} />
-                          )}
-                        </div>
-
-                        <div>
-                          <span className="text-muted block mb-1 font-semibold">Price verification:</span>
-                          {product.price_inr !== null ? (
-                            <SourceTag
-                              source={`₹${product.price_inr} • Official Store`}
-                              lastVerifiedAt={product.price_checked_at || "November 2026"}
-                            />
-                          ) : (
-                            <SourceTag source={null} />
-                          )}
-                        </div>
-
-                        <div>
-                          <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <span className="text-muted block mb-1 font-semibold">Ingredients list:</span>
+                        {product.ingredients !== null && product.last_verified_at ? (
                           <SourceTag
-                            source="Official Label Directions"
-                            lastVerifiedAt={product.last_verified_at || "November 2026"}
+                            source={product.source_url || "Official Packaging"}
+                            lastVerifiedAt={product.last_verified_at}
                           />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => setSelectedDetailProduct(product)}
-                        >
-                          View details
-                        </Button>
-                        <button
-                          type="button"
-                          data-testid="this-doesnt-fit-btn"
-                          onClick={() => setRejectingRecommendation({ rec, product })}
-                          className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-1 px-2"
-                        >
-                          This doesn&apos;t fit
-                        </button>
+                        ) : (
+                          <SourceTag source={null} lastVerifiedAt={null} />
+                        )}
                       </div>
 
-                      <span className="text-xs text-muted font-medium">
-                        Zero percentage scores
-                      </span>
+                      <div>
+                        <span className="text-muted block mb-1 font-semibold">Fragrance-free declaration:</span>
+                        {product.fragrance_free !== null && product.last_verified_at ? (
+                          <SourceTag
+                            source="Official Packaging"
+                            lastVerifiedAt={product.last_verified_at}
+                          />
+                        ) : (
+                          <SourceTag source={null} lastVerifiedAt={null} />
+                        )}
+                      </div>
+
+                      <div>
+                        <span className="text-muted block mb-1 font-semibold">Price verification:</span>
+                        {product.price_inr !== null ? (
+                          <SourceTag
+                            source={`₹${product.price_inr} • Official Store`}
+                            lastVerifiedAt={product.price_checked_at || "November 2026"}
+                          />
+                        ) : (
+                          <SourceTag source={null} />
+                        )}
+                      </div>
+
+                      <div>
+                        <span className="text-muted block mb-1 font-semibold">Packaging label directions:</span>
+                        <SourceTag
+                          source="Official Label Directions"
+                          lastVerifiedAt={product.last_verified_at || "November 2026"}
+                        />
+                      </div>
                     </div>
-                  </Card>
-                );
-              })
-            ) : null}
+                  </div>
+
+                  {/* Actions Row: View Details & "This doesn't fit" */}
+                  <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => setSelectedDetailProduct(product)}
+                        className="min-h-[44px]"
+                      >
+                        View details
+                      </Button>
+                      <button
+                        type="button"
+                        data-testid="this-doesnt-fit-btn"
+                        onClick={() => setRejectingFamily(fam)}
+                        className="text-xs text-muted hover:text-error-text underline focus-ring rounded py-2 px-2 min-h-[44px]"
+                      >
+                        This doesn&apos;t fit
+                      </button>
+                    </div>
+
+                    <span className="text-xs text-muted font-medium">
+                      Zero percentage scores
+                    </span>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         ) : (
           /* ================= NO_FIT STATE ================= */
@@ -861,12 +791,12 @@ export default function MatchResultsPage() {
             />
             <div className="flex justify-center items-center gap-4 mt-6">
               <Link href="/products">
-                <Button variant="secondary" size="default">
+                <Button variant="secondary" size="default" className="min-h-[44px]">
                   Browse all products
                 </Button>
               </Link>
               <Link href="/match/confirm">
-                <Button variant="primary" size="default">
+                <Button variant="primary" size="default" className="min-h-[44px]">
                   Change my request
                 </Button>
               </Link>
@@ -879,7 +809,7 @@ export default function MatchResultsPage() {
           <button
             type="button"
             onClick={() => setHowWeMatchedOpen(!howWeMatchedOpen)}
-            className="w-full flex items-center justify-between text-left focus-ring rounded"
+            className="w-full flex items-center justify-between text-left focus-ring rounded min-h-[44px]"
           >
             <div className="flex items-center gap-2.5">
               <SlidersHorizontal className="w-4 h-4 text-brand-evergreen" weight="regular" aria-hidden="true" />
@@ -902,39 +832,21 @@ export default function MatchResultsPage() {
 
               <ol className="list-decimal pl-5 space-y-2">
                 <li>
-                  <strong>Hard exclusions:</strong> Any product with packaging ingredients or label cautions conflicting with your avoidances is filtered out. Unverified ingredients are held with caution.
+                  <strong>Hard exclusions:</strong> Any product with packaging ingredients or label cautions conflicting with your avoidances is strictly filtered out.
                 </li>
                 <li>
-                  <strong>Goal fit:</strong> Products with verified published evidence directly addressing your stated goals receive highest priority (+50 pts); general domain fit receives (+25 pts).
+                  <strong>Goal fit:</strong> Products addressing your primary wellness goals receive priority ranking (+50 pts); products covering multiple benefits rank first. Explicit category selection acts as an authoritative hard filter.
                 </li>
                 <li>
-                  <strong>Preference fit:</strong> Products meeting your preferred format receive (+15 pts); verified fragrance-free products receive (+10 pts).
+                  <strong>Preference fit:</strong> Format preferences (+15 pts), verified fragrance-free (+10 pts), and routine fit (+5 pts) guide ranking.
                 </li>
                 <li>
                   <strong>Deterministic tie-breaks:</strong> When scores tie, products with more verified facts rank higher; final ties are broken alphabetically by slug.
                 </li>
               </ol>
 
-              {hasMultiGroups && multiGroups && (
-                <div className="p-3 rounded bg-surface-sage/30 border border-brand-deep/10 text-xs">
-                  <span className="font-bold text-brand-deep block mb-1">
-                    Multi-Need Retrieval &amp; Evidence Grounding:
-                  </span>
-                  <p className="text-muted mb-2">
-                    Queries are mapped to controlled cosmetic concepts and retrieved via BM25 lexical search over verified packaging cards. Products require published evidence snippets to qualify for a need.
-                  </p>
-                  <ul className="list-disc pl-4 space-y-1 text-charcoal">
-                    {multiGroups.map((g) => (
-                      <li key={g.needId}>
-                        <strong>{g.needLabel}:</strong> {g.status === "MATCHED" ? `${g.recommendations.length} evidenced match(es)` : "No fit found"}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
               <div className="pt-2 text-xs text-muted flex items-center justify-between">
-                <span>Algorithm: Pure TypeScript Deterministic Matcher</span>
+                <span>Algorithm: Pure TypeScript Deterministic Shortlist</span>
                 <span className="font-semibold">Rules Version: {RULES_VERSION}</span>
               </div>
             </div>
@@ -1002,7 +914,7 @@ export default function MatchResultsPage() {
                 <button
                   type="button"
                   onClick={() => setFeedbackRating("yes")}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[40px] ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[44px] ${
                     feedbackRating === "yes"
                       ? "bg-brand-evergreen text-white border-brand-evergreen"
                       : "bg-surface text-brand-deep border-border hover:bg-surface-sage"
@@ -1013,7 +925,7 @@ export default function MatchResultsPage() {
                 <button
                   type="button"
                   onClick={() => setFeedbackRating("somewhat")}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[40px] ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[44px] ${
                     feedbackRating === "somewhat"
                       ? "bg-brand-evergreen text-white border-brand-evergreen"
                       : "bg-surface text-brand-deep border-border hover:bg-surface-sage"
@@ -1024,7 +936,7 @@ export default function MatchResultsPage() {
                 <button
                   type="button"
                   onClick={() => setFeedbackRating("no")}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[40px] ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-colors focus-ring min-h-[44px] ${
                     feedbackRating === "no"
                       ? "bg-brand-evergreen text-white border-brand-evergreen"
                       : "bg-surface text-brand-deep border-border hover:bg-surface-sage"
@@ -1041,12 +953,12 @@ export default function MatchResultsPage() {
                     value={feedbackNotes}
                     onChange={(e) => setFeedbackNotes(e.target.value)}
                     placeholder="Optional: What could have made these options better?"
-                    className="w-full p-2.5 rounded-button text-xs bg-surface border border-border text-charcoal focus-ring"
+                    className="w-full p-2.5 rounded-button text-xs bg-surface border border-border text-charcoal focus-ring min-h-[44px]"
                     maxLength={300}
                   />
 
                   {/* Explicit Aggregate Consent Toggle (Defaults to FALSE / OFF) */}
-                  <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-muted">
+                  <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-muted min-h-[44px]">
                     <input
                       type="checkbox"
                       checked={aggregateConsent}
@@ -1060,13 +972,14 @@ export default function MatchResultsPage() {
                       variant="primary"
                       size="sm"
                       onClick={handleSubmitFeedback}
+                      className="min-h-[44px]"
                     >
                       Submit feedback
                     </Button>
                     <button
                       type="button"
                       onClick={() => setFeedbackSubmitted(true)}
-                      className="text-xs text-muted hover:text-brand-deep underline"
+                      className="text-xs text-muted hover:text-brand-deep underline min-h-[44px] px-2"
                     >
                       Skip
                     </button>
@@ -1110,13 +1023,14 @@ export default function MatchResultsPage() {
                 variant="primary"
                 size="sm"
                 onClick={() => setIsCompareModalOpen(true)}
+                className="min-h-[44px]"
               >
                 Compare now
               </Button>
               <button
                 type="button"
                 onClick={() => setComparedProductIds([])}
-                className="text-xs text-muted hover:text-brand-deep underline"
+                className="text-xs text-muted hover:text-brand-deep underline min-h-[44px] px-2"
               >
                 Clear
               </button>
@@ -1191,8 +1105,8 @@ export default function MatchResultsPage() {
 
       {/* ================= "THIS DOESN'T FIT" FEEDBACK DIALOG ================= */}
       <Dialog
-        isOpen={rejectingRecommendation !== null}
-        onClose={() => setRejectingRecommendation(null)}
+        isOpen={rejectingFamily !== null}
+        onClose={() => setRejectingFamily(null)}
         title="Why doesn't this option fit?"
         description="We'll immediately regenerate your shortlist based on your correction."
       >
@@ -1207,14 +1121,68 @@ export default function MatchResultsPage() {
             <button
               key={item.id}
               type="button"
-              onClick={() => handleApplyCorrection(item.id as "wrong_format" | "avoid_ingredient" | "too_expensive" | "wrong_goal" | "other")}
-              className="w-full text-left p-3.5 rounded-button border border-border bg-surface hover:bg-surface-sage/40 transition-colors text-xs md:text-sm font-semibold text-brand-deep focus-ring"
+              onClick={() =>
+                handleApplyCorrection(
+                  item.id as "wrong_format" | "avoid_ingredient" | "too_expensive" | "wrong_goal" | "other"
+                )
+              }
+              className="w-full text-left p-3.5 rounded-button border border-border bg-surface hover:bg-surface-sage/40 transition-colors text-xs md:text-sm font-semibold text-brand-deep focus-ring min-h-[44px]"
             >
               {item.label}
             </button>
           ))}
         </div>
       </Dialog>
+
+      {/* Clarifying Question Modal */}
+      {isAskQuestionOpen && (
+        <Dialog
+          isOpen={isAskQuestionOpen}
+          onClose={() => setIsAskQuestionOpen(false)}
+          title="Refine with a quick question"
+          description="Answer to sharpen your shortlist"
+        >
+          <div className="space-y-4 pt-2">
+            {facetQuestion?.question ? (
+              <div className="space-y-3">
+                <h3 className="font-display font-bold text-brand-deep text-base">
+                  {facetQuestion.question}
+                </h3>
+                {facetQuestion.whyAsking && (
+                  <p className="text-xs text-muted bg-surface-sage/40 p-2.5 rounded-lg border border-border">
+                    {facetQuestion.whyAsking}
+                  </p>
+                )}
+                <div className="grid grid-cols-1 gap-2 pt-1">
+                  {facetQuestion.options?.map((opt: SessionQuestionOption) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleAnswerFacetQuestion(opt)}
+                      className="text-left p-3 rounded-button border border-border hover:border-brand-evergreen hover:bg-surface-sage/30 text-xs md:text-sm font-semibold text-brand-deep transition-colors min-h-[44px] flex items-center justify-between"
+                    >
+                      <span>{opt.label}</span>
+                      <CaretRight className="w-4 h-4 text-muted" weight="bold" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="py-4 text-center text-xs text-muted">
+                No additional clarifying questions needed for this combination.
+              </div>
+            )}
+          </div>
+        </Dialog>
+      )}
     </div>
+  );
+}
+
+export default function MatchResultsPage() {
+  return (
+    <MatchSessionProvider>
+      <MatchResultsInner />
+    </MatchSessionProvider>
   );
 }

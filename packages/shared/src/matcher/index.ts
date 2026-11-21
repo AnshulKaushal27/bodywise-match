@@ -109,9 +109,15 @@ export function evaluateHardExclusions(
 
     // Ingredient-specific avoidances
     if (product.ingredients !== null) {
+      const baseAvoidance =
+        avoidance.endsWith("s") && avoidance.length > 3 ? avoidance.slice(0, -1) : avoidance;
       const match = product.ingredients.some((ing) => {
         const ingLower = ing.toLowerCase();
-        return ingLower.includes(avoidance) || avoidance.includes(ingLower);
+        return (
+          ingLower.includes(avoidance) ||
+          avoidance.includes(ingLower) ||
+          ingLower.includes(baseAvoidance)
+        );
       });
       if (match) {
         return {

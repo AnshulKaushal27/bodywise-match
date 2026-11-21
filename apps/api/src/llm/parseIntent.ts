@@ -26,9 +26,13 @@ import {
   parseRequestKeyword,
   CONCEPTS_BY_ID,
   normalizeCosmeticWording,
+  tolerantParseLlmResponse,
+  detectPrimaryCategory,
+  ProductCategory,
 } from "@bodywise/shared";
 import { callGroqChatCompletion, GroqClientError } from "./groqClient";
 import { canMakeLlmCall, recordLlmCall } from "./dailyCap";
+import { getConfig } from "../config";
 
 export interface ParseRequestResult {
   parsed_request: ParsedRequest;
@@ -52,10 +56,10 @@ const DEFAULT_SYSTEM_PROMPT = `You extract shopping intent for a personal-care p
 
 function getSystemPrompt(): string {
   const possiblePaths = [
-    path.resolve(process.cwd(), "prompts/parseRequest.system.txt"),
+    path.resolve(__dirname, "../../../../prompts/parseRequest.system.txt"),
     path.resolve(__dirname, "../../../prompts/parseRequest.system.txt"),
-    path.resolve(__dirname, "../../prompts/parseRequest.system.txt"),
-    path.resolve(process.cwd(), "prompts/parseIntent.system.txt"),
+    path.resolve(process.cwd(), "prompts/parseRequest.system.txt"),
+    path.resolve(process.cwd(), "../../prompts/parseRequest.system.txt"),
   ];
 
   for (const p of possiblePaths) {
@@ -94,9 +98,10 @@ Output raw JSON only.`;
 
 function getSingleGoalSystemPrompt(): string {
   const possiblePaths = [
-    path.resolve(process.cwd(), "prompts/parseIntent.system.txt"),
+    path.resolve(__dirname, "../../../../prompts/parseIntent.system.txt"),
     path.resolve(__dirname, "../../../prompts/parseIntent.system.txt"),
-    path.resolve(__dirname, "../../prompts/parseIntent.system.txt"),
+    path.resolve(process.cwd(), "prompts/parseIntent.system.txt"),
+    path.resolve(process.cwd(), "../../prompts/parseIntent.system.txt"),
   ];
 
   for (const p of possiblePaths) {
@@ -183,22 +188,9 @@ export async function parseRequestWithGroq(
   _requestId: string = "unknown"
 ): Promise<ParseRequestResult> {
   const startTime = Date.now();
+  const { llm } = getConfig();
 
-  const isEnabled = process.env.LLM_ENABLED !== "false";
-  const apiKey = process.env.GROQ_API_KEY?.trim();
-
-  if (!isEnabled) {
-    const parsed = parseRequestKeyword(rawInput);
-    return {
-      parsed_request: parsed,
-      source: "rules",
-      latencyMs: Date.now() - startTime,
-      error_category: "llm_disabled",
-      fallback_reason: "LLM_ENABLED=false",
-    };
-  }
-
-  if (!apiKey) {
+  if (!llm.keyPresent || !llm.apiKey) {
     const parsed = parseRequestKeyword(rawInput);
     return {
       parsed_request: parsed,
@@ -206,6 +198,17 @@ export async function parseRequestWithGroq(
       latencyMs: Date.now() - startTime,
       error_category: "missing_key",
       fallback_reason: "GROQ_API_KEY is not configured",
+    };
+  }
+
+  if (!llm.enabled) {
+    const parsed = parseRequestKeyword(rawInput);
+    return {
+      parsed_request: parsed,
+      source: "rules",
+      latencyMs: Date.now() - startTime,
+      error_category: "llm_disabled",
+      fallback_reason: "LLM_ENABLED=false",
     };
   }
 
@@ -223,7 +226,7 @@ export async function parseRequestWithGroq(
   const withoutPii = sanitizeInputPii(rawInput);
   const { sanitized, injectionDetected } = neutralizePromptInjections(withoutPii);
 
-  const maxInputChars = parseInt(process.env.LLM_MAX_INPUT_CHARS || "1500", 10);
+  const maxInputChars = llm.maxInputChars;
   const cappedInput = sanitized.slice(0, maxInputChars);
 
   const systemPrompt = getSystemPrompt();
@@ -264,26 +267,74 @@ export async function parseRequestWithGroq(
     const zodResult = ParsedRequestSchema.safeParse(rawJson);
 
     if (!zodResult.success) {
-      const parsed = parseRequestKeyword(rawInput);
+      // Tolerant Parsing & Partial Salvage (Section G.4)
+      const tolerant = tolerantParseLlmResponse(rawJson as Record<string, unknown>);
+      const rulesParsed = parseRequestKeyword(rawInput);
+
+      if (tolerant.salvagedNeedsCount > 0 && tolerant.patch.needs) {
+        // Salvage valid needs from LLM output, filling any remaining structure from rules
+        const salvagedNeeds = tolerant.patch.needs.map((sn, idx) => ({
+          id: sn.id || `need_${idx + 1}`,
+          phrase_from_user: sn.phrase_from_user,
+          concepts: [sn.concept_id],
+          preferred_category: null,
+          format_preferences: tolerant.patch.format ? [tolerant.patch.format] : [],
+          priority: (idx === 0 ? "primary" : "secondary") as "primary" | "secondary",
+          confidence: "medium" as const,
+          normalised_label: sn.normalised_label || sn.phrase_from_user,
+        }));
+
+        recordLlmCall();
+
+        return {
+          parsed_request: {
+            ...rulesParsed,
+            needs: salvagedNeeds,
+            avoidances: tolerant.patch.avoidances || rulesParsed.avoidances,
+            routine_context: tolerant.patch.time_of_day
+              ? String(tolerant.patch.time_of_day)
+              : rulesParsed.routine_context,
+          },
+          source: "llm",
+          model: completion.model,
+          latencyMs: Date.now() - startTime,
+        };
+      }
+
+      // If no valid needs could be salvaged, fall back to rules cleanly
       return {
-        parsed_request: parsed,
+        parsed_request: rulesParsed,
         source: "rules",
         model: completion.model,
         latencyMs: Date.now() - startTime,
         error_category: "schema_validation_failed",
-        fallback_reason: "LLM output did not match ParsedRequestSchema",
+        fallback_reason: "AI unavailable right now",
       };
     }
 
     const validated = zodResult.data;
+    const detectedCat = detectPrimaryCategory(rawInput);
 
-    // Filter out unknown concepts not in CONTROLLED_CONCEPTS
+    // Filter out unknown concepts and apply Authoritative Category Guard (Section B.2 & B.3)
     for (const need of validated.needs) {
       need.concepts = need.concepts.filter((cid) => CONCEPTS_BY_ID.has(cid));
       need.normalised_label = normalizeCosmeticWording(
         need.normalised_label || need.phrase_from_user,
         need.concepts[0]
       );
+      if (detectedCat) {
+        if (need.preferred_category && need.preferred_category !== detectedCat.categoryId) {
+          if (process.env.NODE_ENV !== "production") {
+            console.log(
+              `[Dev Metric] Category disagreement: LLM guessed "${need.preferred_category}", detector authoritative "${detectedCat.categoryId}"`
+            );
+          }
+        }
+        need.preferred_category = detectedCat.categoryId as ProductCategory;
+      } else {
+        // Never allow LLM to infer category from concern alone (Rule 1 & Rule 3)
+        need.preferred_category = null;
+      }
     }
 
     recordLlmCall();
@@ -318,22 +369,9 @@ export async function parseIntentWithGroq(
   _requestId: string = "unknown"
 ): Promise<ParseIntentResult> {
   const startTime = Date.now();
+  const { llm } = getConfig();
 
-  const isEnabled = process.env.LLM_ENABLED !== "false";
-  const apiKey = process.env.GROQ_API_KEY?.trim();
-
-  if (!isEnabled) {
-    const parsed = parseNeedsKeyword(rawInput);
-    return {
-      parsed_needs: parsed,
-      source: "rules",
-      latencyMs: Date.now() - startTime,
-      error_category: "llm_disabled",
-      fallback_reason: "LLM_ENABLED=false",
-    };
-  }
-
-  if (!apiKey) {
+  if (!llm.keyPresent || !llm.apiKey) {
     const parsed = parseNeedsKeyword(rawInput);
     return {
       parsed_needs: parsed,
@@ -341,6 +379,17 @@ export async function parseIntentWithGroq(
       latencyMs: Date.now() - startTime,
       error_category: "missing_key",
       fallback_reason: "GROQ_API_KEY is not configured",
+    };
+  }
+
+  if (!llm.enabled) {
+    const parsed = parseNeedsKeyword(rawInput);
+    return {
+      parsed_needs: parsed,
+      source: "rules",
+      latencyMs: Date.now() - startTime,
+      error_category: "llm_disabled",
+      fallback_reason: "LLM_ENABLED=false",
     };
   }
 
@@ -358,7 +407,7 @@ export async function parseIntentWithGroq(
   const withoutPii = sanitizeInputPii(rawInput);
   const { sanitized, injectionDetected } = neutralizePromptInjections(withoutPii);
 
-  const maxInputChars = parseInt(process.env.LLM_MAX_INPUT_CHARS || "1500", 10);
+  const maxInputChars = llm.maxInputChars;
   const cappedInput = sanitized.slice(0, maxInputChars);
 
   const systemPrompt = getSingleGoalSystemPrompt();
@@ -392,6 +441,18 @@ export async function parseIntentWithGroq(
       };
     }
 
+    // Clean nulls in evidence_text so it matches z.record(z.string(), z.string())
+    if (typeof rawJson === "object" && rawJson !== null && "evidence_text" in rawJson) {
+      const ev = (rawJson as Record<string, unknown>).evidence_text;
+      if (typeof ev === "object" && ev !== null) {
+        for (const [k, v] of Object.entries(ev)) {
+          if (v === null || v === undefined) {
+            delete (ev as Record<string, unknown>)[k];
+          }
+        }
+      }
+    }
+
     const validated = ParsedNeedsSchema.safeParse(rawJson);
     if (!validated.success) {
       const parsed = parseNeedsKeyword(rawInput);
@@ -406,6 +467,16 @@ export async function parseIntentWithGroq(
 
     const needs = validated.data;
     needs.goal = normalizeGoal(needs.goal) as GoalId | null;
+
+    const detectedCat = detectPrimaryCategory(rawInput);
+    if (detectedCat) {
+      needs.category = detectedCat.categoryId as ProductCategory;
+      if (!needs.evidence_text) needs.evidence_text = {};
+      needs.evidence_text.category = detectedCat.matchedText;
+    } else {
+      needs.category = null;
+      if (needs.evidence_text) delete needs.evidence_text.category;
+    }
 
     recordLlmCall();
 

@@ -10,16 +10,22 @@ export function OfflineBanner() {
   React.useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Register service worker in production or standard browsing
+    // Register service worker in production, clean up in development
     if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(() => {
-          // SW registered
-        })
-        .catch(() => {
-          // Ignore registration failures in private/sandboxed envs
-        });
+      if (process.env.NODE_ENV === "production") {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .catch(() => {
+            // Ignore registration failures in private/sandboxed envs
+          });
+      } else {
+        // In development, unregister service workers to avoid stale chunk caching & 404s
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const reg of registrations) {
+            reg.unregister();
+          }
+        }).catch(() => {});
+      }
     }
 
     // Set initial state

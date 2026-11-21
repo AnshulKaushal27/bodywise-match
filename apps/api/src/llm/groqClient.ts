@@ -9,6 +9,8 @@
  * - Never logs prompt bodies or model outputs
  */
 
+import { getConfig } from "../config";
+
 export interface GroqMessage {
   role: "system" | "user" | "assistant";
   content: string;
@@ -16,6 +18,7 @@ export interface GroqMessage {
 
 export interface GroqCompletionOptions {
   model?: string;
+  apiKey?: string;
   messages: GroqMessage[];
   temperature?: number;
   max_tokens?: number;
@@ -57,24 +60,29 @@ export class GroqClientError extends Error {
 
 const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
-export const DEFAULT_GROQ_MODEL =
-  process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
-export const DEFAULT_GROQ_FAST_MODEL =
-  process.env.GROQ_FAST_MODEL || "llama-3.1-8b-instant";
+export function getDefaultGroqModel(): string {
+  return getConfig().llm.model;
+}
+
+export function getDefaultGroqFastModel(): string {
+  return getConfig().llm.fastModel;
+}
+
+export const DEFAULT_GROQ_MODEL = "qwen/qwen3.8-27b";
+export const DEFAULT_GROQ_FAST_MODEL = "openai/gpt-oss-20b";
 
 export async function callGroqChatCompletion(
   options: GroqCompletionOptions
 ): Promise<GroqCompletionResult> {
-  const apiKey = process.env.GROQ_API_KEY?.trim();
+  const config = getConfig();
+  const apiKey = options.apiKey || config.llm.apiKey;
   if (!apiKey) {
     throw new GroqClientError("GROQ_API_KEY is not configured", "missing_key");
   }
 
-  const model = options.model || process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL;
+  const model = options.model || config.llm.model || DEFAULT_GROQ_MODEL;
   // 15s timeout default to prevent cold start drops (Task A.2.d)
-  const timeoutMs =
-    options.timeoutMs ??
-    parseInt(process.env.LLM_TIMEOUT_MS || "15000", 10);
+  const timeoutMs = options.timeoutMs ?? config.llm.timeoutMs;
   const temperature = options.temperature ?? 0;
   const max_tokens = options.max_tokens ?? 600;
   let response_format: { type: "json_object" | "text" } | undefined =
@@ -208,24 +216,32 @@ export async function callGroqChatCompletion(
 }
 
 /**
- * Diagnostic utility for GET /v1/debug/llm (Task A.1)
+ * Diagnostic utility for GET /v1/debug/llm (Task A.1 & Step 1.5)
  * Performs one tiny call and returns strict non-sensitive metadata only.
+ * NEVER prints, logs, or returns the secret key.
  */
 export async function testLlmDebug(): Promise<{
   keyPresent: boolean;
+  keyLength: number;
+  keyPrefixOk: boolean;
   model: string;
+  llmEnabled: boolean;
+  envSource: string;
   httpStatus: number | null;
   latencyMs: number;
   jsonModeOk: boolean;
   errorCategory: string | null;
 }> {
-  const apiKey = process.env.GROQ_API_KEY?.trim();
-  const model = process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL;
+  const { llm } = getConfig();
 
-  if (!apiKey) {
+  if (!llm.keyPresent || !llm.apiKey) {
     return {
       keyPresent: false,
-      model,
+      keyLength: 0,
+      keyPrefixOk: false,
+      model: llm.model,
+      llmEnabled: false,
+      envSource: llm.envSource,
       httpStatus: null,
       latencyMs: 0,
       jsonModeOk: false,
@@ -236,7 +252,7 @@ export async function testLlmDebug(): Promise<{
   const startTime = Date.now();
   try {
     const result = await callGroqChatCompletion({
-      model,
+      model: llm.model,
       messages: [
         {
           role: "user",
@@ -254,7 +270,11 @@ export async function testLlmDebug(): Promise<{
 
     return {
       keyPresent: true,
+      keyLength: llm.keyLength,
+      keyPrefixOk: llm.keyPrefixOk,
       model: result.model,
+      llmEnabled: llm.enabled,
+      envSource: llm.envSource,
       httpStatus: 200,
       latencyMs: result.latencyMs,
       jsonModeOk,
@@ -265,7 +285,11 @@ export async function testLlmDebug(): Promise<{
     if (err instanceof GroqClientError) {
       return {
         keyPresent: true,
-        model,
+        keyLength: llm.keyLength,
+        keyPrefixOk: llm.keyPrefixOk,
+        model: llm.model,
+        llmEnabled: llm.enabled,
+        envSource: llm.envSource,
         httpStatus: err.statusCode || null,
         latencyMs,
         jsonModeOk: false,
@@ -274,7 +298,11 @@ export async function testLlmDebug(): Promise<{
     }
     return {
       keyPresent: true,
-      model,
+      keyLength: llm.keyLength,
+      keyPrefixOk: llm.keyPrefixOk,
+      model: llm.model,
+      llmEnabled: llm.enabled,
+      envSource: llm.envSource,
       httpStatus: null,
       latencyMs,
       jsonModeOk: false,

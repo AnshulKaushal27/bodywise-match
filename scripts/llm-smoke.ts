@@ -9,10 +9,10 @@
  * - NEVER prints the full response payload or raw prompt
  */
 
-import * as dotenv from "dotenv";
+import { initEnv } from "../apps/api/src/config";
 import { parseUserNeeds } from "../apps/api/src/services/parse-service";
 
-dotenv.config();
+initEnv();
 
 async function runSmokeTest(): Promise<void> {
   const apiKey = process.env.GROQ_API_KEY;

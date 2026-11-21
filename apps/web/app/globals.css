@@ -3,22 +3,39 @@
 @tailwind utilities;
 
 :root {
-  --bg-paper: #F7F7F1;
+  /* Canvas & Surfaces */
+  --bg-paper: #F5F9FF;
   --surface: #FFFFFF;
-  --surface-sage: #DCE8D7;
-  --brand-deep: #17352E;
-  --brand-evergreen: #245345;
-  --accent-lime: #D9EE9B;
-  --text-charcoal: #26332E;
-  --text-muted: #66756D;
-  --border: #D8E1DA;
+  --surface-sage: #E3EEFC;
+  --surface-sky: #E3EEFC;
+
+  /* Brand Typography & Actions */
+  --brand-deep: #0B2447;
+  --brand-evergreen: #1D4ED8;
+  --brand-primary: #1D4ED8;
+  --brand-primary-hover: #1E40AF;
+
+  /* Accents & Decorative Blue */
+  --accent-lime: #BBD9FF;
+  --accent-sky: #BBD9FF;
+  --decorative-blue-500: #3B82F6;
+  --decorative-blue-400: #60A5FA;
+
+  /* Typography & Structure */
+  --text-charcoal: #1B2A41;
+  --text-muted: #5B6B82;
+  --border: #D5E0EF;
+
+  /* Keyboard Focus Indicator */
+  --focus-ring: #1D4ED8;
+
+  /* Semantic Messaging */
+  --success-bg: #E3F0FF;
+  --success-text: #0B4A9E;
   --caution-peach: #FBE3D3;
   --caution-text: #7A3B14;
-  --success-bg: #E3F1E0;
-  --success-text: #1E5A2E;
   --error-bg: #FBE1E1;
   --error-text: #8A1F1F;
-  --focus-ring: #245345;
 }
 
 @layer base {
@@ -120,7 +137,7 @@
 
   body {
     background-color: #ffffff !important;
-    color: #17352e !important;
+    color: #0B2447 !important;
     font-size: 10.5pt !important;
   }
 
@@ -151,6 +168,6 @@
 
   /* Crisp print borders */
   .border {
-    border-color: #c0ccc4 !important;
+    border-color: #D5E0EF !important;
   }
 }

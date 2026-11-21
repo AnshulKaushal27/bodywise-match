@@ -1,0 +1,57 @@
+[
+  {
+    "id": "email-support",
+    "title": "Official Email Support",
+    "description": "Best for sharing photos of damaged parcels, batch codes, or written escalations.",
+    "type": "email",
+    "target_url": "mailto:support@bebodywise.com",
+    "source": "https://bebodywise.com/contactus",
+    "last_checked": "2026-11-18",
+    "recommended_for": "Damaged orders, product reactions, billing disputes",
+    "text": "Official Email Support. Best for sharing photos of damaged parcels, batch codes, or written escalations.. Recommended for: Damaged orders, product reactions, billing disputes. Official link: mailto:support@bebodywise.com"
+  },
+  {
+    "id": "phone-support",
+    "title": "Official Support Helpline",
+    "description": "Direct representative assistance (Mon to Sat 9 AM to 6 PM IST).",
+    "type": "phone",
+    "target_url": "tel:+918128688128",
+    "source": "https://bebodywise.com/contactus",
+    "last_checked": "2026-11-18",
+    "recommended_for": "Urgent delivery address corrections, failed delivery attempts",
+    "text": "Official Support Helpline. Direct representative assistance (Mon to Sat 9 AM to 6 PM IST).. Recommended for: Urgent delivery address corrections, failed delivery attempts. Official link: tel:+918128688128"
+  },
+  {
+    "id": "whatsapp-support",
+    "title": "Official WhatsApp Support",
+    "description": "Quick updates and chat with customer care on WhatsApp.",
+    "type": "chat",
+    "target_url": "https://wa.me/918128688128",
+    "source": "https://bebodywise.com/contactus",
+    "last_checked": "2026-11-18",
+    "recommended_for": "Tracking inquiries, delivery reschedule",
+    "text": "Official WhatsApp Support. Quick updates and chat with customer care on WhatsApp.. Recommended for: Tracking inquiries, delivery reschedule. Official link: https://wa.me/918128688128"
+  },
+  {
+    "id": "contact-portal",
+    "title": "Customer Contact Portal",
+    "description": "Web contact page on the official Be Bodywise platform.",
+    "type": "portal",
+    "target_url": "https://bebodywise.com/contactus",
+    "source": "https://bebodywise.com/contactus",
+    "last_checked": "2026-11-18",
+    "recommended_for": "General inquiries and official app downloads",
+    "text": "Customer Contact Portal. Web contact page on the official Be Bodywise platform.. Recommended for: General inquiries and official app downloads. Official link: https://bebodywise.com/contactus"
+  },
+  {
+    "id": "refunds-policy",
+    "title": "Official Returns & Refunds Policy",
+    "description": "Published terms for returns, transit damage claims, and refund processing.",
+    "type": "portal",
+    "target_url": "https://bebodywise.com/refunds-policy",
+    "source": "https://bebodywise.com/refunds-policy",
+    "last_checked": "2026-11-18",
+    "recommended_for": "Return window eligibility and refund guidelines",
+    "text": "Official Returns & Refunds Policy. Published terms for returns, transit damage claims, and refund processing.. Recommended for: Return window eligibility and refund guidelines. Official link: https://bebodywise.com/refunds-policy"
+  }
+]

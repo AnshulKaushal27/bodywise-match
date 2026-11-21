@@ -35,7 +35,7 @@ During the automated `axe-core` scan, keyboard traversal analysis, and manual la
 | **A11Y-05** | `help/[issue]`, `products/page.tsx`, `error.tsx` | 4.1.3 Status Messages | Asynchronous search count updates, clipboard copy actions, and error states were silent to screen readers. | Implemented `role="status" aria-live="polite"` on results counters and copy feedback buttons; `role="alert" aria-live="assertive"` on `error.tsx`. |
 | **A11Y-06** | `layout.tsx`, all routes | 2.4.1 Bypass Blocks | Keyboard users had to tab through navigation and header links on every page transition. | Added universal skip-to-content link in `RootLayout` targeting `#main-content`, and verified `id="main-content"` on all 15 view `<main>` containers. |
 | **A11Y-07** | Search buttons, filter chips, rating pills | 2.5.5 Target Size | Secondary action icons and pills had touch targets between 32px and 40px. | Enforced universal `min-h-[44px] min-w-[44px]` touch target sizing across all buttons, inputs, and interactive pills. |
-| **A11Y-08** | `globals.css` | 2.4.7 Focus Visible | Browser default `:focus` outlines were suppressed in custom reset styles without high-contrast focus rings. | Implemented universal `:focus-visible` style: `outline: 2px solid #245345 !important; outline-offset: 2px !important; box-shadow: 0 0 0 4px rgba(220, 232, 215, 0.6) !important;`. |
+| **A11Y-08** | `globals.css` | 2.4.7 Focus Visible | Browser default `:focus` outlines were suppressed in custom reset styles without high-contrast focus rings. | Implemented universal `:focus-visible` style: `outline: 3px solid #1D4ED8; outline-offset: 2px;`. |
 | **A11Y-09** | `globals.css` | 2.3.3 Animation from Interactions | Transitions and spinning indicators caused motion sickness for users with vestibular disorders. | Added `@media (prefers-reduced-motion: reduce)` rule resetting `animation-duration`, `animation-iteration-count`, and `transition-duration` to $0.01\text{ms}$. |
 | **A11Y-10** | Offline / Server Sleep / Error states | 3.3.4 Error Prevention, Resilient UX | Network drops produced browser uncaught fetch errors; cold backend sleep produced frozen spinner without countdown. | Added Service Worker caching shell with `"You're offline, your answers are saved on this device"` banner; added 60s active countdown with retry for API wake-up; added custom `not-found.tsx` and `error.tsx`. |
 
@@ -47,15 +47,15 @@ All color pairings used in Bodywise Match were verified against the WCAG Level A
 
 | Foreground Color | Background Color | Computed Contrast | WCAG AA Requirement | Pass / Fail | Intended Use Case |
 |:---|:---|:---:|:---:|:---:|:---|
-| **Pine Green** (`#17352E`) | **Warm Paper** (`#F7F7F1`) | **11.4:1** | $\ge 4.5:1$ | **PASS** | Primary headlines, body titles, high-emphasis text |
-| **Evergreen** (`#245345`) | **Warm Paper** (`#F7F7F1`) | **8.1:1** | $\ge 4.5:1$ | **PASS** | Interactive links, primary CTA buttons, active icons |
-| **Charcoal** (`#2D3748`) | **Warm Paper** (`#F7F7F1`) | **9.2:1** | $\ge 4.5:1$ | **PASS** | Editorial body copy, descriptions, list items |
-| **White** (`#FFFFFF`) | **Pine Green** (`#17352E`) | **13.5:1** | $\ge 4.5:1$ | **PASS** | Primary button text, dark footer content |
-| **Pine Green** (`#17352E`) | **Pale Lime** (`#D9EE9B`) | **10.1:1** | $\ge 4.5:1$ | **PASS** | Demo data badge, selected chip accents, highlights |
-| **Pine Green** (`#17352E`) | **Soft Sage** (`#DCE8D7`) | **8.8:1** | $\ge 4.5:1$ | **PASS** | Informational callouts, inactive progress bar |
-| **Muted Charcoal** (`#4A5568`) | **Warm Paper** (`#F7F7F1`) | **5.7:1** | $\ge 4.5:1$ | **PASS** | Secondary labels, provenance timestamps, helper copy |
-| **Error Crimson** (`#842029`) | **Error Background** (`#F8D7DA`) | **5.2:1** | $\ge 4.5:1$ | **PASS** | Form validation error text and alerts |
-| **Caution Amber** (`#8A5B12`) | **Caution Background** (`#FFF3CD`) | **4.9:1** | $\ge 4.5:1$ | **PASS** | Non-medical disclaimers, low-confidence callouts |
+| **Deep Navy** (`#0B2447`) | **Cool Paper** (`#F5F9FF`) | **14.9:1** | $\ge 4.5:1$ | **PASS** | Primary headlines, body titles, high-emphasis text |
+| **Primary Blue** (`#1D4ED8`) | **Cool Paper** (`#F5F9FF`) | **6.3:1** | $\ge 4.5:1$ | **PASS** | Interactive links, primary CTA buttons, active icons |
+| **Charcoal** (`#1B2A41`) | **Cool Paper** (`#F5F9FF`) | **13.3:1** | $\ge 4.5:1$ | **PASS** | Editorial body copy, descriptions, list items |
+| **White** (`#FFFFFF`) | **Deep Navy** (`#0B2447`) | **15.5:1** | $\ge 4.5:1$ | **PASS** | Primary button text, dark footer content |
+| **Deep Navy** (`#0B2447`) | **Accent Sky** (`#BBD9FF`) | **10.7:1** | $\ge 4.5:1$ | **PASS** | Demo data badge, selected chip accents, highlights |
+| **Deep Navy** (`#0B2447`) | **Soft Sky** (`#E3EEFC`) | **12.5:1** | $\ge 4.5:1$ | **PASS** | Informational callouts, inactive progress bar |
+| **Muted Text** (`#5B6B82`) | **Cool Paper** (`#F5F9FF`) | **4.8:1** | $\ge 4.5:1$ | **PASS** | Secondary labels, provenance timestamps, helper copy |
+| **Error Text** (`#8A1F1F`) | **Error Background** (`#FBE1E1`) | **7.2:1** | $\ge 4.5:1$ | **PASS** | Form validation error text and alerts |
+| **Caution Text** (`#7A3B14`) | **Caution Background** (`#FBE3D3`) | **6.5:1** | $\ge 4.5:1$ | **PASS** | Non-medical disclaimers, low-confidence callouts |
 
 ---
 
@@ -127,7 +127,7 @@ Route (app)                              Size     First Load JS
 
 ### Performance Optimizations Applied:
 1. **Route-Level Code Splitting:** Dynamic client-side components (like the issue forms and experience questionnaire) only load on their respective routes.
-2. **Hero Image Optimization:** Static WebP assets (`hero-bg-desktop.webp` and `hero-bg-mobile.webp`) use `next/image` with `priority`, responsive `sizes`, decorative `alt=""`, and a CSS gradient placeholder fallback (`#F7F7F1` to `#DCE8D7`) during initial layout paint.
+2. **Hero Image Optimization:** Static WebP assets (`hero-bg-desktop.webp` and `hero-bg-mobile.webp`) use `next/image` with `priority`, responsive `sizes`, decorative `alt=""`, and a CSS gradient placeholder fallback (`#F5F9FF` to `#E3EEFC`) during initial layout paint.
 3. **Web Font Delivery:** `DM Sans` and `Inter` are loaded via `next/font/google` with `display: "swap"`, preventing FOIT (Flash of Invisible Text) and layout shifts.
 4. **Zero Layout Shift (CLS 0.00):** Stepper, progress bars, cards, and image wrappers have reserved aspect ratios and intrinsic bounding dimensions.
 

@@ -10,6 +10,7 @@ import { CONTROLLED_GOALS, GoalId } from "../goals";
 import { ProductCategory } from "../product";
 import { ParsedNeeds, ParsedNeed, ParsedRequest } from "../matcher/types";
 import { CONTROLLED_CONCEPTS, CONCEPTS_BY_ID } from "../retrieval/concepts";
+import { detectPrimaryCategory } from "../data/categories";
 
 // --- PII Sanitization Patterns (Rule 8) ---
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi;
@@ -85,17 +86,6 @@ const FORMAT_RULES = [
   { format: "shampoo", regex: /\b(shampoo)\b/i },
 ];
 
-// --- Category Patterns ---
-const CATEGORY_RULES: Array<{ category: ProductCategory; regex: RegExp }> = [
-  { category: "body_wash", regex: /\b(body\s*wash|shower\s*gel|body\s*cleanser|bath|shower)\b/i },
-  { category: "face_wash", regex: /\b(face\s*wash|facial\s*cleanser|face\s*cleanser|face\s*foam)\b/i },
-  { category: "hair_oil", regex: /\b(hair\s*oil|scalp\s*oil)\b/i },
-  { category: "shampoo", regex: /\b(shampoo|anti-dandruff\s*shampoo|scalp\s*wash)\b/i },
-  { category: "conditioner", regex: /\b(conditioner)\b/i },
-  { category: "sunscreen", regex: /\b(sunscreen|sunblock|spf|sun\s*cream|sun\s*shield)\b/i },
-  { category: "supplement", regex: /\b(gummies|gummy|supplement|biotin|chewable|supplements)\b/i },
-  { category: "serum", regex: /\b(serum|roll-on|roller)\b/i },
-];
 
 /**
  * Normalizes aggressive/medical wording to neutral cosmetic framing.
@@ -105,6 +95,10 @@ export function normalizeCosmeticWording(phrase: string, conceptId?: string): st
     const concept = CONCEPTS_BY_ID.get(conceptId);
     if (concept) {
       return concept.label;
+    }
+    const goal = CONTROLLED_GOALS.find((g) => g.id === conceptId);
+    if (goal) {
+      return goal.label;
     }
   }
 
@@ -183,25 +177,23 @@ export function parseRequestKeyword(rawInput: string): ParsedRequest {
       }
     }
 
-    // Category preference in this segment
+    // Explicit category detection via authoritative detector (Section B.1 & B.2)
     let preferredCategory: ProductCategory | null = null;
-    for (const rule of CATEGORY_RULES) {
-      if (rule.regex.test(segLower)) {
-        preferredCategory = rule.category;
-        break;
-      }
-    }
-
-    // Infer implied category if user states need with typical category in catalogue
-    if (!preferredCategory) {
-      if (segLower.includes("face") || matchedConcepts.includes("blackhead_look")) {
+    const detectedInSeg = detectPrimaryCategory(seg);
+    const detectedInFull = detectPrimaryCategory(rawInput);
+    if (detectedInSeg) {
+      preferredCategory = detectedInSeg.categoryId as ProductCategory;
+    } else if (detectedInFull) {
+      preferredCategory = detectedInFull.categoryId as ProductCategory;
+    } else if (matchedConcepts.length > 0) {
+      // Default preferred category for legacy multi-need retrieval if no explicit category in input
+      const first = matchedConcepts[0];
+      if (first === "blackhead_look" || first === "oil_control") {
         preferredCategory = "face_wash";
-      } else if (matchedConcepts.includes("scalp_comfort") || matchedConcepts.includes("dandruff_clarifying")) {
-        preferredCategory = "shampoo";
-      } else if (matchedConcepts.includes("body_bumps_look")) {
+      } else if (first === "body_bumps_look") {
         preferredCategory = "body_wash";
-      } else if (matchedConcepts.includes("sun_protection")) {
-        preferredCategory = "sunscreen";
+      } else if (first === "hair_fall_appearance" || first === "scalp_comfort") {
+        preferredCategory = "shampoo";
       }
     }
 
@@ -312,15 +304,18 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
     }
   }
 
-  // 4. Identify Category
+  // 4. Identify Explicit Category via Authoritative Detector (Section B.1 & B.2)
   let category: ProductCategory | null = null;
-  for (const rule of CATEGORY_RULES) {
-    const match = sanitized.match(rule.regex);
-    if (match) {
-      category = rule.category;
-      evidenceText.category = match[0];
-      break;
+  const detectedCategory = detectPrimaryCategory(sanitized);
+  if (detectedCategory) {
+    if (detectedCategory.categoryId === "roll_on") {
+      category = "serum"; // Map roll-on to serum for legacy ProductCategory enum
+    } else if (detectedCategory.categoryId === "moisturizer") {
+      category = "other";
+    } else {
+      category = detectedCategory.categoryId as ProductCategory;
     }
+    evidenceText.category = detectedCategory.matchedText;
   }
 
   // 5. Match Controlled Goal
@@ -432,43 +427,26 @@ export function parseNeedsKeyword(rawInput: string): ParsedNeeds {
     evidenceText.goal = matchedSnippet || matchedGoal;
   }
 
-  // 6. Infer / Reconcile Category if not explicitly provided
+  // 6. Infer fallback category for legacy ParsedNeeds if goal implies default domain:
   if (!category && matchedGoal) {
-    switch (matchedGoal) {
-      case "body_bumps_look":
-      case "gentle_daily_cleansing":
-      case "rough_texture_smoothing":
-        category = "body_wash";
-        break;
-      case "underarm_odor_freshness":
-      case "underarm_texture_smoothing":
-        category = "serum";
-        break;
-      case "hair_density_appearance":
-        category = formatPreferences.includes("gummies") ? "supplement" : "serum";
-        break;
-      case "hair_fall_appearance":
-      case "scalp_comfort":
-      case "scalp_clarifying":
-        category = "shampoo";
-        break;
-      case "frizz_control":
-        category = "conditioner";
-        break;
-      case "dark_spots_look":
-        category = "serum";
-        break;
-      case "oil_control":
-        category = "face_wash";
-        break;
-      case "hydration_barrier":
-        category = "body_wash";
-        break;
-      case "sun_protection":
-        category = "sunscreen";
-        break;
-      default:
-        category = null;
+    if (matchedGoal === "body_bumps_look" || matchedGoal === "gentle_daily_cleansing") {
+      category = "body_wash";
+    } else if (
+      matchedGoal === "hair_fall_appearance" ||
+      matchedGoal === "scalp_comfort" ||
+      matchedGoal === "scalp_clarifying" ||
+      matchedGoal === "frizz_control"
+    ) {
+      category = "shampoo";
+    } else if (
+      matchedGoal === "underarm_odor_freshness" ||
+      matchedGoal === "underarm_texture_smoothing" ||
+      matchedGoal === "hair_density_appearance" ||
+      matchedGoal === "dark_spots_look"
+    ) {
+      category = "serum";
+    } else if (matchedGoal === "sun_protection") {
+      category = "sunscreen";
     }
   }
 

@@ -34,3 +34,9 @@ test-results/
 
 # Raw scraped data and originals (audit only)
 data/raw/
+
+# Temporary test artifacts & skill outputs
+.tmp/
+.agent/
+.agents/
+skills-lock.json

@@ -6,6 +6,7 @@ const STATIC_ASSETS = [
   "/manifest.webmanifest",
   "/hero-bg-desktop.webp",
   "/hero-bg-mobile.webp",
+  "/hero-products.webp",
   "/icon-192.png",
   "/icon-512.png",
   "/about",
@@ -47,8 +48,12 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(event.request.url);
 
-  // Skip API requests and external hosts from cache-first
-  if (url.pathname.startsWith("/v1/") || url.origin !== self.location.origin) {
+  // Skip Next.js internal static assets, chunks, HMR, API requests, and external hosts
+  if (
+    url.pathname.startsWith("/_next/") ||
+    url.pathname.startsWith("/v1/") ||
+    url.origin !== self.location.origin
+  ) {
     return;
   }
 
