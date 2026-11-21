@@ -401,15 +401,11 @@ export default function HomePage() {
             {/* Col 1: Brand & Promise */}
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center p-0.5 shrink-0 shadow-2xs overflow-hidden">
-                  <Image
-                    src="/logo.png"
-                    alt="Bodywise Match Logo"
-                    width={24}
-                    height={24}
-                    unoptimized
-                    className="w-5 h-5 object-contain"
-                  />
+                <div
+                  className="w-7 h-7 rounded-button bg-white/10 border border-white/20 flex items-center justify-center text-white font-display font-bold text-[11px] tracking-tight shrink-0 shadow-2xs select-none"
+                  aria-hidden="true"
+                >
+                  BM
                 </div>
                 <span className="font-display font-bold text-white text-lg tracking-tight">
                   Bodywise Match

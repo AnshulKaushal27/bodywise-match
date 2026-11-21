@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Button,
   Chip,
@@ -65,15 +64,11 @@ export default function DesignSystemPage() {
       <header className="border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="max-w-container mx-auto px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-white border border-border flex items-center justify-center p-1 shadow-2xs shrink-0 overflow-hidden">
-              <Image
-                src="/logo.png"
-                alt="Bodywise Match Logo"
-                width={26}
-                height={26}
-                unoptimized
-                className="w-6 h-6 object-contain"
-              />
+            <div
+              className="w-8 h-8 rounded-button bg-gradient-to-br from-brand-deep to-brand-primary border border-brand-primary/20 flex items-center justify-center text-white font-display font-bold text-xs tracking-tight shadow-2xs shrink-0 select-none"
+              aria-hidden="true"
+            >
+              BM
             </div>
             <div>
               <span className="font-display font-bold text-brand-deep text-lg tracking-tight">

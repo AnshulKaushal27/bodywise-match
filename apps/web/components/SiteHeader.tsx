@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -40,16 +39,13 @@ export function SiteHeader({ className }: SiteHeaderProps) {
             className="flex items-center gap-2.5 group focus-ring rounded-button p-1"
             aria-label="Bodywise Match Home"
           >
-            <Image
-              src="/logo.png"
-              alt="Bodywise Match Logo"
-              width={32}
-              height={32}
-              priority
-              unoptimized
-              className="w-8 h-8 object-contain shrink-0 group-hover:scale-105 transition-transform"
-            />
-            <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight hidden sm:inline">
+            <div
+              className="w-8 h-8 rounded-button bg-gradient-to-br from-brand-deep via-[#0E2A52] to-brand-primary text-white flex items-center justify-center font-display font-bold text-xs tracking-tight shadow-xs select-none group-hover:scale-105 border border-brand-primary/25 shrink-0 transition-transform duration-150"
+              aria-hidden="true"
+            >
+              BM
+            </div>
+            <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight">
               Bodywise Match
             </span>
           </Link>
