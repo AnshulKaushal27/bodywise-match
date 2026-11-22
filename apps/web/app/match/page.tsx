@@ -33,7 +33,6 @@ import {
   GoalItem,
   FALLBACK_CATALOGUE_GOALS,
 } from "@/lib/api";
-import { parseSearchToFilterParams } from "@bodywise/shared";
 
 // --- Form Validation Schema ---
 const MatchStep1Schema = z
@@ -145,24 +144,6 @@ function MatchStep1Content() {
     return () => clearInterval(timer);
   }, []);
 
-  // Immediate redirect to products with filters applied (Step 1 bypassed)
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    const raw = queryParam ? queryParam.trim() : "";
-    if (raw) {
-      const criteria = parseSearchToFilterParams(raw);
-      const params = new URLSearchParams();
-      if (criteria.search) params.set("q", criteria.search);
-      if (criteria.categories && criteria.categories.length > 0) params.set("category", criteria.categories.join(","));
-      if (criteria.goals && criteria.goals.length > 0) params.set("goal", criteria.goals.join(","));
-      if (criteria.formats && criteria.formats.length > 0) params.set("format", criteria.formats.join(","));
-      if (criteria.fragrance && criteria.fragrance !== "all") params.set("fragrance", criteria.fragrance);
-      const qs = params.toString();
-      router.replace(qs ? `/products?${qs}` : "/products");
-    } else {
-      router.replace("/products");
-    }
-  }, [queryParam, router]);
 
   // Restore draft or query parameter on mount / URL change
   React.useEffect(() => {

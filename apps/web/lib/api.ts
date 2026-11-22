@@ -102,6 +102,14 @@ export function resolveApiUrls() {
 
   // 3. In production, guarantee NO localhost is ever used (Task A.2.f)
   if (isProd) {
+    if (typeof window !== "undefined" && window.location.origin) {
+      const origin = window.location.origin;
+      return {
+        rootUrl: origin,
+        baseUrl: `${origin}/api/v1`,
+        healthUrl: `${origin}/api/health`,
+      };
+    }
     const prodRoot = "https://bodywise-match-api.onrender.com";
     return {
       rootUrl: prodRoot,

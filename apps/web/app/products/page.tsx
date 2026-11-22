@@ -403,7 +403,7 @@ function ProductsPageContent() {
         {/* Sticky Toolbar Row */}
         <section
           aria-label="Catalogue Search and Filter Toolbar"
-          className="sticky top-[57px] z-20 bg-paper/95 backdrop-blur-sm pt-2 pb-3.5 border-b border-border mb-4 transition-colors"
+          className="sticky top-16 z-20 bg-paper/95 backdrop-blur-sm pt-2 pb-3.5 border-b border-border mb-4 transition-colors"
         >
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Search Input Box */}

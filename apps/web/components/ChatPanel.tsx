@@ -101,11 +101,13 @@ export function ChatPanel() {
     }
   };
 
-  // Determine launcher elevation to avoid sticky bottom bar on confirm, results & product detail
+  // Determine launcher elevation to avoid sticky bottom bar on home, confirm, results, products & help
   const isElevated =
+    pathname === "/" ||
     pathname === "/match/confirm" ||
     pathname === "/match/results" ||
-    pathname.startsWith("/products/");
+    pathname.startsWith("/products") ||
+    pathname.startsWith("/help");
 
   return (
     <>
