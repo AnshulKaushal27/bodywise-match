@@ -20,11 +20,6 @@ export function AppNavBar() {
   const [compareCount, setCompareCount] = React.useState(0);
   const [searchVal, setSearchVal] = React.useState("");
 
-  // Guard: Absolutely NEVER render on the landing page per user rule
-  if (pathname === "/") {
-    return null;
-  }
-
   // Sync comparison items count from sessionStorage
   React.useEffect(() => {
     const updateCount = () => {
@@ -60,6 +55,12 @@ export function AppNavBar() {
   React.useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  // Guard: Absolutely NEVER render on the landing page per user rule.
+  // Note: Placed after all hooks to strictly adhere to React's Rules of Hooks.
+  if (pathname === "/") {
+    return null;
+  }
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
