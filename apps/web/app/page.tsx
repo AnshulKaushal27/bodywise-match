@@ -1,6 +1,5 @@
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import {
   ArrowRight,
@@ -16,6 +15,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { HashRedirect } from "@/components/HashRedirect";
 import { OrderResolutionPreview } from "@/components/OrderResolutionPreview";
 import { HeroRotatingWord, HeroQueryInput, HeroScanButton } from "@/components/HeroInteractive";
+import { HeroProductMedia } from "@/components/HeroProductMedia";
 import { CatalogueStatsStrip, CategoryBento } from "@/components/CatalogueShowcase";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ReduceMotionToggle } from "@/lib/motion";
@@ -178,7 +178,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right Column: Layered Editorial Botanical Artwork Card */}
+              {/* Right Column: Layered Editorial Botanical Artwork Card with Seamless Cinemagraph Video */}
               <div className="lg:col-span-5 relative w-full">
                 {/* Decorative Ambient Underlay Halo Card */}
                 <div
@@ -186,20 +186,7 @@ export default function HomePage() {
                   aria-hidden="true"
                 />
 
-                <div
-                  style={{ position: "relative" }}
-                  className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] w-full rounded-card overflow-hidden shadow-card border border-brand-deep/12 bg-surface"
-                >
-                  <Image
-                    src="/hero-products.webp"
-                    alt="Be Bodywise verified skincare products and clean formulations"
-                    fill
-                    priority
-                    unoptimized
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover object-center"
-                  />
-                </div>
+                <HeroProductMedia />
               </div>
             </div>
           </div>
