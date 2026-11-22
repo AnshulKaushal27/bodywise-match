@@ -11,6 +11,8 @@ import {
   CATALOGUE_VERSION,
   CONTROLLED_GOALS,
   DEMO_CATALOGUE_SEED,
+  CustomerExperienceRecord,
+  DEMO_EXPERIENCES_SEED,
   Feedback,
   FeedbackSchema,
   MatchRequestSchema,
@@ -78,8 +80,9 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
     },
   });
 
-  // In-memory feedback and session store for demo environment
+  // In-memory feedback and community experiences store
   const feedbackStore: Array<Feedback & { recorded_at: string }> = [];
+  const experiencesStore: CustomerExperienceRecord[] = [...DEMO_EXPERIENCES_SEED];
 
   app.register(async (api) => {
     // Security headers via Helmet
@@ -655,6 +658,82 @@ export function buildServer(opts?: { rateLimitMax?: number }) {
           session_id: record.session_id || record.request_id,
           aggregate_consent: record.aggregate_consent,
           recorded_at: record.recorded_at,
+        };
+      });
+
+      // GET /v1/experiences (Community product reviews)
+      routeScope.get<{ Querystring: { slug?: string; product_id?: string } }>(
+        "/v1/experiences",
+        async (req) => {
+          const { slug, product_id } = req.query;
+          let list = experiencesStore;
+          if (slug) {
+            list = list.filter((e) => e.product_slug === slug);
+          } else if (product_id) {
+            list = list.filter((e) => e.product_id === product_id);
+          }
+          return {
+            experiences: list,
+            total: list.length,
+          };
+        }
+      );
+
+      // GET /v1/products/:slug/experiences
+      routeScope.get<{ Params: { slug: string } }>(
+        "/v1/products/:slug/experiences",
+        async (req) => {
+          const { slug } = req.params;
+          const list = experiencesStore.filter((e) => e.product_slug === slug);
+          return {
+            experiences: list,
+            total: list.length,
+          };
+        }
+      );
+
+      // POST /v1/experiences (Save and publish community customer experience)
+      routeScope.post("/v1/experiences", async (req, reply) => {
+        const body = (req.body || {}) as Partial<CustomerExperienceRecord> & {
+          textSnippet?: string;
+          optional_text?: string;
+        };
+
+        if (!body.product_slug) {
+          return reply.status(400).send({
+            error: "product_slug is required",
+          });
+        }
+
+        const product = DEMO_CATALOGUE_SEED.find((p) => p.slug === body.product_slug);
+        const record: CustomerExperienceRecord = {
+          id: body.id || `exp-${Date.now()}-${randomUUID().slice(0, 6)}`,
+          product_id: body.product_id || product?.id || "unknown",
+          product_slug: body.product_slug,
+          duration_bucket: body.duration_bucket || "2-4 weeks",
+          usage_consistency: body.usage_consistency || "daily",
+          self_reported_outcome: body.self_reported_outcome || "better",
+          comfort_reaction: body.comfort_reaction || "no issue",
+          moderated_text: body.moderated_text || body.optional_text || body.textSnippet || null,
+          moderation_status: "published",
+          publication_consent: true,
+          recommendation_consent: true,
+          created_at: body.created_at || new Date().toISOString().split("T")[0],
+          source: body.source || "Verified Customer Review",
+          is_demo: false,
+        };
+
+        const existingIdx = experiencesStore.findIndex((e) => e.id === record.id);
+        if (existingIdx >= 0) {
+          experiencesStore[existingIdx] = record;
+        } else {
+          experiencesStore.unshift(record);
+        }
+
+        return {
+          success: true,
+          message: "Experience saved and published to the community.",
+          experience: record,
         };
       });
 

@@ -163,7 +163,10 @@ export function ChatPanel() {
                 <h2 id="chat-panel-title" className="font-display font-semibold text-base text-brand-deep leading-tight">
                   Bodywise Assistant
                 </h2>
-                <p className="text-xs text-text-muted">Verified packaging facts & guidance</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+                  <p className="text-[11px] text-text-muted">Private to this device • Verified facts</p>
+                </div>
               </div>
             </div>
 
@@ -254,9 +257,18 @@ export function ChatPanel() {
                 <h3 className="font-display font-semibold text-charcoal text-sm mb-1">
                   How can we help your routine today?
                 </h3>
-                <p className="text-xs text-text-muted max-w-xs mx-auto mb-4 leading-relaxed">
+                <p className="text-xs text-text-muted max-w-xs mx-auto mb-3 leading-relaxed">
                   Ask about verified ingredients, usage directions, or describe your personal care goal.
                 </p>
+
+                <div className="mb-4 p-2.5 rounded-button bg-surface-sage/30 border border-brand-deep/8 text-[11px] text-charcoal/80 text-left max-w-xs mx-auto flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-brand-deep/10 text-brand-deep flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5" aria-hidden="true">
+                    i
+                  </span>
+                  <span>
+                    <strong>Device-private chat:</strong> Messages stay on this device only and are never shared with other users.
+                  </span>
+                </div>
 
                 {/* Quick Starters */}
                 <div className="flex flex-col gap-2 max-w-xs mx-auto text-left">
@@ -469,7 +481,7 @@ export function ChatPanel() {
               </button>
             </div>
             <p className="text-[11px] text-text-muted text-center mt-2">
-              Zero medical claims. Verified packaging facts only.
+              Private to this device &bull; Not shared with other users &bull; Zero medical claims
             </p>
           </div>
         </aside>

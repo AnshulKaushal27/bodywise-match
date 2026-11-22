@@ -185,10 +185,6 @@ export function CategoryBento() {
     <section id="category-bento-grid" className="w-full mb-16 scroll-mt-24" aria-labelledby="browse-categories-heading">
       <ScrollReveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-sky/80 border border-brand-primary/15 text-brand-primary text-xs font-bold tracking-wide uppercase mb-2.5">
-            <ShieldCheck className="w-4 h-4 text-brand-primary shrink-0" weight="bold" aria-hidden="true" />
-            <span>Verified Catalogue Directory</span>
-          </div>
           <h2
             id="browse-categories-heading"
             className="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-brand-deep tracking-tight"

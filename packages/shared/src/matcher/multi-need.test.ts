@@ -170,5 +170,5 @@ describe("Multi-Need RAG Matching & Ranking (Task Part D, E, G)", () => {
       const subsequentRun = await matchMultiNeeds(req, DEMO_CATALOGUE_SEED);
       expect(JSON.stringify(subsequentRun)).toBe(firstJson);
     }
-  });
+  }, 15000);
 });

@@ -18,6 +18,21 @@ export interface ChatPageContext {
   comparedFamilyIds?: string[];
 }
 
+export function getOrCreateDeviceId(customStorage?: Storage): string {
+  try {
+    const storage = customStorage || (typeof window !== "undefined" ? window.localStorage : undefined);
+    if (!storage) return "device_client";
+    let id = storage.getItem("bodywise_device_id");
+    if (!id) {
+      id = `dev_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+      storage.setItem("bodywise_device_id", id);
+    }
+    return id;
+  } catch {
+    return "local_device";
+  }
+}
+
 export function useChat() {
   const { state, dispatch, isChatOpen, setIsChatOpen } = useMatchSession();
   const pathname = usePathname();
@@ -35,17 +50,57 @@ export function useChat() {
   const [proposedPatch, setProposedPatch] = React.useState<SessionPatch | null>(null);
   const [lastCandidates, setLastCandidates] = React.useState<ShortlistFamilyItem[]>([]);
   const [candidateCount, setCandidateCount] = React.useState<number>(0);
-  const [localMessages, setLocalMessages] = React.useState<ChatMessage[]>(() => state.chat.messages || []);
 
+  // Initialize messages from device-scoped localStorage (unique per device/browser)
+  const [localMessages, setLocalMessages] = React.useState<ChatMessage[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const deviceId = getOrCreateDeviceId();
+        const saved = localStorage.getItem(`bodywise_chat_${deviceId}`);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch {
+        // storage disabled or sandboxed
+      }
+    }
+    return state.chat.messages || [];
+  });
+
+  const hasHydratedFromDeviceRef = React.useRef(false);
+
+  // Sync state.chat.messages and device storage
   React.useEffect(() => {
     if (!state.chat.messages || state.chat.messages.length === 0) {
-      if (localMessages.length > 0) {
-        setLocalMessages([]);
+      if (localMessages.length > 0 && !hasHydratedFromDeviceRef.current) {
+        // Hydrate session state with device-local messages on initial mount
+        hasHydratedFromDeviceRef.current = true;
+        localMessages.forEach((msg) => {
+          dispatch({ type: "ADD_CHAT_MESSAGE", message: msg });
+        });
       }
     } else if (state.chat.messages.length > localMessages.length) {
       setLocalMessages(state.chat.messages);
     }
-  }, [state.chat.messages, localMessages.length]);
+  }, [state.chat.messages, localMessages, dispatch]);
+
+  // Persist messages to device-scoped localStorage whenever updated
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const deviceId = getOrCreateDeviceId();
+      if (localMessages.length > 0) {
+        localStorage.setItem(`bodywise_chat_${deviceId}`, JSON.stringify(localMessages));
+      } else {
+        localStorage.removeItem(`bodywise_chat_${deviceId}`);
+      }
+    } catch {
+      // storage disabled
+    }
+  }, [localMessages]);
 
   // Derive page context from URL
   const pageContext: ChatPageContext = React.useMemo(() => {
@@ -199,6 +254,14 @@ export function useChat() {
     setError(null);
     setLastCandidates([]);
     setCandidateCount(0);
+    if (typeof window !== "undefined") {
+      try {
+        const deviceId = getOrCreateDeviceId();
+        localStorage.removeItem(`bodywise_chat_${deviceId}`);
+      } catch {
+        // storage disabled
+      }
+    }
   }, [dispatch]);
 
   const getFilteredProductsUrl = React.useCallback(() => {

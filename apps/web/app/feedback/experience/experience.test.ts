@@ -59,20 +59,14 @@ describe("Experience Feedback Route (apps/web/app/feedback/experience/page.tsx)"
     expect(html).toContain("<textarea");
   });
 
-  it("renders two SEPARATE consent toggles defaulting to OFF (unchecked)", () => {
-    expect(html).toContain("Use to improve my own recommendations");
-    expect(html).toContain("Publish anonymously after moderation");
-    expect(html).toContain("Both default OFF");
-
-    // Verify neither checkbox has checked attribute
-    const matches = html.match(/type="checkbox"/g);
-    expect(matches).toBeTruthy();
-    expect(matches?.length).toBe(2);
-    expect(html).not.toContain('checked=""');
+  it("provides direct submit review option without personal preference checkboxes", () => {
+    expect(html).not.toContain("Use to improve my own recommendations");
+    expect(html).not.toContain("Data Consent Preferences");
+    expect(html).toContain("Submit review");
   });
 
   it("renders disabled submit button when mandatory fields are not yet filled", () => {
-    expect(html).toContain("Submit experience");
+    expect(html).toContain("Submit review");
     expect(html).toContain("disabled=\"\"");
   });
 

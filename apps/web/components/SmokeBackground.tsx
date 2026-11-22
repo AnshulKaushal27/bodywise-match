@@ -118,14 +118,15 @@ void main() {
   // Normalize f [-0.5, 0.5] to [0.0, 1.0]
   float nf = clamp(0.5 + 0.5 * f, 0.0, 1.0);
 
-  // Ribbon Stream Shaping:
-  // Creates distinct flowing currents across the screen rather than an all-over flood
-  float streamWave = sin(p.x * 1.3 - p.y * 1.7 + q.x * 2.6 - t * 0.75);
-  float streamMod = smoothstep(-0.35, 0.55, streamWave);
+  // Harmonious undulating wave currents across the screen:
+  // Dual-frequency sine waves create undulating swells without dead voids
+  float wave1 = sin(p.x * 1.15 - p.y * 1.35 + q.x * 2.2 - t * 0.65);
+  float wave2 = cos(p.x * 0.85 + p.y * 0.95 + q.y * 1.8 - t * 0.45);
+  float streamWave = 0.5 + 0.28 * wave1 + 0.22 * wave2;
 
-  // Clear separation: 0 in negative space, dense and vibrant within the plume
-  float plume = smoothstep(0.34, 0.72, nf) * streamMod;
-  float density = pow(plume, 1.4);
+  // Plume density with gentle base so waves are full, continuous, and never cut mid-way
+  float plume = smoothstep(0.18, 0.72, nf) * (0.55 + 0.45 * streamWave);
+  float density = pow(plume, 1.25);
 
   // Brand Palette Mapping for Explicit, Vivid Blue Smoke Wisps
   // Crisp Ice Blue Mist at outer wisp edges
@@ -145,9 +146,9 @@ void main() {
   // Explicit smoke alpha: 0 in clear space, up to 0.65 in core plumes
   float smokeAlpha = density * u_alpha * 1.15;
 
-  // Soft edge falloff at viewport bounds
-  float edgeFade = smoothstep(0.0, 0.08, st.x) * smoothstep(1.0, 0.92, st.x) *
-                   smoothstep(0.0, 0.10, st.y) * smoothstep(1.0, 0.88, st.y);
+  // Soft edge falloff at viewport bounds (generous bounds so waves breathe to the screen edges)
+  float edgeFade = smoothstep(0.0, 0.03, st.x) * smoothstep(1.0, 0.97, st.x) *
+                   smoothstep(0.0, 0.04, st.y) * smoothstep(1.0, 0.96, st.y);
   smokeAlpha *= edgeFade;
 
   // Static tiny grain term to prevent color banding
@@ -158,7 +159,7 @@ void main() {
 }
 `;
 
-// Layer 1 Ambient Moving Blue Smoke Streams (Directional & Crossing the Screen)
+// Layer 1 Ambient Moving Blue Smoke Streams (Seamless Full-Width Harmonic Waves)
 export function AmbientFallback() {
   return (
     <div
@@ -166,11 +167,17 @@ export function AmbientFallback() {
       className="absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none"
       aria-hidden="true"
     >
-      {/* Stream 1: Upper diagonal smoke stream drifting across the screen */}
-      <div className="absolute top-[8%] -left-[10%] w-[110%] max-w-[950px] h-[190px] rounded-[100px] bg-gradient-to-r from-transparent via-[#93C5FD]/40 via-[#60A5FA]/30 to-transparent blur-[85px] animate-smoke-stream-1 pointer-events-none" />
+      {/* Stream 1: Primary upper flowing blue wave ribbon across full width */}
+      <div className="absolute top-[6%] -left-[15%] w-[130%] h-[240px] rounded-[120px] bg-gradient-to-r from-transparent via-[#93C5FD]/45 via-[#60A5FA]/35 to-transparent blur-[85px] animate-smoke-stream-1 pointer-events-none" />
 
-      {/* Stream 2: Lower counter-diagonal smoke stream curling across */}
-      <div className="absolute top-[48%] -right-[8%] w-[105%] max-w-[850px] h-[170px] rounded-[90px] bg-gradient-to-l from-transparent via-[#60A5FA]/30 via-[#3B82F6]/20 to-transparent blur-[80px] animate-smoke-stream-2 pointer-events-none" />
+      {/* Stream 2: Secondary lower flowing blue wave ribbon across full width */}
+      <div className="absolute top-[44%] -right-[15%] w-[130%] h-[220px] rounded-[110px] bg-gradient-to-l from-transparent via-[#60A5FA]/35 via-[#3B82F6]/25 to-transparent blur-[80px] animate-smoke-stream-2 pointer-events-none" />
+
+      {/* Stream 3: Central undulating azure depth wave for seamless continuous coverage */}
+      <div className="absolute top-[24%] -left-[5%] w-[115%] h-[210px] rounded-[105px] bg-gradient-to-r from-transparent via-[#BBD9FF]/40 via-[#93C5FD]/30 to-transparent blur-[90px] animate-smoke-stream-3 pointer-events-none" />
+
+      {/* Stream 4: Lower flowing blue wave ribbon for seamless lower viewport depth */}
+      <div className="absolute top-[68%] -right-[10%] w-[125%] h-[230px] rounded-[115px] bg-gradient-to-l from-transparent via-[#93C5FD]/35 via-[#60A5FA]/30 to-transparent blur-[85px] animate-smoke-stream-2 pointer-events-none" />
     </div>
   );
 }
@@ -182,9 +189,9 @@ export function SmokeBackground() {
 
   const [hasWebGlError, setHasWebGlError] = React.useState(false);
   const [isReadyToFadeIn, setIsReadyToFadeIn] = React.useState(false);
-  const [octaves, setOctaves] = React.useState<number>(4);
-  const [scale, setScale] = React.useState<number>(SMOKE_CONSTANTS.SCALE);
-  const [isIntersecting, setIsIntersecting] = React.useState(true);
+  const octavesRef = React.useRef<number>(4);
+  const scaleRef = React.useRef<number>(SMOKE_CONSTANTS.SCALE);
+  const isIntersectingRef = React.useRef<boolean>(true);
 
   // Animation & WebGL state
   const glRef = React.useRef<WebGLRenderingContext | null>(null);
@@ -209,37 +216,37 @@ export function SmokeBackground() {
     return () => clearTimeout(timer);
   }, []);
 
-  // 2. IntersectionObserver for viewport pausing
+  // 2. IntersectionObserver for footer pausing (pauses when user reaches footer at bottom of page)
   React.useEffect(() => {
-    const container = containerRef.current;
-    if (!container || typeof IntersectionObserver === "undefined") return;
+    if (typeof IntersectionObserver === "undefined") return;
+
+    const footer = document.querySelector("footer");
+    if (!footer) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsIntersecting(entry.isIntersecting);
+          // When footer is substantially in viewport, pause loop to save GPU.
+          // When user is anywhere on the landing page (Hero, Bento, Helper, FAQ), footer is out of view, loop runs.
+          isIntersectingRef.current = !entry.isIntersecting;
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.15 }
     );
 
-    observer.observe(container);
+    observer.observe(footer);
     return () => observer.disconnect();
   }, []);
 
-  // 3. Pointer tracking for gentle breeze interaction
+  // 3. Pointer tracking for gentle breeze interaction across full landing page
   React.useEffect(() => {
     if (!SMOKE_CONSTANTS.ENABLE_POINTER || !isMotionOn) return;
 
-    const container = containerRef.current;
-    if (!container) return;
-
     const handlePointerMove = (e: PointerEvent) => {
       if (e.pointerType === "touch") return; // Touch devices disabled
-      const rect = container.getBoundingClientRect();
-      if (rect.width <= 0 || rect.height <= 0) return;
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height; // WebGL UV flip
+      if (window.innerWidth <= 0 || window.innerHeight <= 0) return;
+      const x = e.clientX / window.innerWidth;
+      const y = 1.0 - (e.clientY / window.innerHeight); // WebGL UV flip
       pointerPosRef.current = { x, y, active: true };
     };
 
@@ -247,12 +254,12 @@ export function SmokeBackground() {
       pointerPosRef.current.active = false;
     };
 
-    container.addEventListener("pointermove", handlePointerMove, { passive: true });
-    container.addEventListener("pointerleave", handlePointerLeave, { passive: true });
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", handlePointerLeave, { passive: true });
 
     return () => {
-      container.removeEventListener("pointermove", handlePointerMove);
-      container.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", handlePointerLeave);
     };
   }, [isMotionOn]);
 
@@ -391,8 +398,8 @@ export function SmokeBackground() {
       gl.uniform1f(uTime, simulatedTime * SMOKE_CONSTANTS.SPEED);
       gl.uniform2f(uPointer, 0.5, 0.5);
       gl.uniform1f(uPointerActive, 0.0);
-      gl.uniform1f(uScale, scale);
-      gl.uniform1i(uOctaves, octaves);
+      gl.uniform1f(uScale, scaleRef.current);
+      gl.uniform1i(uOctaves, octavesRef.current);
 
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
@@ -414,8 +421,8 @@ export function SmokeBackground() {
     let lastTimestamp = performance.now();
 
     const loop = (timestamp: number) => {
-      if (!isTabVisible || !isIntersecting) {
-        // Paused while tab is hidden or off-screen
+      if (!isTabVisible || !isIntersectingRef.current) {
+        lastTimestamp = performance.now();
         animFrameIdRef.current = requestAnimationFrame(loop);
         return;
       }
@@ -437,9 +444,9 @@ export function SmokeBackground() {
               frameTimesRef.current.length;
 
             if (avgTime > SMOKE_CONSTANTS.MAX_FRAME_TIME_MS) {
-              // Degradation step: drop to 2 octaves and 0.3 scale
-              setOctaves(2);
-              setScale(1.5);
+              // Seamless degradation step: adjust uniforms dynamically without tearing down canvas
+              octavesRef.current = 2;
+              scaleRef.current = 1.5;
             }
           }
         }
@@ -455,8 +462,8 @@ export function SmokeBackground() {
         gl.uniform1f(uTime, totalElapsedRef.current * SMOKE_CONSTANTS.SPEED);
         gl.uniform2f(uPointer, smoothedPointerRef.current.x, smoothedPointerRef.current.y);
         gl.uniform1f(uPointerActive, target.active ? 1.0 : 0.0);
-        gl.uniform1f(uScale, scale);
-        gl.uniform1i(uOctaves, octaves);
+        gl.uniform1f(uScale, scaleRef.current);
+        gl.uniform1i(uOctaves, octavesRef.current);
 
         // Expose debug frame counter on canvas element for verification
         totalRenderFramesRef.current++;
@@ -482,24 +489,27 @@ export function SmokeBackground() {
       if (fragShader) gl?.deleteShader(fragShader);
       if (program) gl?.deleteProgram(program);
     };
-  }, [isMotionOn, isTabVisible, isIntersecting, octaves, scale]);
+  }, [isMotionOn, isTabVisible]);
 
   if (hasWebGlError) {
-    return <AmbientFallback />;
+    return (
+      <div
+        data-smoke-background="true"
+        className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden"
+        aria-hidden="true"
+      >
+        <AmbientFallback />
+      </div>
+    );
   }
 
   return (
     <div
       ref={containerRef}
       data-smoke-background="true"
-      className={`absolute inset-0 -z-10 pointer-events-none select-none overflow-hidden transition-opacity duration-1000 ease-out ${
+      className={`fixed inset-0 z-0 pointer-events-none select-none overflow-hidden transition-opacity duration-1000 ease-out ${
         isReadyToFadeIn ? "opacity-100" : "opacity-0"
       }`}
-      style={{
-        // Seamless bottom fade to paper background
-        maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-      }}
       aria-hidden="true"
     >
       {/* Layer 1: Ambient Moving Blue Hue Blooms (Always smooth & active) */}

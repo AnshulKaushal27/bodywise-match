@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import {
   ArrowRight,
   CheckCircle,
-  Package,
 } from "@phosphor-icons/react/dist/ssr";
 import {
   buttonVariants,
@@ -90,7 +89,7 @@ const FAQ_ITEMS: AccordionItemData[] = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
+    <div className="min-h-screen bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep overflow-x-clip">
       {/* Client Hash Fragment Redirect for Old Anchors */}
       <HashRedirect />
 
@@ -106,24 +105,27 @@ export default function HomePage() {
       <SiteHeader />
 
       {/* Main Content Landmark */}
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 relative z-10">
+        {/* Full Landing Page Ambient & WebGL Smoke Background */}
+        <SmokeBackground />
+
+        {/* Tactile Fine-Cotton Paper Grain Texture Overlay across Entire Main */}
+        <div
+          className="fixed inset-0 pointer-events-none select-none z-[1] opacity-[0.035] mix-blend-multiply"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+          aria-hidden="true"
+        />
+
         {/* ================= HERO SECTION ================= */}
         <section
           id="hero-section"
-          className="relative isolate bg-paper overflow-hidden -mt-[68px] pt-24 pb-16 md:pt-28 md:pb-24"
+          className="relative isolate overflow-hidden -mt-[68px] pt-24 pb-16 md:pt-28 md:pb-24"
         >
           {/* Static Clean Editorial Paper Base with Subtle Gradient Fallback */}
           <div
-            className="absolute inset-0 pointer-events-none select-none -z-10 bg-gradient-to-b from-[#F5F9FF] to-[#E3EEFC]/20"
-            aria-hidden="true"
-          />
-
-          {/* Tactile Fine-Cotton Paper Grain Texture Overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none select-none -z-10 opacity-[0.038] mix-blend-multiply"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            }}
+            className="absolute inset-0 pointer-events-none select-none -z-10 bg-gradient-to-b from-[#F5F9FF]/20 to-[#E3EEFC]/15"
             aria-hidden="true"
           />
 
@@ -138,9 +140,6 @@ export default function HomePage() {
             }}
             aria-hidden="true"
           />
-
-          {/* Slow, Soft Smoke Effect (WebGL Canvas with CSS Radial Fallback) */}
-          <SmokeBackground />
 
           <div className="max-w-container mx-auto px-5 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -207,10 +206,10 @@ export default function HomePage() {
         </section>
 
         {/* ================= CATALOGUE DIRECTORY BENTO & LIVE STATS STRIP ================= */}
-        <section className="relative bg-paper py-14 md:py-20 overflow-hidden">
+        <section className="relative py-14 md:py-20 overflow-hidden">
           {/* Directional Smoke Stream Curling across Section */}
           <div
-            className="absolute top-1/3 -right-[10%] w-[105%] max-w-[850px] h-[160px] rounded-[80px] bg-gradient-to-l from-transparent via-[#93C5FD]/30 via-[#60A5FA]/20 to-transparent blur-[75px] pointer-events-none animate-smoke-stream-2 -z-10"
+            className="absolute top-1/4 -right-[15%] w-[130%] h-[200px] rounded-[100px] bg-gradient-to-l from-transparent via-[#93C5FD]/25 via-[#60A5FA]/20 to-transparent blur-[80px] pointer-events-none animate-smoke-stream-2 -z-10"
             aria-hidden="true"
           />
           <div className="max-w-container mx-auto px-5">
@@ -222,7 +221,7 @@ export default function HomePage() {
         {/* ================= ORDER ISSUE HELPER SHOWCASE ================= */}
         <section
           id="order-issue-helper-section"
-          className="bg-paper py-16 md:py-24"
+          className="relative py-16 md:py-24"
           aria-labelledby="order-issue-heading"
         >
           <div className="max-w-container mx-auto px-5">
@@ -241,12 +240,6 @@ export default function HomePage() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Left Column: Context, Value Proposition & Actions */}
                 <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left">
-                  {/* Eyebrow badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-sage/90 border border-brand-deep/10 text-xs font-semibold text-brand-deep mb-4 shadow-2xs">
-                    <Package className="w-3.5 h-3.5 text-brand-evergreen" aria-hidden="true" />
-                    <span>Official Resolution Assistant</span>
-                  </div>
-
                   {/* Heading */}
                   <h2
                     id="order-issue-heading"
@@ -338,7 +331,7 @@ export default function HomePage() {
         </section>
 
         {/* ================= FAQ ACCORDION ================= */}
-        <section id="faq" className="bg-paper py-16 md:py-24" aria-labelledby="faq-heading">
+        <section id="faq" className="relative py-16 md:py-24" aria-labelledby="faq-heading">
           <div className="max-w-container mx-auto px-5">
             {/* FAQ Accordion */}
             <ScrollReveal className="max-w-3xl mx-auto">
@@ -362,7 +355,7 @@ export default function HomePage() {
 
       {/* ================= FOOTER ================= */}
       {/* Deep navy background (#0B2447) per design system */}
-      <footer className="bg-brand-deep text-white/85 py-12 border-t border-brand-deep/20" role="contentinfo">
+      <footer className="relative z-20 bg-brand-deep text-white/85 py-12 border-t border-brand-deep/20" role="contentinfo">
         <div className="max-w-container mx-auto px-5">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">
             {/* Col 1: Brand & Promise */}

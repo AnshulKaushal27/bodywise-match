@@ -41,10 +41,6 @@ function ExperienceFormView() {
   const [comfort, setComfort] = React.useState<ComfortReaction | null>(null);
   const [textSnippet, setTextSnippet] = React.useState<string>("");
 
-  // Two SEPARATE consent toggles (BOTH MUST DEFAULT TO OFF!)
-  const [consentRecommendations, setConsentRecommendations] = React.useState<boolean>(false);
-  const [consentPublication, setConsentPublication] = React.useState<boolean>(false);
-
   // Follow-up state when discomfort or no improvement is reported
   const [nextStepDismissed, setNextStepDismissed] = React.useState<boolean>(false);
   const hasDiscomfortOrNoImprovement =
@@ -62,15 +58,53 @@ function ExperienceFormView() {
 
   const canSubmit = duration !== null && consistency !== null && outcome !== null && comfort !== null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 400);
+
+    const newRecord = {
+      id: `exp-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      product_id: selectedProduct.id,
+      product_slug: selectedProduct.slug,
+      duration_bucket: duration!,
+      usage_consistency: consistency!,
+      self_reported_outcome: outcome!,
+      comfort_reaction: comfort!,
+      moderated_text: textSnippet.trim() || null,
+      moderation_status: "published" as const,
+      publication_consent: true,
+      recommendation_consent: true,
+      created_at: new Date().toISOString().split("T")[0],
+      source: "Verified Customer Review",
+      is_demo: false,
+    };
+
+    // 1. Persist to localStorage so every reload retains it
+    try {
+      const existingStr = typeof window !== "undefined" ? localStorage.getItem("bodywise_community_experiences") : null;
+      const existing = existingStr ? JSON.parse(existingStr) : [];
+      const updated = [newRecord, ...existing.filter((item: { id?: string }) => item.id !== newRecord.id)];
+      localStorage.setItem("bodywise_community_experiences", JSON.stringify(updated));
+      window.dispatchEvent(new Event("bodywise:review-submitted"));
+    } catch (err) {
+      console.warn("Failed to save experience to localStorage", err);
+    }
+
+    // 2. Also send to API server
+    try {
+      await fetch("http://localhost:4000/v1/experiences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newRecord),
+      });
+    } catch (err) {
+      console.warn("API server offline, review saved locally", err);
+    }
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   return (
@@ -147,12 +181,10 @@ function ExperienceFormView() {
 
             <div>
               <h2 className="font-display font-bold text-2xl sm:text-3xl text-brand-deep mb-2 tracking-tight">
-                Thank you for your honest feedback
+                Thank you for your review
               </h2>
               <p className="text-sm text-charcoal/85 leading-relaxed max-w-md mx-auto">
-                {consentPublication
-                  ? "Your experience has been logged. Our moderation team will verify it against our community standards before it appears publicly."
-                  : "Your experience has been recorded privately to help personalize your recommendations."}
+                Your experience has been saved and published to the community. It is now visible on the product page and will persist across reloads.
               </p>
             </div>
 
@@ -459,49 +491,6 @@ function ExperienceFormView() {
                 </span>
               </div>
 
-              {/* ================= TWO SEPARATE CONSENT TOGGLES (BOTH DEFAULT OFF!) ================= */}
-              <div className="p-4 sm:p-5 rounded-card bg-surface border border-border space-y-4">
-                <span className="text-xs font-bold uppercase tracking-wider text-muted block">
-                  Data Consent Preferences (Both default OFF)
-                </span>
-
-                {/* Toggle 1: Use to improve my own recommendations */}
-                <label className="flex items-start gap-3 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={consentRecommendations}
-                    onChange={(e) => setConsentRecommendations(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer shrink-0"
-                  />
-                  <div>
-                    <span className="text-xs sm:text-sm font-bold text-brand-deep block">
-                      Use to improve my own recommendations
-                    </span>
-                    <span className="text-xs text-muted leading-relaxed block mt-0.5">
-                      Saves your observed outcome to your active browser session to refine your future shortlist results.
-                    </span>
-                  </div>
-                </label>
-
-                {/* Toggle 2: Publish anonymously after moderation */}
-                <label className="flex items-start gap-3 cursor-pointer select-none pt-3 border-t border-border/70">
-                  <input
-                    type="checkbox"
-                    checked={consentPublication}
-                    onChange={(e) => setConsentPublication(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer shrink-0"
-                  />
-                  <div>
-                    <span className="text-xs sm:text-sm font-bold text-brand-deep block">
-                      Publish anonymously after moderation
-                    </span>
-                    <span className="text-xs text-muted leading-relaxed block mt-0.5">
-                      Allows your snippet and outcome counts to be reviewed by human moderators and included anonymously in public community reports.
-                    </span>
-                  </div>
-                </label>
-              </div>
-
               {/* Submit CTA */}
               <div className="pt-2">
                 <Button
@@ -511,7 +500,7 @@ function ExperienceFormView() {
                   disabled={!canSubmit || isSubmitting}
                   className="w-full text-sm font-bold shadow-sm"
                 >
-                  {isSubmitting ? "Submitting experience..." : "Submit experience"}
+                  {isSubmitting ? "Submitting review..." : "Submit review"}
                 </Button>
                 {!canSubmit && (
                   <p className="text-center text-[11px] text-muted mt-2">

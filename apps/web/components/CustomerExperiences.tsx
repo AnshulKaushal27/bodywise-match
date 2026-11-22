@@ -33,8 +33,8 @@ export function CustomerExperiences({
   productName: _productName,
   initialExperiences,
 }: CustomerExperiencesProps) {
-  // Get filtered experiences: ONLY published AND publication_consent === true
-  const experiences = React.useMemo(() => {
+  // Base seed experiences: ONLY published AND publication_consent === true
+  const baseExperiences = React.useMemo(() => {
     if (initialExperiences) {
       return initialExperiences.filter(
         (exp) =>
@@ -45,6 +45,83 @@ export function CustomerExperiences({
     return getPublishedExperiencesForProduct(productSlug);
   }, [initialExperiences, productSlug]);
 
+  // Community experiences state, initialized with base seed experiences
+  const [communityExperiences, setCommunityExperiences] =
+    React.useState<CustomerExperienceRecord[]>(baseExperiences);
+
+  // Load persisted reviews from localStorage and API on mount
+  React.useEffect(() => {
+    let isMounted = true;
+
+    const loadExperiences = async () => {
+      let localReviews: CustomerExperienceRecord[] = [];
+      try {
+        const storedStr =
+          typeof window !== "undefined"
+            ? localStorage.getItem("bodywise_community_experiences")
+            : null;
+        if (storedStr) {
+          const parsed = JSON.parse(storedStr);
+          if (Array.isArray(parsed)) {
+            localReviews = parsed.filter(
+              (exp: CustomerExperienceRecord) =>
+                (exp.product_slug === productSlug || exp.product_id === _productId) &&
+                exp.moderation_status === "published"
+            );
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to load local reviews", err);
+      }
+
+      let apiReviews: CustomerExperienceRecord[] = [];
+      try {
+        const res = await fetch(
+          `http://localhost:4000/v1/products/${encodeURIComponent(productSlug)}/experiences`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.experiences)) {
+            apiReviews = data.experiences.filter(
+              (exp: CustomerExperienceRecord) =>
+                (exp.product_slug === productSlug || exp.product_id === _productId) &&
+                exp.moderation_status === "published"
+            );
+          }
+        }
+      } catch {
+        // Fallback gracefully when API server is unreachable
+      }
+
+      if (!isMounted) return;
+
+      // Merge: localReviews + apiReviews + baseExperiences, deduplicated by id
+      const map = new Map<string, CustomerExperienceRecord>();
+      for (const item of [...localReviews, ...apiReviews, ...baseExperiences]) {
+        if (!map.has(item.id)) {
+          map.set(item.id, item);
+        }
+      }
+      setCommunityExperiences(Array.from(map.values()));
+    };
+
+    loadExperiences();
+
+    const handleUpdate = () => {
+      loadExperiences();
+    };
+
+    window.addEventListener("bodywise:review-submitted", handleUpdate);
+    window.addEventListener("storage", handleUpdate);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("bodywise:review-submitted", handleUpdate);
+      window.removeEventListener("storage", handleUpdate);
+    };
+  }, [productSlug, _productId, baseExperiences]);
+
+  const experiences = communityExperiences;
   const totalCount = experiences.length;
 
   // Report modal state

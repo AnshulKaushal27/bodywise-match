@@ -45,7 +45,7 @@ export function SiteHeader({ className }: SiteHeaderProps) {
             >
               BM
             </div>
-            <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight">
+            <span className="font-display font-bold text-brand-deep text-base sm:text-lg tracking-tight hidden sm:inline">
               Bodywise Match
             </span>
           </Link>

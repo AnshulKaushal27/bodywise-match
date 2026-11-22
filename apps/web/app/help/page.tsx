@@ -76,9 +76,6 @@ export default function HelpLandingPage() {
       <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full space-y-8">
         {/* Title & Intro */}
         <div className="max-w-2xl">
-          <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
-            Official Resolution Assistant
-          </span>
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-brand-deep tracking-tight mt-1 mb-3">
             Need help with an order or product?
           </h1>
