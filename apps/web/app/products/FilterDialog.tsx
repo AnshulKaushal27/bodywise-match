@@ -495,17 +495,14 @@ export const FilterDialog: React.FC<FilterDialogProps> = ({
 
           <div className="flex items-center gap-3">
             {draftCount === 0 ? (
-              <div className="flex flex-col items-end">
-                <Button
-                  variant="primary"
-                  disabled
-                  aria-disabled="true"
-                  className="min-h-[48px] px-6 text-sm font-bold opacity-50 cursor-not-allowed"
-                >
-                  No products match
-                </Button>
-                <span className="text-[11px] text-muted mt-1">Try clearing a filter</span>
-              </div>
+              <Button
+                variant="primary"
+                onClick={handleApply}
+                className="min-h-[48px] px-6 text-sm font-bold shadow-sm active:scale-[0.98]"
+                aria-live="polite"
+              >
+                Apply (0 matches)
+              </Button>
             ) : (
               <Button
                 variant="primary"

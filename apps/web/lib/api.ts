@@ -36,6 +36,8 @@ import {
   VisualMatchItem,
   ScannedProductInfo,
   matchSimilarBodywiseProducts,
+  matchSessionReducer,
+  formatCategoryLabel,
 } from "@bodywise/shared";
 
 export type {
@@ -55,6 +57,18 @@ export type {
  * In production, strictly prevents calling localhost (Task Part A.2.f).
  */
 export function resolveApiUrls() {
+  // If running in browser on localhost or 127.0.0.1, always prioritize local API
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return {
+        rootUrl: "http://localhost:4000",
+        baseUrl: "http://localhost:4000/v1",
+        healthUrl: "http://localhost:4000/health",
+      };
+    }
+  }
+
   const isProd =
     process.env.NODE_ENV === "production" ||
     process.env.NEXT_PUBLIC_APP_ENV === "production";
@@ -687,14 +701,43 @@ export async function sendUnifiedChat(input: UnifiedChatInput): Promise<UnifiedC
 
   // Client-side deterministic fallback
   const rules = extractPatchViaRules(input.message);
-  const nextQ = selectNext(input.state, DEMO_CATALOGUE_SEED);
-  const shortlist = computeShortlist(input.state, DEMO_CATALOGUE_SEED);
+  const nextState = matchSessionReducer(input.state, {
+    type: "APPLY_PATCH",
+    source: "user_text",
+    status: "confirmed",
+    patch: rules.patch,
+  });
+  const nextQ = selectNext(nextState, DEMO_CATALOGUE_SEED);
+  const shortlist = computeShortlist(nextState, DEMO_CATALOGUE_SEED);
+
+  const categoryLabel = rules.patch.product_type
+    ? formatCategoryLabel(rules.patch.product_type)
+    : null;
+  const needLabel = rules.patch.needs?.[0]?.phrase_from_user || null;
+
+  let assistantMessage = "";
+  if (categoryLabel) {
+    const goalText = needLabel ? ` for ${needLabel}` : "";
+    if (shortlist.totalFamilies > 0) {
+      if (!nextQ.done && nextQ.question) {
+        assistantMessage = `Focused on ${categoryLabel}${goalText}. We found ${shortlist.totalFamilies} matching option${shortlist.totalFamilies === 1 ? "" : "s"}. ${nextQ.question}`;
+      } else {
+        assistantMessage = `Focused on ${categoryLabel}${goalText}. We found ${shortlist.totalFamilies} matching option${shortlist.totalFamilies === 1 ? "" : "s"} from our verified catalogue.`;
+      }
+    } else {
+      assistantMessage = `We noted your interest in ${categoryLabel}${goalText}, but could not find an exact match in our current catalogue.`;
+    }
+  } else if (needLabel) {
+    assistantMessage = `Noted your goal: ${needLabel}. ${nextQ.question || ""}`;
+  } else {
+    assistantMessage = nextQ.done
+      ? `Understood. We found ${shortlist.totalFamilies} products matching your criteria.`
+      : `Noted. ${nextQ.question || ""}`;
+  }
 
   return {
     patch: rules.patch,
-    assistantMessage: nextQ.done
-      ? `Understood. We found ${shortlist.totalFamilies} products matching your criteria.`
-      : `Noted. ${nextQ.question || ""}`,
+    assistantMessage: assistantMessage.trim(),
     quickReplies: (nextQ.options || []).slice(0, 3).map((o) => ({
       id: o.id,
       label: o.label,
@@ -732,7 +775,14 @@ export async function sendMatchChat(input: {
     language: input.language,
   });
 
-  const nextQ = selectNext(input.state, DEMO_CATALOGUE_SEED);
+  const nextState = matchSessionReducer(input.state, {
+    type: "APPLY_PATCH",
+    source: "chat",
+    status: "confirmed",
+    patch: res.patch,
+  });
+
+  const nextQ = selectNext(nextState, DEMO_CATALOGUE_SEED);
 
   return {
     patch: res.patch,

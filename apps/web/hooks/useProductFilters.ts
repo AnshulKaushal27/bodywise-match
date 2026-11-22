@@ -59,7 +59,7 @@ export function useProductFilters() {
     if (!searchParams) return { search: "", categories: [], formats: [], goals: [], fragrance: "all" };
 
     // Search query
-    const rawQ = searchParams.get("q") || "";
+    const rawQ = searchParams.get("q") || searchParams.get("search") || "";
     let q = rawQ.trim();
 
     // Categories (supports ?category=face-wash,body-wash or ?category=face_wash)

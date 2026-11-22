@@ -79,28 +79,19 @@ function MatchConfirmInner() {
 
   return (
     <div className="min-h-screen bg-paper flex flex-col justify-between pb-24 lg:pb-12">
-      {/* Header */}
-      <header className="border-b border-border bg-surface/90 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-container mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      {/* Main Content Area */}
+      <main className="max-w-container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1 w-full">
+        {/* Top Back Link */}
+        <div className="mb-4">
           <Link
             href="/match"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted hover:text-charcoal focus-ring px-2 py-1 rounded-lg min-h-[44px]"
             aria-label="Back to concern input"
           >
             <ArrowLeft className="w-4 h-4" weight="bold" />
-            <span className="hidden sm:inline">Back to concern</span>
+            <span>Back to concern input</span>
           </Link>
-
-          <span className="font-display font-bold text-base sm:text-lg text-brand-deep tracking-tight">
-            Bodywise Match
-          </span>
-
-          <div className="flex items-center gap-2" />
         </div>
-      </header>
-
-      {/* Main Content Area */}
-      <main className="max-w-container mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1 w-full">
         {/* Stepper (Step 2 Active) */}
         <div className="mb-6 sm:mb-8">
           <Stepper steps={MATCH_STEPS} currentStepIndex={1} />

@@ -152,21 +152,29 @@ function CompareView() {
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
-      {/* Top Header */}
-      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30 no-print">
-        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
-          <Link
-            href="/products"
-            className="flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-evergreen hover:text-brand-deep focus-ring px-2 py-1 rounded transition-colors active:scale-[0.98] motion-safe:transition-transform"
-          >
-            <ArrowLeft className="w-4 h-4" weight="regular" />
-            <span>Catalogue</span>
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
-              Bodywise Match
+      {/* Main Container */}
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex-1 w-full">
+        {/* Title & Toolbar */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-4 border-b border-border">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <Link
+                href="/products"
+                className="text-xs font-semibold text-brand-evergreen hover:text-brand-deep inline-flex items-center gap-1"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Catalogue</span>
+              </Link>
+            </div>
+            <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
+              Side-by-Side Comparison
             </span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-brand-deep tracking-tight mt-1">
+              Compare Product Specifications
+            </h1>
+            <p className="text-xs md:text-sm text-charcoal/80 mt-1 max-w-xl">
+              Compare up to 3 Be Bodywise products side by side with objective format details, verified ingredients, cautions, and provenance.
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -183,23 +191,6 @@ function CompareView() {
             </Button>
           </div>
         </div>
-      </header>
-
-      {/* Main Container */}
-      <main id="main-content" className="max-w-container mx-auto px-4 sm:px-6 py-6 md:py-10 flex-1 w-full">
-        {/* Title & Toolbar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-4 border-b border-border">
-          <div>
-            <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
-              Side-by-Side Comparison
-            </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-brand-deep tracking-tight mt-1">
-              Compare Product Specifications
-            </h1>
-            <p className="text-xs md:text-sm text-charcoal/80 mt-1 max-w-xl">
-              Compare up to 3 Be Bodywise products side by side with objective format details, verified ingredients, cautions, and provenance.
-            </p>
-          </div>
 
           {/* Controls: "Show only differences" & "Add product" */}
           <div className="flex flex-wrap items-center gap-3 no-print">
@@ -227,7 +218,6 @@ function CompareView() {
               </Button>
             )}
           </div>
-        </div>
 
         {/* Mobile Horizontal Scroll Hint */}
         <div className="flex sm:hidden items-center justify-between text-xs text-muted mb-3 px-1 no-print">

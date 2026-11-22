@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
   MagnifyingGlass,
   X,
   SlidersHorizontal,
@@ -318,40 +317,51 @@ function ProductsPageContent() {
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
-      {/* Top Navigation */}
-      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-evergreen hover:text-brand-deep focus-ring px-2 py-1 rounded transition-colors active:scale-[0.98] motion-safe:transition-transform"
-          >
-            <ArrowLeft className="w-4 h-4" weight="regular" />
-            <span>Home</span>
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <span className="font-display font-bold text-brand-deep text-sm md:text-base tracking-tight">
-              Bodywise Match
-            </span>
-          </div>
-
-          <div className="w-14" aria-hidden="true" />
-        </div>
-      </header>
-
-      {/* Main Content Area */}
-      <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full">
+      {/* Main Content Area: Full 7xl Container Filling Desktop Screen */}
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex-1 w-full">
         {/* Header Intro */}
         <div className="mb-6">
           <span className="text-xs uppercase tracking-wider font-bold text-brand-evergreen">
             Catalogue Directory
           </span>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-brand-deep tracking-tight mt-1 mb-3">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-brand-deep tracking-tight mt-1 mb-2">
             Browse Product Catalogue
           </h1>
-          <p className="text-sm md:text-base text-charcoal/80 max-w-2xl leading-relaxed">
+          <p className="text-sm md:text-base text-charcoal/80 max-w-3xl leading-relaxed">
             Explore verified product facts, packaging cautions, and transparency sources. Filter by your targeted concern, format, or ingredients.
           </p>
+
+          {/* Quick Category Jump Tabs */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pt-4 pb-2 scrollbar-none text-xs">
+            {CATEGORIES.map((cat) => {
+              const activeCats = filterCriteria.categories || [];
+              const isSelected =
+                cat.id === "all"
+                  ? activeCats.length === 0
+                  : activeCats.includes(cat.id);
+
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    if (cat.id === "all") {
+                      updateFiltersAndSync({ categories: [] });
+                    } else {
+                      updateFiltersAndSync({ categories: [cat.id] });
+                    }
+                  }}
+                  className={`px-3.5 py-1.5 rounded-full font-semibold transition-all duration-150 whitespace-nowrap focus-ring min-h-[36px] ${
+                    isSelected
+                      ? "bg-brand-deep text-white shadow-xs"
+                      : "bg-surface hover:bg-surface-sage text-charcoal border border-border"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Floating / Sticky Comparison Bar if products are chosen */}
@@ -557,10 +567,10 @@ function ProductsPageContent() {
           </div>
         ) : matchingProducts.length === 0 ? (
           /* Empty Matching State */
-          <div className="py-10 px-6 rounded-card bg-surface border border-border text-center shadow-xs">
+          <div className="py-8 px-6 rounded-card bg-surface border border-border text-center shadow-xs mb-8">
             <EmptyState
               title="No products match your active filters"
-              description="Try clearing search keywords, choosing broader category filters, or selecting 'All Goals'. You can also explore the rest of the catalogue below."
+              description="Showing all other catalogue products below so you can explore alternative options. You can also clear or modify your active filters above."
             />
             <div className="mt-5 flex justify-center">
               <Button onClick={clearAllFilters} variant="primary" size="default">
@@ -586,8 +596,8 @@ function ProductsPageContent() {
         )}
 
         {/* Products Not Matching Active Filters (Shown with a clear separation) */}
-        {hasActiveFilters && nonMatchingProducts.length > 0 && (
-          <section aria-label="Other Products outside active filters" className="mt-12 md:mt-16">
+        {(hasActiveFilters || matchingProducts.length === 0) && nonMatchingProducts.length > 0 && (
+          <section aria-label="Other Products outside active filters" className={matchingProducts.length === 0 ? "mt-4" : "mt-12 md:mt-16"}>
             {/* Visual separation divider */}
             <div className="relative mb-8 md:mb-10" role="separator" aria-label="Catalogue separation divider">
               <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -597,7 +607,7 @@ function ProductsPageContent() {
                 <div className="bg-paper px-4 py-1.5 rounded-full border border-border shadow-xs flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-brand-evergreen" aria-hidden="true" />
                   <span className="text-xs font-bold uppercase tracking-wider text-brand-deep">
-                    Other Catalogue Products
+                    {matchingProducts.length === 0 ? "Showing Other Catalogue Products" : "Other Catalogue Products"}
                   </span>
                   <span className="text-[11px] font-semibold text-muted">
                     ({nonMatchingProducts.length})

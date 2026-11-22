@@ -14,6 +14,7 @@ const dmSans = DM_Sans({
 import { FirstVisitNotice } from "@/components/FirstVisitNotice";
 import { OfflineBanner } from "@/components/OfflineBanner";
 import { ClientProviders } from "@/components/ClientProviders";
+import { AppNavBar } from "@/components/AppNavBar";
 
 export const viewport: Viewport = {
   themeColor: "#1D4ED8",
@@ -74,6 +75,7 @@ export default function RootLayout({
         </a>
         <OfflineBanner />
         <FirstVisitNotice />
+        <AppNavBar />
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>

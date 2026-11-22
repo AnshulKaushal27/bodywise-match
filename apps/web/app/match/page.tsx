@@ -16,7 +16,6 @@ import {
   Clock,
   ShieldCheck,
   CaretRight,
-  ArrowLeft,
 } from "@phosphor-icons/react/dist/ssr";
 import {
   Button,
@@ -382,24 +381,6 @@ function MatchStep1Content() {
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
-      {/* Header */}
-      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm font-semibold text-brand-evergreen hover:underline focus-ring px-2 py-1 rounded active:scale-[0.98] motion-safe:transition-transform"
-          >
-            <ArrowLeft className="w-4 h-4" weight="regular" aria-hidden="true" />
-            <span>Back to home</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <span className="font-display font-bold text-brand-deep text-sm hidden sm:inline">
-              Bodywise Match
-            </span>
-          </div>
-        </div>
-      </header>
-
       {/* Main Container */}
       <main id="main-content" className="max-w-3xl mx-auto px-5 py-8 md:py-12 flex-1 w-full">
         {/* Stepper (Step 1 of 3) */}

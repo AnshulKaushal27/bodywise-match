@@ -197,6 +197,10 @@ export function MatchSessionProvider({ children }: { children: React.ReactNode }
   );
 }
 
+export function useOptionalMatchSession(): MatchSessionContextValue | null {
+  return React.useContext(MatchSessionContext);
+}
+
 export function useMatchSession(): MatchSessionContextValue {
   const context = React.useContext(MatchSessionContext);
   if (!context) {

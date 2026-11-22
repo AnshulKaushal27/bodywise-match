@@ -320,26 +320,18 @@ function MatchResultsInner() {
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
-      {/* Header */}
-      <header className="border-b border-border bg-surface/85 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-container mx-auto px-5 py-3.5 flex items-center justify-between">
+      {/* Main Container */}
+      <main id="main-content" className="max-w-4xl mx-auto px-5 py-6 md:py-10 flex-1 w-full">
+        {/* Top Back Link */}
+        <div className="mb-4">
           <Link
             href="/match/confirm"
-            className="flex items-center gap-2 text-sm font-semibold text-brand-evergreen hover:underline focus-ring px-2 py-1 rounded active:scale-[0.98] motion-safe:transition-transform"
+            className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-brand-evergreen hover:underline focus-ring px-2 py-1 rounded min-h-[36px]"
           >
             <ArrowLeft className="w-4 h-4" weight="regular" aria-hidden="true" />
-            <span>Back to Step 2</span>
+            <span>Back to Step 2 (Clarification)</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <span className="font-display font-bold text-brand-deep text-sm hidden sm:inline">
-              Bodywise Match
-            </span>
-          </div>
         </div>
-      </header>
-
-      {/* Main Container */}
-      <main id="main-content" className="max-w-4xl mx-auto px-5 py-8 md:py-12 flex-1 w-full">
         {/* Stepper (Step 3 of 3) */}
         <div className="mb-6">
           <Stepper steps={MATCH_STEPS} currentStepIndex={2} />
@@ -799,8 +791,8 @@ function MatchResultsInner() {
           <div className="mb-12">
             <EmptyState
               icon={<Question className="w-8 h-8 text-brand-evergreen" weight="regular" />}
-              title="We couldn't find a good fit in our current catalogue"
-              description="Based on your combined goals and strict avoidances, no product met our minimum fit threshold. We don't force or fabricate matches."
+              title="We couldn't find a direct fit in our current catalogue"
+              description="Based on your combined goals and strict avoidances, no product met our direct fit criteria. We don't force or fabricate matches. You can explore the other catalogue products below or modify your request."
             />
             <div className="flex justify-center items-center gap-4 mt-6">
               <Link href="/products">
@@ -814,6 +806,126 @@ function MatchResultsInner() {
                 </Button>
               </Link>
             </div>
+
+            {/* Products Not Matching Active Filters (Shown with a clear separation) */}
+            <section aria-label="Other Products outside active filters" className="mt-12 md:mt-16">
+              {/* Visual separation divider */}
+              <div className="relative mb-8 md:mb-10" role="separator" aria-label="Catalogue separation divider">
+                <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                  <div className="w-full border-t-2 border-dashed border-border" />
+                </div>
+                <div className="relative flex justify-center">
+                  <div className="bg-paper px-4 py-1.5 rounded-full border border-border shadow-xs flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-brand-evergreen" aria-hidden="true" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-deep">
+                      Showing Other Catalogue Products
+                    </span>
+                    <span className="text-[11px] font-semibold text-muted">
+                      ({DEMO_CATALOGUE_SEED.length})
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Grid of Non-Matching Products */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {DEMO_CATALOGUE_SEED.slice(0, 9).map((product) => {
+                  const isCompared = comparedProductIds.includes(product.id);
+                  return (
+                    <Card
+                      key={product.id}
+                      variant="surface"
+                      className="p-5 border border-border hover:shadow-card transition-all duration-200 flex flex-col justify-between group rounded-card relative bg-surface/95"
+                    >
+                      <div>
+                        {/* Header Badge */}
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="text-[11px] font-bold text-muted uppercase tracking-wider">
+                            {formatCategoryLabel(product.category)}
+                          </span>
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-paper text-muted border border-border">
+                            Outside active match criteria
+                          </span>
+                        </div>
+
+                        {/* Title & Format */}
+                        <div className="flex items-start gap-3 mb-3">
+                          {product.image_url && (
+                            <div className="w-12 h-12 rounded-lg bg-surface-sage/30 border border-border shrink-0 overflow-hidden">
+                              <img
+                                src={product.image_url}
+                                alt={product.official_name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                                loading="lazy"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <h4 className="font-display font-bold text-brand-deep text-sm leading-snug line-clamp-2">
+                              {product.official_name}
+                            </h4>
+                            <p className="text-xs text-muted mt-0.5">
+                              {product.format} &bull; {product.size}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Pricing */}
+                        {product.price_inr && (
+                          <div className="mb-3">
+                            <span className="font-display font-bold text-brand-deep text-sm">
+                              ₹{product.price_inr}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Card Footer Actions */}
+                      <div className="pt-3 border-t border-border flex items-center justify-between gap-2 mt-4">
+                        <label className="inline-flex items-center gap-1.5 cursor-pointer select-none text-[11px] text-muted hover:text-brand-deep min-h-[36px]">
+                          <input
+                            type="checkbox"
+                            checked={isCompared}
+                            onChange={() => toggleCompare(product.id)}
+                            className="w-3.5 h-3.5 rounded text-brand-evergreen focus:ring-brand-evergreen border-border cursor-pointer"
+                          />
+                          <span>Compare</span>
+                        </label>
+
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={product.source_url || `https://bebodywise.com/product/${product.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-brand-primary text-white hover:bg-brand-deep transition-colors focus-ring"
+                          >
+                            <span>Buy</span>
+                            <ArrowSquareOut className="w-3 h-3" weight="bold" />
+                          </a>
+                          <Link
+                            href={`/products/${product.slug}`}
+                            className="inline-flex items-center gap-1 text-xs font-bold text-brand-evergreen hover:text-brand-deep group-hover:translate-x-0.5 transition-transform focus-ring px-1.5 py-1 rounded"
+                          >
+                            <span>View</span>
+                            <CaretRight className="w-3 h-3" />
+                          </Link>
+                        </div>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {DEMO_CATALOGUE_SEED.length > 9 && (
+                <div className="mt-8 text-center">
+                  <Link href="/products">
+                    <Button variant="secondary" size="default" className="min-h-[44px]">
+                      View all {DEMO_CATALOGUE_SEED.length} products in catalogue &rarr;
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </section>
           </div>
         )}
 

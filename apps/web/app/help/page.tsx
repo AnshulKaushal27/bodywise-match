@@ -22,7 +22,6 @@ import {
   OFFICIAL_SUPPORT_CHANNELS,
 } from "@bodywise/shared";
 import { Card } from "@/components/ui";
-import { SiteHeader } from "@/components/SiteHeader";
 
 export default function HelpLandingPage() {
   const [clearedNotice, setClearedNotice] = React.useState<boolean>(false);
@@ -69,11 +68,8 @@ export default function HelpLandingPage() {
 
   return (
     <div className="min-h-[100dvh] bg-paper flex flex-col justify-between selection:bg-accent-lime selection:text-brand-deep">
-      {/* Top Navigation */}
-      <SiteHeader />
-
       {/* Main Container */}
-      <main id="main-content" className="max-w-container mx-auto px-5 py-8 md:py-12 flex-1 w-full space-y-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-1 w-full space-y-8">
         {/* Title & Intro */}
         <div className="max-w-2xl">
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-brand-deep tracking-tight mt-1 mb-3">
