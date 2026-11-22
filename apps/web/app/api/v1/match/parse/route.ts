@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { parseNeedsKeyword } from "@bodywise/shared";
 import { randomUUID } from "crypto";
+import { parseUserConcern } from "@/lib/server/parseService";
 
 export const dynamic = "force-dynamic";
 
@@ -15,12 +15,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const parsed = parseNeedsKeyword(rawInput);
+    const requestId = randomUUID();
+    const result = await parseUserConcern(rawInput, requestId);
+
     return NextResponse.json({
-      request_id: randomUUID(),
-      parsed_needs: parsed,
-      strategy: "A",
-      source: "rules",
+      request_id: requestId,
+      parsed_needs: result.parsed_needs,
+      parsed_request: result.parsed_request,
+      strategy: result.strategy,
+      source: result.source,
+      model: result.model,
+      latencyMs: result.latencyMs,
+      error_category: result.error_category,
+      fallback_reason: result.fallback_reason,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Internal error";

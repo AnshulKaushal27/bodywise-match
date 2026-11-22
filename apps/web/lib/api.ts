@@ -89,6 +89,21 @@ export function resolveApiUrls() {
   const rawPublicUrl =
     process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL;
 
+  // In production on the client, if rawPublicUrl points to the dormant placeholder Render URL,
+  // or if no external API is specified, use the same-origin Next.js App Router API (/api/v1)
+  if (
+    typeof window !== "undefined" &&
+    window.location.origin &&
+    (!rawPublicUrl || rawPublicUrl.includes("bodywise-match-api.onrender.com"))
+  ) {
+    const origin = window.location.origin;
+    return {
+      rootUrl: origin,
+      baseUrl: `${origin}/api/v1`,
+      healthUrl: `${origin}/api/health`,
+    };
+  }
+
   if (rawPublicUrl && (!isProd || !rawPublicUrl.includes("localhost"))) {
     const sanitized = rawPublicUrl.replace(/\/+$/, "");
     const root = sanitized.endsWith("/v1") ? sanitized.slice(0, -3) : sanitized;
@@ -168,20 +183,57 @@ export async function fetchApiHealth(): Promise<{
     const timeout = setTimeout(() => controller.abort(), 6000);
 
     const { healthUrl } = resolveApiUrls();
-    const res = await fetch(healthUrl, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-      signal: controller.signal,
-    });
+    let res: Response | null = null;
+    let lastError: Error | null = null;
+
+    try {
+      res = await fetch(healthUrl, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+      });
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error("Unable to reach API server");
+    }
+
+    // If external health check failed (e.g. Render 404 or connection failure), probe same-origin Next.js health
+    if ((!res || !res.ok) && typeof window !== "undefined" && window.location.origin) {
+      const sameOriginHealth = `${window.location.origin}/api/health`;
+      if (healthUrl !== sameOriginHealth) {
+        try {
+          const fallbackRes = await fetch(sameOriginHealth, {
+            method: "GET",
+            headers: { Accept: "application/json" },
+            signal: controller.signal,
+          });
+          if (fallbackRes.ok) {
+            res = fallbackRes;
+            lastError = null;
+          }
+        } catch {
+          // Keep res and lastError as is
+        }
+      }
+    }
+
     clearTimeout(timeout);
     const latencyMs = Date.now() - startTime;
 
-    if (!res.ok) {
+    if (lastError) {
       return {
         ok: false,
         data: null,
         latencyMs,
-        error: `Server responded with status ${res.status}`,
+        error: lastError.message,
+      };
+    }
+
+    if (!res || !res.ok) {
+      return {
+        ok: false,
+        data: null,
+        latencyMs,
+        error: res ? `Server responded with status ${res.status}` : "Unable to reach API server",
       };
     }
 
@@ -321,24 +373,46 @@ export async function parseMatchConcern(
     }
 
     const { baseUrl } = resolveApiUrls();
-    const res = await fetch(`${baseUrl}/match/parse`, {
+    let res: Response | null = await fetch(`${baseUrl}/match/parse`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ user_input: userInput }),
       signal: controller.signal,
-    });
+    }).catch(() => null);
+
+    // If external call failed (e.g. Render 404 or connection failure), retry same-origin Next.js API
+    if ((!res || !res.ok) && typeof window !== "undefined" && window.location.origin) {
+      const sameOriginParse = `${window.location.origin}/api/v1/match/parse`;
+      if (`${baseUrl}/match/parse` !== sameOriginParse) {
+        try {
+          const fallbackRes = await fetch(sameOriginParse, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_input: userInput }),
+            signal: controller.signal,
+          });
+          if (fallbackRes.ok) {
+            res = fallbackRes;
+          }
+        } catch {
+          // Keep res as is
+        }
+      }
+    }
 
     clearTimeout(timeout);
     if (signal) {
       signal.removeEventListener("abort", abortHandler);
     }
 
-    if (res.ok) {
+    if (res && res.ok) {
       return (await res.json()) as ParseResponse;
     } else {
-      fallbackReason = `API responded with HTTP ${res.status}`;
+      fallbackReason = res ? `API responded with HTTP ${res.status}` : "API backend unreachable";
     }
   } catch (err: unknown) {
     if (signal?.aborted) {
@@ -692,15 +766,36 @@ export async function sendUnifiedChat(input: UnifiedChatInput): Promise<UnifiedC
   const timeout = setTimeout(() => controller.abort(), 12000);
 
   try {
-    const res = await fetch(`${baseUrl}/chat`, {
+    let res: Response | null = await fetch(`${baseUrl}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),
       signal: controller.signal,
-    });
+    }).catch(() => null);
+
+    // If external chat failed, retry same-origin Next.js chat route
+    if ((!res || !res.ok) && typeof window !== "undefined" && window.location.origin) {
+      const sameOriginChat = `${window.location.origin}/api/v1/chat`;
+      if (`${baseUrl}/chat` !== sameOriginChat) {
+        try {
+          const fallbackRes = await fetch(sameOriginChat, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(input),
+            signal: controller.signal,
+          });
+          if (fallbackRes.ok) {
+            res = fallbackRes;
+          }
+        } catch {
+          // Keep res as is
+        }
+      }
+    }
+
     clearTimeout(timeout);
 
-    if (res.ok) {
+    if (res && res.ok) {
       return await res.json();
     }
   } catch {
@@ -911,22 +1006,45 @@ export async function parseFilterIntent(
 ): Promise<ParsedFilterIntentResult> {
   const { baseUrl } = resolveApiUrls();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 4000);
+  const timeout = setTimeout(() => controller.abort(), 6000);
 
   try {
-    const res = await fetch(`${baseUrl}/match/parse-filter`, {
+    let res: Response | null = await fetch(`${baseUrl}/match/parse-filter`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query, active_filters: activeFilters }),
       signal: controller.signal,
-    });
+    }).catch(() => null);
+
+    // If external call failed (e.g. Render 404 or connection failure), retry same-origin Next.js API
+    if ((!res || !res.ok) && typeof window !== "undefined" && window.location.origin) {
+      const sameOriginParseFilter = `${window.location.origin}/api/v1/match/parse-filter`;
+      if (`${baseUrl}/match/parse-filter` !== sameOriginParseFilter) {
+        try {
+          const fallbackRes = await fetch(sameOriginParseFilter, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query, active_filters: activeFilters }),
+            signal: controller.signal,
+          });
+          if (fallbackRes.ok) {
+            res = fallbackRes;
+          }
+        } catch {
+          // Keep res as is
+        }
+      }
+    }
+
     clearTimeout(timeout);
 
-    if (res.ok) {
+    if (res && res.ok) {
       return await res.json();
     }
   } catch {
     // Fallback to client-side deterministic parse
+  } finally {
+    clearTimeout(timeout);
   }
 
   // Pure fallback
@@ -955,10 +1073,10 @@ export async function visualScanProduct(options: {
 }): Promise<VisualScanResult> {
   const { baseUrl } = resolveApiUrls();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
+  const timeout = setTimeout(() => controller.abort(), 25000);
 
   try {
-    const res = await fetch(`${baseUrl}/match/visual-scan`, {
+    let res: Response | null = await fetch(`${baseUrl}/match/visual-scan`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -966,10 +1084,34 @@ export async function visualScanProduct(options: {
         preset: options.preset,
       }),
       signal: controller.signal,
-    });
+    }).catch(() => null);
+
+    // If external call failed (e.g. Render 404), retry same-origin Next.js API
+    if ((!res || !res.ok) && typeof window !== "undefined" && window.location.origin) {
+      const sameOriginVisualScan = `${window.location.origin}/api/v1/match/visual-scan`;
+      if (`${baseUrl}/match/visual-scan` !== sameOriginVisualScan) {
+        try {
+          const fallbackRes = await fetch(sameOriginVisualScan, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              image: options.imageBase64,
+              preset: options.preset,
+            }),
+            signal: controller.signal,
+          });
+          if (fallbackRes.ok) {
+            res = fallbackRes;
+          }
+        } catch {
+          // Keep res as is
+        }
+      }
+    }
+
     clearTimeout(timeout);
 
-    if (res.ok) {
+    if (res && res.ok) {
       return await res.json();
     }
   } catch (err) {
@@ -978,26 +1120,89 @@ export async function visualScanProduct(options: {
     clearTimeout(timeout);
   }
 
-  // Graceful client-side fallback if backend is unreachable or offline
-  const fallbackInfo: ScannedProductInfo = {
-    is_product_detected: true,
-    brand: "Minimalist",
-    product_name: "Minimalist 2% Salicylic Acid Cleanser",
-    category: "face_wash",
-    format: "Gel / Foaming cleanser",
-    active_ingredients: ["Salicylic Acid", "LHA", "Zinc PCA"],
-    primary_concerns: ["Acne", "Oil control", "Blackheads"],
+  // If a preset was explicitly requested, return preset match
+  if (options.preset) {
+    const fallbackPresets: Record<string, ScannedProductInfo> = {
+      "minimalist-salicylic-face-wash": {
+        is_product_detected: true,
+        brand: "Minimalist",
+        product_name: "Minimalist 2% Salicylic Acid Cleanser",
+        category: "face_wash",
+        format: "Gel / Foaming cleanser",
+        active_ingredients: ["Salicylic Acid", "LHA", "Zinc PCA"],
+        primary_concerns: ["Acne", "Oil control", "Blackheads"],
+        summary: "A daily exfoliating face cleanser with 2% Salicylic Acid for pore decongestion.",
+      },
+      "minimalist-niacinamide-serum": {
+        is_product_detected: true,
+        brand: "Minimalist",
+        product_name: "Minimalist 10% Niacinamide Serum",
+        category: "serum",
+        format: "Serum",
+        active_ingredients: ["Niacinamide", "Zinc PCA"],
+        primary_concerns: ["Dark spots", "Open pores", "Uneven texture"],
+        summary: "A high-strength nourishing serum containing 10% pure Niacinamide.",
+      },
+      "minimalist-spf50-sunscreen": {
+        is_product_detected: true,
+        brand: "Minimalist",
+        product_name: "Minimalist SPF 50 Multi-Vitamin Sunscreen",
+        category: "sunscreen",
+        format: "Lotion",
+        active_ingredients: ["Avobenzone", "Octocrylene", "Niacinamide"],
+        primary_concerns: ["Sun protection", "UV damage", "Tanning"],
+        summary: "A broad-spectrum SPF 50 PA++++ sunscreen lotion.",
+      },
+      "sebamed-anti-dandruff-shampoo": {
+        is_product_detected: true,
+        brand: "Sebamed",
+        product_name: "Sebamed Anti-Dandruff Shampoo",
+        category: "shampoo",
+        format: "Liquid shampoo",
+        active_ingredients: ["Piroctone Olamine"],
+        primary_concerns: ["Dandruff", "Flaky scalp"],
+        summary: "A gentle cleansing shampoo targeting visible scalp flakes.",
+      },
+      "cetaphil-gentle-cleanser": {
+        is_product_detected: true,
+        brand: "Cetaphil",
+        product_name: "Cetaphil Gentle Skin Cleanser",
+        category: "face_wash",
+        format: "Cream / Lotion cleanser",
+        active_ingredients: ["Glycerin", "Niacinamide", "Panthenol"],
+        primary_concerns: ["Dry skin", "Sensitive barrier"],
+        summary: "A non-foaming hydrating face cleanser designed for sensitive skin.",
+      },
+    };
+
+    const presetInfo = fallbackPresets[options.preset] || fallbackPresets["minimalist-salicylic-face-wash"];
+    const matches = matchSimilarBodywiseProducts(presetInfo, DEMO_CATALOGUE_SEED);
+    return {
+      scanned_product: presetInfo,
+      explanation: `We identified ${presetInfo.product_name}. Here are the closest Be Bodywise catalogue equivalents.`,
+      matches,
+      latency_ms: 50,
+    };
+  }
+
+  // If an image was submitted but the server was unreachable, do NOT pretend it's a random face wash!
+  const undetectedInfo: ScannedProductInfo = {
+    is_product_detected: false,
+    brand: "Unknown",
+    product_name: "Scan unavailable",
+    category: "unknown",
+    format: "unknown",
+    active_ingredients: [],
+    primary_concerns: [],
     summary:
-      "A daily exfoliating face cleanser with 2% Salicylic Acid for pore decongestion.",
+      "Unable to reach the visual scan service. Please check your network connection or try selecting a sample preset below.",
   };
 
-  const matches = matchSimilarBodywiseProducts(fallbackInfo, DEMO_CATALOGUE_SEED);
-
   return {
-    scanned_product: fallbackInfo,
+    scanned_product: undetectedInfo,
     explanation:
-      "We identified Minimalist 2% Salicylic Acid Cleanser. Here are the closest Be Bodywise catalogue equivalents formulated with Salicylic Acid.",
-    matches,
+      "The visual analysis service could not be reached. Please check your connection or choose a sample product preset below to preview visual matching.",
+    matches: [],
     latency_ms: 50,
   };
 }
